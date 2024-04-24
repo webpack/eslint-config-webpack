@@ -1,35 +1,50 @@
 {
   "name": "@webpack-contrib/eslint-config-webpack",
   "version": "3.0.0",
-  "author": "Joshua Wiens (https://twitter.com/@d3viant0ne)",
-  "license": "MIT",
   "description": "Provides Webpacks's .eslintrc as an extensible shared config",
+  "license": "MIT",
+  "repository": "webpack-contrib/eslint-config-webpack",
+  "author": "Joshua Wiens (https://twitter.com/@d3viant0ne)",
+  "homepage": "https://github.com/webpack-contrib/eslint-config-webpack",
+  "bugs": "https://github.com/webpack-contrib/eslint-config-webpack/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/webpack"
+  },
   "main": "index.js",
+  "engines": {
+    "node": ">= 18.12.0"
+  },
+  "scripts": {
+    "commitlint": "commitlint --from=master",
+    "security": "npm audit",
+    "lint:prettier": "prettier -w --list-different .",
+    "lint:js": "eslint --cache .",
+    "lint": "npm-run-all -l -p \"lint:**\"",
+    "fix:js": "npm run lint:js -- --fix",
+    "fix:prettier": "npm run lint:prettier -- --write",
+    "fix": "npm-run-all -l fix:js fix:prettier",
+    "test": "npm run lint",
+    "prepare": "husky",
+    "release": "standard-version"
+  },
   "files": [
     "index.js",
     "rules"
   ],
-  "scripts": {
-    "config": "editorconfig-tools check * rules/* test/*",
-    "lint": "eslint rules/* test/*",
-    "release": "standard-version"
+  "peerDependencies": {
+    "eslint": "^9.0.0"
   },
   "devDependencies": {
-    "editorconfig-tools": "^0.1.1",
-    "eslint": "^5.6.0",
-    "eslint-find-rules": "^4.1.0",
-    "eslint-plugin-import": "^2.23.2",
-    "standard-version": "^9.3.0"
-  },
-  "peerDependencies": {
-    "eslint": ">= 5.0.0"
-  },
-  "engines": {
-    "node": ">= 6.9.0 || >= 8.9.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/webpack-contrib/eslint-config-webpack.git"
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "eslint": "^9.1.1",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.2.5",
+    "standard-version": "^9.5.0"
   },
   "keywords": [
     "eslint",
@@ -37,9 +52,5 @@
     "config",
     "webpack",
     "javascirpt"
-  ],
-  "bugs": {
-    "url": "https://github.com/webpack-contrib/eslint-config-webpack/issues"
-  },
-  "homepage": "https://github.com/webpack-contrib/eslint-config-webpack#readme"
+  ]
 }

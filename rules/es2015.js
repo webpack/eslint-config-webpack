@@ -1,22 +1,19 @@
 module.exports = {
-  env: {
-    es6: true,
-  },
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
-    ecmaFeatures: {
-      generators: false,
-      objectLiteralDuplicateProperties: false,
-    },
   },
 
   rules: {
     // require braces around arrow function bodies
     // http://eslint.org/docs/rules/arrow-body-style
-    'arrow-body-style': ['error', 'as-needed', {
-      requireReturnForObjectLiteral: true,
-    }],
+    'arrow-body-style': [
+      'error',
+      'as-needed',
+      {
+        requireReturnForObjectLiteral: true,
+      },
+    ],
 
     // require parentheses around arrow function arguments
     // http://eslint.org/docs/rules/arrow-parens
@@ -80,11 +77,14 @@ module.exports = {
 
     // disallow renaming import, export, and destructured assignments to the same name
     // http://eslint.org/docs/rules/no-useless-rename
-    'no-useless-rename': ['error', {
-      ignoreDestructuring: false,
-      ignoreImport: false,
-      ignoreExport: false,
-    }],
+    'no-useless-rename': [
+      'error',
+      {
+        ignoreDestructuring: false,
+        ignoreImport: false,
+        ignoreExport: false,
+      },
+    ],
 
     // require let or const instead of var
     // http://eslint.org/docs/rules/no-var
@@ -92,33 +92,47 @@ module.exports = {
 
     // require or disallow method and property shorthand syntax for object literals
     // http://eslint.org/docs/rules/object-shorthand
-    'object-shorthand': ['error', 'always', {
-      ignoreConstructors: false,
-      avoidQuotes: true,
-    }],
+    'object-shorthand': [
+      'error',
+      'always',
+      {
+        ignoreConstructors: false,
+        avoidQuotes: true,
+      },
+    ],
 
     // require arrow functions as callbacks
     // http://eslint.org/docs/rules/prefer-arrow-callback
-    'prefer-arrow-callback': ['warn', {
-      allowNamedFunctions: false,
-      allowUnboundThis: true,
-    }],
+    'prefer-arrow-callback': [
+      'warn',
+      {
+        allowNamedFunctions: false,
+        allowUnboundThis: true,
+      },
+    ],
 
     // require const declarations for variables that are never reassigned after declared
     // http://eslint.org/docs/rules/prefer-const
-    'prefer-const': ['error', {
-      destructuring: 'any',
-      ignoreReadBeforeAssign: true,
-    }],
+    'prefer-const': [
+      'error',
+      {
+        destructuring: 'any',
+        ignoreReadBeforeAssign: true,
+      },
+    ],
 
     // require destructuring from arrays and/or objects
     // http://eslint.org/docs/rules/prefer-destructuring
-    'prefer-destructuring': ['warn', {
-      array: true,
-      object: true,
-    }, {
-      enforceForRenamedProperties: false,
-    }],
+    'prefer-destructuring': [
+      'warn',
+      {
+        array: true,
+        object: true,
+      },
+      {
+        enforceForRenamedProperties: false,
+      },
+    ],
 
     // disallow parseInt() in favor of binary, octal, and hexadecimal literals
     // http://eslint.org/docs/rules/prefer-numeric-literals
@@ -147,11 +161,14 @@ module.exports = {
 
     // enforce sorted import declarations within modules
     // http://eslint.org/docs/rules/sort-imports
-    'sort-imports': ['off', {
-      ignoreCase: false,
-      ignoreMemberSort: false,
-      memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-    }],
+    'sort-imports': [
+      'off',
+      {
+        ignoreCase: false,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+      },
+    ],
 
     // require symbol descriptions
     // http://eslint.org/docs/rules/symbol-description

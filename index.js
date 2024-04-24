@@ -1,22 +1,24 @@
+const globals = require('globals');
+
 module.exports = {
-  extends: [
-    './rules/imports',
-    './rules/possible-errors',
-    './rules/best-practices',
-    './rules/variables',
-    './rules/node',
-    './rules/stylistic-issues',
-    './rules/es2015'
-  ].map(require.resolve),
-  parserOptions: {
-    ecmaVersion: 2018,
-    env: {
-      es6: true,
-      jest: true
+  // require('./rules/imports'),
+  ...require('./rules/possible-errors'),
+  ...require('./rules/best-practices'),
+  ...require('./rules/variables'),
+  ...require('./rules/node'),
+  ...require('./rules/stylistic-issues'),
+  ...require('./rules/es2015'),
+  ...{
+    languageOptions: {
+      ecmaVersion: 2018,
+      sourceType: 'module',
+      globals: {
+        ...globals.es6,
+        ...globals.jest,
+      },
     },
-    sourceType: 'module'
-  },
-  rules: {
-    strict: 'error',
+    rules: {
+      strict: 'error',
+    },
   },
 };

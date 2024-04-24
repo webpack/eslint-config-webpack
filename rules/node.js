@@ -1,8 +1,12 @@
+const globals = require('globals');
+
 module.exports = {
-  env: {
-    node: true,
-    jest: true,
-    mocha: true,
+  languageOptions: {
+    globals: {
+      ...globals.node,
+      ...globals.jest,
+      ...globals.mocha,
+    },
   },
 
   rules: {
@@ -12,7 +16,7 @@ module.exports = {
 
     // require require() calls to be placed at top-level module scope
     // http://eslint.org/docs/rules/global-require
-    'global-require': 'warn',
+    'global-require': 'off',
 
     // require error handling in callbacks
     // http://eslint.org/docs/rules/handle-callback-err

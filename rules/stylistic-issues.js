@@ -21,18 +21,22 @@ module.exports = {
 
     // enforce or disallow capitalization of the first letter of a comment
     // http://eslint.org/docs/rules/capitalized-comments
-    'capitalized-comments': ['off', 'never', {
-      line: {
-        ignorePattern: '.*',
-        ignoreInlineComments: true,
-        ignoreConsecutiveComments: true,
+    'capitalized-comments': [
+      'off',
+      'never',
+      {
+        line: {
+          ignorePattern: '.*',
+          ignoreInlineComments: true,
+          ignoreConsecutiveComments: true,
+        },
+        block: {
+          ignorePattern: '.*',
+          ignoreInlineComments: true,
+          ignoreConsecutiveComments: true,
+        },
       },
-      block: {
-        ignorePattern: '.*',
-        ignoreInlineComments: true,
-        ignoreConsecutiveComments: true,
-      },
-    }],
+    ],
 
     // require trailing commas in multiline object literals
     // http://eslint.org/docs/rules/comma-dangle
@@ -70,9 +74,13 @@ module.exports = {
 
     // require function names to match the name of the variable or property to which they are assigned
     // http://eslint.org/docs/rules/func-name-matching
-    'func-name-matching': ['off', 'always', {
-      includeCommonJSModuleExports: false,
-    }],
+    'func-name-matching': [
+      'off',
+      'always',
+      {
+        includeCommonJSModuleExports: false,
+      },
+    ],
 
     // require or disallow named function expressions
     // http://eslint.org/docs/rules/func-names
@@ -115,11 +123,14 @@ module.exports = {
 
     // enforce position of line comments
     // http://eslint.org/docs/rules/line-comment-position
-    'line-comment-position': ['error', {
-      position: 'above',
-      ignorePattern: '',
-      applyDefaultPatterns: true,
-    }],
+    'line-comment-position': [
+      'error',
+      {
+        position: 'above',
+        ignorePattern: '',
+        applyDefaultPatterns: true,
+      },
+    ],
 
     // enforce consistent linebreak style
     // http://eslint.org/docs/rules/linebreak-style
@@ -131,10 +142,13 @@ module.exports = {
 
     // require or disallow newlines around directives
     // http://eslint.org/docs/rules/lines-around-directive
-    'lines-around-directive': ['error', {
-      before: 'always',
-      after: 'always',
-    }],
+    'lines-around-directive': [
+      'error',
+      {
+        before: 'always',
+        after: 'always',
+      },
+    ],
 
     // enforce a maximum depth that blocks can be nested
     // http://eslint.org/docs/rules/max-depth
@@ -147,11 +161,14 @@ module.exports = {
 
     // enforce a maximum number of lines per file
     // http://eslint.org/docs/rules/max-lines
-    'max-lines': ['off', {
-      max: 300,
-      skipBlankLines: true,
-      skipComments: true,
-    }],
+    'max-lines': [
+      'off',
+      {
+        max: 300,
+        skipBlankLines: true,
+        skipComments: true,
+      },
+    ],
 
     // enforce a maximum depth that callbacks can be nested
     // http://eslint.org/docs/rules/max-nested-callbacks
@@ -176,12 +193,19 @@ module.exports = {
 
     // require constructor names to begin with a capital letter
     // http://eslint.org/docs/rules/new-cap
-    'new-cap': ['error', {
-      newIsCap: true,
-      newIsCapExceptions: [],
-      capIsNew: false,
-      capIsNewExceptions: ['Immutable.Map', 'Immutable.Set', 'Immutable.List'],
-    }],
+    'new-cap': [
+      'error',
+      {
+        newIsCap: true,
+        newIsCapExceptions: [],
+        capIsNew: false,
+        capIsNewExceptions: [
+          'Immutable.Map',
+          'Immutable.Set',
+          'Immutable.List',
+        ],
+      },
+    ],
 
     // require parentheses when invoking a constructor with no arguments
     // http://eslint.org/docs/rules/new-parens
@@ -258,11 +282,7 @@ module.exports = {
 
     // disallow specified syntax
     // http://eslint.org/docs/rules/no-restricted-syntax
-    'no-restricted-syntax': [
-      'error',
-      'LabeledStatement',
-      'WithStatement',
-    ],
+    'no-restricted-syntax': ['error', 'LabeledStatement', 'WithStatement'],
 
     // disallow tab characters entirely
     // http://eslint.org/docs/rules/no-tabs
@@ -280,7 +300,10 @@ module.exports = {
 
     // disallow dangling underscores in identifiers
     // http://eslint.org/docs/rules/no-underscore-dangle
-    'no-underscore-dangle': ['error', { allow: ['__dirname'], allowAfterThis: true }],
+    'no-underscore-dangle': [
+      'error',
+      { allow: ['__dirname'], allowAfterThis: true },
+    ],
 
     // disallow ternary operators when simpler alternatives exist
     // http://eslint.org/docs/rules/no-unneeded-ternary
@@ -388,17 +411,21 @@ module.exports = {
 
     // enforce consistent spacing after the // or /* in a comment
     // http://eslint.org/docs/rules/spaced-comment
-    'spaced-comment': ['error', 'always', {
-      line: {
-        exceptions: ['-', '+'],
-        markers: ['=', '!'],
+    'spaced-comment': [
+      'error',
+      'always',
+      {
+        line: {
+          exceptions: ['-', '+'],
+          markers: ['=', '!'],
+        },
+        block: {
+          exceptions: ['-', '+'],
+          markers: ['=', '!'],
+          balanced: false,
+        },
       },
-      block: {
-        exceptions: ['-', '+'],
-        markers: ['=', '!'],
-        balanced: false,
-      },
-    }],
+    ],
 
     // require or disallow Unicode byte order mark (BOM)
     // http://eslint.org/docs/rules/unicode-bom

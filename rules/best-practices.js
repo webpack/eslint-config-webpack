@@ -14,9 +14,12 @@ module.exports = {
 
     // enforce that class methods utilize this
     // http://eslint.org/docs/rules/class-methods-use-this
-    'class-methods-use-this': ['error', {
-      exceptMethods: [],
-    }],
+    'class-methods-use-this': [
+      'error',
+      {
+        exceptMethods: [],
+      },
+    ],
 
     // enforce a maximum cyclomatic complexity allowed in a program
     // http://eslint.org/docs/rules/complexity
@@ -74,13 +77,12 @@ module.exports = {
 
     // disallow empty functions
     // http://eslint.org/docs/rules/no-empty-function
-    'no-empty-function': ['error', {
-      allow: [
-        'arrowFunctions',
-        'functions',
-        'methods',
-      ],
-    }],
+    'no-empty-function': [
+      'error',
+      {
+        allow: ['arrowFunctions', 'functions', 'methods'],
+      },
+    ],
 
     // disallow empty destructuring patterns
     // http://eslint.org/docs/rules/no-empty-pattern
@@ -121,12 +123,15 @@ module.exports = {
 
     // disallow shorthand type conversions
     // http://eslint.org/docs/rules/no-implicit-coercion
-    'no-implicit-coercion': ['off', {
-      boolean: false,
-      number: true,
-      string: true,
-      allow: [],
-    }],
+    'no-implicit-coercion': [
+      'off',
+      {
+        boolean: false,
+        number: true,
+        string: true,
+        allow: [],
+      },
+    ],
 
     // disallow variable and function declarations in the global scope
     // http://eslint.org/docs/rules/no-implicit-globals
@@ -158,12 +163,15 @@ module.exports = {
 
     // disallow magic numbers
     // http://eslint.org/docs/rules/no-magic-numbers
-    'no-magic-numbers': ['off', {
-      ignore: [],
-      ignoreArrayIndexes: true,
-      enforceConst: true,
-      detectObjects: false,
-    }],
+    'no-magic-numbers': [
+      'off',
+      {
+        ignore: [],
+        ignoreArrayIndexes: true,
+        enforceConst: true,
+        detectObjects: false,
+      },
+    ],
 
     // disallow multiple spaces
     // http://eslint.org/docs/rules/no-multi-spaces
@@ -208,21 +216,27 @@ module.exports = {
 
     // disallow certain properties on certain objects
     // http://eslint.org/docs/rules/no-restricted-properties
-    'no-restricted-properties': ['error', {
-      object: 'arguments',
-      property: 'callee',
-      message: 'arguments.callee is deprecated',
-    }, {
-      property: '__defineGetter__',
-      message: 'Please use Object.defineProperty instead.',
-    }, {
-      property: '__defineSetter__',
-      message: 'Please use Object.defineProperty instead.',
-    }, {
-      object: 'Math',
-      property: 'pow',
-      message: 'Use the exponentiation operator (**) instead.',
-    }],
+    'no-restricted-properties': [
+      'error',
+      {
+        object: 'arguments',
+        property: 'callee',
+        message: 'arguments.callee is deprecated',
+      },
+      {
+        property: '__defineGetter__',
+        message: 'Please use Object.defineProperty instead.',
+      },
+      {
+        property: '__defineSetter__',
+        message: 'Please use Object.defineProperty instead.',
+      },
+      {
+        object: 'Math',
+        property: 'pow',
+        message: 'Use the exponentiation operator (**) instead.',
+      },
+    ],
 
     // disallow assignment operators in return statements
     // http://eslint.org/docs/rules/no-return-assign
@@ -258,10 +272,13 @@ module.exports = {
 
     // disallow unused expressions
     // http://eslint.org/docs/rules/no-unused-expressions
-    'no-unused-expressions': ['error', {
-      allowShortCircuit: false,
-      allowTernary: false,
-    }],
+    'no-unused-expressions': [
+      'error',
+      {
+        allowShortCircuit: false,
+        allowTernary: false,
+      },
+    ],
 
     // disallow unused labels
     // http://eslint.org/docs/rules/no-unused-labels
@@ -289,7 +306,10 @@ module.exports = {
 
     // disallow specified warning terms in comments
     // http://eslint.org/docs/rules/no-warning-comments
-    'no-warning-comments': ['off', { terms: ['todo', 'fixme', 'xxx'], location: 'start' }],
+    'no-warning-comments': [
+      'off',
+      { terms: ['todo', 'fixme', 'xxx'], location: 'start' },
+    ],
 
     // disallow with statements
     // http://eslint.org/docs/rules/no-with
