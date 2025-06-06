@@ -1,5 +1,6 @@
 import globals from "globals";
 import nodePlugin from "eslint-plugin-n";
+import importPlugin from "eslint-plugin-import";
 
 const commonRules = {
 	// No need
@@ -8,8 +9,8 @@ const commonRules = {
 	// Depends on `sourceType` and enabled below only for commonjs
 	// "n/exports-style": "error",
 
-	// Depends on `sourceType` and enabled below only for module
-	// "n/file-extension-in-import": "error",
+	// We have the `import/extensions` rule
+	"n/file-extension-in-import": "off",
 
 	// There is no need, as in some cases we want to load a module lazily.
 	// "n/global-require": "error",
@@ -118,19 +119,28 @@ const commonRules = {
 const commonjs = {
 	...nodePlugin.configs["flat/recommended-script"],
 	name: "node/commonjs",
+	plugins: {
+		...nodePlugin.configs["flat/recommended-script"].plugins,
+		import: importPlugin,
+	},
 	rules: {
 		...commonRules,
 		"n/exports-style": "error",
 		"n/no-path-concat": "error",
+		"import/extensions": ["error", "never", { ignorePackages: true }],
 	},
 };
 
 const module = {
 	...nodePlugin.configs["flat/recommended-module"],
 	name: "node/module",
+	plugins: {
+		...nodePlugin.configs["flat/recommended-script"].plugins,
+		import: importPlugin,
+	},
 	rules: {
 		...commonRules,
-		"n/file-extension-in-import": "error",
+		"import/extensions": ["error", "always", { ignorePackages: true }],
 	},
 };
 
@@ -138,6 +148,7 @@ const dirty = {
 	name: "node/dirty",
 	plugins: {
 		n: nodePlugin,
+		import: importPlugin,
 	},
 	languageOptions: {
 		sourceType: "module",
@@ -156,6 +167,8 @@ const dirty = {
 	rules: {
 		...commonjs.rules,
 		...module.rules,
+		// Disable for dirty modules
+		"import/extensions": ["off"],
 	},
 };
 
