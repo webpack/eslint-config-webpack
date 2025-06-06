@@ -3,7 +3,7 @@ import javascriptConfig from "./javascript.js";
 import jestConfig from "./jest.js";
 import markdownConfig from "./markdown.js";
 import nodeConfig from "./node.js";
-import prettierConfig from "./prettier.js";
+import stylisticConfig from "./stylistic.js";
 import typescriptConfig from "./typescript.js";
 
 const configs = {
@@ -12,7 +12,7 @@ const configs = {
 	...jestConfig,
 	...markdownConfig,
 	...nodeConfig,
-	...prettierConfig,
+	...stylisticConfig,
 	...typescriptConfig,
 };
 

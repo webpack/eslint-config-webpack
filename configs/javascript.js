@@ -228,7 +228,7 @@ const suggestions = {
 	// No need
 	// "consistent-this": "error",
 
-	// No need here
+	// Configuration in `stylistic`
 	// curly: "off",
 
 	// No need
@@ -336,7 +336,6 @@ const suggestions = {
 
 	"no-alert": "error",
 
-	// No need
 	"no-array-constructor": "error",
 
 	// No need
@@ -744,8 +743,7 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-await-expression-member": "off",
 
-	// No need
-	// "unicorn/no-await-in-promise-methods": "off",
+	"unicorn/no-await-in-promise-methods": "error",
 
 	"unicorn/no-console-spaces": "error",
 
@@ -1093,7 +1091,7 @@ const importRules = {
 	// No need
 	// "import/exports-last": "off",
 
-	// TODO
+	// Not here
 	// "import/extensions": ["error", "always", { ignorePackages: true }],
 
 	"import/first": "error",
@@ -1105,7 +1103,7 @@ const importRules = {
 	// "import/max-dependencies": "off",
 
 	// No need
-	// TODO
+	// We have `@stylistic/padding-line-between-statements`
 	// "import/newline-after-import": "off",
 
 	// No need
