@@ -10,7 +10,7 @@
     <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg">
   </a>
   <h1>ESLint Config Webpack</h1>
-  <p>Provides Webpacks's .eslintrc as an extensible shared config.<p>
+  <p>Provides Webpacks's eslint config as an extensible shared config.<p>
 </div>
 
 # eslint-config-webpack
@@ -40,5 +40,5 @@ export default defineConfig([
 
 [npm]: https://img.shields.io/npm/v/eslint-config-webpack.svg
 [npm-url]: https://npmjs.com/package/eslint-config-webpack
-[test]: https://github.com/webpack-contrib/eslint-config-webpack/actions/workflows/test.yml/badge.svg
-[test-url]: https://github.com/webpack-contrib/eslint-config-webpack/actions/workflows/test.yml
+[test]: https://github.com/webpack/eslint-config-webpack/actions/workflows/test.yml/badge.svg
+[test-url]: https://github.com/webpack/eslint-config-webpack/actions/workflows/test.yml

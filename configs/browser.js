@@ -4,7 +4,7 @@ const recommendedBrowserConfig = {
 	languageOptions: {
 		globals: {
 			...globals.browser,
-		}
+		},
 	},
 };
 
