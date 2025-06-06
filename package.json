@@ -8,8 +8,9 @@
   "main": "index.js",
   "files": [
     "index.js",
-    "prettier.js",
+    "prettier-config.js",
     "configs.js",
+    "ignore-paths.js",
     "configs"
   ],
   "scripts": {
