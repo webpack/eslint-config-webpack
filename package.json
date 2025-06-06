@@ -1,31 +1,71 @@
 {
-  "name": "@webpack-contrib/eslint-config-webpack",
+  "name": "eslint-config-webpack",
   "version": "3.0.0",
   "author": "Joshua Wiens (https://twitter.com/@d3viant0ne)",
   "license": "MIT",
-  "description": "Provides Webpacks's .eslintrc as an extensible shared config",
+  "description": "Provides Webpack's eslint rules as an extensible shared config",
+  "type": "module",
   "main": "index.js",
   "files": [
     "index.js",
-    "rules"
+    "prettier.js",
+    "configs.js",
+    "configs"
   ],
   "scripts": {
-    "config": "editorconfig-tools check * rules/* test/*",
-    "lint": "eslint rules/* test/*",
+    "lint": "npm run lint:code",
+    "lint:code": "node node_modules/eslint/bin/eslint.js --cache .",
     "release": "standard-version"
   },
+  "dependencies": {
+    "semver": "^7.7.2"
+  },
   "devDependencies": {
-    "editorconfig-tools": "^0.1.1",
-    "eslint": "^5.6.0",
-    "eslint-find-rules": "^4.1.0",
-    "eslint-plugin-import": "^2.23.2",
-    "standard-version": "^9.3.0"
+    "@eslint/js": "^9.28.0",
+    "@eslint/markdown": "^6.5.0",
+    "@stylistic/eslint-plugin": "^4.4.1",
+    "globals": "^16.2.0",
+    "eslint": "^9.28.0",
+    "eslint-find-rules": "^5.0.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^28.12.0",
+    "eslint-plugin-jsdoc": "^50.7.1",
+    "eslint-plugin-n": "^17.19.0",
+    "eslint-plugin-prettier": "^5.4.1",
+    "eslint-plugin-unicorn": "^59.0.1",
+    "prettier": "^3.5.3",
+    "standard-version": "^9.5.0"
   },
   "peerDependencies": {
-    "eslint": ">= 5.0.0"
+    "@eslint/js": ">= 9.28.0",
+    "@eslint/markdown": ">= 6.5.0",
+    "@stylistic/eslint-plugin": ">= 4.4.1",
+    "globals": ">= 16.2.0",
+    "eslint": ">= 9.28.0",
+    "eslint-plugin-import": ">= 2.31.0",
+    "eslint-plugin-jest": ">= 28.12.0",
+    "eslint-plugin-jsdoc": ">= 50.7.1",
+    "eslint-plugin-n": ">= 17.19.0",
+    "eslint-plugin-prettier": ">= 5.4.1",
+    "eslint-plugin-unicorn": ">= 59.0.1",
+    "prettier": ">= 3.5.3"
+  },
+  "peerDependenciesMeta": {
+    "@eslint/markdown": {
+      "optional": true
+    },
+    "eslint-plugin-jest": {
+      "optional": true
+    },
+    "eslint-plugin-jsdoc": {
+      "optional": true
+    },
+    "eslint-plugin-n": {
+      "optional": true
+    }
   },
   "engines": {
-    "node": ">= 6.9.0 || >= 8.9.0"
+    "node": ">= 20.18.0"
   },
   "repository": {
     "type": "git",
