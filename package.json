@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-webpack",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "author": "Joshua Wiens (https://twitter.com/@d3viant0ne)",
   "license": "MIT",
   "description": "Provides Webpack's eslint rules as an extensible shared config",
