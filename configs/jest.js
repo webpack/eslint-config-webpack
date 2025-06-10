@@ -140,7 +140,7 @@ const recommendedConfig = {
 		"jest/prefer-jest-mocked": "error",
 
 		// Allow to use `MyClass` title in describe for class testing
-		"jest/prefer-lowercase-title": ["error", { "ignore": ["describe"] }],
+		"jest/prefer-lowercase-title": ["error", { ignore: ["describe"] }],
 
 		"jest/prefer-mock-promise-shorthand": "error",
 
