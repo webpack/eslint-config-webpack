@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.3](https://github.com/webpack/eslint-config-webpack/compare/v4.0.2...v4.0.3) (2025-06-10)
+
+
+### Bug Fixes
+
+* add `test/outputs` to global ignore ([#36](https://github.com/webpack/eslint-config-webpack/issues/36)) ([2d3253b](https://github.com/webpack/eslint-config-webpack/commit/2d3253bf0a3156d360e5c84bb894abc74969dbc3))
+* improve jest default configuration ([#37](https://github.com/webpack/eslint-config-webpack/issues/37)) ([e846ec3](https://github.com/webpack/eslint-config-webpack/commit/e846ec360179cc8551212714470ce3ad38d2a1b8))
+
 ### [4.0.2](https://github.com/webpack/eslint-config-webpack/compare/v4.0.1...v4.0.2) (2025-06-10)
 
 
