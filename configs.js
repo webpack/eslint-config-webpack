@@ -186,36 +186,34 @@ function getJavascriptConfig() {
  * @returns {Promise<Record<string, string>>} config
  */
 function getTypescriptJsdocConfig() {
-	if (typeof packageJson.dependencies === "undefined") {
+	if (packageJson === null) {
 		return [];
 	}
 
-	if (
-		typeof packageJson.dependencies.typescript === "undefined" &&
-		typeof packageJson.devDependencies.typescript === "undefined"
-	) {
-		return [];
-	}
+	const dependencies = packageJson.dependencies || [];
+	const devDependencies = packageJson.devDependencies || [];
 
-	return configs["typescript/jsdoc"];
+	return typeof dependencies.typescript !== "undefined" ||
+		typeof devDependencies.typescript !== "undefined"
+		? configs["typescript/jsdoc"]
+		: [];
 }
 
 /**
  * @returns {Promise<Record<string, string>>} config
  */
 function getJestConfig() {
-	if (typeof packageJson.dependencies === "undefined") {
+	if (packageJson === null) {
 		return [];
 	}
 
-	if (
-		typeof packageJson.dependencies.jest === "undefined" &&
-		typeof packageJson.devDependencies.jest === "undefined"
-	) {
-		return [];
-	}
+	const dependencies = packageJson.dependencies || [];
+	const devDependencies = packageJson.devDependencies || [];
 
-	return configs["jest/recommended"];
+	return typeof dependencies.jest !== "undefined" ||
+		typeof devDependencies.jest !== "undefined"
+		? configs["jest/recommended"]
+		: [];
 }
 
 configs.recommended = [
