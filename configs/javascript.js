@@ -1075,7 +1075,10 @@ const importRules = {
 	"import/no-self-import": "error",
 
 	// From recommended
-	"import/no-unresolved": ["error", { commonjs: true }],
+	"import/no-unresolved": [
+		"error",
+		{ ignore: ["^eslint/config$"], commonjs: true },
+	],
 
 	// No need
 	// "import/no-useless-path-segments": "off",
@@ -1164,7 +1167,7 @@ function getConfig(esVersion) {
 		settings: {
 			"import/extensions": allExtensions,
 			"import/ignore": [
-				"eslint-plugin-.*",
+				"node_modules/eslint-plugin-.*",
 				"\\.(coffee|scss|css|less|hbs|svg|md|jpg|jpeg|png|gif|webp|avif)$",
 			],
 			"import/resolver": {
