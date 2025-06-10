@@ -1,5 +1,4 @@
 import globals from "globals";
-import nodePlugin from "eslint-plugin-n";
 import importPlugin from "eslint-plugin-import";
 
 const commonRules = {
@@ -116,107 +115,155 @@ const commonRules = {
 	// "n/process-exit-as-throw": "error",
 };
 
-const commonjs = {
-	...nodePlugin.configs["flat/recommended-script"],
-	name: "node/commonjs",
-	plugins: {
-		...nodePlugin.configs["flat/recommended-script"].plugins,
-		import: importPlugin,
-	},
-	rules: {
-		...commonRules,
-		"n/exports-style": "error",
-		"n/no-path-concat": "error",
-		"import/extensions": ["error", "never", { ignorePackages: true }],
-	},
-};
+/**
+ * @returns {Promise<Record<string, string>>} config
+ */
+async function getCommonJSConfig() {
+	let nodePlugin;
 
-const module = {
-	...nodePlugin.configs["flat/recommended-module"],
-	name: "node/module",
-	plugins: {
-		...nodePlugin.configs["flat/recommended-script"].plugins,
-		import: importPlugin,
-	},
-	rules: {
-		...commonRules,
-		"import/extensions": ["error", "always", { ignorePackages: true }],
-	},
-};
+	try {
+		nodePlugin = (await import("eslint-plugin-n")).default;
+		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
+	} catch (_err) {
+		// Nothing
+	}
 
-const dirty = {
-	name: "node/dirty",
-	plugins: {
-		n: nodePlugin,
-		import: importPlugin,
-	},
-	languageOptions: {
-		sourceType: "module",
-		parserOptions: {
-			ecmaFeatures: { globalReturn: true },
+	const nodeConfig =
+		(nodePlugin && nodePlugin.configs["flat/recommended-script"]) || {};
+
+	return {
+		...nodeConfig,
+		name: "node/commonjs",
+		plugins: {
+			...nodeConfig.plugins,
+			import: importPlugin,
 		},
-		globals: {
-			...globals.node,
-			__dirname: "readonly",
-			__filename: "readonly",
-			exports: "writable",
-			module: "readonly",
-			require: "readonly",
+		rules: {
+			...commonRules,
+			"n/exports-style": "error",
+			"n/no-path-concat": "error",
+			"import/extensions": ["error", "never", { ignorePackages: true }],
 		},
-	},
-	rules: {
-		...commonjs.rules,
-		...module.rules,
-		// Disable for dirty modules
-		"import/extensions": ["off"],
-	},
-};
+	};
+}
+
+/**
+ * @returns {Promise<Record<string, string>>} config
+ */
+async function getModuleConfig() {
+	let nodePlugin;
+
+	try {
+		nodePlugin = (await import("eslint-plugin-n")).default;
+		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
+	} catch (_err) {
+		// Nothing
+	}
+
+	const nodeConfig =
+		(nodePlugin && nodePlugin.configs["flat/recommended-module"]) || {};
+
+	return {
+		...nodeConfig,
+		name: "node/module",
+		plugins: {
+			...nodeConfig.plugins,
+			import: importPlugin,
+		},
+		rules: {
+			...commonRules,
+			"import/extensions": ["error", "always", { ignorePackages: true }],
+		},
+	};
+}
+
+/**
+ * @returns {Promise<Record<string, string>>} config
+ */
+async function getDirtyConfig() {
+	let nodePlugin;
+
+	try {
+		nodePlugin = (await import("eslint-plugin-n")).default;
+		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
+	} catch (_err) {
+		// Nothing
+	}
+
+	return {
+		name: "node/dirty",
+		plugins: {
+			n: nodePlugin,
+			import: importPlugin,
+		},
+		languageOptions: {
+			sourceType: "module",
+			parserOptions: {
+				ecmaFeatures: { globalReturn: true },
+			},
+			globals: {
+				...globals.node,
+				__dirname: "readonly",
+				__filename: "readonly",
+				exports: "writable",
+				module: "readonly",
+				require: "readonly",
+			},
+		},
+		rules: {
+			...(await getCommonJSConfig()).rules,
+			...(await getModuleConfig()).rules,
+			// Disable for dirty modules
+			"import/extensions": ["off"],
+		},
+	};
+}
 
 export default {
-	"node/dirty": dirty,
-	"node/commonjs": commonjs,
-	"node/module": module,
-	"node/recommended": module,
+	"node/dirty": await getDirtyConfig(),
+	"node/commonjs": await getCommonJSConfig(),
+	"node/module": await getModuleConfig(),
+	"node/recommended": await getModuleConfig(),
 	"node/mixed-dirty": [
 		{
 			files: ["**/*.{js,jsx}"],
-			...dirty,
+			...(await getDirtyConfig()),
 		},
 		{
 			files: ["**/*.cjs"],
-			...commonjs,
+			...(await getCommonJSConfig()),
 		},
 		{
 			files: ["**/*.mjs"],
-			...module,
+			...(await getModuleConfig()),
 		},
 	],
 	"node/mixed-module-and-commonjs": [
 		{
 			files: ["**/*.{js,jsx}"],
-			...module,
+			...(await getModuleConfig()),
 		},
 		{
 			files: ["**/*.cjs"],
-			...commonjs,
+			...(await getCommonJSConfig()),
 		},
 		{
 			files: ["**/*.mjs"],
-			...module,
+			...(await getModuleConfig()),
 		},
 	],
 	"node/mixed-commonjs-and-module": [
 		{
 			files: ["**/*.{js,jsx}"],
-			...commonjs,
+			...(await getCommonJSConfig()),
 		},
 		{
 			files: ["**/*.cjs"],
-			...commonjs,
+			...(await getCommonJSConfig()),
 		},
 		{
 			files: ["**/*.mjs"],
-			...module,
+			...(await getModuleConfig()),
 		},
 	],
 };

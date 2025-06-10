@@ -1,61 +1,77 @@
-import markdown from "@eslint/markdown";
+/**
+ * @returns {Promise<Record<string, string>>} config
+ */
+async function getMarkdownRecommendedConfig() {
+	let markdownPlugin;
 
-const recommendedConfig = [
-	{
-		name: "markdown/code-blocks",
-		files: ["**/*.md"],
-		processor: "markdown/markdown",
-		plugins: {
-			markdown,
-		},
-	},
-	{
-		name: "markdown/code-blocks/js",
-		files: ["**/*.md/*.js"],
-		languageOptions: {
-			parserOptions: {
-				ecmaFeatures: {
-					impliedStrict: true,
-				},
+	try {
+		markdownPlugin = (await import("@eslint/markdown")).default;
+		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
+	} catch (_err) {
+		// Nothing
+	}
+
+	if (!markdownPlugin) {
+		return [];
+	}
+
+	return [
+		{
+			name: "markdown/code-blocks",
+			files: ["**/*.md"],
+			processor: "markdown/markdown",
+			plugins: {
+				markdown: markdownPlugin,
 			},
 		},
-		rules: {
-			strict: "off",
+		{
+			name: "markdown/code-blocks/js",
+			files: ["**/*.md/*.js"],
+			languageOptions: {
+				parserOptions: {
+					ecmaFeatures: {
+						impliedStrict: true,
+					},
+				},
+			},
+			rules: {
+				strict: "off",
 
-			// For different examples
-			camelcase: "off",
+				// For different examples
+				camelcase: "off",
 
-			"unicode-bom": "off",
+				"unicode-bom": "off",
 
-			"eol-last": "off",
+				"eol-last": "off",
 
-			"no-undef": "off",
+				"no-undef": "off",
 
-			"no-unused-private-class-members": "off",
+				"no-unused-private-class-members": "off",
 
-			"no-unused-vars": "off",
+				"no-unused-vars": "off",
 
-			"no-unused-expressions": "off",
+				"no-unused-expressions": "off",
 
-			"no-unused-labels": "off",
+				"no-unused-labels": "off",
 
-			"no-console": "off",
+				"no-console": "off",
 
-			"unicorn/no-unused-properties": "off",
+				"unicorn/no-unused-properties": "off",
 
-			"n/no-unpublished-require": "off",
+				"n/no-unpublished-require": "off",
 
-			"n/no-unpublished-import": "off",
+				"n/no-unpublished-import": "off",
 
-			"import/no-unresolved": "off",
+				"import/no-unresolved": "off",
 
-			"import/no-extraneous-dependencies": "off",
+				"import/no-extraneous-dependencies": "off",
 
-			"jsdoc/require-jsdoc": "off",
+				"jsdoc/require-jsdoc": "off",
+			},
 		},
-	},
-];
+	];
+}
 
 export default {
-	"markdown/recommended": recommendedConfig,
+	"markdown/recommended": await getMarkdownRecommendedConfig(),
 };
