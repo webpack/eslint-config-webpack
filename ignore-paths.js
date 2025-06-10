@@ -4,5 +4,6 @@ export default [
 	"dist/**/*",
 	"coverage/**/*",
 	"test/fixtures/**/*",
+	"test/outputs/**/*",
 	"build/Release/**/*",
 ];
