@@ -182,6 +182,9 @@ function getJavascriptConfig() {
 	return configs["javascript/recommended"];
 }
 
+/**
+ * @returns {Promise<Record<string, string>>} config
+ */
 function getTypescriptJsdocConfig() {
 	if (typeof packageJson.dependencies === "undefined") {
 		return [];
@@ -197,6 +200,9 @@ function getTypescriptJsdocConfig() {
 	return configs["typescript/jsdoc"];
 }
 
+/**
+ * @returns {Promise<Record<string, string>>} config
+ */
 function getJestConfig() {
 	if (typeof packageJson.dependencies === "undefined") {
 		return [];
