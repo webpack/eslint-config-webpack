@@ -622,7 +622,8 @@ const suggestions = {
 
 	radix: ["error", "always"],
 
-	"require-await": "error",
+	// `require-await` doesn't work when the function returns Promise<any>
+	// "require-await": "off",
 
 	// No need
 	// "require-unicode-regexp": "error",
