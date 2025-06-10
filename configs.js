@@ -182,14 +182,64 @@ function getJavascriptConfig() {
 	return configs["javascript/recommended"];
 }
 
+function getTypescriptJsdocConfig() {
+	if (typeof packageJson.dependencies === "undefined") {
+		return [];
+	}
+
+	if (
+		typeof packageJson.dependencies.typescript === "undefined" &&
+		typeof packageJson.devDependencies.typescript === "undefined"
+	) {
+		return [];
+	}
+
+	return configs["typescript/jsdoc"];
+}
+
+function getJestConfig() {
+	if (typeof packageJson.dependencies === "undefined") {
+		return [];
+	}
+
+	if (
+		typeof packageJson.dependencies.jest === "undefined" &&
+		typeof packageJson.devDependencies.jest === "undefined"
+	) {
+		return [];
+	}
+
+	return configs["jest/recommended"];
+}
+
 configs.recommended = [
 	globalIgnores(ignorePaths),
 	isModule
 		? configs["node/mixed-module-and-commonjs"]
 		: configs["node/mixed-commonjs-and-module"],
 	getJavascriptConfig(),
-	configs["typescript/jsdoc"],
-	configs["jest/recommended"],
+	getTypescriptJsdocConfig(),
+	getJestConfig(),
+	configs["markdown/recommended"],
+	configs["stylistic/recommended"],
+];
+
+configs["recommended-module"] = [
+	globalIgnores(ignorePaths),
+	configs["node/mixed-module-and-commonjs"],
+	getJavascriptConfig(),
+	getTypescriptJsdocConfig(),
+	getJestConfig(),
+	configs["markdown/recommended"],
+	configs["stylistic/recommended"],
+];
+
+configs["recommended-commonjs"] = [
+	globalIgnores(ignorePaths),
+	configs["node/mixed-commonjs-and-module"],
+	getJavascriptConfig(),
+	getTypescriptJsdocConfig(),
+	getJestConfig(),
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 ];
@@ -198,8 +248,8 @@ configs["recommended-dirty"] = [
 	globalIgnores(ignorePaths),
 	configs["node/mixed-dirty"],
 	getJavascriptConfig(),
-	configs["typescript/jsdoc"],
-	configs["jest/recommended"],
+	getTypescriptJsdocConfig(),
+	getJestConfig(),
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 ];
