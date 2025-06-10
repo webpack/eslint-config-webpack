@@ -49,7 +49,9 @@ const recommendedConfig = {
 
 		"jest/no-disabled-tests": "error",
 
-		"jest/no-done-callback": "error",
+		// No need
+		// Adding extra `await new Promise(...)` is very inconvenient when you have a lot of callback api
+		"jest/no-done-callback": "off",
 
 		"jest/no-duplicate-hooks": "error",
 
