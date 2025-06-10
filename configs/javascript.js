@@ -1167,7 +1167,7 @@ function getConfig(esVersion) {
 		settings: {
 			"import/extensions": allExtensions,
 			"import/ignore": [
-				"node_modules/eslint-plugin-.*",
+				"eslint-plugin-.*",
 				"\\.(coffee|scss|css|less|hbs|svg|md|jpg|jpeg|png|gif|webp|avif)$",
 			],
 			"import/resolver": {
