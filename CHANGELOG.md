@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.4](https://github.com/webpack/eslint-config-webpack/compare/v4.0.3...v4.0.4) (2025-06-10)
+
+
+### Bug Fixes
+
+* disable `require-await` rule ([a787ef9](https://github.com/webpack/eslint-config-webpack/commit/a787ef96d293382b90a0c0e107ebc037d64b2204))
+
 ### [4.0.3](https://github.com/webpack/eslint-config-webpack/compare/v4.0.2...v4.0.3) (2025-06-10)
 
 
