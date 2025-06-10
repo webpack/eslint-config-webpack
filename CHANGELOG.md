@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.5](https://github.com/webpack/eslint-config-webpack/compare/v4.0.4...v4.0.5) (2025-06-10)
+
+
+### Bug Fixes
+
+* lazy load jest and typescript configuration ([#40](https://github.com/webpack/eslint-config-webpack/issues/40)) ([196e040](https://github.com/webpack/eslint-config-webpack/commit/196e040fff0661633070fab57c57dd2baa486d09))
+* lazy load optional plugins ([#41](https://github.com/webpack/eslint-config-webpack/issues/41)) ([d634eaf](https://github.com/webpack/eslint-config-webpack/commit/d634eaf555be2b68a7b7079d8a928804b1589bdb))
+* relax `jest/prefer-lowercase-title` ([#39](https://github.com/webpack/eslint-config-webpack/issues/39)) ([496c8e2](https://github.com/webpack/eslint-config-webpack/commit/496c8e2ff1b4337a65325568ce93596b99732572))
+
 ### [4.0.4](https://github.com/webpack/eslint-config-webpack/compare/v4.0.3...v4.0.4) (2025-06-10)
 
 
