@@ -12,7 +12,7 @@ const recommendedConfig = {
 		"**/{tests,test,__tests__}/**/*.?(c|m)[jt]s?(x)",
 		"**/?(*.)+(spec|test).[jt]s?(x)",
 		"**/test-*.[jt]s?(x)",
-		"setupTest.{js,cjs,mjs,ts,cts,mjs}"
+		"setupTest.{js,cjs,mjs,ts,cts,mjs}",
 	],
 	ignores: [
 		"**/{tests,test,__tests__}/**/{helper,helpers,__helper__,__helpers__,fixture,fixtures,__fixture__,__fixtures__}/**/*",
@@ -192,7 +192,7 @@ const recommendedConfig = {
 		"id-length": "off",
 
 		// In tests, we can have any names
-		"camelcase": "off",
+		camelcase: "off",
 
 		// Doesn't require jsdoc for tests, they are either redundant or we have a separate task for checking types of tests
 		"jsdoc/require-jsdoc": "off",
