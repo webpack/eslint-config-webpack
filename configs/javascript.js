@@ -1075,7 +1075,10 @@ const importRules = {
 	"import/no-self-import": "error",
 
 	// From recommended
-	"import/no-unresolved": ["error", { commonjs: true }],
+	"import/no-unresolved": [
+		"error",
+		{ ignore: ["^eslint/config$"], commonjs: true },
+	],
 
 	// No need
 	// "import/no-useless-path-segments": "off",

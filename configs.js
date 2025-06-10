@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-// eslint-disable-next-line import/no-unresolved
 import { globalIgnores } from "eslint/config";
 import semver from "semver";
 import configs from "./configs/index.js";
