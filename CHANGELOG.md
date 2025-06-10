@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.2](https://github.com/webpack/eslint-config-webpack/compare/v4.0.1...v4.0.2) (2025-06-10)
+
+
+### Bug Fixes
+
+* adding `eslint-config-prettier` to peer deps ([#33](https://github.com/webpack/eslint-config-webpack/issues/33)) ([df28ab8](https://github.com/webpack/eslint-config-webpack/commit/df28ab8bd7c9a269ba35a8ff4fe1d9cd6d641998))
+* disable `jest/no-done-callback` rule ([#35](https://github.com/webpack/eslint-config-webpack/issues/35)) ([cb2b634](https://github.com/webpack/eslint-config-webpack/commit/cb2b6342f66d9fc9c57bd99f07e53b3528941b07))
+* unresolved import in `eslint-config` ([#34](https://github.com/webpack/eslint-config-webpack/issues/34)) ([a73ed8e](https://github.com/webpack/eslint-config-webpack/commit/a73ed8e6bba2dd76540f3af4e31aabdeb6e958dc))
+
 ### [4.0.1](https://github.com/webpack/eslint-config-webpack/compare/v4.0.0...v4.0.1) (2025-06-06)
 
 
