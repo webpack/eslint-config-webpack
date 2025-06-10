@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.6](https://github.com/webpack/eslint-config-webpack/compare/v4.0.5...v4.0.6) (2025-06-10)
+
+
+### Bug Fixes
+
+* lazy loading configs in different deps ([#42](https://github.com/webpack/eslint-config-webpack/issues/42)) ([8a855ab](https://github.com/webpack/eslint-config-webpack/commit/8a855abe8aa8210316a835c1b84675838424a452))
+
 ### [4.0.5](https://github.com/webpack/eslint-config-webpack/compare/v4.0.4...v4.0.5) (2025-06-10)
 
 
