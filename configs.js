@@ -138,6 +138,14 @@ function getJavascriptConfig() {
 
 		// https://node.green/
 		switch (minVersion) {
+			case 6:
+				const config = { ...configs["javascript/es2016"] };
+
+				config.rules["prefer-exponentiation-operator"] = "off";
+
+				return config;
+			case 7:
+				return configs["javascript/es2016"];
 			case 8:
 			case 9:
 				return configs["javascript/es2017"];
