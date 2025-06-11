@@ -28,8 +28,10 @@ async function getMarkdownRecommendedConfig() {
 			name: "markdown/code-blocks/js",
 			files: ["**/*.md/*.js"],
 			languageOptions: {
+				sourceType: "module",
 				parserOptions: {
 					ecmaFeatures: {
+						globalReturn: true,
 						impliedStrict: true,
 					},
 				},
