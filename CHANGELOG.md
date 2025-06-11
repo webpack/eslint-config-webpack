@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.8](https://github.com/webpack/eslint-config-webpack/compare/v4.0.7...v4.0.8) (2025-06-11)
+
+
+### Bug Fixes
+
+* node 6 and node 7 support ([#44](https://github.com/webpack/eslint-config-webpack/issues/44)) ([c6f129f](https://github.com/webpack/eslint-config-webpack/commit/c6f129f069ba56bb1c31c2debcf9575f6a846abb))
+
 ### [4.0.7](https://github.com/webpack/eslint-config-webpack/compare/v4.0.6...v4.0.7) (2025-06-11)
 
 
