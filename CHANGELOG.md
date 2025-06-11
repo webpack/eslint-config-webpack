@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.9](https://github.com/webpack/eslint-config-webpack/compare/v4.0.8...v4.0.9) (2025-06-11)
+
+
+### Bug Fixes
+
+* adding default prettier config for old projects ([86f7be6](https://github.com/webpack/eslint-config-webpack/commit/86f7be6aa2643d181c767246eda50fa654d46a4c))
+* disable `no-console` for tests ([#45](https://github.com/webpack/eslint-config-webpack/issues/45)) ([ab1798f](https://github.com/webpack/eslint-config-webpack/commit/ab1798f77881a2dec90191c3d8488900d1d53320))
+
 ### [4.0.8](https://github.com/webpack/eslint-config-webpack/compare/v4.0.7...v4.0.8) (2025-06-11)
 
 
