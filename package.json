@@ -9,6 +9,7 @@
   "files": [
     "index.js",
     "prettier-config.js",
+    "prettier-config-es5.js",
     "configs.js",
     "ignore-paths.js",
     "configs"
