@@ -1215,6 +1215,10 @@ function getConfig(esVersion) {
 		config.rules["unicorn/prefer-spread"] = "off";
 	}
 
+	if (esVersion < 2018) {
+		config.rules["prefer-object-spread"] = "off";
+	}
+
 	if (esVersion < 2019) {
 		config.rules["unicorn/prefer-array-flat"] = "off";
 		config.rules["unicorn/prefer-array-flat-map"] = "off";
