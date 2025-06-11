@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.10](https://github.com/webpack/eslint-config-webpack/compare/v4.0.9...v4.0.10) (2025-06-11)
+
+
+### Bug Fixes
+
+* use dirty parser configuration for markdown ([#46](https://github.com/webpack/eslint-config-webpack/issues/46)) ([404c7c8](https://github.com/webpack/eslint-config-webpack/commit/404c7c867f6e180e56521219bebecd5f63c584fb))
+
 ### [4.0.9](https://github.com/webpack/eslint-config-webpack/compare/v4.0.8...v4.0.9) (2025-06-11)
 
 
