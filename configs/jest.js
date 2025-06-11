@@ -209,6 +209,9 @@ async function getJestRecommendedConfig() {
 			// In tests, we can have any names
 			camelcase: "off",
 
+			// Allow to output information in tests
+			"no-console": "off",
+
 			// Doesn't require jsdoc for tests, they are either redundant or we have a separate task for checking types of tests
 			"jsdoc/require-jsdoc": "off",
 		},
