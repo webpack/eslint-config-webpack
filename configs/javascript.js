@@ -2,6 +2,7 @@ import globals from "globals";
 import javascriptConfig from "@eslint/js";
 import unicornPlugin from "eslint-plugin-unicorn";
 import importPlugin from "eslint-plugin-import";
+import { allExtensions } from "./utils/extensions.js";
 
 const possibleProblems = {
 	"array-callback-return": [
@@ -403,7 +404,9 @@ const suggestions = {
 		},
 	],
 
-	"no-implicit-globals": "error",
+	// No need
+	// Make sense only for `browser` configuration for old browsers
+	// "no-implicit-globals": "off",
 
 	"no-implied-eval": "error",
 
@@ -1078,7 +1081,7 @@ const importRules = {
 	// From recommended
 	"import/no-unresolved": [
 		"error",
-		{ ignore: ["^eslint/config$"], commonjs: true },
+		{ ignore: ["^eslint/config$", "^typescript-eslint$"], commonjs: true },
 	],
 
 	// No need
@@ -1152,10 +1155,6 @@ const importRules = {
 	// "import/prefer-default-export": "off",
 };
 
-const typeScriptExtensions = [".ts", ".cts", ".mts", ".tsx"];
-const javascriptExtensions = [".js", ".jsx", ".mjs", ".cjs"];
-const allExtensions = [...typeScriptExtensions, ...javascriptExtensions];
-
 /**
  * @param {number} esVersion es version
  * @returns {Record<string, string | number>} config
@@ -1164,7 +1163,7 @@ function getConfig(esVersion) {
 	const config = {
 		...javascriptConfig.configs.recommended,
 		name: `javascript/es${esVersion}`,
-		files: ["**/*.{js,jsx,mjs,cjs}"],
+		files: [`**/*.{${allExtensions.map((item) => item.slice(1)).join(",")}}`],
 		settings: {
 			"import/extensions": allExtensions,
 			"import/ignore": [
@@ -1173,7 +1172,7 @@ function getConfig(esVersion) {
 			],
 			"import/resolver": {
 				node: {
-					extensions: allExtensions,
+					extensions: [...allExtensions],
 				},
 			},
 		},

@@ -60,10 +60,11 @@ const cache = new Cache();
  *
  * Don't cache the data.
  * @param {string} dir The path to a directory to read.
+ * @param {string} filename The filename.
  * @returns {import('type-fest').JsonObject|null} The read `package.json` data, or null.
  */
-function readPackageJson(dir) {
-	const filePath = path.join(dir, "package.json");
+function readJsonFile(dir, filename) {
+	const filePath = path.join(dir, filename);
 	try {
 		const text = fs.readFileSync(filePath, "utf8");
 		const data = JSON.parse(text);
@@ -87,29 +88,30 @@ function readPackageJson(dir) {
 /**
  * Gets a `package.json` data.
  * The data is cached if found, then it's used after.
+ * @param {string} filename The filename.
  * @param {string=} startPath A file path to lookup.
  * @returns {import('type-fest').JsonObject | null} A found `package.json` data or `null`.
  * This object have additional property `filePath`.
  */
-function getPackageJson(startPath = "a.js") {
+function getJsonFile(filename, startPath = "a.js") {
 	const startDir = path.dirname(path.resolve(startPath));
 	let dir = startDir;
 	let prevDir = "";
 	let data = null;
 
 	do {
-		data = cache.get(dir);
+		data = cache.get(dir + filename);
 		if (data) {
 			if (dir !== startDir) {
-				cache.set(startDir, data);
+				cache.set(startDir + filename, data);
 			}
 			return data;
 		}
 
-		data = readPackageJson(dir);
+		data = readJsonFile(dir, filename);
 		if (data) {
-			cache.set(dir, data);
-			cache.set(startDir, data);
+			cache.set(dir + filename, data);
+			cache.set(startDir + filename, data);
 			return data;
 		}
 
@@ -118,11 +120,11 @@ function getPackageJson(startPath = "a.js") {
 		dir = path.resolve(dir, "..");
 	} while (dir !== prevDir);
 
-	cache.set(startDir, null);
+	cache.set(startDir + filename, null);
 	return null;
 }
 
-const packageJson = getPackageJson();
+const packageJson = getJsonFile("package.json");
 const isModule =
 	packageJson !== null &&
 	typeof packageJson === "object" &&
@@ -194,7 +196,7 @@ function getJavascriptConfig() {
 /**
  * @returns {Promise<Record<string, string>>} config
  */
-function getTypescriptJsdocConfig() {
+function getTypescriptJSdocConfig() {
 	if (packageJson === null) {
 		return [];
 	}
@@ -206,6 +208,37 @@ function getTypescriptJsdocConfig() {
 		typeof devDependencies.typescript !== "undefined"
 		? configs["typescript/jsdoc"]
 		: [];
+}
+
+/**
+ * @returns {Promise<Record<string, string>>} config
+ */
+function getTypescriptConfig() {
+	if (packageJson === null) {
+		return [];
+	}
+
+	const dependencies = packageJson.dependencies || [];
+	const devDependencies = packageJson.devDependencies || [];
+
+	if (
+		typeof dependencies.typescript === "undefined" &&
+		typeof devDependencies.typescript === "undefined"
+	) {
+		return [];
+	}
+
+	const tsconfigJson = getJsonFile("tsconfig.json");
+	const isStrict =
+		(tsconfigJson &&
+			tsconfigJson.compilerOptions &&
+			tsconfigJson.compilerOptions.strict) ||
+		true;
+
+	return [
+		configs["typescript/recommended"],
+		isStrict ? { rules: { strict: "off" } } : {},
+	];
 }
 
 /**
@@ -225,14 +258,20 @@ function getJestConfig() {
 		: [];
 }
 
+const javascriptConfig = getJavascriptConfig();
+const typescriptJSDocConfig = getTypescriptJSdocConfig();
+const typescriptConfig = getTypescriptConfig();
+const jestConfig = getJestConfig();
+
 configs.recommended = [
 	globalIgnores(ignorePaths),
 	isModule
 		? configs["node/mixed-module-and-commonjs"]
 		: configs["node/mixed-commonjs-and-module"],
-	getJavascriptConfig(),
-	getTypescriptJsdocConfig(),
-	getJestConfig(),
+	javascriptConfig,
+	typescriptJSDocConfig,
+	typescriptConfig,
+	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 ];
@@ -240,9 +279,10 @@ configs.recommended = [
 configs["recommended-module"] = [
 	globalIgnores(ignorePaths),
 	configs["node/mixed-module-and-commonjs"],
-	getJavascriptConfig(),
-	getTypescriptJsdocConfig(),
-	getJestConfig(),
+	javascriptConfig,
+	typescriptJSDocConfig,
+	typescriptConfig,
+	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 ];
@@ -250,9 +290,10 @@ configs["recommended-module"] = [
 configs["recommended-commonjs"] = [
 	globalIgnores(ignorePaths),
 	configs["node/mixed-commonjs-and-module"],
-	getJavascriptConfig(),
-	getTypescriptJsdocConfig(),
-	getJestConfig(),
+	javascriptConfig,
+	typescriptJSDocConfig,
+	typescriptConfig,
+	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 ];
@@ -260,9 +301,10 @@ configs["recommended-commonjs"] = [
 configs["recommended-dirty"] = [
 	globalIgnores(ignorePaths),
 	configs["node/mixed-dirty"],
-	getJavascriptConfig(),
-	getTypescriptJsdocConfig(),
-	getJestConfig(),
+	javascriptConfig,
+	typescriptJSDocConfig,
+	typescriptConfig,
+	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 ];
