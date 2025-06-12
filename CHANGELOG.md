@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/webpack/eslint-config-webpack/compare/v4.0.10...v4.1.0) (2025-06-12)
+
+
+### Features
+
+* added `typescript/recommended` preset ([fea16fb](https://github.com/webpack/eslint-config-webpack/commit/fea16fbf6b1e789fd49fac270aed912988b71793))
+
 ### [4.0.10](https://github.com/webpack/eslint-config-webpack/compare/v4.0.9...v4.0.10) (2025-06-11)
 
 
