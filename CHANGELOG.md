@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.1](https://github.com/webpack/eslint-config-webpack/compare/v4.1.0...v4.1.1) (2025-06-20)
+
+
+### Bug Fixes
+
+* crash without `typescript-eslint` ([#47](https://github.com/webpack/eslint-config-webpack/issues/47)) ([9534172](https://github.com/webpack/eslint-config-webpack/commit/95341721e3c8a6588deb9787a97a97d5dcefed52))
+
 ## [4.1.0](https://github.com/webpack/eslint-config-webpack/compare/v4.0.10...v4.1.0) (2025-06-12)
 
 
