@@ -287,7 +287,14 @@ async function getTypescriptRecommendedConfig() {
 		// Nothing
 	}
 
-	const { configs } = typescriptPlugin;
+	const { configs } = typescriptPlugin || {
+		configs: {
+			base: { languageOptions: {} },
+			eslintRecommended: {},
+			recommended: [{ name: "typescript-eslint/recommended", rules: {} }],
+			stylistic: [{ name: "typescript-eslint/stylistic", rules: {} }],
+		},
+	};
 	const baseConfig = configs.base;
 	const eslintRecommendedConfig = configs.eslintRecommended;
 	const recommendedConfig = configs.recommended.find(
