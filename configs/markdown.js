@@ -11,10 +11,6 @@ async function getMarkdownRecommendedConfig() {
 		// Nothing
 	}
 
-	if (!markdownPlugin) {
-		return [];
-	}
-
 	return [
 		{
 			name: "markdown/code-blocks",
