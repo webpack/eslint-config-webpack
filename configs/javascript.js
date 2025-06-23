@@ -1164,6 +1164,7 @@ function getConfig(esVersion) {
 		...javascriptConfig.configs.recommended,
 		name: `javascript/es${esVersion}`,
 		files: [`**/*.{${allExtensions.map((item) => item.slice(1)).join(",")}}`],
+		ignores: ["**/*.d.ts"],
 		settings: {
 			"import/extensions": allExtensions,
 			"import/ignore": [

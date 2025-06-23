@@ -310,6 +310,7 @@ async function getTypescriptRecommendedConfig() {
 		files: [
 			`**/*.{${typescriptExtensions.map((item) => item.slice(1)).join(",")}}`,
 		],
+		ignores: ["**/*.d.ts"],
 		languageOptions: {
 			parser: baseConfig.languageOptions.parser,
 		},

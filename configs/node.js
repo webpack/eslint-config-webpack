@@ -117,6 +117,8 @@ const commonRules = {
 
 let nodePlugin;
 
+const ignores = ["**/*.d.ts"];
+
 /**
  * @returns {Promise<Record<string, string>>} config
  */
@@ -136,6 +138,7 @@ async function getCommonJSConfig() {
 	return {
 		...nodeConfig,
 		name: "node/commonjs",
+		ignores,
 		plugins: {
 			...nodeConfig.plugins,
 			import: importPlugin,
@@ -182,6 +185,7 @@ async function getModuleConfig() {
 	return {
 		...nodeConfig,
 		name: "node/module",
+		ignores,
 		plugins: {
 			...nodeConfig.plugins,
 			import: importPlugin,
@@ -221,6 +225,7 @@ async function getDirtyConfig() {
 			n: nodePlugin,
 			import: importPlugin,
 		},
+		ignores: [...new Set([...commonjsConfig.ignores, ...moduleConfig.ignores])],
 		languageOptions: {
 			sourceType: "module",
 			parserOptions: {
