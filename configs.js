@@ -139,6 +139,7 @@ function getJavascriptConfig() {
 		const minVersion = semver.minVersion(packageJson.engines.node).major;
 
 		// https://node.green/
+		// https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
 		switch (minVersion) {
 			case 6: {
 				const config = { ...configs["javascript/es2016"] };
@@ -229,6 +230,17 @@ function getTypescriptConfig() {
 	}
 
 	const tsconfigJson = getJsonFile("tsconfig.json");
+
+	const isNoEmitEnabled =
+		(tsconfigJson &&
+			tsconfigJson.compilerOptions &&
+			tsconfigJson.compilerOptions.noEmit) ||
+		false;
+
+	if (isNoEmitEnabled) {
+		return {};
+	}
+
 	const isStrict =
 		(tsconfigJson &&
 			tsconfigJson.compilerOptions &&
