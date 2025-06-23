@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.2](https://github.com/webpack/eslint-config-webpack/compare/v4.1.1...v4.1.2) (2025-06-23)
+
+
+### Bug Fixes
+
+* do not apply typescript rules when emit disabled ([#48](https://github.com/webpack/eslint-config-webpack/issues/48)) ([5bed1ab](https://github.com/webpack/eslint-config-webpack/commit/5bed1ab9e3a8c7c350e4a929efe4ac3001f58253))
+
 ### [4.1.1](https://github.com/webpack/eslint-config-webpack/compare/v4.1.0...v4.1.1) (2025-06-20)
 
 
