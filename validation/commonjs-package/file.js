@@ -21,4 +21,3 @@ sum(foo, bar);
 sum(mod.a, mod.b);
 sum(otherMod.a, otherMod.b);
 sum(modAgain.a, modAgain.b);
-
