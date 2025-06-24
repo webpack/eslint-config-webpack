@@ -6,6 +6,9 @@ import otherSum from "./my-module.ts";
 import otherSumAgain from "./my-module";
 import { b as otherB, type MyType } from "./other-module.js";
 
+require("./typescript-node-support/my-other-code.ts");
+require("./typescript-node-support/my-other-code.js");
+
 sum(a, b);
 otherSum(a, b);
 otherSumAgain(a, b);

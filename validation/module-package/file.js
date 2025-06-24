@@ -19,3 +19,12 @@ function sum(a, b) {
 sum(foo, bar);
 sum(a, b);
 sum(otherMod.a, otherMod.b);
+
+/**
+ * @returns {Promise<void>} run
+ */
+async function run() {
+	// Nothing
+}
+
+await run();
