@@ -26,7 +26,6 @@ async function getJestRecommendedConfig() {
 			"**/{tests,test,__tests__}/**/*.?(c|m)[jt]s?(x)",
 			"**/?(*.)+(spec|test).[jt]s?(x)",
 			"**/test-*.[jt]s?(x)",
-			"{setupTest,setup-test}.{js,cjs,mjs,ts,cts,mjs}",
 		],
 		ignores: [
 			"**/{tests,test,__tests__}/**/{helper,helpers,__helper__,__helpers__,fixture,fixtures,__fixture__,__fixtures__}/**/*",
