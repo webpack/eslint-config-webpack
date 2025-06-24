@@ -68,6 +68,18 @@ const recommendedConfig = {
 				prev: ["import"],
 				next: ["import"],
 			},
+			// Require newline after directives
+			{ blankLine: "always", prev: ["directive"], next: "*" },
+		],
+		"@stylistic/lines-around-comment": [
+			"error",
+			{
+				beforeBlockComment: false,
+				afterBlockComment: false,
+				beforeLineComment: false,
+				afterLineComment: false,
+				afterHashbangComment: true,
+			},
 		],
 	},
 };
