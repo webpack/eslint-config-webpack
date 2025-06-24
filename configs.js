@@ -4,6 +4,7 @@ import { globalIgnores } from "eslint/config";
 import semver from "semver";
 import configs from "./configs/index.js";
 import ignorePaths from "./ignore-paths.js";
+import { typescriptExtensions } from "./configs/utils/extensions.js";
 
 const SKIP_TIME = 5000;
 
@@ -249,7 +250,15 @@ function getTypescriptConfig() {
 
 	return [
 		configs["typescript/recommended"],
-		isStrict ? { rules: { strict: "off" } } : {},
+		isStrict
+			? {
+					files: [
+						`**/*.{${typescriptExtensions.map((item) => item.slice(1)).join(",")}}`,
+					],
+					ignores: ["**/*.d.ts"],
+					rules: { strict: "off" },
+				}
+			: {},
 	];
 }
 
