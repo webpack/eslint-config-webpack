@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.3](https://github.com/webpack/eslint-config-webpack/compare/v4.1.2...v4.1.3) (2025-06-24)
+
+
+### Bug Fixes
+
+* better configuration for module/commonjs/dirty format ([#51](https://github.com/webpack/eslint-config-webpack/issues/51)) ([7de7ddf](https://github.com/webpack/eslint-config-webpack/commit/7de7ddf4cfcde0f64b99a39813b42fb1bfa5f5b1))
+* disable `guard-for-in` for extra noise ([#52](https://github.com/webpack/eslint-config-webpack/issues/52)) ([0e894a5](https://github.com/webpack/eslint-config-webpack/commit/0e894a5302daeb9959ca7dadbd73bc1e69bcd511))
+* improve jest `files` ([#50](https://github.com/webpack/eslint-config-webpack/issues/50)) ([90a979e](https://github.com/webpack/eslint-config-webpack/commit/90a979eb4ab3c5303908a11b06cfb38855c3a9f0))
+* more newlines ([#49](https://github.com/webpack/eslint-config-webpack/issues/49)) ([7e17d6b](https://github.com/webpack/eslint-config-webpack/commit/7e17d6b83f79b7216afd435d1fd9acf39742f8ac))
+
 ### [4.1.2](https://github.com/webpack/eslint-config-webpack/compare/v4.1.1...v4.1.2) (2025-06-23)
 
 
