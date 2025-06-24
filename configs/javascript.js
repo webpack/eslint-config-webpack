@@ -1050,6 +1050,10 @@ const importRules = {
 	// "import/default": "error",
 
 	// No need
+	// We have `n/prefer-node-protocol` rule
+	// "enforce-node-protocol-usage": "off",
+
+	// No need
 	// "import/enforce-node-protocol-usage": "off",
 
 	// From recommended

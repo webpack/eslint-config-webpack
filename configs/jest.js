@@ -17,11 +17,6 @@ async function getJestRecommendedConfig() {
 	return {
 		...jsdocConfig,
 		name: "jest/recommended",
-		settings: {
-			jest: {
-				version: 29,
-			},
-		},
 		files: [
 			"**/{tests,test,__tests__}/**/*.?(c|m)[jt]s?(x)",
 			"**/?(*.)+(spec|test).[jt]s?(x)",
