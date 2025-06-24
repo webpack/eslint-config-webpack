@@ -6,7 +6,7 @@ const myOtherCode = require("./module.js");
 const otherSum = require("./module");
 
 // eslint-disable-next-line import/no-unresolved
-require("./unknown");
+require("./unknown.unknown");
 
 require("./style.css");
 

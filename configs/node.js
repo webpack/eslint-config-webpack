@@ -149,14 +149,12 @@ async function getCommonJSConfig() {
 			"n/no-path-concat": "error",
 			"import/extensions": [
 				"error",
-				"never",
+				"always",
 				{
 					ignorePackages: true,
+					checkTypeImports: true,
 					pattern: {
-						ts: "always",
-						cts: "always",
-						mts: "always",
-						tsx: "always",
+						js: "never",
 					},
 				},
 			],
