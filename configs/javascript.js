@@ -265,7 +265,9 @@ const suggestions = {
 
 	"grouped-accessor-pairs": "error",
 
-	"guard-for-in": "error",
+	// No need
+	// In most cases, the developer understands what he is doing and where, so no additional checks are required
+	// "guard-for-in": "error",
 
 	// No need
 	// "id-denylist": ["error", []]
