@@ -3,6 +3,9 @@ import otherMod from "././other-module.cjs";
 
 const commonJSModule = require("./module-js-common.js");
 
+require("../typescript-node-support/my-other-code.ts");
+require("../typescript-node-support/my-other-code");
+
 const foo = 1;
 const bar = 2;
 
