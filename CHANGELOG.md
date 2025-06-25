@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.4](https://github.com/webpack/eslint-config-webpack/compare/v4.1.3...v4.1.4) (2025-06-25)
+
+
+### Bug Fixes
+
+* ignore ts extension for `require` in typescript code ([#55](https://github.com/webpack/eslint-config-webpack/issues/55)) ([1b2558f](https://github.com/webpack/eslint-config-webpack/commit/1b2558f7a8c9c07c0ddfe85809d1392dc83f38be))
+
 ### [4.1.3](https://github.com/webpack/eslint-config-webpack/compare/v4.1.2...v4.1.3) (2025-06-24)
 
 
