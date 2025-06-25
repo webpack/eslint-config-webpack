@@ -1195,6 +1195,7 @@ function getConfig(esVersion) {
 		},
 		linterOptions: {
 			reportUnusedDisableDirectives: true,
+			reportUnusedInlineConfigs: "error",
 		},
 		rules: {
 			...javascriptConfig.configs.recommended.rules,
