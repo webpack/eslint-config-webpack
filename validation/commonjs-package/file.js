@@ -5,6 +5,11 @@ const otherMod = require("./other-module.cjs");
 // eslint-disable-next-line import/extensions
 const modAgain = require("./my-module.js");
 
+require("../typescript-node-support/my-other-code.ts");
+require("../typescript-node-support/my-other-code");
+// eslint-disable-next-line import/extensions
+require("./my-module-1.js");
+
 const foo = 1;
 const bar = 2;
 

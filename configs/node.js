@@ -155,7 +155,18 @@ async function getCommonJSConfig() {
 					checkTypeImports: true,
 					pattern: {
 						js: "never",
+						ts: "never",
 					},
+					// Allow to have `ts` extension in `require` for compatibility with Node.js built-in typescript support
+					pathGroupOverrides: [
+						{
+							pattern: "*.ts",
+							patternOptions: {
+								matchBase: true,
+							},
+							action: "ignore",
+						},
+					],
 				},
 			],
 		},

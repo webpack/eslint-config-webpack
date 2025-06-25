@@ -1,6 +1,5 @@
 import sum from "./module.js";
 import { a, b } from "./named-exports.js";
-// Should be error by default
 import otherSum from "./my-module.ts";
 // eslint-disable-next-line import/extensions
 import otherSumAgain from "./my-module";
