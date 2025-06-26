@@ -1,13 +1,30 @@
 {
   "name": "eslint-config-webpack",
   "version": "4.1.4",
-  "author": "Joshua Wiens (https://twitter.com/@d3viant0ne)",
-  "license": "MIT",
   "description": "Provides Webpack's eslint rules as an extensible shared config",
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "config",
+    "webpack",
+    "javascript",
+    "typescript"
+  ],
+  "homepage": "https://github.com/webpack/eslint-config-webpack#readme",
+  "bugs": {
+    "url": "https://github.com/webpack/eslint-config-webpack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webpack/eslint-config-webpack.git"
+  },
+  "license": "MIT",
+  "author": "Joshua Wiens (https://twitter.com/@d3viant0ne)",
   "type": "module",
   "main": "index.js",
   "files": [
     "index.js",
+    "plugins",
     "prettier-config.js",
     "prettier-config-es5.js",
     "configs.js",
@@ -16,11 +33,14 @@
   ],
   "scripts": {
     "lint": "npm run lint:code",
-    "lint:code": "node node_modules/eslint/bin/eslint.js --cache .",
+    "lint:code": "eslint --cache .",
     "release": "standard-version"
   },
   "dependencies": {
-    "semver": "^7.7.2"
+    "detect-indent": "^7.0.1",
+    "jsonc-eslint-parser": "^2.4.0",
+    "semver": "^7.7.2",
+    "sort-package-json": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
@@ -80,20 +100,5 @@
   },
   "engines": {
     "node": ">= 18.20.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/webpack/eslint-config-webpack.git"
-  },
-  "keywords": [
-    "eslint",
-    "eslintconfig",
-    "config",
-    "webpack",
-    "javascirpt"
-  ],
-  "bugs": {
-    "url": "https://github.com/webpack/eslint-config-webpack/issues"
-  },
-  "homepage": "https://github.com/webpack/eslint-config-webpack#readme"
+  }
 }

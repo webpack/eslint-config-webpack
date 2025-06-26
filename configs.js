@@ -295,6 +295,7 @@ configs.recommended = [
 	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
+	configs["package-json/recommended"],
 ];
 
 configs["recommended-module"] = [
@@ -306,6 +307,7 @@ configs["recommended-module"] = [
 	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
+	configs["package-json/recommended"],
 ];
 
 configs["recommended-commonjs"] = [
@@ -317,6 +319,7 @@ configs["recommended-commonjs"] = [
 	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
+	configs["package-json/recommended"],
 ];
 
 configs["recommended-dirty"] = [
@@ -328,6 +331,7 @@ configs["recommended-dirty"] = [
 	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
+	configs["package-json/recommended"],
 ];
 
 export { default } from "./configs/index.js";

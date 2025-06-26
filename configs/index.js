@@ -5,6 +5,7 @@ import markdownConfig from "./markdown.js";
 import nodeConfig from "./node.js";
 import stylisticConfig from "./stylistic.js";
 import typescriptConfig from "./typescript.js";
+import packageJSON from "./package-json.js";
 
 const configs = {
 	...browserConfig,
@@ -14,6 +15,7 @@ const configs = {
 	...nodeConfig,
 	...stylisticConfig,
 	...typescriptConfig,
+	...packageJSON,
 };
 
 export default configs;

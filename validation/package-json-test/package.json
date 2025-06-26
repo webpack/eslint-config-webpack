@@ -1,0 +1,23 @@
+{
+  "name": "my-awesome-package",
+  "version": "1.0.0",
+  "description": "A brief description of the project.",
+  "keywords": ["node", "example", "package"],
+  "homepage": "https://github.com/your-username/your-repository#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/your-repository/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/your-repository.git"
+  },
+  "license": "MIT",
+  "author": "Your Name",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
