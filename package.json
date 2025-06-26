@@ -2,7 +2,14 @@
   "name": "eslint-config-webpack",
   "version": "4.1.4",
   "description": "Provides Webpack's eslint rules as an extensible shared config",
-  "keywords": ["eslint", "eslintconfig", "config", "webpack", "javascirpt"],
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "config",
+    "webpack",
+    "javascript",
+    "typescript"
+  ],
   "homepage": "https://github.com/webpack/eslint-config-webpack#readme",
   "bugs": {
     "url": "https://github.com/webpack/eslint-config-webpack/issues"
