@@ -43,6 +43,6 @@ const plugin = {
 	rules,
 };
 
-export { rules, configs };
+export { configs, rules };
 
 export default plugin;

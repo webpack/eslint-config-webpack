@@ -3,8 +3,8 @@ import path from "node:path";
 import { globalIgnores } from "eslint/config";
 import semver from "semver";
 import configs from "./configs/index.js";
-import ignorePaths from "./ignore-paths.js";
 import { typescriptExtensions } from "./configs/utils/extensions.js";
+import ignorePaths from "./ignore-paths.js";
 
 const SKIP_TIME = 5000;
 

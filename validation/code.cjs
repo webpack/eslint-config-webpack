@@ -1,14 +1,7 @@
 "use strict";
 
-const code = require("./module.cjs");
-// eslint-disable-next-line no-unused-vars, import/extensions
-const myOtherCode = require("./module.js");
 const otherSum = require("./module");
-
-// eslint-disable-next-line import/no-unresolved
-require("./unknown.unknown");
-
-require("./style.css");
+const code = require("./module.cjs");
 
 const { aaa } = require("./module.cjs");
 
@@ -17,6 +10,14 @@ otherSum(aaa, 2);
 const { bbb } = require("./module.cjs");
 
 otherSum(bbb, 2);
+
+// eslint-disable-next-line no-unused-vars, import/extensions
+const myOtherCode = require("./module.js");
+
+// eslint-disable-next-line import/no-unresolved
+require("./unknown.unknown");
+
+require("./style.css");
 
 code();
 otherSum(1, 2);

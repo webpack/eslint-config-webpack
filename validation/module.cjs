@@ -17,12 +17,12 @@ module.exports = function test() {
 /**
  * @returns {string} result
  */
-module.exports.other = function other() {
-	return "test";
-};
 
 module.exports.aaa = 1;
 
 test();
 
 module.exports.bbb = 1;
+module.exports.other = function other() {
+	return "test";
+};

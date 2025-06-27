@@ -1,8 +1,9 @@
 import { CLIEngine, linter } from "eslint";
 import sumFn from "./module.js";
-import * as names from "./named-exports.js";
 // eslint-disable-next-line import/named, no-duplicate-imports
 import { notFoo } from "./module.js";
+import * as names from "./named-exports.js";
+
 // eslint-disable-next-line no-unused-vars, import/extensions, import/no-unresolved
 import { myVar } from "./without-extension";
 
@@ -918,12 +919,12 @@ timer = setInterval(initialize, 100);
 
 export { foo, handler };
 export {
+	MyClass,
 	age as ageExport,
 	arrayVariable as arrayVariableExport,
+	callbackInPromise,
 	fooAsync,
 	fooFuncExtra,
-	MyClass,
-	callbackInPromise,
 	promiseInCallback,
 };
 

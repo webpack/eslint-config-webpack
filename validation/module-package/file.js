@@ -1,5 +1,5 @@
-import { a, b } from "./my-module.js";
 import otherMod from "././other-module.cjs";
+import { a, b } from "./my-module.js";
 
 // eslint-disable-next-line no-unused-vars, no-undef
 const commonJSModule = require("./cjs-module.cjs");

@@ -1,9 +1,9 @@
-import code from "./module.cjs";
-import myOtherCode from "./module.js";
 // eslint-disable-next-line import/extensions
 import otherSum from "./module";
+import code from "./module.cjs";
 // eslint-disable-next-line no-duplicate-imports
 import { aaa, bbb } from "./module.cjs";
+import myOtherCode from "./module.js";
 
 // eslint-disable-next-line import/no-unresolved
 import("./unknown.ext");

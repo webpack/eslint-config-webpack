@@ -1,7 +1,7 @@
-import globals from "globals";
 import javascriptConfig from "@eslint/js";
-import unicornPlugin from "eslint-plugin-unicorn";
 import importPlugin from "eslint-plugin-import";
+import unicornPlugin from "eslint-plugin-unicorn";
+import globals from "globals";
 import { allExtensions } from "./utils/extensions.js";
 
 const possibleProblems = {
@@ -1141,21 +1141,20 @@ const importRules = {
 	// No need
 	// "import/no-unassigned-import": "off",
 
-	// No need
-	// TODO consider this in the future
-	// "import/order": [
-	//   "warn",
-	//   {
-	//     groups: [
-	//       "builtin",
-	//       "external",
-	//       "internal",
-	//       "parent",
-	//       "sibling",
-	//       "index",
-	//     ]
-	//   },
-	// ],
+	"import/order": [
+		"error",
+		{
+			named: {
+				enabled: true,
+				import: true,
+				export: true,
+				require: true,
+				cjsExports: true,
+				types: "mixed",
+			},
+			alphabetize: { order: "asc" },
+		},
+	],
 
 	// No need
 	// "import/prefer-default-export": "off",

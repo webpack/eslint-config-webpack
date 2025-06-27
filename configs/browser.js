@@ -1,5 +1,5 @@
-import globals from "globals";
 import importPlugin from "eslint-plugin-import";
+import globals from "globals";
 
 const recommendedBrowserConfig = {
 	languageOptions: {

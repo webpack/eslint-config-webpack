@@ -1,8 +1,8 @@
 "use strict";
 
-const a = require("./other-module.ts");
 const maths = require("./maths.cts");
 const mathsOther = require("./other-maths");
+const a = require("./other-module.ts");
 
 const myType: import("./other-module.ts").MyType = 5;
 
