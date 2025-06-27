@@ -1,5 +1,5 @@
-import { a, b } from "./my-module.js";
 import otherMod from "././other-module.cjs";
+import { a, b } from "./my-module.js";
 
 const commonJSModule = require("./module-js-common.js");
 

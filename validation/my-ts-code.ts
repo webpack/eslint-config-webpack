@@ -1,9 +1,7 @@
 import sum from "./module.js";
-import { a, b } from "./named-exports.js";
-import otherSum from "./my-module.ts";
 // eslint-disable-next-line import/extensions
 import otherSumAgain from "./my-module";
-import { b as otherB, type MyType } from "./other-module.js";
+import { type MyType, b as otherB } from "./other-module.js";
 
 require("./typescript-node-support/my-other-code.ts");
 require("./typescript-node-support/my-other-code.js");
@@ -192,5 +190,5 @@ const foo = Math.pow(2, 8);
 
 sum(1, foo);
 
-export { Button, myTest, Test, arrowFn, test, MyAnimal };
+export { Button, MyAnimal, Test, arrowFn, myTest, test };
 export type { ButtonProps };

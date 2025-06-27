@@ -1,6 +1,6 @@
+import stylisticPlugin from "@stylistic/eslint-plugin";
 import prettierPlugin from "eslint-plugin-prettier";
 import prettierConfig from "eslint-plugin-prettier/recommended";
-import stylisticPlugin from "@stylistic/eslint-plugin";
 
 const recommendedConfig = {
 	...prettierConfig,

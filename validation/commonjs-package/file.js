@@ -1,9 +1,9 @@
 "use strict";
 
 const mod = require("./my-module");
-const otherMod = require("./other-module.cjs");
 // eslint-disable-next-line import/extensions
 const modAgain = require("./my-module.js");
+const otherMod = require("./other-module.cjs");
 
 require("../typescript-node-support/my-other-code.ts");
 require("../typescript-node-support/my-other-code");
