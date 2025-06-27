@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/webpack/eslint-config-webpack/compare/v4.1.4...v4.2.0) (2025-06-27)
+
+
+### Features
+
+* enable rule for order of imports and exports ([#59](https://github.com/webpack/eslint-config-webpack/issues/59)) ([387c167](https://github.com/webpack/eslint-config-webpack/commit/387c167b288384371039214cf74213870014b63e))
+* plugin and rule to sort package.json properties ([ca57ab4](https://github.com/webpack/eslint-config-webpack/commit/ca57ab4feb40a9d99f96136365ef5d8d4599536f))
+
+
+### Bug Fixes
+
+* enable `reportUnusedInlineConfigs` ([#56](https://github.com/webpack/eslint-config-webpack/issues/56)) ([f53c2ba](https://github.com/webpack/eslint-config-webpack/commit/f53c2ba8cceca47d7e0ffee04eed9eccc47d22de))
+* more path to ignore ([#57](https://github.com/webpack/eslint-config-webpack/issues/57)) ([8272ec4](https://github.com/webpack/eslint-config-webpack/commit/8272ec4d1bd98e65d4bbe38a6003ee1f6dbccbfd))
+
 ### [4.1.4](https://github.com/webpack/eslint-config-webpack/compare/v4.1.3...v4.1.4) (2025-06-25)
 
 
