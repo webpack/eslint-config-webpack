@@ -212,6 +212,15 @@ async function getJestRecommendedConfig() {
 			// Allow to have any regexps in tests, useful to clean up/etc
 			"no-control-regex": "off",
 
+			// Allow to use any builtins, syntax and node API in tests
+			"n/no-unsupported-features/es-builtins": "off",
+			"n/no-unsupported-features/es-syntax": "off",
+			"n/no-unsupported-features/node-builtins": "off",
+
+			// Allow to `require` and `import` any things in tests
+			"n/no-unpublished-require": "off",
+			"n/no-unpublished-import": "off",
+
 			// Doesn't require jsdoc for tests, they are either redundant or we have a separate task for checking types of tests
 			"jsdoc/require-jsdoc": "off",
 		},
