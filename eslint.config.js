@@ -39,4 +39,9 @@ export default defineConfig([
 			"n/hashbang": "off",
 		},
 	},
+	// For test purposes
+	{
+		files: ["./validation/webpack/**/*"],
+		extends: [configs["recommended-commonjs"], configs["webpack/special"]],
+	},
 ]);
