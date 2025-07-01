@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/webpack/eslint-config-webpack/compare/v4.2.2...v4.3.0) (2025-07-01)
+
+
+### Features
+
+* added special webpack rule to check license comments ([#66](https://github.com/webpack/eslint-config-webpack/issues/66)) ([1a6a880](https://github.com/webpack/eslint-config-webpack/commit/1a6a8800e1cd5618440ce2043f6b3ab7d3eb6e24))
+
 ### [4.2.2](https://github.com/webpack/eslint-config-webpack/compare/v4.2.1...v4.2.2) (2025-07-01)
 
 
