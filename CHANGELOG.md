@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.1](https://github.com/webpack/eslint-config-webpack/compare/v4.2.0...v4.2.1) (2025-07-01)
+
+
+### Bug Fixes
+
+* allow to use `eval` in tests ([#62](https://github.com/webpack/eslint-config-webpack/issues/62)) ([9b98e49](https://github.com/webpack/eslint-config-webpack/commit/9b98e496afaec20d6a60bf7e4d056d1464ddf035))
+* apply DOM rules only for the browser target ([#61](https://github.com/webpack/eslint-config-webpack/issues/61)) ([4607d8f](https://github.com/webpack/eslint-config-webpack/commit/4607d8f71032530485ae285d9058eb975dbbdd1a))
+* disable `no-control-regex` for tests ([#60](https://github.com/webpack/eslint-config-webpack/issues/60)) ([71b3d96](https://github.com/webpack/eslint-config-webpack/commit/71b3d96662c737f0bf787697d3a8464945395830))
+* relax test rules ([#64](https://github.com/webpack/eslint-config-webpack/issues/64)) ([98b7b67](https://github.com/webpack/eslint-config-webpack/commit/98b7b67628bc98f6a0e3027c18228c218cb984f0))
+* use node.js recommended rules by default ([#63](https://github.com/webpack/eslint-config-webpack/issues/63)) ([4745549](https://github.com/webpack/eslint-config-webpack/commit/4745549aa7d706146b57d2357b69da5930d439ee))
+
 ## [4.2.0](https://github.com/webpack/eslint-config-webpack/compare/v4.1.4...v4.2.0) (2025-06-27)
 
 
