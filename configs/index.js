@@ -6,6 +6,7 @@ import nodeConfig from "./node.js";
 import packageJSON from "./package-json.js";
 import stylisticConfig from "./stylistic.js";
 import typescriptConfig from "./typescript.js";
+import webpackSpecial from "./webpack-special.js";
 
 const configs = {
 	...browserConfig,
@@ -16,6 +17,7 @@ const configs = {
 	...stylisticConfig,
 	...typescriptConfig,
 	...packageJSON,
+	...webpackSpecial,
 };
 
 export default configs;
