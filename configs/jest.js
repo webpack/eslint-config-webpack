@@ -206,6 +206,9 @@ async function getJestRecommendedConfig() {
 			// Allow to output information in tests
 			"no-console": "off",
 
+			// Allow to use `eval` for tests
+			"no-eval": "off",
+
 			// Allow to have any regexps in tests, useful to clean up/etc
 			"no-control-regex": "off",
 
