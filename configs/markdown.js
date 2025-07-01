@@ -64,6 +64,8 @@ async function getMarkdownRecommendedConfig() {
 
 				"n/no-missing-require": "off",
 
+				"n/no-process-exit": "off",
+
 				"import/no-unresolved": "off",
 
 				"import/no-extraneous-dependencies": "off",
