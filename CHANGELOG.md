@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.2](https://github.com/webpack/eslint-config-webpack/compare/v4.2.1...v4.2.2) (2025-07-01)
+
+
+### Bug Fixes
+
+* allow to use `process-exit` in docs ([#65](https://github.com/webpack/eslint-config-webpack/issues/65)) ([06570d4](https://github.com/webpack/eslint-config-webpack/commit/06570d4927d610e465798e7c12d29939e2522cf7))
+
 ### [4.2.1](https://github.com/webpack/eslint-config-webpack/compare/v4.2.0...v4.2.1) (2025-07-01)
 
 
