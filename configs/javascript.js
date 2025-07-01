@@ -885,13 +885,17 @@ const unicornRules = {
 
 	"unicorn/prefer-default-parameters": "error",
 
-	"unicorn/prefer-dom-node-append": "error",
+	// Not here, define only for `browsers`
+	// "unicorn/prefer-dom-node-append": "error",
 
-	"unicorn/prefer-dom-node-dataset": "error",
+	// Not here, define only for `browsers`
+	// "unicorn/prefer-dom-node-dataset": "error",
 
-	"unicorn/prefer-dom-node-remove": "error",
+	// Not here, define only for `browsers`
+	// "unicorn/prefer-dom-node-remove": "error",
 
-	"unicorn/prefer-dom-node-text-content": "error",
+	// Not here, define only for `browsers`
+	// "unicorn/prefer-dom-node-text-content": "error",
 
 	"unicorn/prefer-event-target": "error",
 
@@ -907,7 +911,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/prefer-json-parse-buffer": "off",
 
-	"unicorn/prefer-keyboard-event-key": "error",
+	// Not here, define only for `browsers`
+	// "unicorn/prefer-keyboard-event-key": "error",
 
 	"unicorn/prefer-logical-operator-over-ternary": "error",
 
@@ -918,7 +923,8 @@ const unicornRules = {
 	// `| 0` is faster
 	// "unicorn/prefer-math-trunc": "off",
 
-	"unicorn/prefer-modern-dom-apis": "error",
+	// Not here, define only for `browsers`
+	// "unicorn/prefer-modern-dom-apis": "error",
 
 	"unicorn/prefer-modern-math-apis": "error",
 
@@ -941,7 +947,8 @@ const unicornRules = {
 
 	"unicorn/prefer-prototype-methods": "error",
 
-	"unicorn/prefer-query-selector": "error",
+	// Not here, define only for `browsers`
+	// "unicorn/prefer-query-selector": "error",
 
 	// No need
 	// "unicorn/prefer-reflect-apply": "off",
