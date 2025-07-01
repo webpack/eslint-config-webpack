@@ -60,6 +60,10 @@ async function getMarkdownRecommendedConfig() {
 
 				"n/no-unpublished-import": "off",
 
+				"n/no-missing-import": "off",
+
+				"n/no-missing-require": "off",
+
 				"import/no-unresolved": "off",
 
 				"import/no-extraneous-dependencies": "off",

@@ -38,11 +38,11 @@ const commonRules = {
 	// Deprecated
 	// "n/no-hide-core-modules": "error",
 
-	// From recommended
-	// "n/no-missing-import": "error",
+	// We have `import/no-unresolved` rule
+	"n/no-missing-import": "off",
 
-	// From recommended
-	// "n/no-missing-require": "error",
+	// We have `import/no-unresolved` rule
+	"n/no-missing-require": "off",
 
 	// No need
 	// "n/no-mixed-requires": "error",
@@ -144,6 +144,7 @@ async function getCommonJSConfig() {
 			import: importPlugin,
 		},
 		rules: {
+			...nodeConfig.rules,
 			...commonRules,
 			"n/exports-style": "error",
 			"n/no-path-concat": "error",
@@ -200,6 +201,7 @@ async function getModuleConfig() {
 			import: importPlugin,
 		},
 		rules: {
+			...nodeConfig.rules,
 			...commonRules,
 			"import/extensions": [
 				"error",
