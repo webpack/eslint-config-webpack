@@ -1,0 +1,13 @@
+{
+  "name": "module-package",
+  "version": "1.0.0",
+  "description": "Test",
+  "type": "module",
+  "dependencies": {
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "prop-types": "^15.8.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
