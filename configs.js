@@ -216,20 +216,6 @@ function getTypescriptJSdocConfig() {
  * @returns {Promise<Record<string, string>>} config
  */
 function getTypescriptConfig() {
-	if (packageJson === null) {
-		return [];
-	}
-
-	const dependencies = packageJson.dependencies || [];
-	const devDependencies = packageJson.devDependencies || [];
-
-	if (
-		typeof dependencies.typescript === "undefined" &&
-		typeof devDependencies.typescript === "undefined"
-	) {
-		return [];
-	}
-
 	const tsconfigJson = getJsonFile("tsconfig.json");
 
 	const isNoEmitEnabled =
@@ -265,6 +251,23 @@ function getTypescriptConfig() {
 /**
  * @returns {Promise<Record<string, string>>} config
  */
+function getReactConfig() {
+	if (packageJson === null) {
+		return [];
+	}
+
+	const dependencies = packageJson.dependencies || [];
+	const devDependencies = packageJson.devDependencies || [];
+
+	return typeof dependencies.react !== "undefined" ||
+		typeof devDependencies.react !== "undefined"
+		? configs["react/recommended"]
+		: [];
+}
+
+/**
+ * @returns {Promise<Record<string, string>>} config
+ */
 function getJestConfig() {
 	if (packageJson === null) {
 		return [];
@@ -282,6 +285,7 @@ function getJestConfig() {
 const javascriptConfig = getJavascriptConfig();
 const typescriptJSDocConfig = getTypescriptJSdocConfig();
 const typescriptConfig = getTypescriptConfig();
+const reactConfig = getReactConfig();
 const jestConfig = getJestConfig();
 
 configs.recommended = [
@@ -292,6 +296,7 @@ configs.recommended = [
 	javascriptConfig,
 	typescriptJSDocConfig,
 	typescriptConfig,
+	reactConfig,
 	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
@@ -304,6 +309,7 @@ configs["recommended-module"] = [
 	javascriptConfig,
 	typescriptJSDocConfig,
 	typescriptConfig,
+	reactConfig,
 	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
@@ -316,6 +322,7 @@ configs["recommended-commonjs"] = [
 	javascriptConfig,
 	typescriptJSDocConfig,
 	typescriptConfig,
+	reactConfig,
 	jestConfig,
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],

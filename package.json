@@ -53,10 +53,13 @@
     "eslint-plugin-jsdoc": "^51.2.3",
     "eslint-plugin-n": "^17.20.0",
     "eslint-plugin-prettier": "^5.5.0",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-unicorn": "^59.0.1",
     "globals": "^16.2.0",
     "jest": "^30.0.2",
     "prettier": "^3.6.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "standard-version": "^9.5.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.35.0"
@@ -72,6 +75,7 @@
     "eslint-plugin-jsdoc": ">= 50.7.1",
     "eslint-plugin-n": ">= 17.19.0",
     "eslint-plugin-prettier": ">= 5.4.1",
+    "eslint-plugin-react": ">= 7.37.5",
     "eslint-plugin-unicorn": ">= 59.0.1",
     "globals": ">= 16.2.0",
     "prettier": ">= 3.5.3",
@@ -86,6 +90,9 @@
       "optional": true
     },
     "eslint-plugin-jsdoc": {
+      "optional": true
+    },
+    "eslint-plugin-react": {
       "optional": true
     },
     "eslint-plugin-n": {
