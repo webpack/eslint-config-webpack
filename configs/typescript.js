@@ -274,6 +274,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 	};
 }
 
+const allExtensions = [...typescriptExtensions, ...javascriptExtensions];
+
 /**
  * @returns {Promise<Record<string, string>>} config
  */
@@ -316,6 +318,18 @@ async function getTypescriptRecommendedConfig() {
 		},
 		plugins: {
 			...baseConfig.plugins,
+		},
+		settings: {
+			"import/extensions": allExtensions,
+			"import/external-module-folders": ["node_modules", "node_modules/@types"],
+			"import/parsers": {
+				"@typescript-eslint/parser": typescriptExtensions,
+			},
+			"import/resolver": {
+				node: {
+					extensions: allExtensions,
+				},
+			},
 		},
 		rules: {
 			...eslintRecommendedConfig.rules,
@@ -720,6 +734,9 @@ async function getTypescriptRecommendedConfig() {
 
 			// No need
 			// "use-unknown-in-catch-callback-variable": "error",
+
+			// TypeScript compilation already ensures that named imports exist in the referenced module
+			"import/named": "off",
 
 			// TypeScript handles this for us
 			"import/no-unresolved": "off",
