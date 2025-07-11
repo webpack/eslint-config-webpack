@@ -1,5 +1,5 @@
-const javascriptExtensions = [".js", ".cjs", ".mjs", ".jsx"];
-const typescriptExtensions = [".ts", ".cts", ".mts", ".tsx"];
+const javascriptExtensions = [".js", ".jsx", ".cjs", ".mjs"];
+const typescriptExtensions = [".ts", ".tsx", ".cts", ".mts"];
 const allExtensions = [...javascriptExtensions, ...typescriptExtensions];
 
 export { allExtensions, javascriptExtensions, typescriptExtensions };

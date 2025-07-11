@@ -1,4 +1,5 @@
 import otherMod from "././other-module.cjs";
+import myNumber from "./my-dirty-modules";
 import { a, b } from "./my-module.js";
 
 const commonJSModule = require("./module-js-common.js");
@@ -22,3 +23,4 @@ sum(foo, bar);
 sum(a, b);
 sum(otherMod.a, otherMod.b);
 sum(commonJSModule.a, commonJSModule.b);
+sum(myNumber, myNumber);
