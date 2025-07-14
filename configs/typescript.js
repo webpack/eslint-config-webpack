@@ -82,8 +82,13 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// typescript does it
 			// "jsdoc/check-syntax": "error",
 
-			// From recommended
-			// "jsdoc/check-tag-names": "error",
+			// Avoid conflict with jest special comment
+			"jsdoc/check-tag-names": [
+				"error",
+				{
+					definedTags: ["jest-environment"],
+				},
+			],
 
 			// No need
 			// "jsdoc/check-template-names": "error",
