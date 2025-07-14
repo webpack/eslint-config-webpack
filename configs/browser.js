@@ -1,4 +1,5 @@
 import importPlugin from "eslint-plugin-import";
+import unicornPlugin from "eslint-plugin-unicorn";
 import globals from "globals";
 
 const recommendedBrowserConfig = {
@@ -8,6 +9,7 @@ const recommendedBrowserConfig = {
 		},
 	},
 	plugins: {
+		unicorn: unicornPlugin,
 		import: importPlugin,
 	},
 	rules: {
