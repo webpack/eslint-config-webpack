@@ -54,6 +54,8 @@ async function getMarkdownRecommendedConfig() {
 
 				"no-console": "off",
 
+				"no-new": "off",
+
 				"unicorn/no-unused-properties": "off",
 
 				"n/no-unpublished-require": "off",
