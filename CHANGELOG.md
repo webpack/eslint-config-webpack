@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.1](https://github.com/webpack/eslint-config-webpack/compare/v4.3.0...v4.3.1) (2025-07-14)
+
+
+### Bug Fixes
+
+* disable `@typescript-eslint/no-unused-vars` for markdown files ([#69](https://github.com/webpack/eslint-config-webpack/issues/69)) ([fcbf2a3](https://github.com/webpack/eslint-config-webpack/commit/fcbf2a346ca6b39b591733bf078f0f617ef6bbd3))
+* improve react support ([64c1204](https://github.com/webpack/eslint-config-webpack/commit/64c12048e4e5e9b543b83fff15f66a0014cbb320))
+* improve typescript support ([#67](https://github.com/webpack/eslint-config-webpack/issues/67)) ([6750fc3](https://github.com/webpack/eslint-config-webpack/commit/6750fc3b2fe46933b8ca86956e38855b0159de37))
+
 ## [4.3.0](https://github.com/webpack/eslint-config-webpack/compare/v4.2.2...v4.3.0) (2025-07-01)
 
 
