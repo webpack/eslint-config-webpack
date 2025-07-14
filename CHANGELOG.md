@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.2](https://github.com/webpack/eslint-config-webpack/compare/v4.3.1...v4.3.2) (2025-07-14)
+
+
+### Bug Fixes
+
+* loading react plugin ([44a2d90](https://github.com/webpack/eslint-config-webpack/commit/44a2d9096f0276ffff8561a2dc5549094d4dfec1))
+* markdown files glob ([#71](https://github.com/webpack/eslint-config-webpack/issues/71)) ([fae0010](https://github.com/webpack/eslint-config-webpack/commit/fae0010e081100639d7d6df3f9b33e04df682d31))
+
 ### [4.3.1](https://github.com/webpack/eslint-config-webpack/compare/v4.3.0...v4.3.1) (2025-07-14)
 
 
