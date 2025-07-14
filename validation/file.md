@@ -26,3 +26,7 @@ function run() {
 
 run();
 ```
+
+```js
+new URL("./test");
+```
