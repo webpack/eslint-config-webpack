@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.3](https://github.com/webpack/eslint-config-webpack/compare/v4.3.2...v4.3.3) (2025-07-14)
+
+
+### Bug Fixes
+
+* avoid jest special comments to lint ([#72](https://github.com/webpack/eslint-config-webpack/issues/72)) ([4fbe4b0](https://github.com/webpack/eslint-config-webpack/commit/4fbe4b0115c3603a568c1b899affa0d6a3076948))
+* disable `@typescript-eslint/triple-slash-reference` for markdown ([#74](https://github.com/webpack/eslint-config-webpack/issues/74)) ([a11f2cb](https://github.com/webpack/eslint-config-webpack/commit/a11f2cb0019c9d3f5665b59d2df9c94ba7a8a8a7))
+* disable `no-new` rule for markdown ([#73](https://github.com/webpack/eslint-config-webpack/issues/73)) ([4b2e171](https://github.com/webpack/eslint-config-webpack/commit/4b2e17151e543dac5cbc40329683088899952540))
+
 ### [4.3.2](https://github.com/webpack/eslint-config-webpack/compare/v4.3.1...v4.3.2) (2025-07-14)
 
 
