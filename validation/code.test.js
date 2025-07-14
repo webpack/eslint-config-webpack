@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 describe("name", () => {
 	it("test #1", () => {
 		const data = { type: "coords", x: 1, y: 2 };
