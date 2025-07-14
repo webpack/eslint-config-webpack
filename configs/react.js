@@ -5,7 +5,7 @@ async function getReactRecommendedConfig() {
 	let reactPlugin;
 
 	try {
-		reactPlugin = (await import("eslint-plugin-jest")).default;
+		reactPlugin = (await import("eslint-plugin-react")).default;
 		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
 	} catch (_err) {
 		// Nothing
@@ -13,7 +13,7 @@ async function getReactRecommendedConfig() {
 
 	const { recommended, "jsx-runtime": jsxRuntime } = (reactPlugin &&
 		reactPlugin.configs &&
-		reactPlugin.configs.flat) || { recommended: {}, ["jsx-runtime"]: {} };
+		reactPlugin.configs.flat) || { recommended: {}, "jsx-runtime": {} };
 
 	return {
 		...recommended,
