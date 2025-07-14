@@ -71,6 +71,8 @@ async function getMarkdownRecommendedConfig() {
 				"import/no-extraneous-dependencies": "off",
 
 				"jsdoc/require-jsdoc": "off",
+
+				"@typescript-eslint/no-unused-vars": "off",
 			},
 		},
 	];
