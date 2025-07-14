@@ -86,7 +86,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 			"jsdoc/check-tag-names": [
 				"error",
 				{
-					definedTags: ["jest-environment"],
+					definedTags: ["jest-environment", "jest-environment-options"],
 				},
 			],
 
