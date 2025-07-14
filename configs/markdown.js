@@ -22,7 +22,7 @@ async function getMarkdownRecommendedConfig() {
 		},
 		{
 			name: "markdown/code-blocks/js",
-			files: ["**/*.md/*.js"],
+			files: ["**/*.md/*.js", "**/*.md/*.ts"],
 			languageOptions: {
 				sourceType: "module",
 				parserOptions: {
