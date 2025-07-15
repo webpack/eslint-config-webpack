@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.4.0](https://github.com/webpack/eslint-config-webpack/compare/v4.3.4...v4.4.0) (2025-07-15)
+
+
+### Features
+
+* new browsers and universal presets ([63c9d13](https://github.com/webpack/eslint-config-webpack/commit/63c9d13326113a130c96af9a1cd1e09ea38f7bbf))
+
+
+### Bug Fixes
+
+* add `jest-environment-options` to ignore typescript jsdoc errors ([#76](https://github.com/webpack/eslint-config-webpack/issues/76)) ([08c3da3](https://github.com/webpack/eslint-config-webpack/commit/08c3da39aa47e7d1bcc82e30d6d936512bdc0779))
+
 ### [4.3.4](https://github.com/webpack/eslint-config-webpack/compare/v4.3.3...v4.3.4) (2025-07-14)
 
 
