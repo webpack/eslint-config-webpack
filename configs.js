@@ -288,7 +288,9 @@ const typescriptConfig = getTypescriptConfig();
 const reactConfig = getReactConfig();
 const jestConfig = getJestConfig();
 
-configs.recommended = [
+// TODO remove old alises (not started with `node-`) in the next major release
+
+const recommended = [
 	globalIgnores(ignorePaths),
 	isModule
 		? configs["node/mixed-module-and-commonjs"]
@@ -303,7 +305,10 @@ configs.recommended = [
 	configs["package-json/recommended"],
 ];
 
-configs["recommended-module"] = [
+configs.recommended = recommended;
+configs["node-recommended"] = recommended;
+
+const nodeRecommendedModule = [
 	globalIgnores(ignorePaths),
 	configs["node/mixed-module-and-commonjs"],
 	javascriptConfig,
@@ -316,7 +321,10 @@ configs["recommended-module"] = [
 	configs["package-json/recommended"],
 ];
 
-configs["recommended-commonjs"] = [
+configs["recommended-module"] = nodeRecommendedModule;
+configs["node-recommended-module"] = nodeRecommendedModule;
+
+const nodeRecommendedCommonJS = [
 	globalIgnores(ignorePaths),
 	configs["node/mixed-commonjs-and-module"],
 	javascriptConfig,
@@ -329,7 +337,10 @@ configs["recommended-commonjs"] = [
 	configs["package-json/recommended"],
 ];
 
-configs["recommended-dirty"] = [
+configs["recommended-commonjs"] = nodeRecommendedCommonJS;
+configs["node-recommended-commonjs"] = nodeRecommendedCommonJS;
+
+const nodeRecommendedDirty = [
 	globalIgnores(ignorePaths),
 	configs["node/mixed-dirty"],
 	javascriptConfig,
@@ -340,5 +351,58 @@ configs["recommended-dirty"] = [
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
 ];
+
+configs["recommended-dirty"] = nodeRecommendedDirty;
+configs["node-recommended-dirty"] = nodeRecommendedDirty;
+
+const browserRecommended = [
+	globalIgnores(ignorePaths),
+	configs["browser/recommended"],
+	javascriptConfig,
+	typescriptJSDocConfig,
+	typescriptConfig,
+	jestConfig,
+	configs["markdown/recommended"],
+	configs["stylistic/recommended"],
+	configs["package-json/recommended"],
+];
+
+configs["browser-recommended"] = browserRecommended;
+
+const browserOutdatedRecommended = [
+	globalIgnores(ignorePaths),
+	configs["browser/recommended-outdated"],
+	{
+		...configs["javascript/es5"],
+		languageOptions: {
+			ecmaVersion: "latest",
+		},
+	},
+	typescriptJSDocConfig,
+	typescriptConfig,
+	jestConfig,
+	configs["markdown/recommended"],
+	configs["stylistic/recommended"],
+	configs["package-json/recommended"],
+];
+
+configs["browser-outdated-recommended"] = browserOutdatedRecommended;
+
+const universalRecommended = [
+	globalIgnores(ignorePaths),
+	configs["browser/recommended"],
+	isModule
+		? configs["node/mixed-module-and-commonjs"]
+		: configs["node/mixed-commonjs-and-module"],
+	javascriptConfig,
+	typescriptJSDocConfig,
+	typescriptConfig,
+	jestConfig,
+	configs["markdown/recommended"],
+	configs["stylistic/recommended"],
+	configs["package-json/recommended"],
+];
+
+configs["universal-recommended"] = universalRecommended;
 
 export { default } from "./configs/index.js";
