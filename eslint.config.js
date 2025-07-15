@@ -8,6 +8,9 @@ export default defineConfig([
 			"./validation/commonjs-package/**/*",
 			"./validation/module-package/**/*",
 			"./validation/dirty-package/**/*",
+			"./validation/browser/**/*",
+			"./validation/browser-outdated/**/*",
+			"./validation/universal/**/*",
 		],
 		extends: [config],
 	},
@@ -31,6 +34,21 @@ export default defineConfig([
 		extends: [configs["recommended-dirty"]],
 		rules: {
 			"n/no-unpublished-require": "off",
+		},
+	},
+	{
+		files: ["./validation/browser/**/*"],
+		extends: [configs["browser-recommended"]],
+	},
+	{
+		files: ["./validation/browser-outdated/**/*"],
+		extends: [configs["browser-outdated-recommended"]],
+	},
+	{
+		files: ["./validation/universal/**/*"],
+		extends: [configs["universal-recommended"]],
+		rules: {
+			"n/no-unsupported-features/node-builtins": "off",
 		},
 	},
 	{

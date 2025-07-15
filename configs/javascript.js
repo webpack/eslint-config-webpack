@@ -1214,6 +1214,7 @@ function getConfig(esVersion) {
 	};
 
 	if (esVersion === 5) {
+		config.rules["arrow-body-style"] = "off";
 		config.rules["object-shorthand"] = "off";
 		config.rules["no-var"] = "off";
 		config.rules["prefer-arrow-callback"] = "off";
@@ -1226,6 +1227,8 @@ function getConfig(esVersion) {
 		config.rules["prefer-template"] = "off";
 		config.rules["no-template-curly-in-string"] = "off";
 		config.rules["unicorn/prefer-spread"] = "off";
+		config.rules["unicorn/prefer-includes"] = "off";
+		config.rules["unicorn/no-array-for-each"] = "off";
 	}
 
 	if (esVersion < 2018) {
