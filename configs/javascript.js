@@ -1236,6 +1236,7 @@ function getConfig(esVersion) {
 	}
 
 	if (esVersion < 2019) {
+		config.rules["unicorn/prefer-object-from-entries"] = "off";
 		config.rules["unicorn/prefer-array-flat"] = "off";
 		config.rules["unicorn/prefer-array-flat-map"] = "off";
 		config.rules["unicorn/prefer-string-trim-start-end"] = "off";
