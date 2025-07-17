@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.1](https://github.com/webpack/eslint-config-webpack/compare/v4.4.0...v4.4.1) (2025-07-17)
+
+
+### Bug Fixes
+
+* disable `unicorn/prefer-object-from-entries` for old es versions ([#78](https://github.com/webpack/eslint-config-webpack/issues/78)) ([bb28a00](https://github.com/webpack/eslint-config-webpack/commit/bb28a0039102ef8ec4bca29b37e68ee34d0d8f70))
+
 ## [4.4.0](https://github.com/webpack/eslint-config-webpack/compare/v4.3.4...v4.4.0) (2025-07-15)
 
 
