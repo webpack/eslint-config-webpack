@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.2](https://github.com/webpack/eslint-config-webpack/compare/v4.4.1...v4.4.2) (2025-07-22)
+
+
+### Bug Fixes
+
+* allow to use `any` in docs ([#79](https://github.com/webpack/eslint-config-webpack/issues/79)) ([e8056d7](https://github.com/webpack/eslint-config-webpack/commit/e8056d7aac139bb45c6ce7999133a0597a648dc7))
+
 ### [4.4.1](https://github.com/webpack/eslint-config-webpack/compare/v4.4.0...v4.4.1) (2025-07-17)
 
 
