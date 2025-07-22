@@ -30,3 +30,7 @@ run();
 ```js
 new URL("./test");
 ```
+
+```typescript
+type MyRecord = Record<string, any>;
+```
