@@ -747,6 +747,9 @@ const unicornRules = {
 	// "unicorn/no-array-reduce": "off",
 
 	// No need
+	// "unicorn/no-array-reverse": "off",
+
+	// No need
 	// "unicorn/no-await-expression-member": "off",
 
 	"unicorn/no-await-in-promise-methods": "error",
@@ -837,6 +840,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-unused-properties": "off",
 
+	"unicorn/no-useless-error-capture-stack-trace": "error",
+
 	"unicorn/no-useless-fallback-in-spread": "error",
 
 	"unicorn/no-useless-length-check": "error",
@@ -877,6 +882,9 @@ const unicornRules = {
 	// "unicorn/prefer-at": "off",
 
 	"unicorn/prefer-blob-reading-methods": "error",
+
+	// TODO enable in future
+	"unicorn/prefer-class-fields": "error",
 
 	// No need
 	// "unicorn/prefer-code-point": "error",
@@ -997,6 +1005,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/require-array-join-separator": "error",
 
+	"unicorn/require-module-specifiers": "error",
+
 	// No need
 	// "unicorn/require-number-to-fixed-digits-argument": "error",
 
@@ -1026,7 +1036,8 @@ const importRules = {
 	// No need
 	// "import/no-deprecated": "off",
 
-	"import/no-empty-named-blocks": "error",
+	// No need, we have `unicorn/require-module-specifiers`
+	// "import/no-empty-named-blocks": "off",
 
 	"import/no-extraneous-dependencies": "error",
 

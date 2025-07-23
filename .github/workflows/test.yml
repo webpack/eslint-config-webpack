@@ -24,7 +24,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           architecture: ${{ steps.calculate_architecture.outputs.result }}
           cache: "npm"
-      - run: npm install -D eslint-plugin-jsdoc@50
+      - run: npm install -D eslint-plugin-jsdoc@50 eslint-plugin-unicorn@59
         if: matrix.node-version == '18.x'
       - run: npm ci
       - run: npm run lint
