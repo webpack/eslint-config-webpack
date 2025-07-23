@@ -1,3 +1,9 @@
+import { readFileSync } from "node:fs";
+// eslint-disable-next-line no-duplicate-imports
+import { type PathLike, type PathOrFileDescriptor } from "node:fs";
+// eslint-disable-next-line import/consistent-type-specifier-style, no-duplicate-imports
+import type { TimeLike } from "node:fs";
+
 import sum from "./module.js";
 // eslint-disable-next-line import/extensions
 import otherSumAgain from "./my-module";
@@ -13,6 +19,18 @@ otherSumAgain(a, b);
 function getSomething<T>(value: T): T {
 	return value;
 }
+
+const isFunction = typeof readFileSync === "function";
+
+getSomething(isFunction);
+
+const myPath: PathLike = new URL("file.txt", import.meta.url);
+const myPath2: PathOrFileDescriptor = new URL("file.text", import.meta.url);
+const myTime: TimeLike = new Date();
+
+getSomething(myPath);
+getSomething(myPath2);
+getSomething(myTime);
 
 getSomething(otherB);
 

@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18.x, 20.x, 22.x, 24.x]
+        node-version: [20.x, 22.x, 24.x]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -24,8 +24,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           architecture: ${{ steps.calculate_architecture.outputs.result }}
           cache: "npm"
-      - run: npm install -D eslint-plugin-jsdoc@50
-        if: matrix.node-version == '18.x'
       - run: npm ci
       - run: npm run lint
       - uses: codecov/codecov-action@v5
