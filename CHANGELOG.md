@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.5.0](https://github.com/webpack/eslint-config-webpack/compare/v4.4.2...v4.5.0) (2025-07-23)
+
+
+### Features
+
+* update deps ([#82](https://github.com/webpack/eslint-config-webpack/issues/82)) ([651d96b](https://github.com/webpack/eslint-config-webpack/commit/651d96b6420e3d833baad8169a7bb543b0ba308d))
+
+
+### Bug Fixes
+
+* deprecation warning ([#81](https://github.com/webpack/eslint-config-webpack/issues/81)) ([d5f6101](https://github.com/webpack/eslint-config-webpack/commit/d5f61014038d59ad01e3fd91a7e5478a0bdf6a73))
+* the `engines` field ([#83](https://github.com/webpack/eslint-config-webpack/issues/83)) ([abfc975](https://github.com/webpack/eslint-config-webpack/commit/abfc9758834f49336db1dd850d222feb125df2a3))
+
 ### [4.4.2](https://github.com/webpack/eslint-config-webpack/compare/v4.4.1...v4.4.2) (2025-07-22)
 
 
