@@ -16,7 +16,7 @@ const recommendedConfig = {
 		"@stylistic/quotes": [
 			"error",
 			"double",
-			{ avoidEscape: true, allowTemplateLiterals: false },
+			{ avoidEscape: true, allowTemplateLiterals: "never" },
 		],
 		"@stylistic/spaced-comment": [
 			"error",

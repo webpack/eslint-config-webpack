@@ -947,3 +947,25 @@ export const aaa = 1;
 sumFn(1, 2);
 
 export const bbb = 1;
+
+const backtick1 = `back
+tick`;
+// eslint-disable-next-line @stylistic/quotes
+const backtick2 = `back\ntick`;
+const backtick3 = tag`backtick`;
+// eslint-disable-next-line @stylistic/quotes
+const backtick4 = `single`;
+// eslint-disable-next-line @stylistic/quotes
+const backtick5 = `\``;
+// eslint-disable-next-line @stylistic/quotes
+const backtick6 = `"`;
+
+/**
+ * @param {...string[]} args args
+ * @returns {string} concated strings
+ */
+function concat(...args) {
+	return args.join("\n");
+}
+
+concat(backtick1, backtick2, backtick3, backtick4, backtick5, backtick6);
