@@ -883,7 +883,6 @@ const unicornRules = {
 
 	"unicorn/prefer-blob-reading-methods": "error",
 
-	// TODO enable in future
 	"unicorn/prefer-class-fields": "error",
 
 	// No need
@@ -1246,6 +1245,8 @@ function getConfig(esVersion) {
 		config.rules["prefer-object-spread"] = "off";
 	}
 
+	// unicorn/prefer-class-fields
+
 	if (esVersion < 2019) {
 		config.rules["unicorn/prefer-object-from-entries"] = "off";
 		config.rules["unicorn/prefer-array-flat"] = "off";
@@ -1269,6 +1270,7 @@ function getConfig(esVersion) {
 		config.rules["prefer-object-has-own"] = "off";
 		config.rules["unicorn/prefer-structured-clone"] = "off";
 		config.rules["unicorn/prefer-top-level-await"] = "off";
+		config.rules["unicorn/prefer-class-fields"] = "off";
 	}
 
 	return config;
