@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.5.1](https://github.com/webpack/eslint-config-webpack/compare/v4.5.0...v4.5.1) (2025-07-25)
+
+
+### Bug Fixes
+
+* disable `unicorn/prefer-class-fields` for old es versions ([#84](https://github.com/webpack/eslint-config-webpack/issues/84)) ([83b9784](https://github.com/webpack/eslint-config-webpack/commit/83b978453d37f650caacffe2b68767e73b331544))
+
 ## [4.5.0](https://github.com/webpack/eslint-config-webpack/compare/v4.4.2...v4.5.0) (2025-07-23)
 
 
