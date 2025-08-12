@@ -374,6 +374,36 @@ const browserRecommended = [
 
 configs["browser-recommended"] = browserRecommended;
 
+const browserOutdatedRecommendedScript = [
+	globalIgnores(ignorePaths),
+	configs["browser/recommended-outdated-script"],
+	configs["javascript/es5"],
+	typescriptJSDocConfig,
+	typescriptConfig,
+	jestConfig,
+	configs["markdown/recommended"],
+	configs["stylistic/recommended"],
+	configs["package-json/recommended"],
+];
+
+configs["browser-outdated-recommended-script"] =
+	browserOutdatedRecommendedScript;
+
+const browserOutdatedRecommendedCommonjs = [
+	globalIgnores(ignorePaths),
+	configs["browser/recommended-outdated-commonjs"],
+	configs["javascript/es5"],
+	typescriptJSDocConfig,
+	typescriptConfig,
+	jestConfig,
+	configs["markdown/recommended"],
+	configs["stylistic/recommended"],
+	configs["package-json/recommended"],
+];
+
+configs["browser-outdated-recommended-commonjs"] =
+	browserOutdatedRecommendedCommonjs;
+
 const browserOutdatedRecommendedModule = [
 	globalIgnores(ignorePaths),
 	configs["browser/recommended-outdated-module"],
@@ -396,21 +426,6 @@ configs["browser-outdated-recommended"] = browserOutdatedRecommendedModule;
 
 configs["browser-outdated-recommended-module"] =
 	browserOutdatedRecommendedModule;
-
-const browserOutdatedRecommendedScript = [
-	globalIgnores(ignorePaths),
-	configs["browser/recommended-outdated-script"],
-	configs["javascript/es5"],
-	typescriptJSDocConfig,
-	typescriptConfig,
-	jestConfig,
-	configs["markdown/recommended"],
-	configs["stylistic/recommended"],
-	configs["package-json/recommended"],
-];
-
-configs["browser-outdated-recommended-script"] =
-	browserOutdatedRecommendedScript;
 
 const universalRecommended = [
 	globalIgnores(ignorePaths),
