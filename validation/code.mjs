@@ -5,6 +5,9 @@ import code from "./module.cjs";
 import { aaa, bbb } from "./module.cjs";
 import myOtherCode from "./module.js";
 
+// eslint-disable-next-line no-unused-vars, import/order, import/no-extraneous-dependencies
+import * as scope from "eslint-scope";
+
 // eslint-disable-next-line import/no-unresolved
 import("./unknown.ext");
 

@@ -9,6 +9,9 @@ import { myVar } from "./without-extension";
 
 import "./style.css";
 
+// eslint-disable-next-line no-unused-vars, import/order, import/no-extraneous-dependencies
+import * as scope from "eslint-scope";
+
 notFoo();
 
 const result = sumFn(1, 2);

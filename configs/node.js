@@ -29,11 +29,11 @@ const commonRules = {
 	// From recommended
 	// "n/no-exports-assign": "error",
 
-	// From recommended
-	// "n/no-extraneous-import": "error",
+	// We have `import/no-extraneous-dependencies` rule
+	"n/no-extraneous-import": "off",
 
-	// From recommended
-	// "n/no-extraneous-require": "error",
+	// We have `import/no-extraneous-dependencies` rule
+	"n/no-extraneous-require": "off",
 
 	// Deprecated
 	// "n/no-hide-core-modules": "error",

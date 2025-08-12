@@ -1,6 +1,6 @@
 import { defineConfig } from "eslint/config";
-import configs from "../eslint-config-webpack/configs.js";
-import config from "../eslint-config-webpack/index.js";
+import configs from "./configs.js";
+import config from "./index.js";
 
 export default defineConfig([
 	{
