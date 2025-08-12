@@ -288,8 +288,6 @@ const typescriptConfig = getTypescriptConfig();
 const reactConfig = getReactConfig();
 const jestConfig = getJestConfig();
 
-// TODO remove old alises (not started with `node-`) in the next major release
-
 const recommended = [
 	globalIgnores(ignorePaths),
 	isModule
@@ -305,7 +303,9 @@ const recommended = [
 	configs["package-json/recommended"],
 ];
 
+// TODO remove me in the next major release
 configs.recommended = recommended;
+
 configs["node-recommended"] = recommended;
 
 const nodeRecommendedModule = [
@@ -321,7 +321,9 @@ const nodeRecommendedModule = [
 	configs["package-json/recommended"],
 ];
 
+// TODO remove me in the next major release
 configs["recommended-module"] = nodeRecommendedModule;
+
 configs["node-recommended-module"] = nodeRecommendedModule;
 
 const nodeRecommendedCommonJS = [
@@ -337,7 +339,9 @@ const nodeRecommendedCommonJS = [
 	configs["package-json/recommended"],
 ];
 
+// TODO remove me in the next major release
 configs["recommended-commonjs"] = nodeRecommendedCommonJS;
+
 configs["node-recommended-commonjs"] = nodeRecommendedCommonJS;
 
 const nodeRecommendedDirty = [
@@ -351,8 +355,9 @@ const nodeRecommendedDirty = [
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
 ];
-
+// TODO remove me in the next major release
 configs["recommended-dirty"] = nodeRecommendedDirty;
+
 configs["node-recommended-dirty"] = nodeRecommendedDirty;
 
 const browserRecommended = [
@@ -369,9 +374,9 @@ const browserRecommended = [
 
 configs["browser-recommended"] = browserRecommended;
 
-const browserOutdatedRecommended = [
+const browserOutdatedRecommendedModule = [
 	globalIgnores(ignorePaths),
-	configs["browser/recommended-outdated"],
+	configs["browser/recommended-outdated-module"],
 	{
 		...configs["javascript/es5"],
 		languageOptions: {
@@ -386,7 +391,26 @@ const browserOutdatedRecommended = [
 	configs["package-json/recommended"],
 ];
 
-configs["browser-outdated-recommended"] = browserOutdatedRecommended;
+// TODO remove in the next major release
+configs["browser-outdated-recommended"] = browserOutdatedRecommendedModule;
+
+configs["browser-outdated-recommended-module"] =
+	browserOutdatedRecommendedModule;
+
+const browserOutdatedRecommendedScript = [
+	globalIgnores(ignorePaths),
+	configs["browser/recommended-outdated-script"],
+	configs["javascript/es5"],
+	typescriptJSDocConfig,
+	typescriptConfig,
+	jestConfig,
+	configs["markdown/recommended"],
+	configs["stylistic/recommended"],
+	configs["package-json/recommended"],
+];
+
+configs["browser-outdated-recommended-script"] =
+	browserOutdatedRecommendedScript;
 
 const universalRecommended = [
 	globalIgnores(ignorePaths),
