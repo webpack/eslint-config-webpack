@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0](https://github.com/webpack/eslint-config-webpack/compare/v4.5.1...v4.6.0) (2025-08-12)
+
+
+### Features
+
+* new browsers configurations ([#86](https://github.com/webpack/eslint-config-webpack/issues/86)) ([494fd38](https://github.com/webpack/eslint-config-webpack/commit/494fd3873dfcaf215690aa6544a3a6cb288008f7))
+
+
+### Bug Fixes
+
+* disable `n/no-extraneous-import` due `import/no-extraneous-dependencies` ([#85](https://github.com/webpack/eslint-config-webpack/issues/85)) ([c600bab](https://github.com/webpack/eslint-config-webpack/commit/c600babfce7f0cec17e40f1afd7b921a77b5a9d0))
+
 ### [4.5.1](https://github.com/webpack/eslint-config-webpack/compare/v4.5.0...v4.5.1) (2025-07-25)
 
 
