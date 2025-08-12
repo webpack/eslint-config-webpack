@@ -19,6 +19,9 @@ require("./unknown.unknown");
 
 require("./style.css");
 
+// eslint-disable-next-line no-unused-vars, import/order, import/no-extraneous-dependencies
+const scope = require("eslint-scope");
+
 code();
 otherSum(1, 2);
 
