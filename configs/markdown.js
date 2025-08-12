@@ -25,6 +25,7 @@ async function getMarkdownRecommendedConfig() {
 			files: ["**/*.md/*.js", "**/*.md/*.ts"],
 			languageOptions: {
 				sourceType: "module",
+				ecmaVersion: "latest",
 				parserOptions: {
 					ecmaFeatures: {
 						globalReturn: true,

@@ -9,6 +9,7 @@ export default defineConfig([
 			"./validation/module-package/**/*",
 			"./validation/dirty-package/**/*",
 			"./validation/browser/**/*",
+			"./validation/browser-es5/**/*",
 			"./validation/browser-outdated/**/*",
 			"./validation/universal/**/*",
 		],
@@ -17,21 +18,21 @@ export default defineConfig([
 	// For test purposes
 	{
 		files: ["./validation/commonjs-package/**/*"],
-		extends: [configs["recommended-commonjs"]],
+		extends: [configs["node-recommended-commonjs"]],
 		rules: {
 			"n/no-unpublished-require": "off",
 		},
 	},
 	{
 		files: ["./validation/module-package/**/*"],
-		extends: [configs["recommended-module"]],
+		extends: [configs["node-recommended-module"]],
 		rules: {
 			"n/no-unpublished-require": "off",
 		},
 	},
 	{
 		files: ["./validation/dirty-package/**/*"],
-		extends: [configs["recommended-dirty"]],
+		extends: [configs["node-recommended-dirty"]],
 		rules: {
 			"n/no-unpublished-require": "off",
 		},
@@ -39,6 +40,13 @@ export default defineConfig([
 	{
 		files: ["./validation/browser/**/*"],
 		extends: [configs["browser-recommended"]],
+	},
+	{
+		files: ["./validation/browser-es5/**/*"],
+		extends: [configs["browser-outdated-recommended-script"]],
+		rules: {
+			"n/no-unpublished-require": "off",
+		},
 	},
 	{
 		files: ["./validation/browser-outdated/**/*"],
@@ -57,9 +65,8 @@ export default defineConfig([
 			"n/hashbang": "off",
 		},
 	},
-	// For test purposes
 	{
 		files: ["./validation/webpack/**/*"],
-		extends: [configs["recommended-commonjs"], configs["webpack/special"]],
+		extends: [configs["node-recommended-commonjs"], configs["webpack/special"]],
 	},
 ]);

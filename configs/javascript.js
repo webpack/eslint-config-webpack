@@ -645,7 +645,7 @@ const suggestions = {
 	// No need
 	// "sort-vars": "off",
 
-	strict: ["error", "safe"],
+	strict: ["error", "global"],
 
 	"symbol-description": "error",
 
