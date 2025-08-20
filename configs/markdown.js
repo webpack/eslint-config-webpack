@@ -59,14 +59,28 @@ async function getMarkdownRecommendedConfig() {
 
 				"unicorn/no-unused-properties": "off",
 
+				// Allow to use any packages in documentation
 				"n/no-unpublished-require": "off",
 
+				// Allow to use any packages in documentation
 				"n/no-unpublished-import": "off",
 
+				// Allow to use any ES builtins in documentation
+				"m/no-unsupported-features/es-builtins": "off",
+
+				// Allow to use any ES syntax in documentation
+				"n/no-unsupported-features/es-syntax": "off",
+
+				// Allow to use any Node.js API in documentation
+				"n/no-unsupported-features/node-builtins": "off",
+
+				// Allow to use any packages in documentation
 				"n/no-missing-import": "off",
 
+				// Allow to use any packages in documentation
 				"n/no-missing-require": "off",
 
+				// Useful for documentation
 				"n/no-process-exit": "off",
 
 				"import/no-unresolved": "off",
