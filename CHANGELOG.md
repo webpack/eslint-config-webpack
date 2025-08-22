@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.2](https://github.com/webpack/eslint-config-webpack/compare/v4.6.1...v4.6.2) (2025-08-22)
+
+
+### Bug Fixes
+
+* do not apply typescript preset without tsconfig ([#89](https://github.com/webpack/eslint-config-webpack/issues/89)) ([f883516](https://github.com/webpack/eslint-config-webpack/commit/f883516201d635ad9068d8bf6093ff8d0d3e8057))
+
 ## [4.6.1](https://github.com/webpack/eslint-config-webpack/compare/v4.6.0...v4.7.0) (2025-08-20)
 
 
