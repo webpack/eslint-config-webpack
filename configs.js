@@ -218,6 +218,10 @@ function getTypescriptJSdocConfig() {
 function getTypescriptConfig() {
 	const tsconfigJson = getJsonFile("tsconfig.json");
 
+	if (!tsconfigJson) {
+		return {};
+	}
+
 	const isNoEmitEnabled =
 		(tsconfigJson &&
 			tsconfigJson.compilerOptions &&
