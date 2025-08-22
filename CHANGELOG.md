@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.3](https://github.com/webpack/eslint-config-webpack/compare/v4.6.2...v4.6.3) (2025-08-22)
+
+
+### Bug Fixes
+
+* typescript loading logic ([#90](https://github.com/webpack/eslint-config-webpack/issues/90)) ([a5018d6](https://github.com/webpack/eslint-config-webpack/commit/a5018d6038d2ed9a8adca6482939459b825c2d5d))
+
 ### [4.6.2](https://github.com/webpack/eslint-config-webpack/compare/v4.6.1...v4.6.2) (2025-08-22)
 
 
