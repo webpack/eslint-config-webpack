@@ -1,3 +1,5 @@
+import isTypescriptInstalled from "./utils/is-typescript-installed.js";
+
 /**
  * @returns {Promise<Record<string, string>>} config
  */
@@ -22,7 +24,9 @@ async function getMarkdownRecommendedConfig() {
 		},
 		{
 			name: "markdown/code-blocks/js",
-			files: ["**/*.md/*.js", "**/*.md/*.ts"],
+			files: isTypescriptInstalled
+				? ["**/*.md/*.js", "**/*.md/*.ts"]
+				: ["**/*.md/*.js"],
 			languageOptions: {
 				sourceType: "module",
 				ecmaVersion: "latest",
