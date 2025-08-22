@@ -24,7 +24,7 @@ async function getMarkdownRecommendedConfig() {
 		},
 		{
 			name: "markdown/code-blocks/js",
-			files: isTypescriptInstalled
+			files: isTypescriptInstalled()
 				? ["**/*.md/*.js", "**/*.md/*.ts"]
 				: ["**/*.md/*.js"],
 			languageOptions: {

@@ -2,7 +2,8 @@ import javascriptConfig from "@eslint/js";
 import importPlugin from "eslint-plugin-import";
 import unicornPlugin from "eslint-plugin-unicorn";
 import globals from "globals";
-import { allExtensions } from "./utils/extensions.js";
+import { allExtensions, javascriptExtensions } from "./utils/extensions.js";
+import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
 const possibleProblems = {
 	"array-callback-return": [
@@ -1182,20 +1183,23 @@ const importRules = {
  * @returns {Record<string, string | number>} config
  */
 function getConfig(esVersion) {
+	const extensions = isTypescriptInstalled()
+		? allExtensions
+		: javascriptExtensions;
 	const config = {
 		...javascriptConfig.configs.recommended,
 		name: `javascript/es${esVersion}`,
-		files: [`**/*.{${allExtensions.map((item) => item.slice(1)).join(",")}}`],
+		files: [`**/*.{${extensions.map((item) => item.slice(1)).join(",")}}`],
 		ignores: ["**/*.d.ts"],
 		settings: {
-			"import/extensions": allExtensions,
+			"import/extensions": extensions,
 			"import/ignore": [
 				"eslint-plugin-.*",
 				"\\.(coffee|scss|css|less|hbs|svg|md|jpg|jpeg|png|gif|webp|avif)$",
 			],
 			"import/resolver": {
 				node: {
-					extensions: [...allExtensions],
+					extensions: [...extensions],
 				},
 			},
 		},

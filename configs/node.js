@@ -1,5 +1,6 @@
 import importPlugin from "eslint-plugin-import";
 import globals from "globals";
+import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
 const commonRules = {
 	// No need
@@ -263,6 +264,16 @@ async function getDirtyConfig() {
 
 const dirtyConfig = await getDirtyConfig();
 
+const jsExtensions = isTypescriptInstalled()
+	? ["**/*.{js,jsx,ts,tsx}"]
+	: ["**/*.{js,jsx}"];
+const cjsExtensions = isTypescriptInstalled()
+	? ["**/*.{cjs,cts}"]
+	: ["**/*.{cjs}"];
+const mjsExtensions = isTypescriptInstalled()
+	? ["**/*.{mjs,mts}"]
+	: ["**/*.{mjs}"];
+
 export default {
 	"node/dirty": dirtyConfig,
 	"node/commonjs": commonjsConfig,
@@ -270,43 +281,43 @@ export default {
 	"node/recommended": moduleConfig,
 	"node/mixed-dirty": [
 		{
-			files: ["**/*.{js,jsx,ts,tsx}"],
+			files: jsExtensions,
 			...dirtyConfig,
 		},
 		{
-			files: ["**/*.{cjs,cts}"],
+			files: cjsExtensions,
 			...commonjsConfig,
 		},
 		{
-			files: ["**/*.{mjs,mts}"],
+			files: mjsExtensions,
 			...moduleConfig,
 		},
 	],
 	"node/mixed-module-and-commonjs": [
 		{
-			files: ["**/*.{js,jsx,ts,tsx}"],
+			files: jsExtensions,
 			...moduleConfig,
 		},
 		{
-			files: ["**/*.{cjs,cts}"],
+			files: cjsExtensions,
 			...commonjsConfig,
 		},
 		{
-			files: ["**/*.{mjs,mts}"],
+			files: mjsExtensions,
 			...moduleConfig,
 		},
 	],
 	"node/mixed-commonjs-and-module": [
 		{
-			files: ["**/*.{js,jsx,ts,tsx}"],
+			files: jsExtensions,
 			...commonjsConfig,
 		},
 		{
-			files: ["**/*.{cjs,cts}"],
+			files: cjsExtensions,
 			...commonjsConfig,
 		},
 		{
-			files: ["**/*.{mjs,mts}"],
+			files: mjsExtensions,
 			...moduleConfig,
 		},
 	],
