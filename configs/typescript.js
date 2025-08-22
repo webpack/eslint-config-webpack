@@ -279,8 +279,6 @@ async function getTypescriptJSDocRecommendedConfig() {
 	};
 }
 
-const allExtensions = [...typescriptExtensions, ...javascriptExtensions];
-
 /**
  * @returns {Promise<Record<string, string>>} config
  */
@@ -310,6 +308,8 @@ async function getTypescriptRecommendedConfig() {
 	const stylisticConfig = configs.stylistic.find(
 		(item) => item.name === "typescript-eslint/stylistic",
 	);
+
+	const allExtensions = [...typescriptExtensions, ...javascriptExtensions];
 
 	return {
 		...baseConfig,
