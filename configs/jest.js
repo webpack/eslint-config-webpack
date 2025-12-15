@@ -102,6 +102,8 @@ async function getJestRecommendedConfig() {
 			// No need
 			// "jest/no-test-return-statement": "error",
 
+			"jest/no-unneeded-async-expect-function": "error",
+
 			// No need
 			// "jest/no-untyped-mock-factory": "error",
 
@@ -164,6 +166,10 @@ async function getJestRecommendedConfig() {
 
 			"jest/prefer-to-contain": "error",
 
+			"jest/prefer-to-have-been-called": "error",
+
+			"jest/prefer-to-have-been-called-times": "error",
+
 			"jest/prefer-to-have-length": "error",
 
 			// No need
@@ -185,6 +191,9 @@ async function getJestRecommendedConfig() {
 
 			// From recommended
 			// "jest/valid-expect-in-promise": "error",
+
+			// No need
+			// "valid-mock-module-path": "off",
 
 			// From recommended
 			"jest/valid-title": [

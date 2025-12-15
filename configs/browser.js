@@ -45,6 +45,8 @@ const recommendedBrowserConfig = {
 		import: importPlugin,
 	},
 	rules: {
+		"unicorn/prefer-classlist-toggle": "error",
+
 		"unicorn/prefer-dom-node-append": "error",
 
 		"unicorn/prefer-dom-node-dataset": "error",
