@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.3](https://github.com/webpack/eslint-config-webpack/compare/v4.7.2...v4.7.3) (2025-12-15)
+
+
+### Bug Fixes
+
+* regression with `n/no-unsupported-features/es-syntax` rule and ES modules ([#94](https://github.com/webpack/eslint-config-webpack/issues/94)) ([fb4afb2](https://github.com/webpack/eslint-config-webpack/commit/fb4afb27ab501f0722b0c00e5c92a559b2560c8d))
+
 ### [4.7.2](https://github.com/webpack/eslint-config-webpack/compare/v4.7.1...v4.7.2) (2025-12-15)
 
 
