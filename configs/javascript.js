@@ -1294,6 +1294,10 @@ function getConfig(esVersion) {
 		config.rules["unicorn/prefer-class-fields"] = "off";
 	}
 
+	if (esVersion < 2023) {
+		config.rules["unicorn/no-array-sort"] = "off";
+	}
+
 	return config;
 }
 
