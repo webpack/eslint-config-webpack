@@ -105,6 +105,9 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// From recommended
 			// "jsdoc/empty-tags": "error",
 
+			// From recommended
+			// "jsdoc/escape-inline-tags": "error",
+
 			// "jsdoc/implements-on-classes": "error",
 
 			// No need
@@ -154,27 +157,10 @@ async function getTypescriptJSDocRecommendedConfig() {
 							message:
 								"Please use `@property {string=} property`/`@param {string=} arg` instead `[arg]` for optional properties and parameters",
 						},
-						// No `*` type
-						{
-							comment: "JsdocBlock:has(JsdocTypeAny)",
-							message: "Please use `any` or `EXPECTED_ANY` type.",
-						},
 						// No `?` type
 						{
 							comment: "JsdocBlock:has(JsdocTypeUnknown)",
 							message: "Please use `unknown` or `any` (or `EXPECTED_ANY`) type",
-						},
-						// No `any` type
-						{
-							comment: "JsdocBlock:has(JsdocTypeName[value=/^any$/])",
-							message: "Please use provide types instead `any`",
-						},
-						// No `Function` type
-						{
-							comment:
-								"JsdocBlock:has(JsdocTypeName[value=/^(function|Function)$/])",
-							message:
-								"Please use provide types for function  - `(a: number, b: number) -> number` instead `Function`/`function` or use `EXPECTED_FUNCTION` type",
 						},
 						// No `Object`
 						{
@@ -199,6 +185,13 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/no-undefined-types": "error",
 
+			// TODO enable me in future
+			// "jsdoc/prefer-import-tag": "error",
+
+			"jsdoc/reject-any-type": "error",
+
+			"jsdoc/reject-function-type": "error",
+
 			"jsdoc/require-asterisk-prefix": "error",
 
 			// No need
@@ -218,6 +211,12 @@ async function getTypescriptJSDocRecommendedConfig() {
 
 			// From recommended
 			// "jsdoc/require-jsdoc": "error",
+
+			// No need
+			// "jsdoc/require-next-description":"error",
+
+			// No need
+			// "jsdoc/require-next-type": "error",
 
 			// From recommended
 			// "jsdoc/require-param": "error",
@@ -252,13 +251,31 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// From recommended
 			// "jsdoc/require-returns-type": "error",
 
+			// No need
+			// "jsdoc/require-tags": "error",
+
 			"jsdoc/require-template": "error",
+
+			// No need
+			// "jsdoc/require-template-description": "error",
 
 			// No need
 			// "jsdoc/require-throws": "error",
 
+			// No need
+			// "jsdoc/require-throws-description": "error",
+
+			// No need
+			// "jsdoc/require-throws-type": "error",
+
 			// From recommended
 			// "jsdoc/require-yields": "error",
+
+			// No need
+			// "jsdoc/require-yields-description": "error",
+
+			// No need
+			// "jsdoc/require-yields-type": "error",
 
 			// From recommended
 			// "jsdoc/require-yields-check": "error",
@@ -271,6 +288,9 @@ async function getTypescriptJSDocRecommendedConfig() {
 
 			// No need
 			// "jsdoc/text-escaping": "error",
+
+			// TODO enable after https://github.com/gajus/eslint-plugin-jsdoc/issues/1615
+			// "jsdoc/type-formatting": "error",
 
 			// Doesn't support function overloading/tuples/`readonly`/module keyword/etc
 			// Also `typescript` reports this itself
@@ -598,6 +618,9 @@ async function getTypescriptRecommendedConfig() {
 			// From recommended
 			// "@typescript-eslint/no-unused-expressions": "error",
 
+			"no-unused-private-class-members": "off",
+			"@typescript-eslint/no-unused-private-class-members": "error",
+
 			// Provide better options
 			"no-unused-vars": "off",
 			"@typescript-eslint/no-unused-vars": [
@@ -632,6 +655,9 @@ async function getTypescriptRecommendedConfig() {
 
 			// No need
 			// "@typescript-eslint/no-useless-constructor": "error",
+
+			// No need
+			// "@typescript-eslint/no-useless-default-assignment": "error",
 
 			"@typescript-eslint/no-useless-empty-export": "error",
 

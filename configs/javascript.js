@@ -626,6 +626,8 @@ const suggestions = {
 
 	"prefer-template": "error",
 
+	"preserve-caught-error": "error",
+
 	radix: ["error", "always"],
 
 	// `require-await` doesn't work when the function returns Promise<any>
@@ -750,6 +752,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-array-reverse": "off",
 
+	"unicorn/no-array-sort": "error",
+
 	// No need
 	// "unicorn/no-await-expression-member": "off",
 
@@ -767,6 +771,9 @@ const unicornRules = {
 	// "unicorn/no-for-loop": "off",
 
 	"unicorn/no-hex-escape": "error",
+
+	// No need
+	// "unicorn/no-immediate-mutation": "error",
 
 	"unicorn/no-instanceof-builtins": "error",
 
@@ -841,6 +848,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-unused-properties": "off",
 
+	"unicorn/no-useless-collection-argument": "error",
+
 	"unicorn/no-useless-error-capture-stack-trace": "error",
 
 	"unicorn/no-useless-fallback-in-spread": "error",
@@ -882,9 +891,14 @@ const unicornRules = {
 	// No need
 	// "unicorn/prefer-at": "off",
 
+	"unicorn/prefer-bigint-literals": "error",
+
 	"unicorn/prefer-blob-reading-methods": "error",
 
 	"unicorn/prefer-class-fields": "error",
+
+	// Not here, define only for `browsers`
+	// "unicorn/prefer-classlist-toggle": "error",
 
 	// No need
 	// "unicorn/prefer-code-point": "error",
@@ -963,6 +977,8 @@ const unicornRules = {
 
 	"unicorn/prefer-regexp-test": "error",
 
+	"unicorn/prefer-response-static-json": "error",
+
 	// No need
 	// "unicorn/prefer-set-has": "off",
 
@@ -1004,6 +1020,8 @@ const unicornRules = {
 
 	// No need
 	// "unicorn/require-array-join-separator": "error",
+
+	"unicorn/require-module-attributes": "error",
 
 	"unicorn/require-module-specifiers": "error",
 
@@ -1249,8 +1267,6 @@ function getConfig(esVersion) {
 		config.rules["prefer-object-spread"] = "off";
 	}
 
-	// unicorn/prefer-class-fields
-
 	if (esVersion < 2019) {
 		config.rules["unicorn/prefer-object-from-entries"] = "off";
 		config.rules["unicorn/prefer-array-flat"] = "off";
@@ -1260,6 +1276,7 @@ function getConfig(esVersion) {
 	}
 
 	if (esVersion < 2020) {
+		config.rules["unicorn/prefer-bigint-literals"] = "off";
 		config.rules["unicorn/prefer-global-this"] = "off";
 		config.rules["unicorn/prefer-logical-operator-over-ternary"] = "off";
 	}

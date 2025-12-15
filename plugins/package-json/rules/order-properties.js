@@ -30,7 +30,7 @@ function detectNewlineGraceful(string) {
 	return detectNewline(string) || "\n";
 }
 
-// eslint-disable-next-line jsdoc/no-restricted-syntax
+// eslint-disable-next-line jsdoc/reject-any-type
 /** @typedef {Record<string, any>} ObjectToSort */
 
 /**
@@ -50,7 +50,7 @@ function sortObjectKeys(object, sortWith) {
 
 	const objectKeys = Object.keys(object);
 
-	return (keys || [...objectKeys.sort(sortFn)]).reduce((total, key) => {
+	return (keys || objectKeys.toSorted(sortFn)).reduce((total, key) => {
 		if (Object.hasOwn(object, key)) {
 			total[key] = object[key];
 		}
@@ -66,11 +66,12 @@ function sortObjectKeys(object, sortWith) {
 export const isPackageJson = (filePath) =>
 	/(?:^|[/\\])package.json$/.test(filePath);
 
-// eslint-disable-next-line jsdoc/no-restricted-syntax
+/* eslint-disable jsdoc/reject-any-type */
 /**
  * @typedef {import("eslint").AST.Program} PackageJsonAst
  * @property {[any]} body body
  */
+/* eslint-enable jsdoc/reject-any-type */
 
 /**
  * @typedef {import("eslint").SourceCode} PackageJsonSourceCode

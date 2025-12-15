@@ -15,7 +15,7 @@ function isTypescriptInstalled() {
 
 	return Boolean(
 		typeof dependencies.typescript !== "undefined" ||
-			typeof devDependencies.typescript !== "undefined",
+		typeof devDependencies.typescript !== "undefined",
 	);
 }
 
