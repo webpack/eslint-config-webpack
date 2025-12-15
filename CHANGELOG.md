@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.1](https://github.com/webpack/eslint-config-webpack/compare/v4.7.0...v4.7.1) (2025-12-15)
+
+
+### Bug Fixes
+
+* disable `unicorn/no-array-sort` rule for non supported ES versions ([#92](https://github.com/webpack/eslint-config-webpack/issues/92)) ([970d358](https://github.com/webpack/eslint-config-webpack/commit/970d358d9692c5c1ec50c83885d93e8799465a8e))
+
 ## [4.7.0](https://github.com/webpack/eslint-config-webpack/compare/v4.6.3...v4.7.0) (2025-12-15)
 
 
