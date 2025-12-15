@@ -84,7 +84,14 @@ const commonRules = {
 	// From recommended
 	// "n/no-unsupported-features/es-builtins": "error",
 
-	// From recommended
+	// From recommended (override)
+	"n/no-unsupported-features/es-syntax": [
+		"error",
+		{
+			ignores: ["error-cause"],
+		},
+	],
+
 	// "n/no-unsupported-features/es-syntax": "error",
 
 	// From recommended
