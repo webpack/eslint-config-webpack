@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.7.0](https://github.com/webpack/eslint-config-webpack/compare/v4.6.3...v4.7.0) (2025-12-15)
+
+
+### Features
+
+* new rules ([#91](https://github.com/webpack/eslint-config-webpack/issues/91)) ([76ea01f](https://github.com/webpack/eslint-config-webpack/commit/76ea01fb93bb5c782bec42078852135f306f096d))
+
 ### [4.6.3](https://github.com/webpack/eslint-config-webpack/compare/v4.6.2...v4.6.3) (2025-08-22)
 
 
