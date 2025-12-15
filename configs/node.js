@@ -211,6 +211,12 @@ async function getModuleConfig() {
 		rules: {
 			...nodeConfig.rules,
 			...commonRules,
+			"n/no-unsupported-features/es-syntax": [
+				"error",
+				{
+					ignores: ["modules", "error-cause"],
+				},
+			],
 			"import/extensions": [
 				"error",
 				"always",
