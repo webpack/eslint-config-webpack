@@ -65,6 +65,9 @@
     "standard-version": "^9.5.0",
     "typescript": "^5.9.3"
   },
+  "peerDependencies": {
+    "eslint": ">= 9.28.0"
+  },
   "engines": {
     "node": ">= 20.9.0"
   }
