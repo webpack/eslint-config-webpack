@@ -154,6 +154,8 @@ async function getJestRecommendedConfig() {
 
 			"jest/prefer-mock-promise-shorthand": "error",
 
+			"jest/prefer-mock-return-shorthand": "error",
+
 			// No need
 			// "jest/prefer-snapshot-hint": "error",
 
