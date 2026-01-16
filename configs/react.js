@@ -11,12 +11,30 @@ async function getReactRecommendedConfig() {
 		// Nothing
 	}
 
+	let reactHooksPlugin;
+
+	try {
+		reactHooksPlugin = (await import("eslint-plugin-react-hooks")).default;
+		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
+	} catch (_err) {
+		// Nothing
+	}
+
 	const { recommended, "jsx-runtime": jsxRuntime } = (reactPlugin &&
 		reactPlugin.configs &&
 		reactPlugin.configs.flat) || { recommended: {}, "jsx-runtime": {} };
 
+	const { recommended: recommendedHooks } = (reactHooksPlugin &&
+		reactHooksPlugin.configs &&
+		reactHooksPlugin.configs.flat) || { recommended: {} };
+
 	return {
 		...recommended,
+		...recommendedHooks,
+		plugins: {
+			...recommended.plugins,
+			...recommendedHooks.plugins,
+		},
 		files: ["**/*.{jsx,tsx}"],
 		settings: {
 			react: {
@@ -31,6 +49,7 @@ async function getReactRecommendedConfig() {
 		rules: {
 			...recommended.rules,
 			...jsxRuntime.rules,
+			...recommendedHooks.rules,
 		},
 	};
 }
