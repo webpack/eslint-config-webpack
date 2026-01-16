@@ -31,6 +31,10 @@ async function getReactRecommendedConfig() {
 	return {
 		...recommended,
 		...recommendedHooks,
+		plugins: {
+			...recommended.plugins,
+			...recommendedHooks.plugins,
+		},
 		files: ["**/*.{jsx,tsx}"],
 		settings: {
 			react: {
