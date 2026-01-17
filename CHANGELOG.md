@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.3](https://github.com/webpack/eslint-config-webpack/compare/v4.8.2...v4.8.3) (2026-01-17)
+
+
+### Bug Fixes
+
+* fix files glob for jest configuration ([#100](https://github.com/webpack/eslint-config-webpack/issues/100)) ([eb7258c](https://github.com/webpack/eslint-config-webpack/commit/eb7258c2c6256c295272ee28611209f0d22b16d6))
+
 ### [4.8.2](https://github.com/webpack/eslint-config-webpack/compare/v4.8.1...v4.8.2) (2026-01-17)
 
 
