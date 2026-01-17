@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.8.0](https://github.com/webpack/eslint-config-webpack/compare/v4.7.3...v4.8.0) (2026-01-17)
+
+
+### Features
+
+* added `eslint-plugin-react-hooks` plugin ([#96](https://github.com/webpack/eslint-config-webpack/issues/96)) ([d616e43](https://github.com/webpack/eslint-config-webpack/commit/d616e4398feeda79010e36807209d514335b4a55))
+* use `dependencies` for eslint plugins instead `peerDependencies` ([#95](https://github.com/webpack/eslint-config-webpack/issues/95)) ([73ce999](https://github.com/webpack/eslint-config-webpack/commit/73ce999eb1fb87f0a72a6e035b758c633d006bef))
+
 ### [4.7.3](https://github.com/webpack/eslint-config-webpack/compare/v4.7.2...v4.7.3) (2025-12-15)
 
 
