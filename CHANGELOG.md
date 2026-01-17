@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.1](https://github.com/webpack/eslint-config-webpack/compare/v4.8.0...v4.8.1) (2026-01-17)
+
+
+### Bug Fixes
+
+* always use ECMA modules for react files ([#98](https://github.com/webpack/eslint-config-webpack/issues/98)) ([c482d6d](https://github.com/webpack/eslint-config-webpack/commit/c482d6dce42aff2316855b0c8c6b352a70ae005f))
+
 ## [4.8.0](https://github.com/webpack/eslint-config-webpack/compare/v4.7.3...v4.8.0) (2026-01-17)
 
 
