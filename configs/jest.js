@@ -19,8 +19,8 @@ async function getJestRecommendedConfig() {
 		name: "jest/recommended",
 		files: [
 			"**/{tests,test,__tests__}/**/*.?(c|m)[jt]s?(x)",
-			"**/?(*.)+(spec|test).[jt]s?(x)",
-			"**/test-*.[jt]s?(x)",
+			"**/?(*.)+(spec|test).?(c|m)[jt]s?(x)",
+			"**/test-*.?(c|m)[jt]s?(x)",
 		],
 		ignores: [
 			"**/{tests,test,__tests__}/**/{helper,helpers,__helper__,__helpers__,fixture,fixtures,__fixture__,__fixtures__}/**/*",
