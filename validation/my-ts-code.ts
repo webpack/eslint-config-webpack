@@ -24,8 +24,8 @@ const isFunction = typeof readFileSync === "function";
 
 getSomething(isFunction);
 
-const myPath: PathLike = new URL("file.txt", import.meta.url);
-const myPath2: PathOrFileDescriptor = new URL("file.text", import.meta.url);
+const myPath: PathLike = new URL("./file.txt", import.meta.url);
+const myPath2: PathOrFileDescriptor = new URL("./file.text", import.meta.url);
 const myTime: TimeLike = new Date();
 
 getSomething(myPath);
