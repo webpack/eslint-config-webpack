@@ -1016,7 +1016,7 @@ const unicornRules = {
 	// No need
 	// "unicorn/prevent-abbreviations": "error",
 
-	"unicorn/relative-url-style": "error",
+	"unicorn/relative-url-style": ["error", "always"],
 
 	// No need
 	// "unicorn/require-array-join-separator": "error",

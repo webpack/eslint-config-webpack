@@ -32,7 +32,7 @@ async function getRandomNumbers() {
 let content;
 
 try {
-	content = await readFile(new URL("file.txt", import.meta.url));
+	content = await readFile(new URL("./file.txt", import.meta.url));
 } catch (err) {
 	throw new Error("Error fetching data", { cause: err });
 }
