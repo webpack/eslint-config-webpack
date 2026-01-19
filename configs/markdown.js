@@ -38,6 +38,8 @@ async function getMarkdownRecommendedConfig() {
 				},
 			},
 			rules: {
+				"id-length": "off",
+
 				strict: "off",
 
 				// For different examples
@@ -70,7 +72,7 @@ async function getMarkdownRecommendedConfig() {
 				"n/no-unpublished-import": "off",
 
 				// Allow to use any ES builtins in documentation
-				"m/no-unsupported-features/es-builtins": "off",
+				"n/no-unsupported-features/es-builtins": "off",
 
 				// Allow to use any ES syntax in documentation
 				"n/no-unsupported-features/es-syntax": "off",
