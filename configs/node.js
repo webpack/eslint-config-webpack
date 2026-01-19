@@ -277,13 +277,15 @@ async function getDirtyConfig() {
 
 const dirtyConfig = await getDirtyConfig();
 
-const jsExtensions = isTypescriptInstalled() ? ["**/*.{js,ts}"] : ["**/*.{js}"];
+const jsExtensions = isTypescriptInstalled()
+	? ["*.{js,ts}", "**/*.{js,ts}"]
+	: ["**/*.js"];
 const cjsExtensions = isTypescriptInstalled()
-	? ["**/*.{cjs,cts}"]
-	: ["**/*.{cjs}"];
+	? ["*.{cjs,cts}", "**/*.{cjs,cts}"]
+	: ["**/*.cjs"];
 const mjsExtensions = isTypescriptInstalled()
-	? ["**/*.{mjs,jsx,mts,tsx}"]
-	: ["**/*.{mjs,jsx}"];
+	? ["*.{mjs,jsx,mts,tsx}", "**/*.{mjs,jsx,mts,tsx}"]
+	: ["*.{mjs,jsx}", "**/*.{mjs,jsx}"];
 
 export default {
 	"node/dirty": dirtyConfig,
