@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.4](https://github.com/webpack/eslint-config-webpack/compare/v4.8.3...v4.8.4) (2026-01-19)
+
+
+### Bug Fixes
+
+* files pattern for node configuration's ([#101](https://github.com/webpack/eslint-config-webpack/issues/101)) ([e2403b0](https://github.com/webpack/eslint-config-webpack/commit/e2403b0f866373a720b74b73da71512d85e4c657))
+* improve some rules ([#102](https://github.com/webpack/eslint-config-webpack/issues/102)) ([e2ee202](https://github.com/webpack/eslint-config-webpack/commit/e2ee202a3826aee97db51f8b2b568edba5a76085))
+
 ### [4.8.3](https://github.com/webpack/eslint-config-webpack/compare/v4.8.2...v4.8.3) (2026-01-17)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-webpack",
-  "version": "4.8.3",
+  "version": "4.8.4",
   "description": "Provides Webpack's eslint rules as an extensible shared config",
   "keywords": [
     "eslint",
