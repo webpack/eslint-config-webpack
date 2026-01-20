@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.5](https://github.com/webpack/eslint-config-webpack/compare/v4.8.4...v4.8.5) (2026-01-20)
+
+
+### Bug Fixes
+
+* npm warning about typescript unmeet peer dep ([#103](https://github.com/webpack/eslint-config-webpack/issues/103)) ([d412226](https://github.com/webpack/eslint-config-webpack/commit/d41222643ca90b695b26312057f8ee69cb09493d))
+
 ### [4.8.4](https://github.com/webpack/eslint-config-webpack/compare/v4.8.3...v4.8.4) (2026-01-19)
 
 
