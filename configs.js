@@ -135,7 +135,9 @@ function getReactConfig() {
 	const devDependencies = packageJson.devDependencies || [];
 
 	return typeof dependencies.react !== "undefined" ||
-		typeof devDependencies.react !== "undefined"
+		typeof dependencies.preact !== "undefined" ||
+		typeof devDependencies.react !== "undefined" ||
+		typeof devDependencies.preact !== "undefined"
 		? configs["react/recommended"]
 		: [];
 }
