@@ -492,9 +492,24 @@ try {
 
 handler();
 
+/** @typedef {{ foo: boolean | number, bar: (baz: number) => void, str: "string" }} Example */
+/**
+ * @typedef {{
+ * foo: boolean | number,
+ * bar: (baz: number) => void
+ * }} Example1
+ */
+
+/**
+ * @typedef {{
+ * (context: `test${string}`, path: string, request: string): string | false,
+ * (path: string, request: string): string | false
+ * }} Example3
+ */
+
 /**
  * @param {number} multiplier multiplier
- * @param {Array<number>} theArgs the args
+ * @param {number[]} theArgs the args
  * @returns {number[]} result
  */
 function multiply(multiplier, ...theArgs) {

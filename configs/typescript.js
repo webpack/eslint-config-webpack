@@ -289,8 +289,13 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/text-escaping": "error",
 
-			// TODO enable after https://github.com/gajus/eslint-plugin-jsdoc/issues/1615
-			// "jsdoc/type-formatting": "error",
+			"jsdoc/type-formatting": [
+				"error",
+				{
+					objectTypeBracketSpacing: " ",
+					objectFieldSeparator: "comma-and-linebreak",
+				},
+			],
 
 			// Doesn't support function overloading/tuples/`readonly`/module keyword/etc
 			// Also `typescript` reports this itself
