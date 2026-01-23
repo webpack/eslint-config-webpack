@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.9.0](https://github.com/webpack/eslint-config-webpack/compare/v4.8.5...v4.9.0) (2026-01-23)
+
+
+### Features
+
+* adding `jsdoc/type-formatting` rule ([#106](https://github.com/webpack/eslint-config-webpack/issues/106)) ([5a7fbcf](https://github.com/webpack/eslint-config-webpack/commit/5a7fbcff966629ff1e0bfb96d2f8b40489fcd0b0))
+
+
+### Bug Fixes
+
+* load react preset for preact ([#104](https://github.com/webpack/eslint-config-webpack/issues/104)) ([094e382](https://github.com/webpack/eslint-config-webpack/commit/094e382d290a46d0c4ed58c7bc30d3e6118a939c))
+
 ### [4.8.5](https://github.com/webpack/eslint-config-webpack/compare/v4.8.4...v4.8.5) (2026-01-20)
 
 
