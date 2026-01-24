@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.9.1](https://github.com/webpack/eslint-config-webpack/compare/v4.9.0...v4.9.1) (2026-01-24)
+
+
+### Bug Fixes
+
+* `jsdoc/type-formatting` setting for trailing comma ([#107](https://github.com/webpack/eslint-config-webpack/issues/107)) ([497e749](https://github.com/webpack/eslint-config-webpack/commit/497e749c6492f72ac3336c63be59991a0dcf0148))
+
 ## [4.9.0](https://github.com/webpack/eslint-config-webpack/compare/v4.8.5...v4.9.0) (2026-01-23)
 
 
