@@ -496,14 +496,14 @@ handler();
 /**
  * @typedef {{
  * foo: boolean | number,
- * bar: (baz: number) => void
+ * bar: (baz: number) => void,
  * }} Example1
  */
 
 /**
  * @typedef {{
  * (context: `test${string}`, path: string, request: string): string | false,
- * (path: string, request: string): string | false
+ * (path: string, request: string): string | false,
  * }} Example3
  */
 

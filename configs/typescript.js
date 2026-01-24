@@ -294,6 +294,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 				{
 					objectTypeBracketSpacing: " ",
 					objectFieldSeparator: "comma-and-linebreak",
+					objectFieldSeparatorTrailingPunctuation: true,
+					trailingPunctuationMultilineOnly: true,
 				},
 			],
 
