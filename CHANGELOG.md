@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.9.2](https://github.com/webpack/eslint-config-webpack/compare/v4.9.1...v4.9.2) (2026-02-02)
+
+
+### Bug Fixes
+
+* allow any variations of `expect` ([#108](https://github.com/webpack/eslint-config-webpack/issues/108)) ([c89c649](https://github.com/webpack/eslint-config-webpack/commit/c89c649519752dbf6453c7b42134fdc0ba932c84))
+
 ### [4.9.1](https://github.com/webpack/eslint-config-webpack/compare/v4.9.0...v4.9.1) (2026-01-24)
 
 
