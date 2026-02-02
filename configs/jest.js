@@ -1,3 +1,5 @@
+import globals from "globals";
+
 /**
  * @returns {Promise<Record<string, string>>} config
  */
@@ -17,6 +19,13 @@ async function getJestRecommendedConfig() {
 	return {
 		...jsdocConfig,
 		name: "jest/recommended",
+		languageOptions: {
+			globals: {
+				...globals.node,
+				...globals.browser,
+				...globals.jest,
+			},
+		},
 		files: [
 			"**/{tests,test,__tests__}/**/*.?(c|m)[jt]s?(x)",
 			"**/?(*.)+(spec|test).?(c|m)[jt]s?(x)",
