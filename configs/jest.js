@@ -31,7 +31,7 @@ async function getJestRecommendedConfig() {
 
 			"jest/consistent-test-it": "error",
 
-			"jest/expect-expect": "error",
+			"jest/expect-expect": ["error", { assertFunctionNames: ["expect*"] }],
 
 			// No need
 			// "jest/max-expects": "error",
