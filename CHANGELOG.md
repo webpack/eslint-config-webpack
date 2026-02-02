@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.9.3](https://github.com/webpack/eslint-config-webpack/compare/v4.9.2...v4.9.3) (2026-02-02)
+
+
+### Bug Fixes
+
+* jest globals for browser and node envs ([#109](https://github.com/webpack/eslint-config-webpack/issues/109)) ([ad710ad](https://github.com/webpack/eslint-config-webpack/commit/ad710ad216c46390d62b04b47cb6ab9f7a25ffe6))
+
 ### [4.9.2](https://github.com/webpack/eslint-config-webpack/compare/v4.9.1...v4.9.2) (2026-02-02)
 
 
