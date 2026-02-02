@@ -2,6 +2,10 @@
  * @jest-environment jsdom
  */
 
+function expectSomething() {
+	expect(1).toBe(1);
+}
+
 describe("name", () => {
 	it("test #1", () => {
 		const data = { type: "coords", x: 1, y: 2 };
@@ -18,5 +22,9 @@ describe("name", () => {
 
 		expect(data.type).toBe(type);
 		expect(data.y).toBe(coords.y);
+	});
+
+	it("test #3", () => {
+		expectSomething();
 	});
 });
