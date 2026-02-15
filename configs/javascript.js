@@ -179,7 +179,7 @@ const possibleProblems = {
 		{ functions: true, classes: true, variables: true },
 	],
 
-	// No need
+	// From recommended
 	// "no-useless-assignment": "off",
 
 	// From recommended
@@ -729,6 +729,9 @@ const unicornRules = {
 
 	// No need
 	// "unicorn/import-style": "off",
+
+	// No need
+	"unicorn/isolated-functions": "off",
 
 	"unicorn/new-for-builtins": "error",
 

@@ -60,6 +60,9 @@ async function getJestRecommendedConfig() {
 			// No need
 			// "jest/no-conditional-in-test": "off",
 
+			// No need
+			// "jest/no-conditional-in-test": "off",
+
 			"jest/no-confusing-set-timeout": "error",
 
 			// From recommended
