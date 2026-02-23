@@ -71,8 +71,6 @@ const recommendedBrowserConfig = {
 
 export default {
 	"browser/recommended": recommendedBrowserConfig,
-	// TODO remove me in the next major release
-	"browser/recommended-outdated": recommendedBrowserOutdatedModuleConfig,
 	// Useful when you need to generate outdated es5 code using babel/swc/etc
 	"browser/recommended-outdated-script": recommendedBrowserOutdatedScriptConfig,
 	"browser/recommended-outdated-commonjs":
