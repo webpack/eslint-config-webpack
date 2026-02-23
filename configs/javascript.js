@@ -179,7 +179,7 @@ const possibleProblems = {
 		{ functions: true, classes: true, variables: true },
 	],
 
-	// No need
+	// From recommended
 	// "no-useless-assignment": "off",
 
 	// From recommended
@@ -336,7 +336,7 @@ const suggestions = {
 	// No need
 	// "max-statements": "off",
 
-	"new-cap": "error",
+	"new-cap": ["error", { capIsNewExceptionPattern: "^.+Type$" }],
 
 	"no-alert": "error",
 
@@ -729,6 +729,9 @@ const unicornRules = {
 
 	// No need
 	// "unicorn/import-style": "off",
+
+	// No need
+	"unicorn/isolated-functions": "off",
 
 	"unicorn/new-for-builtins": "error",
 
@@ -1196,52 +1199,56 @@ const importRules = {
 	// "import/prefer-default-export": "off",
 };
 
+const needTypescriptSupport = isTypescriptInstalled();
+const extensions = needTypescriptSupport ? allExtensions : javascriptExtensions;
+
+const baseConfig = {
+	...javascriptConfig.configs.recommended,
+	files: [`**/*.{${extensions.map((item) => item.slice(1)).join(",")}}`],
+	ignores: ["**/*.d.ts"],
+	settings: {
+		"import/extensions": extensions,
+		"import/ignore": [
+			"eslint-plugin-.*",
+			"\\.(coffee|scss|css|less|hbs|svg|md|jpg|jpeg|png|gif|webp|avif)$",
+		],
+		"import/resolver": {
+			node: {
+				extensions: [...extensions],
+			},
+		},
+	},
+	plugins: {
+		unicorn: unicornPlugin,
+		import: importPlugin,
+	},
+	linterOptions: {
+		reportUnusedDisableDirectives: true,
+		reportUnusedInlineConfigs: "error",
+	},
+	rules: {
+		...javascriptConfig.configs.recommended.rules,
+		...possibleProblems,
+		...suggestions,
+		...layoutAndFormatting,
+		...unicornRules,
+		...importRules,
+	},
+};
+
 /**
  * @param {number} esVersion es version
  * @returns {Record<string, string | number>} config
  */
 function getConfig(esVersion) {
-	const extensions = isTypescriptInstalled()
-		? allExtensions
-		: javascriptExtensions;
 	const config = {
-		...javascriptConfig.configs.recommended,
+		...baseConfig,
 		name: `javascript/es${esVersion}`,
-		files: [`**/*.{${extensions.map((item) => item.slice(1)).join(",")}}`],
-		ignores: ["**/*.d.ts"],
-		settings: {
-			"import/extensions": extensions,
-			"import/ignore": [
-				"eslint-plugin-.*",
-				"\\.(coffee|scss|css|less|hbs|svg|md|jpg|jpeg|png|gif|webp|avif)$",
-			],
-			"import/resolver": {
-				node: {
-					extensions: [...extensions],
-				},
-			},
-		},
-		plugins: {
-			unicorn: unicornPlugin,
-			import: importPlugin,
-		},
 		languageOptions: {
 			ecmaVersion: esVersion,
 			globals: {
 				...globals[`es${esVersion}`],
 			},
-		},
-		linterOptions: {
-			reportUnusedDisableDirectives: true,
-			reportUnusedInlineConfigs: "error",
-		},
-		rules: {
-			...javascriptConfig.configs.recommended.rules,
-			...possibleProblems,
-			...suggestions,
-			...layoutAndFormatting,
-			...unicornRules,
-			...importRules,
 		},
 	};
 

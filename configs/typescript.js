@@ -1,3 +1,5 @@
+import jsdocPlugin from "eslint-plugin-jsdoc";
+import typescriptPlugin from "typescript-eslint";
 import {
 	javascriptExtensions,
 	typescriptExtensions,
@@ -7,19 +9,8 @@ import {
  * @returns {Promise<Record<string, string>>} config
  */
 async function getTypescriptJSDocRecommendedConfig() {
-	let jsdocPlugin;
-
-	try {
-		jsdocPlugin = (await import("eslint-plugin-jsdoc")).default;
-		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-	} catch (_err) {
-		// Nothing
-	}
-
 	const jsdocConfig =
-		(jsdocPlugin &&
-			jsdocPlugin.configs["flat/recommended-typescript-flavor-error"]) ||
-		{};
+		jsdocPlugin.configs["flat/recommended-typescript-flavor-error"];
 
 	return {
 		...jsdocConfig,
@@ -310,23 +301,7 @@ async function getTypescriptJSDocRecommendedConfig() {
  * @returns {Promise<Record<string, string>>} config
  */
 async function getTypescriptRecommendedConfig() {
-	let typescriptPlugin;
-
-	try {
-		typescriptPlugin = (await import("typescript-eslint")).default;
-		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-	} catch (_err) {
-		// Nothing
-	}
-
-	const { configs } = typescriptPlugin || {
-		configs: {
-			base: { languageOptions: {} },
-			eslintRecommended: {},
-			recommended: [{ name: "typescript-eslint/recommended", rules: {} }],
-			stylistic: [{ name: "typescript-eslint/stylistic", rules: {} }],
-		},
-	};
+	const { configs } = typescriptPlugin;
 	const baseConfig = configs.base;
 	const eslintRecommendedConfig = configs.eslintRecommended;
 	const recommendedConfig = configs.recommended.find(
@@ -561,7 +536,7 @@ async function getTypescriptRecommendedConfig() {
 			// "@typescript-eslint/no-shadow": "error",
 
 			// From recommended
-			// "@typescript-eslint/no-this-alias": "error",
+			"@typescript-eslint/no-this-alias": ["error", { allowedNames: ["self"] }],
 
 			// No need
 			// "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
