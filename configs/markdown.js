@@ -1,18 +1,10 @@
+import markdownPlugin from "@eslint/markdown";
 import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
 /**
  * @returns {Promise<Record<string, string>>} config
  */
 async function getMarkdownRecommendedConfig() {
-	let markdownPlugin;
-
-	try {
-		markdownPlugin = (await import("@eslint/markdown")).default;
-		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-	} catch (_err) {
-		// Nothing
-	}
-
 	return [
 		{
 			name: "markdown/code-blocks",
