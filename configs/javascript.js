@@ -336,7 +336,7 @@ const suggestions = {
 	// No need
 	// "max-statements": "off",
 
-	"new-cap": "error",
+	"new-cap": ["error", { capIsNewExceptionPattern: "^.+Type$" }],
 
 	"no-alert": "error",
 

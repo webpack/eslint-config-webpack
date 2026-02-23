@@ -561,7 +561,7 @@ async function getTypescriptRecommendedConfig() {
 			// "@typescript-eslint/no-shadow": "error",
 
 			// From recommended
-			// "@typescript-eslint/no-this-alias": "error",
+			"@typescript-eslint/no-this-alias": ["error", { allowedNames: ["self"] }],
 
 			// No need
 			// "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
