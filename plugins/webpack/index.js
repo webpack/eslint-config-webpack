@@ -10,14 +10,16 @@ const rules = {
 	"require-license-comment": requireLicenseComment,
 };
 
+/** @type {import("eslint").Linter.Config["rules"]} */
 const recommendedRules = {
 	...Object.fromEntries(
 		Object.entries(rules)
-			.filter(([, rule]) => rule.meta.docs?.recommended)
+			.filter(([, rule]) => rule.meta?.docs?.recommended)
 			.map(([name]) => [`webpack/${name}`, "error"]),
 	),
 };
 
+/** @type {Record<"recommended", import("eslint").Linter.Config>} */
 const configs = {
 	recommended: {
 		name: "webpack/recommended",

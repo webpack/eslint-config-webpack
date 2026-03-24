@@ -1,5 +1,8 @@
+/** @typedef {import("estree").Comment} Comment */
+/** @typedef {import("eslint").AST.SourceLocation} SourceLocation */
+
 /**
- * @type {import("eslint").Rule} rule
+ * @type {import("eslint").Rule.RuleModule} rule rule
  */
 export const rule = {
 	create(context) {
@@ -8,13 +11,17 @@ export const rule = {
 		return {
 			"Program:exit"(program) {
 				const comments = sourceCode.getAllComments();
-				const licenseComment = comments.find(
-					(comment) =>
-						comment.type === "Block" &&
-						/\n\s*MIT License http:\/\/www\.opensource\.org\/licenses\/mit-license\.php\n\s*(?:(Authors? .+)\n)?\s*/g.test(
-							comment.value,
-						),
-				);
+				const licenseComment =
+					/** @type {(Comment & { start: number, end: number }) | undefined} */
+					(
+						comments.find(
+							(comment) =>
+								comment.type === "Block" &&
+								/\n\s*MIT License http:\/\/www\.opensource\.org\/licenses\/mit-license\.php\n\s*(?:(Authors? .+)\n)?\s*/g.test(
+									comment.value,
+								),
+						)
+					);
 
 				if (!licenseComment) {
 					context.report({
@@ -29,7 +36,7 @@ export const rule = {
 
 				if (afterComment !== "\n") {
 					context.report({
-						loc: licenseComment.loc,
+						loc: /** @type {SourceLocation} */ (licenseComment.loc),
 						message: "Expected newline after license comment.",
 					});
 
@@ -40,7 +47,7 @@ export const rule = {
 
 				if (afterAfterComment !== "\n") {
 					context.report({
-						loc: licenseComment.loc,
+						loc: /** @type {SourceLocation} */ (licenseComment.loc),
 						message: "Expected newline after license comment.",
 					});
 				}

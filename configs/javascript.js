@@ -5,6 +5,7 @@ import globals from "globals";
 import { allExtensions, javascriptExtensions } from "./utils/extensions.js";
 import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
+/** @type {import("eslint").Linter.Config["rules"]} */
 const possibleProblems = {
 	"array-callback-return": [
 		"error",
@@ -195,6 +196,7 @@ const possibleProblems = {
 	// "valid-typeof": "error",
 };
 
+/** @type {import("eslint").Linter.Config["rules"]} */
 const suggestions = {
 	"accessor-pairs": "error",
 
@@ -336,7 +338,8 @@ const suggestions = {
 	// No need
 	// "max-statements": "off",
 
-	"new-cap": "error",
+	// For `prop-types`
+	"new-cap": ["error", { capIsNewExceptionPattern: "^.+Type$" }],
 
 	"no-alert": "error",
 
@@ -658,10 +661,12 @@ const suggestions = {
 	yoda: "error",
 };
 
+/** @type {import("eslint").Linter.Config["rules"]} */
 const layoutAndFormatting = {
 	"unicode-bom": ["error", "never"],
 };
 
+/** @type {import("eslint").Linter.Config["rules"]} */
 const unicornRules = {
 	// No need
 	// "unicorn/better-regex": "off",
@@ -729,6 +734,9 @@ const unicornRules = {
 
 	// No need
 	// "unicorn/import-style": "off",
+
+	// No need
+	// "unicorn/isolated-functions": "off",
 
 	"unicorn/new-for-builtins": "error",
 
@@ -1045,6 +1053,7 @@ const unicornRules = {
 	"unicorn/throw-new-error": "error",
 };
 
+/** @type {import("eslint").Linter.Config["rules"]} */
 const importRules = {
 	...importPlugin.flatConfigs.recommended.rules,
 
@@ -1196,52 +1205,62 @@ const importRules = {
 	// "import/prefer-default-export": "off",
 };
 
-/**
- * @param {number} esVersion es version
- * @returns {Record<string, string | number>} config
- */
-function getConfig(esVersion) {
-	const extensions = isTypescriptInstalled()
-		? allExtensions
-		: javascriptExtensions;
-	const config = {
-		...javascriptConfig.configs.recommended,
-		name: `javascript/es${esVersion}`,
-		files: [`**/*.{${extensions.map((item) => item.slice(1)).join(",")}}`],
-		ignores: ["**/*.d.ts"],
-		settings: {
-			"import/extensions": extensions,
-			"import/ignore": [
-				"eslint-plugin-.*",
-				"\\.(coffee|scss|css|less|hbs|svg|md|jpg|jpeg|png|gif|webp|avif)$",
-			],
-			"import/resolver": {
-				node: {
-					extensions: [...extensions],
-				},
+const needTypescriptSupport = isTypescriptInstalled();
+const extensions = needTypescriptSupport ? allExtensions : javascriptExtensions;
+
+/** @type {import("eslint").Linter.Config} */
+const baseConfig = {
+	...javascriptConfig.configs.recommended,
+	files: [`**/*.{${extensions.map((item) => item.slice(1)).join(",")}}`],
+	ignores: ["**/*.d.ts"],
+	settings: {
+		"import/extensions": extensions,
+		"import/ignore": [
+			"eslint-plugin-.*",
+			"\\.(coffee|scss|css|less|hbs|svg|md|jpg|jpeg|png|gif|webp|avif)$",
+		],
+		"import/resolver": {
+			node: {
+				extensions: [...extensions],
 			},
 		},
-		plugins: {
-			unicorn: unicornPlugin,
-			import: importPlugin,
-		},
+	},
+	plugins: {
+		unicorn: unicornPlugin,
+		import: importPlugin,
+	},
+	linterOptions: {
+		reportUnusedDisableDirectives: true,
+		reportUnusedInlineConfigs: "error",
+	},
+	rules: {
+		...javascriptConfig.configs.recommended.rules,
+		...possibleProblems,
+		...suggestions,
+		...layoutAndFormatting,
+		...unicornRules,
+		...importRules,
+	},
+};
+
+/** @typedef {2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 | 2026} Year */
+
+/**
+ * @param {Year | 5} esVersion es version
+ * @returns {import("eslint").Linter.Config} config
+ */
+function getConfig(esVersion) {
+	const config = {
+		...baseConfig,
+		name: `javascript/es${esVersion}`,
 		languageOptions: {
 			ecmaVersion: esVersion,
 			globals: {
 				...globals[`es${esVersion}`],
 			},
 		},
-		linterOptions: {
-			reportUnusedDisableDirectives: true,
-			reportUnusedInlineConfigs: "error",
-		},
 		rules: {
-			...javascriptConfig.configs.recommended.rules,
-			...possibleProblems,
-			...suggestions,
-			...layoutAndFormatting,
-			...unicornRules,
-			...importRules,
+			...baseConfig.rules,
 		},
 	};
 
@@ -1301,11 +1320,12 @@ function getConfig(esVersion) {
 	return config;
 }
 
+/** @type {Record<"javascript/es5" | "javascript/recommended" | `javascript/es${Year}`, import("eslint").Linter.Config>} */
 const configs = {};
-const esVersions = Array.from({ length: 11 }, (_x, i) => 15 + i);
+const esVersions = Array.from({ length: 12 }, (_x, i) => 15 + i);
 
 for (const [i, esVersion] of esVersions.entries()) {
-	const year = 2000 + esVersion;
+	const year = /** @type {Year} */ (2000 + esVersion);
 	const config = getConfig(year);
 
 	configs[`javascript/es${year}`] = config;

@@ -1,20 +1,33 @@
 import globals from "globals";
+import getJsonFile from "./utils/get-json-file.js";
+
+/** @type {import("type-fest").PackageJson | null} */
+const packageJson = getJsonFile("package.json");
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getJestRecommendedConfig() {
-	let jestPlugin;
-
-	try {
-		jestPlugin = (await import("eslint-plugin-jest")).default;
-		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-	} catch (_err) {
-		// Nothing
+	if (packageJson === null) {
+		return {
+			name: "jest/please-install-jest-to-enable-it",
+		};
 	}
 
-	const jsdocConfig =
-		(jestPlugin && jestPlugin.configs["flat/recommended"]) || {};
+	const dependencies = packageJson.dependencies || {};
+	const devDependencies = packageJson.devDependencies || {};
+
+	if (
+		typeof dependencies.jest === "undefined" &&
+		typeof devDependencies.jest === "undefined"
+	) {
+		return {
+			name: "jest/please-install-jest-to-enable-it",
+		};
+	}
+
+	const jestPlugin = (await import("eslint-plugin-jest")).default;
+	const jsdocConfig = jestPlugin.configs["flat/recommended"];
 
 	return {
 		...jsdocConfig,

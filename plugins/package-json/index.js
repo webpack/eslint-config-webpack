@@ -1,4 +1,5 @@
 import { createRequire } from "node:module";
+// eslint-disable-next-line import/no-unresolved
 import * as parserJsonc from "jsonc-eslint-parser";
 import { rule as orderProperties } from "./rules/order-properties.js";
 
@@ -10,14 +11,16 @@ const rules = {
 	"order-properties": orderProperties,
 };
 
+/** @type {import("eslint").Linter.Config["rules"]} */
 const recommendedRules = {
 	...Object.fromEntries(
 		Object.entries(rules)
-			.filter(([, rule]) => rule.meta.docs?.recommended)
+			.filter(([, rule]) => rule.meta?.docs?.recommended)
 			.map(([name]) => [`package-json/${name}`, "error"]),
 	),
 };
 
+/** @type {Record<"recommended", import("eslint").Linter.Config>} */
 const configs = {
 	recommended: {
 		name: "package-json/recommended",

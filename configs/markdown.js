@@ -1,17 +1,10 @@
 import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config[]>} config
  */
 async function getMarkdownRecommendedConfig() {
-	let markdownPlugin;
-
-	try {
-		markdownPlugin = (await import("@eslint/markdown")).default;
-		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-	} catch (_err) {
-		// Nothing
-	}
+	const markdownPlugin = (await import("@eslint/markdown")).default;
 
 	return [
 		{

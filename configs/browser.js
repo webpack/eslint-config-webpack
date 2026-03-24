@@ -2,6 +2,7 @@ import importPlugin from "eslint-plugin-import";
 import unicornPlugin from "eslint-plugin-unicorn";
 import globals from "globals";
 
+/** @type {import("eslint").Linter.Config} */
 const recommendedBrowserOutdatedScriptConfig = {
 	name: "browser/recommended-outdated-script",
 	languageOptions: {
@@ -12,6 +13,7 @@ const recommendedBrowserOutdatedScriptConfig = {
 	},
 };
 
+/** @type {import("eslint").Linter.Config} */
 const recommendedBrowserOutdatedCommonjsConfig = {
 	name: "browser/recommended-outdated-commonjs",
 	languageOptions: {
@@ -22,6 +24,7 @@ const recommendedBrowserOutdatedCommonjsConfig = {
 	},
 };
 
+/** @type {import("eslint").Linter.Config} */
 const recommendedBrowserOutdatedModuleConfig = {
 	name: "browser/recommended-outdated-module",
 	languageOptions: {
@@ -32,6 +35,7 @@ const recommendedBrowserOutdatedModuleConfig = {
 	},
 };
 
+/** @type {import("eslint").Linter.Config} */
 const recommendedBrowserConfig = {
 	name: "browser/recommended",
 	languageOptions: {

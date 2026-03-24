@@ -1,36 +1,42 @@
+import getJsonFile from "./utils/get-json-file.js";
+
+/** @type {import("type-fest").PackageJson | null} */
+const packageJson = getJsonFile("package.json");
+
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getReactRecommendedConfig() {
-	let reactPlugin;
-
-	try {
-		reactPlugin = (await import("eslint-plugin-react")).default;
-		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-	} catch (_err) {
-		// Nothing
+	if (packageJson === null) {
+		return {
+			name: "react/please-install-react-to-enable-it",
+		};
 	}
 
-	let reactHooksPlugin;
+	const dependencies = packageJson.dependencies || {};
+	const devDependencies = packageJson.devDependencies || {};
 
-	try {
-		reactHooksPlugin = (await import("eslint-plugin-react-hooks")).default;
-		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-	} catch (_err) {
-		// Nothing
+	if (
+		typeof dependencies.react === "undefined" &&
+		typeof dependencies.preact === "undefined" &&
+		typeof devDependencies.react === "undefined" &&
+		typeof devDependencies.preact === "undefined"
+	) {
+		return {
+			name: "react/please-install-react-to-enable-it",
+		};
 	}
 
-	const { recommended, "jsx-runtime": jsxRuntime } = (reactPlugin &&
-		reactPlugin.configs &&
-		reactPlugin.configs.flat) || { recommended: {}, "jsx-runtime": {} };
+	const reactPlugin = (await import("eslint-plugin-react")).default;
+	const { recommended, "jsx-runtime": jsxRuntime } = reactPlugin.configs.flat;
 
-	const { recommended: recommendedHooks } = (reactHooksPlugin &&
-		reactHooksPlugin.configs &&
-		reactHooksPlugin.configs.flat) || { recommended: {} };
+	const reactHooksPlugin = (await import("eslint-plugin-react-hooks")).default;
+	const { recommended: recommendedHooks } = reactHooksPlugin.configs.flat;
 
 	return {
 		...recommended,
 		...recommendedHooks,
+		name: "react/recommended",
 		plugins: {
 			...recommended.plugins,
 			...recommendedHooks.plugins,

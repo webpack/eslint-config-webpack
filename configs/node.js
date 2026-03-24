@@ -2,6 +2,7 @@ import importPlugin from "eslint-plugin-import";
 import globals from "globals";
 import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
+/** @type {import("eslint").Linter.Config["rules"]} */
 const commonRules = {
 	// No need
 	// "n/callback-return": "error",
@@ -101,11 +102,15 @@ const commonRules = {
 
 	"n/prefer-global/console": ["error", "always"],
 
+	"n/prefer-global/crypto": ["error", "always"],
+
 	"n/prefer-global/process": ["error", "always"],
 
 	"n/prefer-global/text-decoder": ["error", "always"],
 
 	"n/prefer-global/text-encoder": ["error", "always"],
+
+	"n/prefer-global/timers": ["error", "always"],
 
 	"n/prefer-global/url": ["error", "always"],
 
@@ -123,25 +128,14 @@ const commonRules = {
 	// "n/process-exit-as-throw": "error",
 };
 
-let nodePlugin;
-
 const ignores = ["**/*.d.ts"];
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getCommonJSConfig() {
-	if (!nodePlugin) {
-		try {
-			nodePlugin = (await import("eslint-plugin-n")).default;
-			// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-		} catch (_err) {
-			// Nothing
-		}
-	}
-
-	const nodeConfig =
-		(nodePlugin && nodePlugin.configs["flat/recommended-script"]) || {};
+	const nodePlugin = (await import("eslint-plugin-n")).default;
+	const nodeConfig = nodePlugin.configs["flat/recommended-script"];
 
 	return {
 		...nodeConfig,
@@ -183,22 +177,11 @@ async function getCommonJSConfig() {
 }
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getModuleConfig() {
-	let nodePlugin;
-
-	if (!nodePlugin) {
-		try {
-			nodePlugin = (await import("eslint-plugin-n")).default;
-			// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-		} catch (_err) {
-			// Nothing
-		}
-	}
-
-	const nodeConfig =
-		(nodePlugin && nodePlugin.configs["flat/recommended-module"]) || {};
+	const nodePlugin = (await import("eslint-plugin-n")).default;
+	const nodeConfig = nodePlugin.configs["flat/recommended-module"];
 
 	return {
 		...nodeConfig,
@@ -230,19 +213,10 @@ const commonjsConfig = await getCommonJSConfig();
 const moduleConfig = await getModuleConfig();
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getDirtyConfig() {
-	let nodePlugin;
-
-	if (!nodePlugin) {
-		try {
-			nodePlugin = (await import("eslint-plugin-n")).default;
-			// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-		} catch (_err) {
-			// Nothing
-		}
-	}
+	const nodePlugin = (await import("eslint-plugin-n")).default;
 
 	return {
 		name: "node/dirty",
@@ -250,7 +224,12 @@ async function getDirtyConfig() {
 			n: nodePlugin,
 			import: importPlugin,
 		},
-		ignores: [...new Set([...commonjsConfig.ignores, ...moduleConfig.ignores])],
+		ignores: [
+			...new Set([
+				...(commonjsConfig.ignores || []),
+				...(moduleConfig.ignores || []),
+			]),
+		],
 		languageOptions: {
 			sourceType: "module",
 			parserOptions: {

@@ -2,6 +2,7 @@ import stylisticPlugin from "@stylistic/eslint-plugin";
 import prettierPlugin from "eslint-plugin-prettier";
 import prettierConfig from "eslint-plugin-prettier/recommended";
 
+/** @type {import("eslint").Linter.Config} */
 const recommendedConfig = {
 	...prettierConfig,
 	name: "stylistic/recommended",
