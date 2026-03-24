@@ -35,7 +35,8 @@
     "lint": "npm run lint:code && npm run lint:types",
     "lint:code": "eslint --cache .",
     "lint:types": "tsc -p tsconfig.internal.json",
-    "release": "standard-version"
+    "version": "changeset version",
+    "release": "changeset publish"
   },
   "dependencies": {
     "@eslint/js": "^9.39.2",
@@ -58,6 +59,8 @@
     "typescript-eslint": "^8.57.2"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.30.0",
+    "@changesets/get-github-info": "^0.8.0",
     "@types/semver": "^7.7.1",
     "eslint": "^9.39.2",
     "eslint-find-rules": "^5.0.0",
@@ -65,7 +68,6 @@
     "prettier": "^3.8.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "standard-version": "^9.5.0",
     "type-fest": "^5.5.0",
     "typescript": "^5.9.3"
   },
