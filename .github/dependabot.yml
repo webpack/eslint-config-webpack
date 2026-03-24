@@ -12,12 +12,9 @@ updates:
       dependencies:
         patterns:
           - "*"
-        exclude-patterns:
-          - "eslint-scope"
-          - "json-parse-even-better-errors"
-          - "strip-ansi"
-          - "rimraf"
-          - "mime-types"
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
