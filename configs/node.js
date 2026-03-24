@@ -127,25 +127,14 @@ const commonRules = {
 	// "n/process-exit-as-throw": "error",
 };
 
-let nodePlugin;
-
 const ignores = ["**/*.d.ts"];
 
 /**
  * @returns {Promise<Record<string, string>>} config
  */
 async function getCommonJSConfig() {
-	if (!nodePlugin) {
-		try {
-			nodePlugin = (await import("eslint-plugin-n")).default;
-			// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-		} catch (_err) {
-			// Nothing
-		}
-	}
-
-	const nodeConfig =
-		(nodePlugin && nodePlugin.configs["flat/recommended-script"]) || {};
+	const nodePlugin = (await import("eslint-plugin-n")).default;
+	const nodeConfig = nodePlugin.configs["flat/recommended-script"];
 
 	return {
 		...nodeConfig,
@@ -190,19 +179,8 @@ async function getCommonJSConfig() {
  * @returns {Promise<Record<string, string>>} config
  */
 async function getModuleConfig() {
-	let nodePlugin;
-
-	if (!nodePlugin) {
-		try {
-			nodePlugin = (await import("eslint-plugin-n")).default;
-			// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-		} catch (_err) {
-			// Nothing
-		}
-	}
-
-	const nodeConfig =
-		(nodePlugin && nodePlugin.configs["flat/recommended-module"]) || {};
+	const nodePlugin = (await import("eslint-plugin-n")).default;
+	const nodeConfig = nodePlugin.configs["flat/recommended-module"];
 
 	return {
 		...nodeConfig,
@@ -237,16 +215,7 @@ const moduleConfig = await getModuleConfig();
  * @returns {Promise<Record<string, string>>} config
  */
 async function getDirtyConfig() {
-	let nodePlugin;
-
-	if (!nodePlugin) {
-		try {
-			nodePlugin = (await import("eslint-plugin-n")).default;
-			// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-		} catch (_err) {
-			// Nothing
-		}
-	}
+	const nodePlugin = (await import("eslint-plugin-n")).default;
 
 	return {
 		name: "node/dirty",

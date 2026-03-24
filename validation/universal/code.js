@@ -60,11 +60,11 @@ function getTitle() {
 	return (globalThis.process && process.title) || document.title;
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-console
 console.log(content);
-// eslint-disable-next-line
+// eslint-disable-next-line no-console
 console.log(await getRandomNumbers());
-// eslint-disable-next-line
+// eslint-disable-next-line no-console
 console.log(await loadModule());
-// eslint-disable-next-line
+// eslint-disable-next-line no-console
 console.log(getTitle());

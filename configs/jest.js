@@ -4,17 +4,8 @@ import globals from "globals";
  * @returns {Promise<Record<string, string>>} config
  */
 async function getJestRecommendedConfig() {
-	let jestPlugin;
-
-	try {
-		jestPlugin = (await import("eslint-plugin-jest")).default;
-		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
-	} catch (_err) {
-		// Nothing
-	}
-
-	const jsdocConfig =
-		(jestPlugin && jestPlugin.configs["flat/recommended"]) || {};
+	const jestPlugin = (await import("eslint-plugin-jest")).default;
+	const jsdocConfig = jestPlugin.configs["flat/recommended"];
 
 	return {
 		...jsdocConfig,

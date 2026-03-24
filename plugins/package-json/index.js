@@ -1,4 +1,5 @@
 import { createRequire } from "node:module";
+// eslint-disable-next-line import/no-unresolved
 import * as parserJsonc from "jsonc-eslint-parser";
 import { rule as orderProperties } from "./rules/order-properties.js";
 
