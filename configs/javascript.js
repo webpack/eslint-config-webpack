@@ -336,7 +336,8 @@ const suggestions = {
 	// No need
 	// "max-statements": "off",
 
-	"new-cap": "error",
+	// For `prop-types`
+	"new-cap": ["error", { capIsNewExceptionPattern: "^.+Type$" }],
 
 	"no-alert": "error",
 
@@ -729,6 +730,9 @@ const unicornRules = {
 
 	// No need
 	// "unicorn/import-style": "off",
+
+	// No need
+	// "unicorn/isolated-functions": "off",
 
 	"unicorn/new-for-builtins": "error",
 
