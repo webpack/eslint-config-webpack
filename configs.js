@@ -22,7 +22,10 @@ function getJavascriptConfig() {
 		// https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
 		switch (minVersion) {
 			case 6: {
-				const config = { ...configs["javascript/es2016"] };
+				const config = {
+					...configs["javascript/es2016"],
+					rules: { ...configs["javascript/es2016"].rules },
+				};
 
 				config.rules["prefer-exponentiation-operator"] = "off";
 
@@ -40,6 +43,7 @@ function getJavascriptConfig() {
 			case 13: {
 				const languageOptions = {
 					...configs["javascript/es2019"].languageOptions,
+					globals: { ...configs["javascript/es2019"].languageOptions.globals },
 				};
 
 				languageOptions.globals.Promise = false;
