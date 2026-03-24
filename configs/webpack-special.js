@@ -1,8 +1,7 @@
 import { configs } from "../plugins/webpack/index.js";
 
-const recommendedWebpackSpecialConfig = {
-	...configs.recommended,
-};
+/** @type {import("eslint").Linter.Config} */
+const recommendedWebpackSpecialConfig = configs.recommended;
 
 export default {
 	"webpack/special": recommendedWebpackSpecialConfig,

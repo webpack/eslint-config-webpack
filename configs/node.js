@@ -2,6 +2,7 @@ import importPlugin from "eslint-plugin-import";
 import globals from "globals";
 import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
+/** @type {import("eslint").Linter.Config["rules"]} */
 const commonRules = {
 	// No need
 	// "n/callback-return": "error",
@@ -130,7 +131,7 @@ const commonRules = {
 const ignores = ["**/*.d.ts"];
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getCommonJSConfig() {
 	const nodePlugin = (await import("eslint-plugin-n")).default;
@@ -176,7 +177,7 @@ async function getCommonJSConfig() {
 }
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getModuleConfig() {
 	const nodePlugin = (await import("eslint-plugin-n")).default;
@@ -212,7 +213,7 @@ const commonjsConfig = await getCommonJSConfig();
 const moduleConfig = await getModuleConfig();
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getDirtyConfig() {
 	const nodePlugin = (await import("eslint-plugin-n")).default;
@@ -223,7 +224,12 @@ async function getDirtyConfig() {
 			n: nodePlugin,
 			import: importPlugin,
 		},
-		ignores: [...new Set([...commonjsConfig.ignores, ...moduleConfig.ignores])],
+		ignores: [
+			...new Set([
+				...(commonjsConfig.ignores || []),
+				...(moduleConfig.ignores || []),
+			]),
+		],
 		languageOptions: {
 			sourceType: "module",
 			parserOptions: {

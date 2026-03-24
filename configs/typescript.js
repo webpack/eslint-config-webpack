@@ -8,7 +8,7 @@ import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 const isTypescriptInstalledResult = isTypescriptInstalled();
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getTypescriptJSDocRecommendedConfig() {
 	if (!isTypescriptInstalledResult) {
@@ -35,7 +35,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 							message: `@${tag} currently not supported in TypeScript`,
 						};
 						return acc;
-					}, {}),
+					}, /** @type {Record<string, { message: string }>} */ ({})),
 					extends: "extends",
 					return: "returns",
 					constructor: "constructor",
@@ -305,7 +305,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 }
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config | import("eslint").Linter.Config[]>} config
  */
 async function getTypescriptRecommendedConfig() {
 	if (!isTypescriptInstalledResult) {
@@ -332,14 +332,26 @@ async function getTypescriptRecommendedConfig() {
 
 	const typescriptPlugin = (await import("typescript-eslint")).default;
 	const { configs } = typescriptPlugin;
+	/** @type {import("eslint").Linter.Config} */
 	const baseConfig = configs.base;
+	/** @type {import("eslint").Linter.Config} */
 	const eslintRecommendedConfig = configs.eslintRecommended;
-	const recommendedConfig = configs.recommended.find(
-		(item) => item.name === "typescript-eslint/recommended",
-	);
-	const stylisticConfig = configs.stylistic.find(
-		(item) => item.name === "typescript-eslint/stylistic",
-	);
+
+	const recommendedConfig =
+		/** @type {import("eslint").Linter.Config} */
+		(
+			configs.recommended.find(
+				(item) => item.name === "typescript-eslint/recommended",
+			)
+		);
+
+	const stylisticConfig =
+		/** @type {import("eslint").Linter.Config} */
+		(
+			configs.stylistic.find(
+				(item) => item.name === "typescript-eslint/stylistic",
+			)
+		);
 
 	const allExtensions = [...typescriptExtensions, ...javascriptExtensions];
 
@@ -352,7 +364,7 @@ async function getTypescriptRecommendedConfig() {
 			],
 			ignores: ["**/*.d.ts"],
 			languageOptions: {
-				parser: baseConfig.languageOptions.parser,
+				parser: (baseConfig.languageOptions || {}).parser,
 			},
 			plugins: {
 				...baseConfig.plugins,

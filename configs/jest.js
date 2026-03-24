@@ -1,10 +1,11 @@
 import globals from "globals";
 import getJsonFile from "./utils/get-json-file.js";
 
+/** @type {import("type-fest").PackageJson | null} */
 const packageJson = getJsonFile("package.json");
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getJestRecommendedConfig() {
 	if (packageJson === null) {
@@ -13,8 +14,8 @@ async function getJestRecommendedConfig() {
 		};
 	}
 
-	const dependencies = packageJson.dependencies || [];
-	const devDependencies = packageJson.devDependencies || [];
+	const dependencies = packageJson.dependencies || {};
+	const devDependencies = packageJson.devDependencies || {};
 
 	if (
 		typeof dependencies.jest === "undefined" &&

@@ -1,7 +1,7 @@
 import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
 /**
- * @returns {Promise<Record<string, string>>} config
+ * @returns {Promise<import("eslint").Linter.Config[]>} config
  */
 async function getMarkdownRecommendedConfig() {
 	const markdownPlugin = (await import("@eslint/markdown")).default;

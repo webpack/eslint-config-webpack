@@ -12,15 +12,16 @@ const isModule =
 	packageJson.type === "module";
 
 /**
- * @returns {Record<string, string>} javascript configuration
+ * @returns {import("eslint").Linter.Config} javascript configuration
  */
 function getJavascriptConfig() {
 	if (packageJson.engines && packageJson.engines.node) {
-		const minVersion = semver.minVersion(packageJson.engines.node).major;
+		const minVersion = semver.minVersion(packageJson.engines.node);
+		const minMajorVersion = minVersion ? minVersion.major : undefined;
 
 		// https://node.green/
 		// https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
-		switch (minVersion) {
+		switch (minMajorVersion) {
 			case 6: {
 				const config = {
 					...configs["javascript/es2016"],
@@ -41,13 +42,18 @@ function getJavascriptConfig() {
 				return configs["javascript/es2018"];
 			case 12:
 			case 13: {
+				/** @type {import("eslint").Linter.Config["languageOptions"]} */
+				const original = configs["javascript/es2019"].languageOptions;
+				/** @type {import("eslint").Linter.Config["languageOptions"]} */
 				const languageOptions = {
-					...configs["javascript/es2019"].languageOptions,
-					globals: { ...configs["javascript/es2019"].languageOptions.globals },
+					...original,
+					globals: {
+						// @ts-expect-error always exist
+						...original.globals,
+						Promise: false,
+						BigInt: false,
+					},
 				};
-
-				languageOptions.globals.Promise = false;
-				languageOptions.globals.BigInt = false;
 
 				return { ...configs["javascript/es2019"], languageOptions };
 			}

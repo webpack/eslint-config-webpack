@@ -3,18 +3,22 @@ import path from "node:path";
 
 const SKIP_TIME = 5000;
 
+/**
+ * @template T [T=import("type-fest").JsonObject]
+ */
 class Cache {
 	/**
 	 * Initialize this cache instance.
 	 */
 	constructor() {
+		/** @type {Map<string, { expire: number, value: T | null }>} */
 		this.map = new Map();
 	}
 
 	/**
 	 * Get the cached value of the given key.
 	 * @param {string} key The key to get.
-	 * @returns {import("type-fest").JsonObject} The cached value or null.
+	 * @returns {T | null} The cached value or null.
 	 */
 	get(key) {
 		const entry = this.map.get(key);
@@ -33,7 +37,7 @@ class Cache {
 	/**
 	 * Set the value of the given key.
 	 * @param {string} key The key to set.
-	 * @param {import("type-fest").JsonObject} value The value to set.
+	 * @param {T | null} value The value to set.
 	 * @returns {void}
 	 */
 	set(key, value) {
@@ -55,9 +59,10 @@ const cache = new Cache();
  * Reads the `package.json` data in a given path.
  *
  * Don't cache the data.
+ * @template T [T=import("type-fest").JsonObject]
  * @param {string} dir The path to a directory to read.
  * @param {string} filename The filename.
- * @returns {import("type-fest").JsonObject | null} The read `package.json` data, or null.
+ * @returns {T | null} The read `package.json` data, or null.
  */
 function readJsonFile(dir, filename) {
 	const filePath = path.join(dir, filename);
@@ -84,9 +89,10 @@ function readJsonFile(dir, filename) {
 /**
  * Gets a `package.json` data.
  * The data is cached if found, then it's used after.
+ * @template T [T=import("type-fest").JsonObject]
  * @param {string} filename The filename.
  * @param {string=} startPath A file path to lookup.
- * @returns {import("type-fest").JsonObject | null} A found `package.json` data or `null`.
+ * @returns {T | null} A found `package.json` data or `null`.
  * This object have additional property `filePath`.
  */
 function getJsonFile(filename, startPath = "a.js") {

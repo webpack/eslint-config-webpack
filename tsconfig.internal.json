@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "types": ["node"],
+    "esModuleInterop": true
+  },
+  "include": [
+    "configs/**/*.js",
+    "plugins/**/*.js",
+    "index.js",
+    "configs.js",
+    "eslint.config.js"
+  ]
+}
