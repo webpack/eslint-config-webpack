@@ -1,9 +1,30 @@
 import globals from "globals";
+import getJsonFile from "./utils/get-json-file.js";
+
+const packageJson = getJsonFile("package.json");
 
 /**
  * @returns {Promise<Record<string, string>>} config
  */
 async function getJestRecommendedConfig() {
+	if (packageJson === null) {
+		return {
+			name: "jest/please-install-jest-to-enable-it",
+		};
+	}
+
+	const dependencies = packageJson.dependencies || [];
+	const devDependencies = packageJson.devDependencies || [];
+
+	if (
+		typeof dependencies.jest === "undefined" &&
+		typeof devDependencies.jest === "undefined"
+	) {
+		return {
+			name: "jest/please-install-jest-to-enable-it",
+		};
+	}
+
 	const jestPlugin = (await import("eslint-plugin-jest")).default;
 	const jsdocConfig = jestPlugin.configs["flat/recommended"];
 

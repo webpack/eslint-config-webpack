@@ -1,9 +1,7 @@
 import { globalIgnores } from "eslint/config";
 import semver from "semver";
 import configs from "./configs/index.js";
-import { typescriptExtensions } from "./configs/utils/extensions.js";
 import getJsonFile from "./configs/utils/get-json-file.js";
-import isTypescriptInstalled from "./configs/utils/is-typescript-installed.js";
 import ignorePaths from "./ignore-paths.js";
 
 const packageJson = getJsonFile("package.json");
@@ -76,94 +74,7 @@ function getJavascriptConfig() {
 	return configs["javascript/recommended"];
 }
 
-/**
- * @returns {Promise<Record<string, string>>} config
- */
-function getTypescriptJSdocConfig() {
-	return isTypescriptInstalled() ? configs["typescript/jsdoc"] : [];
-}
-
-/**
- * @returns {Promise<Record<string, string>>} config
- */
-function getTypescriptConfig() {
-	if (!isTypescriptInstalled()) {
-		return {};
-	}
-
-	const tsconfigJson = getJsonFile("tsconfig.json");
-
-	const isNoEmitEnabled =
-		(tsconfigJson &&
-			tsconfigJson.compilerOptions &&
-			tsconfigJson.compilerOptions.noEmit) ||
-		false;
-
-	if (isNoEmitEnabled) {
-		return {};
-	}
-
-	const isStrict =
-		(tsconfigJson &&
-			tsconfigJson.compilerOptions &&
-			tsconfigJson.compilerOptions.strict) ||
-		true;
-
-	return [
-		configs["typescript/recommended"],
-		isStrict
-			? {
-					files: [
-						`**/*.{${typescriptExtensions.map((item) => item.slice(1)).join(",")}}`,
-					],
-					ignores: ["**/*.d.ts"],
-					rules: { strict: "off" },
-				}
-			: {},
-	];
-}
-
-/**
- * @returns {Promise<Record<string, string>>} config
- */
-function getReactConfig() {
-	if (packageJson === null) {
-		return [];
-	}
-
-	const dependencies = packageJson.dependencies || [];
-	const devDependencies = packageJson.devDependencies || [];
-
-	return typeof dependencies.react !== "undefined" ||
-		typeof dependencies.preact !== "undefined" ||
-		typeof devDependencies.react !== "undefined" ||
-		typeof devDependencies.preact !== "undefined"
-		? configs["react/recommended"]
-		: [];
-}
-
-/**
- * @returns {Promise<Record<string, string>>} config
- */
-function getJestConfig() {
-	if (packageJson === null) {
-		return [];
-	}
-
-	const dependencies = packageJson.dependencies || [];
-	const devDependencies = packageJson.devDependencies || [];
-
-	return typeof dependencies.jest !== "undefined" ||
-		typeof devDependencies.jest !== "undefined"
-		? configs["jest/recommended"]
-		: [];
-}
-
 const javascriptConfig = getJavascriptConfig();
-const typescriptJSDocConfig = getTypescriptJSdocConfig();
-const typescriptConfig = getTypescriptConfig();
-const reactConfig = getReactConfig();
-const jestConfig = getJestConfig();
 
 const recommended = [
 	globalIgnores(ignorePaths),
@@ -171,10 +82,10 @@ const recommended = [
 		? configs["node/mixed-module-and-commonjs"]
 		: configs["node/mixed-commonjs-and-module"],
 	javascriptConfig,
-	typescriptJSDocConfig,
-	typescriptConfig,
-	reactConfig,
-	jestConfig,
+	configs["typescript/jsdoc"],
+	configs["typescript/recommended"],
+	configs["react/recommended"],
+	configs["jest/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
@@ -189,10 +100,10 @@ const nodeRecommendedModule = [
 	globalIgnores(ignorePaths),
 	configs["node/mixed-module-and-commonjs"],
 	javascriptConfig,
-	typescriptJSDocConfig,
-	typescriptConfig,
-	reactConfig,
-	jestConfig,
+	configs["typescript/jsdoc"],
+	configs["typescript/recommended"],
+	configs["react/recommended"],
+	configs["jest/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
@@ -207,10 +118,10 @@ const nodeRecommendedCommonJS = [
 	globalIgnores(ignorePaths),
 	configs["node/mixed-commonjs-and-module"],
 	javascriptConfig,
-	typescriptJSDocConfig,
-	typescriptConfig,
-	reactConfig,
-	jestConfig,
+	configs["typescript/jsdoc"],
+	configs["typescript/recommended"],
+	configs["react/recommended"],
+	configs["jest/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
@@ -225,10 +136,10 @@ const nodeRecommendedDirty = [
 	globalIgnores(ignorePaths),
 	configs["node/mixed-dirty"],
 	javascriptConfig,
-	typescriptJSDocConfig,
-	typescriptConfig,
-	reactConfig,
-	jestConfig,
+	configs["typescript/jsdoc"],
+	configs["typescript/recommended"],
+	configs["react/recommended"],
+	configs["jest/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
@@ -242,10 +153,10 @@ const browserRecommended = [
 	globalIgnores(ignorePaths),
 	configs["browser/recommended"],
 	javascriptConfig,
-	typescriptJSDocConfig,
-	typescriptConfig,
-	reactConfig,
-	jestConfig,
+	configs["typescript/jsdoc"],
+	configs["typescript/recommended"],
+	configs["react/recommended"],
+	configs["jest/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
@@ -257,10 +168,10 @@ const browserOutdatedRecommendedScript = [
 	globalIgnores(ignorePaths),
 	configs["browser/recommended-outdated-script"],
 	configs["javascript/es5"],
-	typescriptJSDocConfig,
-	typescriptConfig,
-	reactConfig,
-	jestConfig,
+	configs["typescript/jsdoc"],
+	configs["typescript/recommended"],
+	configs["react/recommended"],
+	configs["jest/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
@@ -273,10 +184,10 @@ const browserOutdatedRecommendedCommonjs = [
 	globalIgnores(ignorePaths),
 	configs["browser/recommended-outdated-commonjs"],
 	configs["javascript/es5"],
-	typescriptJSDocConfig,
-	typescriptConfig,
-	reactConfig,
-	jestConfig,
+	configs["typescript/jsdoc"],
+	configs["typescript/recommended"],
+	configs["react/recommended"],
+	configs["jest/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
@@ -294,10 +205,10 @@ const browserOutdatedRecommendedModule = [
 			ecmaVersion: "latest",
 		},
 	},
-	typescriptJSDocConfig,
-	typescriptConfig,
-	reactConfig,
-	jestConfig,
+	configs["typescript/jsdoc"],
+	configs["typescript/recommended"],
+	configs["react/recommended"],
+	configs["jest/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
@@ -316,10 +227,10 @@ const universalRecommended = [
 		? configs["node/mixed-module-and-commonjs"]
 		: configs["node/mixed-commonjs-and-module"],
 	javascriptConfig,
-	typescriptJSDocConfig,
-	typescriptConfig,
-	reactConfig,
-	jestConfig,
+	configs["typescript/jsdoc"],
+	configs["typescript/recommended"],
+	configs["react/recommended"],
+	configs["jest/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],

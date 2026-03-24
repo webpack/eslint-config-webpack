@@ -1,7 +1,31 @@
+import getJsonFile from "./utils/get-json-file.js";
+
+const packageJson = getJsonFile("package.json");
+
 /**
  * @returns {Promise<Record<string, string>>} config
  */
 async function getReactRecommendedConfig() {
+	if (packageJson === null) {
+		return {
+			name: "react/please-install-react-to-enable-it",
+		};
+	}
+
+	const dependencies = packageJson.dependencies || [];
+	const devDependencies = packageJson.devDependencies || [];
+
+	if (
+		typeof dependencies.react === "undefined" &&
+		typeof dependencies.preact === "undefined" &&
+		typeof devDependencies.react === "undefined" &&
+		typeof devDependencies.preact === "undefined"
+	) {
+		return {
+			name: "react/please-install-react-to-enable-it",
+		};
+	}
+
 	const reactPlugin = (await import("eslint-plugin-react")).default;
 	const { recommended, "jsx-runtime": jsxRuntime } = reactPlugin.configs.flat;
 
@@ -11,6 +35,7 @@ async function getReactRecommendedConfig() {
 	return {
 		...recommended,
 		...recommendedHooks,
+		name: "react/recommended",
 		plugins: {
 			...recommended.plugins,
 			...recommendedHooks.plugins,
