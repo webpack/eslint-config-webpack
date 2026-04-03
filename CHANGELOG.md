@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.9.5
+
+### Patch Changes
+
+- Update deps and enable useful rules. (by [@alexander-akait](https://github.com/alexander-akait) in [#139](https://github.com/webpack/eslint-config-webpack/pull/139))
+
 ## 4.9.4
 
 ### Patch Changes
