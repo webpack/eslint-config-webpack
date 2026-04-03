@@ -690,6 +690,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/consistent-function-scoping": "off",
 
+	"unicorn/consistent-template-literal-escape": "error",
+
 	// No need
 	// "unicorn/custom-error-definition": "off",
 
@@ -706,7 +708,7 @@ const unicornRules = {
 	// No need
 	// "unicorn/explicit-length-check": "off",
 
-	// TODO
+	// TODO enable in future?
 	"unicorn/filename-case": [
 		"off",
 		{
@@ -834,7 +836,7 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-this-assignment": "off",
 
-	// TODO - enable in future?
+	// TODO enable in future? Need to check performance
 	// "unicorn/no-typeof-undefined": "off",
 
 	"unicorn/no-unnecessary-array-flat-depth": "error",
@@ -861,6 +863,8 @@ const unicornRules = {
 	"unicorn/no-useless-error-capture-stack-trace": "error",
 
 	"unicorn/no-useless-fallback-in-spread": "error",
+
+	"unicorn/no-useless-iterator-to-array": "error",
 
 	"unicorn/no-useless-length-check": "error",
 
@@ -993,6 +997,9 @@ const unicornRules = {
 	// No need
 	// "unicorn/prefer-set-size": "off",
 
+	// TODO enable in the next major release
+	// "unicorn/prefer-simple-condition-first": "error",
+
 	// No need
 	// "unicorn/prefer-single-call": "off",
 
@@ -1044,6 +1051,10 @@ const unicornRules = {
 
 	// No need
 	// "unicorn/switch-case-braces": "off",
+
+	// TODO maybe?
+	// No need
+	// "unicorn/switch-case-break-position": "off",
 
 	// No need
 	// "unicorn/template-indent": "off",

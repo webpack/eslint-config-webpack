@@ -30,6 +30,20 @@ async function getReactRecommendedConfig() {
 	const reactPlugin = (await import("eslint-plugin-react")).default;
 	const { recommended, "jsx-runtime": jsxRuntime } = reactPlugin.configs.flat;
 
+	switch(foo) {
+		case 1: {
+			doStuff();
+		}
+			break;
+	}
+
+
+	switch(foo) {
+		case 1: {
+			doStuff();
+			break;
+		}
+	}
 	const reactHooksPlugin = (await import("eslint-plugin-react-hooks")).default;
 	const { recommended: recommendedHooks } = reactHooksPlugin.configs.flat;
 
