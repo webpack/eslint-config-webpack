@@ -20,6 +20,8 @@
   },
   "license": "MIT",
   "author": "Joshua Wiens (https://twitter.com/@d3viant0ne)",
+  "type": "module",
+  "main": "index.js",
   "files": [
     "index.js",
     "plugins",
@@ -79,6 +81,6 @@
     }
   },
   "engines": {
-    "node": ">= 10.9.0"
+    "node": ">= 20.9.0"
   }
 }
