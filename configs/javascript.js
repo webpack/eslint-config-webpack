@@ -1241,7 +1241,7 @@ const baseConfig = {
 		import: importPlugin,
 	},
 	linterOptions: {
-		reportUnusedDisableDirectives: true,
+		reportUnusedDisableDirectives: "error",
 		reportUnusedInlineConfigs: "error",
 	},
 	rules: {
