@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.9.6
+
+### Patch Changes
+
+- Set `reportUnusedDisableDirectives` to `"error"`. (by [@alexander-akait](https://github.com/alexander-akait) in [#146](https://github.com/webpack/eslint-config-webpack/pull/146))
+
 ## 4.9.5
 
 ### Patch Changes
