@@ -70,9 +70,9 @@ function getJavascriptConfig() {
 			case 20:
 			case 21:
 				return configs["javascript/es2023"];
-			case 22:
 			case 23:
 				return configs["javascript/es2024"];
+			case 22:
 			case 24:
 			case 25:
 				return configs["javascript/es2025"];
