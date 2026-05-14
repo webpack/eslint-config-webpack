@@ -1,6 +1,7 @@
 import { globalIgnores } from "eslint/config";
 import semver from "semver";
 import configs from "./configs/index.js";
+import getEsVersionFromNode from "./configs/utils/get-es-version-from-node.js";
 import getJsonFile from "./configs/utils/get-json-file.js";
 import ignorePaths from "./ignore-paths.js";
 
@@ -15,73 +16,56 @@ const isModule =
  * @returns {import("eslint").Linter.Config} javascript configuration
  */
 function getJavascriptConfig() {
-	if (packageJson.engines && packageJson.engines.node) {
-		const minVersion = semver.minVersion(packageJson.engines.node);
-		const minMajorVersion = minVersion ? minVersion.major : undefined;
-
-		// https://node.green/
-		// https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
-		switch (minMajorVersion) {
-			case 6: {
-				const config = {
-					...configs["javascript/es2016"],
-					rules: { ...configs["javascript/es2016"].rules },
-				};
-
-				config.rules["prefer-exponentiation-operator"] = "off";
-
-				return config;
-			}
-			case 7:
-				return configs["javascript/es2016"];
-			case 8:
-			case 9:
-				return configs["javascript/es2017"];
-			case 10:
-			case 11:
-				return configs["javascript/es2018"];
-			case 12:
-			case 13: {
-				/** @type {import("eslint").Linter.Config["languageOptions"]} */
-				const original = configs["javascript/es2019"].languageOptions;
-				/** @type {import("eslint").Linter.Config["languageOptions"]} */
-				const languageOptions = {
-					...original,
-					globals: {
-						// @ts-expect-error always exist
-						...original.globals,
-						Promise: false,
-						BigInt: false,
-					},
-				};
-
-				return { ...configs["javascript/es2019"], languageOptions };
-			}
-			case 14:
-				return configs["javascript/es2020"];
-
-			case 15:
-				return configs["javascript/es2021"];
-			case 16:
-			case 17:
-			case 18:
-			case 19:
-				return configs["javascript/es2022"];
-			case 20:
-			case 21:
-				return configs["javascript/es2023"];
-			case 22:
-			case 23:
-				return configs["javascript/es2024"];
-			case 24:
-			case 25:
-				return configs["javascript/es2025"];
-			default:
-				return configs["javascript/recommended"];
-		}
+	if (!packageJson.engines || !packageJson.engines.node) {
+		return configs["javascript/recommended"];
 	}
 
-	return configs["javascript/recommended"];
+	const nodeRange = packageJson.engines.node;
+	const minVersion = semver.minVersion(nodeRange);
+
+	// Node 6 has Array#includes (from 6.5) but never gained the `**` operator,
+	// so it doesn't map cleanly to a single ES year — handle it inline.
+	// https://node.green/
+	if (minVersion && minVersion.major === 6) {
+		const base = configs["javascript/es2016"];
+		return {
+			...base,
+			rules: {
+				...base.rules,
+				"prefer-exponentiation-operator": "off",
+			},
+		};
+	}
+
+	const esVersion = getEsVersionFromNode(nodeRange);
+
+	if (esVersion === undefined) {
+		return configs["javascript/recommended"];
+	}
+
+	const config = configs[`javascript/es${esVersion}`];
+
+	// The `globals.es2019` set from the `globals` package doesn't declare
+	// `Promise` or `BigInt`, but both are available at runtime on Node 12+.
+	// Re-add them as readonly globals so `no-undef` doesn't flag usage.
+	if (esVersion === 2019) {
+		/** @type {import("eslint").Linter.Config["languageOptions"]} */
+		const original = config.languageOptions;
+		/** @type {import("eslint").Linter.Config["languageOptions"]} */
+		const languageOptions = {
+			...original,
+			globals: {
+				// @ts-expect-error always exist
+				...original.globals,
+				Promise: false,
+				BigInt: false,
+			},
+		};
+
+		return { ...config, languageOptions };
+	}
+
+	return config;
 }
 
 const javascriptConfig = getJavascriptConfig();
