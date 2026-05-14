@@ -31,6 +31,15 @@ export default defineConfig([
 		},
 	},
 	{
+		// Our own engines.node is >=20.9.0, which pins the shared config at
+		// ecmaVersion 2023. The import-attributes fixture exercises ES2025
+		// syntax (`with { type: "json" }`), so simulate a Node 22+ project
+		// here — that's what `get-es-version-from-node.js` produces for
+		// `engines.node: ">=22"`.
+		files: ["./validation/module-package/import-attributes.js"],
+		languageOptions: { ecmaVersion: 2025 },
+	},
+	{
 		files: ["./validation/dirty-package/**/*"],
 		extends: [configs["node-recommended-dirty"]],
 		rules: {

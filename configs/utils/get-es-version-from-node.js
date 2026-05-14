@@ -18,10 +18,12 @@ import semver from "semver";
  * @type {ReadonlyArray<{ range: string, esVersion: EsVersion }>}
  */
 const ranges = [
-	// ES2025: Iterator helpers, Promise.try, Set composition (union, intersection, …).
-	{ range: ">=24.0.0", esVersion: 2025 },
-	// ES2024: Object.groupBy/Map.groupBy, Promise.withResolvers, Atomics.waitAsync.
-	{ range: ">=22.0.0", esVersion: 2024 },
+	// ES2025: Node 22.0 ships all ES2025 syntax — import attributes
+	// (`with { type: "json" }`), the RegExp `/v` flag, and duplicate named
+	// capturing groups. Stdlib gaps (e.g. Promise.try lands at 22.5) are
+	// caught by eslint-plugin-n's `no-unsupported-features/node-builtins`,
+	// so we don't need a separate ES2024 row here.
+	{ range: ">=22.0.0", esVersion: 2025 },
 	// ES2023: Array-by-copy (toSorted/toReversed/toSpliced/with), findLast/findLastIndex.
 	{ range: ">=20.0.0", esVersion: 2023 },
 	// ES2022: Object.hasOwn is the last ES2022 feature to land on the Node 16 line.
@@ -54,7 +56,16 @@ const ranges = [
  * @returns {EsVersion | undefined} matching ES version, or `undefined`
  */
 function getEsVersionFromNode(nodeRange) {
-	const minVersion = semver.minVersion(nodeRange);
+	// `semver.minVersion` throws on unparseable input. Guard against a
+	// malformed `engines.node` so loading the ESLint config never crashes
+	// the consuming project — we just fall back to the caller's default.
+	let minVersion;
+	try {
+		minVersion = semver.minVersion(nodeRange);
+		// eslint-disable-next-line unicorn/prefer-optional-catch-binding
+	} catch (_err) {
+		return undefined;
+	}
 
 	if (!minVersion) {
 		return undefined;
