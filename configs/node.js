@@ -73,8 +73,7 @@ const commonRules = {
 	// No need
 	// "n/no-top-level-await": "error",
 
-	// From recommended
-	// "n/no-unpublished-bin": "error",
+	"n/no-unpublished-bin": "error",
 
 	// From recommended
 	// "n/no-unpublished-import": "error",
