@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.9.6
+
+### Patch Changes
+
+- Set `reportUnusedDisableDirectives` to `"error"`. (by [@alexander-akait](https://github.com/alexander-akait) in [#146](https://github.com/webpack/eslint-config-webpack/pull/146))
+
+- Ignore test module in `n/no-unsupported-features/node-builtins` rule. (by [@alexander-akait](https://github.com/alexander-akait) in [#157](https://github.com/webpack/eslint-config-webpack/pull/157))
+
+- Respect minor `engines.node` versions when picking the ES feature set. The node-to-ES mapping now lives in `configs/utils/get-es-version-from-node.js` and uses `semver` ranges, so `>=7.6` lands on ES2017 (async/await) instead of ES2016, and `>=16.11` lands on ES2022 (`Object.hasOwn`) instead of older 16.x ranges that lack it. (by [@alexander-akait](https://github.com/alexander-akait) in [#156](https://github.com/webpack/eslint-config-webpack/pull/156))
+
 ## 4.9.5
 
 ### Patch Changes
