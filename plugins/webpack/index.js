@@ -1,5 +1,8 @@
 import { createRequire } from "node:module";
 import { allExtensions } from "../../configs/utils/extensions.js";
+import { rule as noDuplicateImportTag } from "./rules/no-duplicate-import-tag.js";
+import { rule as noUnusedImportTag } from "./rules/no-unused-import-tag.js";
+import { rule as preferImportTag } from "./rules/prefer-import-tag.js";
 import { rule as requireLicenseComment } from "./rules/require-license-comment.js";
 
 const require = createRequire(import.meta.url);
@@ -7,6 +10,9 @@ const require = createRequire(import.meta.url);
 const { version } = require("../../package.json");
 
 const rules = {
+	"no-duplicate-import-tag": noDuplicateImportTag,
+	"no-unused-import-tag": noUnusedImportTag,
+	"prefer-import-tag": preferImportTag,
 	"require-license-comment": requireLicenseComment,
 };
 
