@@ -12,7 +12,6 @@ async function getMarkdownRecommendedConfig() {
 			files: ["**/*.md"],
 			processor: "markdown/markdown",
 			plugins: {
-				// @ts-expect-error bad types
 				markdown: markdownPlugin,
 			},
 		},
