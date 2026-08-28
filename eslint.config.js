@@ -78,4 +78,12 @@ export default defineConfig([
 		files: ["./validation/webpack/**/*"],
 		extends: [configs["node-recommended-commonjs"], configs["webpack/special"]],
 	},
+	{
+		// `@changesets/get-github-info` is ESM-only and only reachable through an
+		// `exports` map, which the `node` import resolver can't follow.
+		files: ["./.changeset/*.mjs"],
+		rules: {
+			"import/no-unresolved": "off",
+		},
+	},
 ]);
