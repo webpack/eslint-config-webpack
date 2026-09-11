@@ -82,4 +82,13 @@ export default defineConfig([
 			configs["webpack/schemas"],
 		],
 	},
+	{
+		files: ["./validation/webpack/schemas/custom.json"],
+		rules: {
+			"webpack/valid-schema": [
+				"error",
+				{ allow: ["x-generator"], disallow: ["cli"] },
+			],
+		},
+	},
 ]);

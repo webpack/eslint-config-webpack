@@ -60,8 +60,26 @@ export default defineConfig([
 | `webpack/special` | source files           | `webpack/require-license-comment` — every file opens with the MIT license header.                            |
 | `webpack/schemas` | `**/schemas/**/*.json` | `webpack/valid-schema` — the JSON schema conventions webpack's declaration and validator generators rely on. |
 
-`webpack/valid-schema` reports a schema that uses a keyword the generators do
-not understand, puts anything next to a `$ref`, gives `type` more than one
+`webpack/valid-schema` accepts options for which keywords a schema may use.
+`keywords` replaces the default set — webpack's own — outright, `allow` adds to
+it and `disallow` removes from it:
+
+```js
+export default defineConfig([
+	{
+		extends: [configs["webpack/schemas"]],
+		rules: {
+			"webpack/valid-schema": [
+				"error",
+				{ allow: ["x-generator"], disallow: ["cli"] },
+			],
+		},
+	},
+]);
+```
+
+Every other check is unconditional. The rule reports a schema that uses a
+keyword outside that set, puts anything next to a `$ref`, gives `type` more than one
 value, uses `instanceof` without `tsType`, `absolutePath` off a string or
 `properties` off a non-object, describes `properties` without
 `additionalProperties`, nests or mis-sizes `oneOf`/`anyOf`/`allOf`, or leaves a

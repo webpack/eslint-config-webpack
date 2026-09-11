@@ -6,7 +6,7 @@
 
 // Keep in sync with the keywords `webpack/tooling` knows how to compile into
 // declarations and validators - an unknown one is silently dropped there.
-const ALLOWED_KEYWORDS = new Set([
+const DEFAULT_KEYWORDS = [
 	"definitions",
 	"$ref",
 	"$id",
@@ -38,7 +38,7 @@ const ALLOWED_KEYWORDS = new Set([
 	"deprecated",
 	"experimental",
 	"added",
-]);
+];
 
 const COMBINATOR_KEYWORDS = ["oneOf", "anyOf", "allOf"];
 
@@ -103,6 +103,17 @@ function isReference(node) {
  */
 export const rule = {
 	create(context) {
+		const {
+			allow = [],
+			disallow = [],
+			keywords = DEFAULT_KEYWORDS,
+		} = context.options[0] || {};
+		const allowedKeywords = new Set([...keywords, ...allow]);
+
+		for (const keyword of disallow) {
+			allowedKeywords.delete(keyword);
+		}
+
 		/**
 		 * @param {JSONExpression | null} node schema node
 		 * @param {JSONNode} target node the diagnostic points at
@@ -146,7 +157,7 @@ export const rule = {
 			for (const property of node.properties) {
 				const name = getKeywordName(property);
 
-				if (!ALLOWED_KEYWORDS.has(name)) {
+				if (!allowedKeywords.has(name)) {
 					context.report({
 						data: { keyword: name },
 						loc: property.key.loc,
@@ -331,7 +342,29 @@ export const rule = {
 				'When using "$ref" no other properties are possible, but found "{{keyword}}".',
 			unknownKeyword: 'Unexpected keyword "{{keyword}}".',
 		},
-		schema: [],
+		schema: [
+			{
+				additionalProperties: false,
+				properties: {
+					allow: {
+						items: { type: "string" },
+						type: "array",
+						uniqueItems: true,
+					},
+					disallow: {
+						items: { type: "string" },
+						type: "array",
+						uniqueItems: true,
+					},
+					keywords: {
+						items: { type: "string" },
+						type: "array",
+						uniqueItems: true,
+					},
+				},
+				type: "object",
+			},
+		],
 		type: "problem",
 	},
 };
