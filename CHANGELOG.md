@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.10.0
+
+### Minor Changes
+
+- Add the `webpack/valid-schema` rule and the `webpack/schemas` config, porting the checks from `webpack/tooling`'s `schemas-lint` and making the allowed keywords configurable. (by [@alexander-akait](https://github.com/alexander-akait) in [#192](https://github.com/webpack/eslint-config-webpack/pull/192))
+
 ## 4.9.6
 
 ### Patch Changes
