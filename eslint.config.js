@@ -76,6 +76,10 @@ export default defineConfig([
 	},
 	{
 		files: ["./validation/webpack/**/*"],
-		extends: [configs["node-recommended-commonjs"], configs["webpack/special"]],
+		extends: [
+			configs["node-recommended-commonjs"],
+			configs["webpack/special"],
+			configs["webpack/schemas"],
+		],
 	},
 ]);
