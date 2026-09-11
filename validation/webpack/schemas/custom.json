@@ -1,0 +1,13 @@
+{
+  "title": "CustomKeywordsOptions",
+  "x-generator": "example",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "description": "A name the generator writes into its output.",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -76,6 +76,19 @@ export default defineConfig([
 	},
 	{
 		files: ["./validation/webpack/**/*"],
-		extends: [configs["node-recommended-commonjs"], configs["webpack/special"]],
+		extends: [
+			configs["node-recommended-commonjs"],
+			configs["webpack/special"],
+			configs["webpack/schemas"],
+		],
+	},
+	{
+		files: ["./validation/webpack/schemas/custom.json"],
+		rules: {
+			"webpack/valid-schema": [
+				"error",
+				{ allow: ["x-generator"], disallow: ["cli"] },
+			],
+		},
 	},
 ]);
