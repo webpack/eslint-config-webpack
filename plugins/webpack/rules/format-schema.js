@@ -1,44 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
+import { KEYWORD_ORDER } from "./schema-keywords.js";
 
 /** @typedef {import("jsonc-eslint-parser").AST.JSONProgram} JSONProgram */
 // A schema node holds arbitrary JSON, so its values have no narrower type.
 // eslint-disable-next-line jsdoc/reject-any-type
 /** @typedef {{ [key: string]: any }} Schema */
-
-// Key order inside every schema object; anything absent sorts alphabetically
-// after these.
-const PROPERTIES = [
-	"$ref",
-	"definitions",
-	"$id",
-	"id",
-	"title",
-	"description",
-	"type",
-	"cli",
-	"items",
-	"minItems",
-	"uniqueItems",
-	"implements",
-	"additionalProperties",
-	"properties",
-	"required",
-	"minProperties",
-	"oneOf",
-	"anyOf",
-	"allOf",
-	"enum",
-	"absolutePath",
-	"undefinedAsNull",
-	"minLength",
-	"minimum",
-	"instanceof",
-	"tsType",
-	"deprecated",
-	"experimental",
-	"added",
-];
 
 const TYPE_ORDER = [
 	"array",
@@ -270,7 +237,7 @@ export const rule = {
 				const importPrefix = "../".repeat(root.depth);
 				/** @type {(json: Schema, context: VisitContext) => Schema} */
 				const format = (node, visitContext) => {
-					node = sortObjectWithList(node, PROPERTIES);
+					node = sortObjectWithList(node, KEYWORD_ORDER);
 
 					if (node.definitions) {
 						node.definitions = { ...node.definitions };
