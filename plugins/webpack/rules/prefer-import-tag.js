@@ -35,7 +35,7 @@ export const rule = {
 						continue;
 					}
 
-					const range = /** @type {[number, number]} */ (comment.range);
+					const commentRange = /** @type {[number, number]} */ (comment.range);
 					const body = stripLineMarkers(comment.value);
 
 					PLAIN_IMPORT_TYPEDEF.lastIndex = 0;
@@ -44,7 +44,7 @@ export const rule = {
 
 					while ((match = PLAIN_IMPORT_TYPEDEF.exec(body)) !== null) {
 						const [text, , moduleRequest, exportName, alias] = match;
-						const start = range[0] + 2 + match.index;
+						const start = commentRange[0] + 2 + match.index;
 						// Only a comment holding this tag and nothing else can be swapped
 						// in place; lifting one tag out of a block is left to the author
 						const isWholeComment =
@@ -60,7 +60,7 @@ export const rule = {
 							fix: isWholeComment
 								? (fixer) =>
 										fixer.replaceTextRange(
-											range,
+											commentRange,
 											buildImportComment(moduleRequest, exportName, alias),
 										)
 								: null,

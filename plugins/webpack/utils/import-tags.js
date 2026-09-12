@@ -31,7 +31,7 @@ const DEFAULT_BINDING = /[A-Za-z_$][\w$]*/;
  * @returns {string} the body with its line markers replaced by spaces
  */
 export const stripLineMarkers = (text) =>
-	text.replace(/^[ \t]*\*/gm, (marker) => " ".repeat(marker.length));
+	text.replaceAll(/^[ \t]*\*/gm, (marker) => " ".repeat(marker.length));
 
 /**
  * @param {string} binding binding as written, `Name` or `Name as Alias`
@@ -82,9 +82,9 @@ export const parseImportTags = (comment) => {
 		return [];
 	}
 
-	const range = /** @type {[number, number]} */ (comment.range);
-	// `/*` sits before the value, so an index into it is `range[0] + 2` in the source
-	const base = range[0] + 2;
+	const commentRange = /** @type {[number, number]} */ (comment.range);
+	// `/*` sits before the value, so an index into it is its start plus 2 in the source
+	const base = commentRange[0] + 2;
 	const body = stripLineMarkers(comment.value);
 	/** @type {ImportTag[]} */
 	const tags = [];
@@ -116,7 +116,7 @@ export const parseImportTags = (comment) => {
 							local: namespaced === null ? head[0] : head[1],
 							start: clauseStart + head.index,
 							end: clauseStart + head.index + head[0].length,
-					  },
+						},
 			namespace: namespaced !== null,
 			named,
 			start: base + match.index,

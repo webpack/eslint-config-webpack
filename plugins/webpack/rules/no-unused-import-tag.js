@@ -45,20 +45,20 @@ const lineRangeAt = (text, index) => {
  * @returns {[number, number] | null} the range to remove, or null when unsure
  */
 const removableCommentRange = (text, tag) => {
-	const range = /** @type {[number, number]} */ (tag.comment.range);
+	const commentRange = /** @type {[number, number]} */ (tag.comment.range);
 
-	if (text.slice(range[0], tag.start).replace(/[/*\s]/g, "") !== "") {
+	if (text.slice(commentRange[0], tag.start).replaceAll(/[/*\s]/g, "") !== "") {
 		return null;
 	}
 
-	if (/@\w/.test(text.slice(tag.end, range[1]))) {
+	if (/@\w/.test(text.slice(tag.end, commentRange[1]))) {
 		return null;
 	}
 
-	const [start, end] = lineRangeAt(text, range[0]);
+	const [start, end] = lineRangeAt(text, commentRange[0]);
 	const outside =
-		text.slice(start, range[0]) +
-		text.slice(range[1], end).replace(/\r?\n$/, "");
+		text.slice(start, commentRange[0]) +
+		text.slice(commentRange[1], end).replace(/\r?\n$/, "");
 
 	return outside.trim() === "" ? [start, end] : null;
 };
@@ -97,9 +97,9 @@ const buildFixer = (sourceCode, tag, binding, bindingCount) => {
 
 		// Taking the last binding away would strand the comma the one before it ends
 		// with, which `trailingComma: "none"` does not allow
-		const previous = tag.named
+		const [previous] = tag.named
 			.filter((other) => other.end <= binding.start)
-			.sort((one, another) => another.end - one.end)[0];
+			.toSorted((one, another) => another.end - one.end);
 		const strandedComma =
 			previous !== undefined &&
 			!tag.named.some((other) => other.start >= binding.end)
@@ -111,7 +111,7 @@ const buildFixer = (sourceCode, tag, binding, bindingCount) => {
 			: (fixer) => [
 					fixer.removeRange([strandedComma, strandedComma + 1]),
 					fixer.removeRange(range),
-			  ];
+				];
 	}
 
 	// `{ A, B }` on one line: the binding leaves with the comma that separates it
@@ -155,7 +155,7 @@ export const rule = {
 
 					for (const binding of bindings) {
 						const used = new RegExp(
-							`(?<![\\w$])${binding.local.replace(/\$/g, "\\$")}(?![\\w$])`,
+							`(?<![\\w$])${binding.local.replaceAll("$", "\\$")}(?![\\w$])`,
 						).test(haystack);
 
 						if (used) {
