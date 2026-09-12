@@ -40,8 +40,8 @@ export default defineConfig([
 
 ### Webpack-specific configs
 
-Two opt-in configs cover conventions only webpack's own repositories need. They
-are not part of `recommended` — extend them explicitly:
+Three opt-in configs cover conventions only webpack's own repositories need.
+They are not part of `recommended` — extend them explicitly:
 
 ```js
 import { defineConfig } from "eslint/config";
@@ -50,7 +50,12 @@ import configs from "eslint-config-webpack/configs.js";
 
 export default defineConfig([
 	{
-		extends: [config, configs["webpack/special"], configs["webpack/schemas"]],
+		extends: [
+			config,
+			configs["webpack/special"],
+			configs["webpack/schemas"],
+			configs["webpack/types"],
+		],
 	},
 ]);
 ```
@@ -59,6 +64,7 @@ export default defineConfig([
 | ----------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `webpack/special` | source files           | `webpack/require-license-comment` — every file opens with the MIT license header.                                                                                                                                  |
 | `webpack/schemas` | `**/schemas/**/*.json` | `webpack/valid-schema` — the JSON schema conventions webpack's declaration and validator generators rely on. `webpack/format-schema` — key order, and definitions kept in sync with the base schema (autofixable). |
+| `webpack/types`   | `**/lib/**/*.{js,mjs,cjs}` | `webpack/inherit-jsdoc` — an overriding method carries the JSDoc of the method it overrides (autofixable).                                                                                                    |
 
 `webpack/valid-schema` accepts options for which keywords a schema may use.
 `keywords` replaces the default set — webpack's own — outright, `allow` adds to
@@ -84,6 +90,30 @@ value, uses `instanceof` without `tsType`, `absolutePath` off a string or
 `properties` off a non-object, describes `properties` without
 `additionalProperties`, nests or mis-sizes `oneOf`/`anyOf`/`allOf`, or leaves a
 property without a description starting in uppercase and ending in a single dot.
+
+`webpack/inherit-jsdoc` needs type information, so `webpack/types` sets up
+`@typescript-eslint/parser` with `projectService` — the project therefore needs
+a `tsconfig.json` covering the linted files, and `typescript` installed. The
+rule copies the base class method's JSDoc onto every override that is missing
+it or has drifted from it, dropping `@abstract`. `stripTags` chooses which tags
+are dropped:
+
+```js
+export default defineConfig([
+	{
+		extends: [configs["webpack/types"]],
+		rules: {
+			"webpack/inherit-jsdoc": ["error", { stripTags: ["abstract", "virtual"] }],
+		},
+	},
+]);
+```
+
+Getters, setters, static methods and methods overriding a declaration file (so
+`Object.toString` or `Set.add`) are left alone. Inheritance is resolved through
+the whole chain, so restoring a JSDoc that several classes deep an override
+inherits takes more than one `--fix` run — repeat it until the tree stops
+changing.
 
 [npm]: https://img.shields.io/npm/v/eslint-config-webpack.svg
 [npm-url]: https://npmjs.com/package/eslint-config-webpack

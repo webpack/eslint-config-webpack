@@ -80,6 +80,7 @@ export default defineConfig([
 			configs["node-recommended-commonjs"],
 			configs["webpack/special"],
 			configs["webpack/schemas"],
+			configs["webpack/types"],
 		],
 	},
 	{

@@ -12,7 +12,7 @@ export const rule = {
 			"Program:exit"(program) {
 				const comments = sourceCode.getAllComments();
 				const licenseComment =
-					/** @type {(Comment & { start: number, end: number }) | undefined} */
+					/** @type {(Comment & { range: [number, number] }) | undefined} */
 					(
 						comments.find(
 							(comment) =>
@@ -32,7 +32,8 @@ export const rule = {
 					return;
 				}
 
-				const afterComment = sourceCode.text[licenseComment.end];
+				const [, end] = licenseComment.range;
+				const afterComment = sourceCode.text[end];
 
 				if (afterComment !== "\n") {
 					context.report({
@@ -43,7 +44,7 @@ export const rule = {
 					return;
 				}
 
-				const afterAfterComment = sourceCode.text[licenseComment.end + 1];
+				const afterAfterComment = sourceCode.text[end + 1];
 
 				if (afterAfterComment !== "\n") {
 					context.report({
