@@ -1,19 +1,25 @@
 import { createRequire } from "node:module";
+// eslint-disable-next-line import/no-unresolved
+import * as parserJsonc from "jsonc-eslint-parser";
 import { allExtensions } from "../../configs/utils/extensions.js";
+import { rule as formatSchema } from "./rules/format-schema.js";
 import { rule as noDuplicateImportTag } from "./rules/no-duplicate-import-tag.js";
 import { rule as noUnusedImportTag } from "./rules/no-unused-import-tag.js";
 import { rule as preferImportTag } from "./rules/prefer-import-tag.js";
 import { rule as requireLicenseComment } from "./rules/require-license-comment.js";
+import { rule as validSchema } from "./rules/valid-schema.js";
 
 const require = createRequire(import.meta.url);
 
 const { version } = require("../../package.json");
 
 const rules = {
+	"format-schema": formatSchema,
 	"no-duplicate-import-tag": noDuplicateImportTag,
 	"no-unused-import-tag": noUnusedImportTag,
 	"prefer-import-tag": preferImportTag,
 	"require-license-comment": requireLicenseComment,
+	"valid-schema": validSchema,
 };
 
 /** @type {import("eslint").Linter.Config["rules"]} */
@@ -25,7 +31,7 @@ const recommendedRules = {
 	),
 };
 
-/** @type {Record<"recommended", import("eslint").Linter.Config>} */
+/** @type {Record<"recommended" | "schemas", import("eslint").Linter.Config>} */
 const configs = {
 	recommended: {
 		name: "webpack/recommended",
@@ -37,6 +43,23 @@ const configs = {
 			},
 		},
 		rules: recommendedRules,
+	},
+	schemas: {
+		name: "webpack/schemas",
+		files: ["**/schemas/**/*.json"],
+		languageOptions: {
+			parser: parserJsonc,
+		},
+		plugins: {
+			get webpack() {
+				// eslint-disable-next-line no-use-before-define
+				return plugin;
+			},
+		},
+		rules: {
+			"webpack/format-schema": "error",
+			"webpack/valid-schema": "error",
+		},
 	},
 };
 

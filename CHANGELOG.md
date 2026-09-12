@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.11.0
+
+### Minor Changes
+
+- Add the `webpack/format-schema` rule, porting `webpack/tooling`'s `format-schemas` with an ESLint auto-fix, and share one keyword table with `webpack/valid-schema` so `allOf` is no longer reported as unknown. (by [@alexander-akait](https://github.com/alexander-akait) in [#195](https://github.com/webpack/eslint-config-webpack/pull/195))
+
+### Patch Changes
+
+- Upgrade `@changesets/cli` to v3 so the release workflow works with `changesets/action` v2. (by [@alexander-akait](https://github.com/alexander-akait) in [#196](https://github.com/webpack/eslint-config-webpack/pull/196))
+
+## 4.10.0
+
+### Minor Changes
+
+- Add the `webpack/valid-schema` rule and the `webpack/schemas` config, porting the checks from `webpack/tooling`'s `schemas-lint` and making the allowed keywords configurable. (by [@alexander-akait](https://github.com/alexander-akait) in [#192](https://github.com/webpack/eslint-config-webpack/pull/192))
+
 ## 4.9.6
 
 ### Patch Changes

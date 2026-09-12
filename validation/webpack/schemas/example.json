@@ -1,0 +1,57 @@
+{
+  "definitions": {
+    "Rule": {
+      "description": "A rule matching a resource.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "test": {
+          "description": "A pattern the resource must match.",
+          "instanceof": "RegExp",
+          "tsType": "RegExp"
+        }
+      }
+    }
+  },
+  "title": "ExamplePluginOptions",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "context": {
+      "description": "A directory the plugin resolves against.",
+      "type": "string",
+      "absolutePath": true,
+      "minLength": 1
+    },
+    "experimentalCache": {
+      "description": "Cache the plugin's work between builds.",
+      "type": "boolean",
+      "experimental": true,
+      "added": "5.109.0"
+    },
+    "rules": {
+      "description": "Rules applied to every matching resource.",
+      "type": "array",
+      "items": {
+        "description": "A rule applied to a matching resource.",
+        "oneOf": [
+          {
+            "$ref": "#/definitions/Rule"
+          }
+        ]
+      }
+    },
+    "target": {
+      "description": "Where the output is meant to run.",
+      "anyOf": [
+        {
+          "enum": ["web", "node"]
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
+    }
+  }
+}
