@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.12.0
+
+### Minor Changes
+
+- Add the `webpack/inherit-jsdoc` rule and the `webpack/types` config. (by [@alexander-akait](https://github.com/alexander-akait) in [#198](https://github.com/webpack/eslint-config-webpack/pull/198))
+
+- Add `webpack/prefer-import-tag`, `webpack/no-duplicate-import-tag` and `webpack/no-unused-import-tag`, which hold JSDoc type imports to a single `@import` per module with no unused bindings. (by [@avivkeller](https://github.com/avivkeller) in [#187](https://github.com/webpack/eslint-config-webpack/pull/187))
+
 ## 4.11.0
 
 ### Minor Changes
