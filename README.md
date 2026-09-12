@@ -55,10 +55,10 @@ export default defineConfig([
 ]);
 ```
 
-| Config            | Files                  | What it checks                                                                                               |
-| ----------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `webpack/special` | source files           | `webpack/require-license-comment` — every file opens with the MIT license header.                            |
-| `webpack/schemas` | `**/schemas/**/*.json` | `webpack/valid-schema` — the JSON schema conventions webpack's declaration and validator generators rely on. |
+| Config            | Files                  | What it checks                                                                                                                                                                                                     |
+| ----------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `webpack/special` | source files           | `webpack/require-license-comment` — every file opens with the MIT license header.                                                                                                                                  |
+| `webpack/schemas` | `**/schemas/**/*.json` | `webpack/valid-schema` — the JSON schema conventions webpack's declaration and validator generators rely on. `webpack/format-schema` — key order, and definitions kept in sync with the base schema (autofixable). |
 
 `webpack/valid-schema` accepts options for which keywords a schema may use.
 `keywords` replaces the default set — webpack's own — outright, `allow` adds to
