@@ -3,6 +3,9 @@ import { createRequire } from "node:module";
 import * as parserJsonc from "jsonc-eslint-parser";
 import { allExtensions } from "../../configs/utils/extensions.js";
 import { rule as formatSchema } from "./rules/format-schema.js";
+import { rule as noDuplicateImportTag } from "./rules/no-duplicate-import-tag.js";
+import { rule as noUnusedImportTag } from "./rules/no-unused-import-tag.js";
+import { rule as preferImportTag } from "./rules/prefer-import-tag.js";
 import { rule as requireLicenseComment } from "./rules/require-license-comment.js";
 import { rule as validSchema } from "./rules/valid-schema.js";
 
@@ -12,6 +15,9 @@ const { version } = require("../../package.json");
 
 const rules = {
 	"format-schema": formatSchema,
+	"no-duplicate-import-tag": noDuplicateImportTag,
+	"no-unused-import-tag": noUnusedImportTag,
+	"prefer-import-tag": preferImportTag,
 	"require-license-comment": requireLicenseComment,
 	"valid-schema": validSchema,
 };
