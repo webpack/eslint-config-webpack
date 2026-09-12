@@ -4,41 +4,7 @@
 /** @typedef {import("jsonc-eslint-parser").AST.JSONProgram} JSONProgram */
 /** @typedef {import("jsonc-eslint-parser").AST.JSONProperty} JSONProperty */
 
-// Keep in sync with the keywords `webpack/tooling` knows how to compile into
-// declarations and validators - an unknown one is silently dropped there.
-const DEFAULT_KEYWORDS = [
-	"definitions",
-	"$ref",
-	"$id",
-	"title",
-	"cli",
-	"items",
-	"implements",
-	"properties",
-	"additionalProperties",
-	"type",
-	"oneOf",
-	"anyOf",
-	"absolutePath",
-	"undefinedAsNull",
-	"description",
-	"enum",
-	"minLength",
-	"pattern",
-	"minimum",
-	"maximum",
-	"required",
-	"uniqueItems",
-	"minItems",
-	"minProperties",
-	"instanceof",
-	"tsType",
-	"not",
-	"link",
-	"deprecated",
-	"experimental",
-	"added",
-];
+import { DEFAULT_KEYWORDS } from "./schema-keywords.js";
 
 const COMBINATOR_KEYWORDS = ["oneOf", "anyOf", "allOf"];
 

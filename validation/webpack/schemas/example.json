@@ -1,6 +1,4 @@
 {
-  "title": "ExamplePluginOptions",
-  "type": "object",
   "definitions": {
     "Rule": {
       "description": "A rule matching a resource.",
@@ -15,6 +13,8 @@
       }
     }
   },
+  "title": "ExamplePluginOptions",
+  "type": "object",
   "additionalProperties": false,
   "properties": {
     "context": {
@@ -26,8 +26,8 @@
     "experimentalCache": {
       "description": "Cache the plugin's work between builds.",
       "type": "boolean",
-      "added": "5.109.0",
-      "experimental": true
+      "experimental": true,
+      "added": "5.109.0"
     },
     "rules": {
       "description": "Rules applied to every matching resource.",
