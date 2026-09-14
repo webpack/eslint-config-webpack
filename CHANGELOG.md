@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.13.0
+
+### Minor Changes
+
+- Report a `minLength` other than 1 and a non-primitive `enum` value in `webpack/valid-schema`. (by [@alexander-akait](https://github.com/alexander-akait) in [#201](https://github.com/webpack/eslint-config-webpack/pull/201))
+
 ## 4.12.0
 
 ### Minor Changes
