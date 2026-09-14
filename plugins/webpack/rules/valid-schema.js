@@ -159,6 +159,31 @@ export const rule = {
 				});
 			}
 
+			const minLength = getKeyword(node, "minLength");
+
+			if (
+				minLength &&
+				!(minLength.value.type === "JSONLiteral" && minLength.value.value === 1)
+			) {
+				context.report({
+					loc: minLength.key.loc,
+					messageId: "minLengthMustBeOne",
+				});
+			}
+
+			const enumKeyword = getKeyword(node, "enum");
+
+			if (enumKeyword && enumKeyword.value.type === "JSONArrayExpression") {
+				for (const element of enumKeyword.value.elements) {
+					if (element && element.type !== "JSONLiteral") {
+						context.report({
+							loc: element.loc,
+							messageId: "enumRequiresPrimitive",
+						});
+					}
+				}
+			}
+
 			const absolutePath = getKeyword(node, "absolutePath");
 
 			if (absolutePath && !isStringLiteral(type && type.value, "string")) {
@@ -292,8 +317,12 @@ export const rule = {
 				'When using "absolutePath", "type" must be "string".',
 			combinatorMultipleItems: '"{{keyword}}" must have more than one item.',
 			emptyCombinator: '"{{keyword}}" must not be empty.',
+			enumRequiresPrimitive:
+				'"enum" must only hold primitive values, the precompiled validator cannot compare anything else.',
 			instanceofRequiresTsType:
 				'When using "instanceof", "tsType" is required.',
+			minLengthMustBeOne:
+				'"minLength" must be 1, the precompiled validator emits no other length check.',
 			invalidDescription:
 				"Description should start with an uppercase letter and end with a single dot.",
 			missingAdditionalProperties:
