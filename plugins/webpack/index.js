@@ -77,12 +77,20 @@ const configs = {
 			},
 		},
 		plugins: {
+			get "@typescript-eslint"() {
+				return require("typescript-eslint").plugin;
+			},
 			get webpack() {
 				// eslint-disable-next-line no-use-before-define
 				return plugin;
 			},
 		},
 		rules: {
+			// The TypeScript parser puts the TS `lib` globals in scope, so these
+			// base rules read a local `Cache` or `crypto` as clashing with one.
+			"no-global-assign": "off",
+			"no-redeclare": "off",
+			"@typescript-eslint/no-redeclare": ["error", { builtinGlobals: false }],
 			"webpack/inherit-jsdoc": "error",
 		},
 	},
