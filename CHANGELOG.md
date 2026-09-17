@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.14.0
+
+### Minor Changes
+
+- Add the `webpack/comment-length` rule and the `webpack/comments` config. (by [@alexander-akait](https://github.com/alexander-akait) in [#204](https://github.com/webpack/eslint-config-webpack/pull/204))
+
 ## 4.13.0
 
 ### Minor Changes
