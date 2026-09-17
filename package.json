@@ -35,7 +35,7 @@
     "lint": "npm run lint:code && npm run lint:types",
     "lint:code": "eslint --cache .",
     "lint:types": "tsc -p tsconfig.internal.json",
-    "test": "node --test \"test/*.test.js\"",
+    "test": "cd test && node --test",
     "version": "changeset version",
     "release": "changeset publish"
   },
