@@ -32,9 +32,11 @@
     "configs"
   ],
   "scripts": {
-    "lint": "npm run lint:code && npm run lint:types",
+    "lint": "npm run lint:code && npm run lint:types && npm run fmt:check",
     "lint:code": "eslint --cache .",
     "lint:types": "tsc -p tsconfig.internal.json",
+    "fmt": "prettier --cache --write .",
+    "fmt:check": "prettier --cache --check .",
     "test": "cd test && node --test",
     "version": "changeset version",
     "release": "changeset publish"

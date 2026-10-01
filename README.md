@@ -38,6 +38,52 @@ export default defineConfig([
 ]);
 ```
 
+### Prettier
+
+The recommended config does not run Prettier: formatting every file again
+inside ESLint is slow, and an editor already formats on save. Run Prettier
+on its own, with the shared options:
+
+```bash
+npm i -D prettier
+```
+
+```js
+// prettier.config.mjs
+export { default } from "eslint-config-webpack/prettier-config.js";
+```
+
+Use `eslint-config-webpack/prettier-config-es5.js` instead for code that must
+stay ES5 (trailing commas only where ES5 allows them).
+
+```json
+{
+	"scripts": {
+		"lint": "eslint --cache . && prettier --cache --check .",
+		"fmt": "prettier --cache --write ."
+	}
+}
+```
+
+Run `lint` in CI, so unformatted code fails the build, and set your editor to
+format on save with the Prettier extension. Files Prettier should skip go in
+`.prettierignore`.
+
+To report formatting as ESLint errors instead, as before, add the opt-in
+`stylistic/prettier` config:
+
+```js
+import { defineConfig } from "eslint/config";
+import config from "eslint-config-webpack";
+import configs from "eslint-config-webpack/configs.js";
+
+export default defineConfig([
+	{
+		extends: [config, configs["stylistic/prettier"]],
+	},
+]);
+```
+
 ### Webpack-specific configs
 
 Three opt-in configs cover conventions only webpack's own repositories need.
