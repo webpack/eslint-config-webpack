@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.15.0
+
+### Minor Changes
+
+- Move `prettier/prettier` out of the recommended configs into the opt-in `stylistic/prettier` config; run Prettier on its own instead. (by [@alexander-akait](https://github.com/alexander-akait) in [#212](https://github.com/webpack/eslint-config-webpack/pull/212))
+
+### Patch Changes
+
+- Turn off jsdoc rules that TypeScript already reports: `require-param-type`, `require-param-name`, `require-property-name` and `implements-on-classes`. (by [@alexander-akait](https://github.com/alexander-akait) in [#211](https://github.com/webpack/eslint-config-webpack/pull/211))
+
+- Turn off `jsdoc/require-next-type`, `jsdoc/require-throws-type` and `jsdoc/require-yields-type`. (by [@alexander-akait](https://github.com/alexander-akait) in [#210](https://github.com/webpack/eslint-config-webpack/pull/210))
+
+- Check `jsdoc/no-restricted-syntax` with one combined selector, so it lints faster. (by [@alexander-akait](https://github.com/alexander-akait) in [#208](https://github.com/webpack/eslint-config-webpack/pull/208))
+
 ## 4.14.0
 
 ### Minor Changes
