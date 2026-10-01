@@ -9,6 +9,8 @@ const linter = new Linter({ configType: "flat" });
 const cases = {
 	"jsdoc/implements-on-classes":
 		"/**\n * @implements {Iterable<number>}\n * @returns {number} result\n */\nfunction fn() {\n\treturn 1;\n}\n",
+	"jsdoc/no-undefined-types":
+		"/**\n * @param {Unknown} value value\n * @returns {Unknown} result\n */\nfunction fn(value) {\n\treturn value;\n}\n",
 	"jsdoc/require-param-name":
 		"/**\n * @param {string}\n * @returns {string} result\n */\nfunction fn(value) {\n\treturn value;\n}\n",
 	"jsdoc/require-property-name":

@@ -167,8 +167,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/no-types": "error",
 
-			// No need
-			// "jsdoc/no-undefined-types": "error",
+			// TypeScript reports an unknown type name itself (TS2304)
+			"jsdoc/no-undefined-types": "off",
 
 			// TODO enable me in future
 			// "jsdoc/prefer-import-tag": "error",
