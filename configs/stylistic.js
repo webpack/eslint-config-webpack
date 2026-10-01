@@ -1,17 +1,13 @@
 import stylisticPlugin from "@stylistic/eslint-plugin";
 import prettierPlugin from "eslint-plugin-prettier";
-import prettierConfig from "eslint-plugin-prettier/recommended";
 
 /** @type {import("eslint").Linter.Config} */
 const recommendedConfig = {
-	...prettierConfig,
 	name: "stylistic/recommended",
 	plugins: {
 		"@stylistic": stylisticPlugin,
-		prettier: prettierPlugin,
 	},
 	rules: {
-		"prettier/prettier": "error",
 		curly: ["error", "multi-line", "consistent"],
 		"@stylistic/lines-between-class-members": "error",
 		"@stylistic/quotes": [
@@ -85,6 +81,20 @@ const recommendedConfig = {
 	},
 };
 
+// Opt-in: running Prettier as a lint rule formats every file inside ESLint,
+// which is slow; run `prettier --check` on its own instead (see README).
+/** @type {import("eslint").Linter.Config} */
+const prettierConfig = {
+	name: "stylistic/prettier",
+	plugins: {
+		prettier: prettierPlugin,
+	},
+	rules: {
+		"prettier/prettier": "error",
+	},
+};
+
 export default {
 	"stylistic/recommended": recommendedConfig,
+	"stylistic/prettier": prettierConfig,
 };
