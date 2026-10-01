@@ -199,7 +199,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/require-next-description":"error",
 
-			// No need
+			// Generator types are inferred by TypeScript, so `@next` needs no type
 			"jsdoc/require-next-type": "off",
 
 			// From recommended
@@ -211,8 +211,9 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// From recommended
 			// "jsdoc/require-param-name": "error",
 
-			// From recommended
-			// "jsdoc/require-param-type": "error",
+			// `tsc` with `noImplicitAny` already reports an untyped parameter, and
+			// accepts one typed by its default value
+			"jsdoc/require-param-type": "off",
 
 			// From recommended
 			// "jsdoc/require-property": "error",
@@ -249,7 +250,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/require-throws-description": "error",
 
-			// No need
+			// TypeScript ignores the type of `@throws`
 			"jsdoc/require-throws-type": "off",
 
 			// From recommended
@@ -258,7 +259,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/require-yields-description": "error",
 
-			// No need
+			// Generator types are inferred by TypeScript, so `@yields` needs no type
 			"jsdoc/require-yields-type": "off",
 
 			// From recommended
