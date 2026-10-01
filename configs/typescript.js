@@ -200,7 +200,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// "jsdoc/require-next-description":"error",
 
 			// No need
-			// "jsdoc/require-next-type": "error",
+			"jsdoc/require-next-type": "off",
 
 			// From recommended
 			// "jsdoc/require-param": "error",
@@ -250,7 +250,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// "jsdoc/require-throws-description": "error",
 
 			// No need
-			// "jsdoc/require-throws-type": "error",
+			"jsdoc/require-throws-type": "off",
 
 			// From recommended
 			// "jsdoc/require-yields": "error",
@@ -259,7 +259,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// "jsdoc/require-yields-description": "error",
 
 			// No need
-			// "jsdoc/require-yields-type": "error",
+			"jsdoc/require-yields-type": "off",
 
 			// From recommended
 			// "jsdoc/require-yields-check": "error",
