@@ -106,7 +106,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// From recommended
 			// "jsdoc/escape-inline-tags": "error",
 
-			// "jsdoc/implements-on-classes": "error",
+			// TypeScript reports `@implements` outside a class itself (TS8022)
+			"jsdoc/implements-on-classes": "off",
 
 			// No need
 			// "jsdoc/informative-docs": "error",
@@ -166,8 +167,9 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/no-types": "error",
 
-			// No need
-			// "jsdoc/no-undefined-types": "error",
+			// TypeScript reports an unknown type name itself (TS2304); it ignores the
+			// types of `@throws` and `@yields`, so those go unchecked
+			"jsdoc/no-undefined-types": "off",
 
 			// TODO enable me in future
 			// "jsdoc/prefer-import-tag": "error",
@@ -199,7 +201,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/require-next-description":"error",
 
-			// No need
+			// TypeScript ignores the type of `@next`; type a generator with
+			// `@returns {Generator<…>}` instead
 			"jsdoc/require-next-type": "off",
 
 			// From recommended
@@ -208,11 +211,12 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// From recommended
 			// "jsdoc/require-param-description": "error",
 
-			// From recommended
-			// "jsdoc/require-param-name": "error",
+			// TypeScript fails to parse a `@param` without a name (TS1003)
+			"jsdoc/require-param-name": "off",
 
-			// From recommended
-			// "jsdoc/require-param-type": "error",
+			// `tsc` with `noImplicitAny` already reports an untyped parameter, and
+			// accepts one typed by its default value
+			"jsdoc/require-param-type": "off",
 
 			// From recommended
 			// "jsdoc/require-property": "error",
@@ -220,11 +224,13 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// From recommended
 			// "jsdoc/require-property-description": "error",
 
-			// From recommended
-			// "jsdoc/require-property-name": "error",
+			// TypeScript fails to parse a `@typedef` `@property` without a name
+			// (TS1003); it ignores `@property` anywhere else
+			"jsdoc/require-property-name": "off",
 
-			// From recommended
-			// "jsdoc/require-property-type": "error",
+			// Kept: `tsc` reports an untyped `@property` (TS7005) only once the typedef
+			// is used, so an exported-only typedef would silently get `any`
+			"jsdoc/require-property-type": "error",
 
 			// A lot of false positive with loops/`switch`/`if`/etc
 			"jsdoc/require-returns-check": "off",
@@ -249,7 +255,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/require-throws-description": "error",
 
-			// No need
+			// TypeScript ignores the type of `@throws`
 			"jsdoc/require-throws-type": "off",
 
 			// From recommended
@@ -258,7 +264,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/require-yields-description": "error",
 
-			// No need
+			// TypeScript ignores the type of `@yields`; type a generator with
+			// `@returns {Generator<…>}` instead
 			"jsdoc/require-yields-type": "off",
 
 			// From recommended
