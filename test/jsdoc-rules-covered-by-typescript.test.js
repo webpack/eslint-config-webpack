@@ -15,8 +15,6 @@ const cases = {
 		"/**\n * @param {string}\n * @returns {string} result\n */\nfunction fn(value) {\n\treturn value;\n}\n",
 	"jsdoc/require-property-name":
 		"/**\n * @typedef {object} Options\n * @property {string}\n */\n",
-	"jsdoc/require-property-type":
-		"/**\n * @typedef {object} Options\n * @property mode the mode\n */\n",
 };
 
 describe("jsdoc rules covered by TypeScript", () => {
@@ -33,4 +31,21 @@ describe("jsdoc rules covered by TypeScript", () => {
 			);
 		});
 	}
+});
+
+describe("jsdoc/require-property-type", () => {
+	// Kept on: `tsc` misses an untyped `@property` of a typedef it never uses.
+	it("reports an untyped @property", () => {
+		const messages = linter.verify(
+			"/**\n * @typedef {object} Options\n * @property mode the mode\n */\n",
+			[configs["typescript/jsdoc"]],
+			"file.js",
+		);
+		assert.equal(
+			messages.filter(
+				(message) => message.ruleId === "jsdoc/require-property-type",
+			).length,
+			1,
+		);
+	});
 });

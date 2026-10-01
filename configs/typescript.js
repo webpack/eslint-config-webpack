@@ -167,7 +167,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/no-types": "error",
 
-			// TypeScript reports an unknown type name itself (TS2304)
+			// TypeScript reports an unknown type name itself (TS2304); it ignores the
+			// types of `@throws` and `@yields`, so those go unchecked
 			"jsdoc/no-undefined-types": "off",
 
 			// TODO enable me in future
@@ -200,7 +201,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/require-next-description":"error",
 
-			// Generator types are inferred by TypeScript, so `@next` needs no type
+			// TypeScript ignores the type of `@next`; type a generator with
+			// `@returns {Generator<…>}` instead
 			"jsdoc/require-next-type": "off",
 
 			// From recommended
@@ -222,11 +224,13 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// From recommended
 			// "jsdoc/require-property-description": "error",
 
-			// TypeScript fails to parse a `@property` without a name (TS1003)
+			// TypeScript fails to parse a `@typedef` `@property` without a name
+			// (TS1003); it ignores `@property` anywhere else
 			"jsdoc/require-property-name": "off",
 
-			// `tsc` with `noImplicitAny` reports an untyped `@property` (TS7005)
-			"jsdoc/require-property-type": "off",
+			// Kept: `tsc` reports an untyped `@property` (TS7005) only once the typedef
+			// is used, so an exported-only typedef would silently get `any`
+			"jsdoc/require-property-type": "error",
 
 			// A lot of false positive with loops/`switch`/`if`/etc
 			"jsdoc/require-returns-check": "off",
@@ -260,7 +264,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/require-yields-description": "error",
 
-			// Generator types are inferred by TypeScript, so `@yields` needs no type
+			// TypeScript ignores the type of `@yields`; type a generator with
+			// `@returns {Generator<…>}` instead
 			"jsdoc/require-yields-type": "off",
 
 			// From recommended
