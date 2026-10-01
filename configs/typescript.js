@@ -141,37 +141,23 @@ async function getTypescriptJSDocRecommendedConfig() {
 			"jsdoc/no-restricted-syntax": [
 				"error",
 				{
+					// One context with one `:has()` instead of one per check: the plugin
+					// rebuilds the comment AST per context and `:has()` walks it each time.
 					contexts: [
-						// Prefer TypeScript syntax for functions
 						{
-							comment: "JsdocBlock:has(JsdocTypeFunction[arrow=false])",
+							comment: `JsdocBlock:has(${[
+								// Prefer TypeScript syntax for functions
+								"JsdocTypeFunction[arrow=false]",
+								// Prefer `{string=}` over `{string} [arg]`
+								"JsdocTag[tag=/^(property|param)$/][name=/[\\[\\]]/]",
+								// No `?` type
+								"JsdocTypeUnknown",
+								// No `Object`
+								"JsdocTag[tag!=/^(typedef|template|param)$/]:has(JsdocTypeName[value=/^(Object|object)$/])",
+								"JsdocTag[tag=typedef][parsedType.type!=JsdocTypeName]:has(JsdocTypeName[value=/^(Object|object)$/])",
+							].join(", ")})`,
 							message:
-								"Please use TypeScript syntax - `(a: string, b: boolean) => number`",
-						},
-						// Prefer `{string=}` over `{string} [arg]`
-						{
-							comment:
-								"JsdocBlock:has(JsdocTag[tag=/^(property|param)$/][name=/[\\[\\]]/])",
-							message:
-								"Please use `@property {string=} property`/`@param {string=} arg` instead `[arg]` for optional properties and parameters",
-						},
-						// No `?` type
-						{
-							comment: "JsdocBlock:has(JsdocTypeUnknown)",
-							message: "Please use `unknown` or `any` (or `EXPECTED_ANY`) type",
-						},
-						// No `Object`
-						{
-							comment:
-								"JsdocBlock:has(JsdocTag[tag!=/^(typedef|template|param)$/]:has(JsdocTypeName[value=/^(Object|object)$/]))",
-							message:
-								"Please use provide types for object  - `{ property: number:, result: () => number}` instead `Object`/`object` or use `EXPECTED_OBJECT` type",
-						},
-						{
-							comment:
-								"JsdocBlock:has(JsdocTag[tag=typedef][parsedType.type!=JsdocTypeName]:has(JsdocTypeName[value=/^(Object|object)$/]))",
-							message:
-								"Please use provide types for object  - `{ property: number:, result: () => number}` instead `Object`/`object` or use `EXPECTED_OBJECT` type",
+								"Please use TypeScript syntax: `(a: string) => number` for functions, `{string=}` instead of `[arg]` for optional properties and parameters, `unknown`/`any` (or `EXPECTED_ANY`) instead of `?`, and object types such as `{ property: number }` (or `EXPECTED_OBJECT`) instead of `Object`/`object`",
 						},
 					],
 				},
