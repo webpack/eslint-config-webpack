@@ -106,7 +106,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// From recommended
 			// "jsdoc/escape-inline-tags": "error",
 
-			// "jsdoc/implements-on-classes": "error",
+			// TypeScript reports `@implements` outside a class itself (TS8022)
+			"jsdoc/implements-on-classes": "off",
 
 			// No need
 			// "jsdoc/informative-docs": "error",
@@ -208,8 +209,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// From recommended
 			// "jsdoc/require-param-description": "error",
 
-			// From recommended
-			// "jsdoc/require-param-name": "error",
+			// TypeScript fails to parse a `@param` without a name (TS1003)
+			"jsdoc/require-param-name": "off",
 
 			// `tsc` with `noImplicitAny` already reports an untyped parameter, and
 			// accepts one typed by its default value
@@ -221,11 +222,11 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// From recommended
 			// "jsdoc/require-property-description": "error",
 
-			// From recommended
-			// "jsdoc/require-property-name": "error",
+			// TypeScript fails to parse a `@property` without a name (TS1003)
+			"jsdoc/require-property-name": "off",
 
-			// From recommended
-			// "jsdoc/require-property-type": "error",
+			// `tsc` with `noImplicitAny` reports an untyped `@property` (TS7005)
+			"jsdoc/require-property-type": "off",
 
 			// A lot of false positive with loops/`switch`/`if`/etc
 			"jsdoc/require-returns-check": "off",
