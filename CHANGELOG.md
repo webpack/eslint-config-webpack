@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.16.0
+
+### Minor Changes
+
+- Add the `performance/recommended` config with the `performance/no-case-insensitive-unicode-range` rule, enabled in every recommended config. (by [@alexander-akait](https://github.com/alexander-akait) in [#217](https://github.com/webpack/eslint-config-webpack/pull/217))
+
 ## 4.15.0
 
 ### Minor Changes
