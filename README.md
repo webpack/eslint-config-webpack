@@ -86,7 +86,7 @@ export default defineConfig([
 
 ### Performance
 
-Every recommended config includes `webpack/performance`: rules that catch code
+Every recommended config includes `performance/recommended`: rules that catch code
 which is correct but slow. It can also be extended on its own:
 
 ```js
@@ -95,14 +95,14 @@ import configs from "eslint-config-webpack/configs.js";
 
 export default defineConfig([
 	{
-		extends: [configs["webpack/performance"]],
+		extends: [configs["performance/recommended"]],
 	},
 ]);
 ```
 
-| Rule                                        | What it checks                                                                                                                                                                                                                                                                 |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `webpack/no-case-insensitive-unicode-range` | No `i` flag on a regex with a character range past ASCII or a `\p{…}` escape. V8 case-folds each such range when it compiles the regex, about 0.1–0.4 ms per range; spell the ASCII letters in both cases (`a-zA-Z`) instead. Checks `new RegExp(…)` built from constants too. |
+| Rule                                            | What it checks                                                                                                                                                                                                                                                                 |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `performance/no-case-insensitive-unicode-range` | No `i` flag on a regex with a character range past ASCII or a `\p{…}` escape. V8 case-folds each such range when it compiles the regex, about 0.1–0.4 ms per range; spell the ASCII letters in both cases (`a-zA-Z`) instead. Checks `new RegExp(…)` built from constants too. |
 
 ### Webpack-specific configs
 

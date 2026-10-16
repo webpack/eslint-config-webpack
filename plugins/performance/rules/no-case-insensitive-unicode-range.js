@@ -201,7 +201,7 @@ export const rule = {
 			category: "Performance",
 			description:
 				"Disallow the `i` flag on a regex whose character ranges reach past ASCII",
-			recommended: false,
+			recommended: true,
 		},
 		messages: {
 			range:

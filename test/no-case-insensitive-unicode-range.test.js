@@ -1,7 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import { describe, it } from "node:test";
 import { RuleTester } from "eslint";
-import { rule } from "../plugins/webpack/rules/no-case-insensitive-unicode-range.js";
+import { rule } from "../plugins/performance/rules/no-case-insensitive-unicode-range.js";
 
 RuleTester.describe = describe;
 RuleTester.it = it;
