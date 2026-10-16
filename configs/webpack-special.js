@@ -7,6 +7,9 @@ const recommendedWebpackSpecialConfig = configs.recommended;
 const webpackCommentsConfig = configs.comments;
 
 /** @type {import("eslint").Linter.Config} */
+const webpackPerformanceConfig = configs.performance;
+
+/** @type {import("eslint").Linter.Config} */
 const webpackSchemasConfig = configs.schemas;
 
 /** @type {import("eslint").Linter.Config} */
@@ -15,6 +18,7 @@ const webpackTypesConfig = configs.types;
 export default {
 	"webpack/special": recommendedWebpackSpecialConfig,
 	"webpack/comments": webpackCommentsConfig,
+	"webpack/performance": webpackPerformanceConfig,
 	"webpack/schemas": webpackSchemasConfig,
 	"webpack/types": webpackTypesConfig,
 };

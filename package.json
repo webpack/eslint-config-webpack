@@ -42,6 +42,8 @@
     "release": "changeset publish"
   },
   "dependencies": {
+    "@eslint-community/eslint-utils": "^4.10.1",
+    "@eslint-community/regexpp": "^4.12.2",
     "@eslint/js": "^9.39.2",
     "@eslint/markdown": "^8.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",

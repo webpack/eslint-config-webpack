@@ -1,10 +1,15 @@
 import { createRequire } from "node:module";
 // eslint-disable-next-line import/no-unresolved
 import * as parserJsonc from "jsonc-eslint-parser";
-import { allExtensions } from "../../configs/utils/extensions.js";
+import {
+	allExtensions,
+	javascriptExtensions,
+} from "../../configs/utils/extensions.js";
+import isTypescriptInstalled from "../../configs/utils/is-typescript-installed.js";
 import { rule as commentLength } from "./rules/comment-length.js";
 import { rule as formatSchema } from "./rules/format-schema.js";
 import { rule as inheritJsdoc } from "./rules/inherit-jsdoc.js";
+import { rule as noCaseInsensitiveUnicodeRange } from "./rules/no-case-insensitive-unicode-range.js";
 import { rule as noDuplicateImportTag } from "./rules/no-duplicate-import-tag.js";
 import { rule as noUnusedImportTag } from "./rules/no-unused-import-tag.js";
 import { rule as preferImportTag } from "./rules/prefer-import-tag.js";
@@ -19,6 +24,7 @@ const rules = {
 	"comment-length": commentLength,
 	"format-schema": formatSchema,
 	"inherit-jsdoc": inheritJsdoc,
+	"no-case-insensitive-unicode-range": noCaseInsensitiveUnicodeRange,
 	"no-duplicate-import-tag": noDuplicateImportTag,
 	"no-unused-import-tag": noUnusedImportTag,
 	"prefer-import-tag": preferImportTag,
@@ -35,7 +41,7 @@ const recommendedRules = {
 	),
 };
 
-/** @type {Record<"comments" | "recommended" | "schemas" | "types", import("eslint").Linter.Config>} */
+/** @type {Record<"comments" | "performance" | "recommended" | "schemas" | "types", import("eslint").Linter.Config>} */
 const configs = {
 	comments: {
 		name: "webpack/comments",
@@ -48,6 +54,26 @@ const configs = {
 		},
 		rules: {
 			"webpack/comment-length": "error",
+		},
+	},
+	performance: {
+		name: "webpack/performance",
+		// Only the files the javascript config lints, so a project without
+		// TypeScript doesn't parse `.ts` files with the default parser.
+		files: [
+			`**/*.{${(isTypescriptInstalled() ? allExtensions : javascriptExtensions)
+				.map((item) => item.slice(1))
+				.join(",")}}`,
+		],
+		ignores: ["**/*.d.ts"],
+		plugins: {
+			get webpack() {
+				// eslint-disable-next-line no-use-before-define
+				return plugin;
+			},
+		},
+		rules: {
+			"webpack/no-case-insensitive-unicode-range": "error",
 		},
 	},
 	recommended: {
