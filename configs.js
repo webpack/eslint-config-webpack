@@ -83,6 +83,7 @@ const recommended = [
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
+	configs["performance/recommended"],
 ];
 
 // TODO remove me in the next major release
@@ -101,6 +102,7 @@ const nodeRecommendedModule = [
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
+	configs["performance/recommended"],
 ];
 
 // TODO remove me in the next major release
@@ -119,6 +121,7 @@ const nodeRecommendedCommonJS = [
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
+	configs["performance/recommended"],
 ];
 
 // TODO remove me in the next major release
@@ -137,6 +140,7 @@ const nodeRecommendedDirty = [
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
+	configs["performance/recommended"],
 ];
 // TODO remove me in the next major release
 configs["recommended-dirty"] = nodeRecommendedDirty;
@@ -154,6 +158,7 @@ const browserRecommended = [
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
+	configs["performance/recommended"],
 ];
 
 configs["browser-recommended"] = browserRecommended;
@@ -169,6 +174,7 @@ const browserOutdatedRecommendedScript = [
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
+	configs["performance/recommended"],
 ];
 
 configs["browser-outdated-recommended-script"] =
@@ -185,6 +191,7 @@ const browserOutdatedRecommendedCommonjs = [
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
+	configs["performance/recommended"],
 ];
 
 configs["browser-outdated-recommended-commonjs"] =
@@ -206,6 +213,7 @@ const browserOutdatedRecommendedModule = [
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
+	configs["performance/recommended"],
 ];
 
 // TODO remove in the next major release
@@ -228,6 +236,7 @@ const universalRecommended = [
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
 	configs["package-json/recommended"],
+	configs["performance/recommended"],
 ];
 
 configs["universal-recommended"] = universalRecommended;
