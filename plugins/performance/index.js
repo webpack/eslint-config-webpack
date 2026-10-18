@@ -5,6 +5,7 @@ import {
 } from "../../configs/utils/extensions.js";
 import isTypescriptInstalled from "../../configs/utils/is-typescript-installed.js";
 import { rule as noCaseInsensitiveUnicodeRange } from "./rules/no-case-insensitive-unicode-range.js";
+import { rule as requirePrecompiledSchema } from "./rules/require-precompiled-schema.js";
 
 const require = createRequire(import.meta.url);
 
@@ -12,6 +13,7 @@ const { version } = require("../../package.json");
 
 const rules = {
 	"no-case-insensitive-unicode-range": noCaseInsensitiveUnicodeRange,
+	"require-precompiled-schema": requirePrecompiledSchema,
 };
 
 /** @type {import("eslint").Linter.Config["rules"]} */
