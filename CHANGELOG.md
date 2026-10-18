@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.16.0
+
+### Minor Changes
+
+- Add the `performance/recommended` config with the `performance/no-case-insensitive-unicode-range` rule, enabled in every recommended config. (by [@alexander-akait](https://github.com/alexander-akait) in [#217](https://github.com/webpack/eslint-config-webpack/pull/217))
+
+- Add the `performance/require-precompiled-schema` rule, enabled in every recommended config: options validated against a schema need a check precompiled with `schema-utils precompile`, in plugins (`compiler.validate`), loaders (`this.getOptions`) and direct `schema-utils` `validate` calls. (by [@alexander-akait](https://github.com/alexander-akait) in [#220](https://github.com/webpack/eslint-config-webpack/pull/220))
+
 ## 4.15.0
 
 ### Minor Changes
