@@ -238,8 +238,10 @@ const getApi = (scope, node) => {
 
 			const name = lastName(object);
 
-			// `compiler.validate`, `this.compiler.validate`, `childCompiler.validate`
-			return name !== undefined && /compiler$/i.test(name)
+			// `compiler.validate`, `this.compiler.validate`, `childCompiler.validate`,
+			// but not an unrelated `templateCompiler.validate`
+			return name !== undefined &&
+				/^(?:child|first|parent|webpack)?compiler$/i.test(name)
 				? APIS.plugin
 				: undefined;
 		}

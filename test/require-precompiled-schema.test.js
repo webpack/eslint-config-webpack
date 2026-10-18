@@ -27,6 +27,7 @@ commonjs.run("require-precompiled-schema (CommonJS)", rule, {
 		'this.compiler.validate(schema, options, { name: "Plugin" }, check);',
 		// Not a compiler
 		"form.validate(schema, options);",
+		"templateCompiler.validate(schema, options);",
 		"validate(schema, options);",
 		// Loaders
 		"this.getOptions(schema, check);",
@@ -57,6 +58,10 @@ commonjs.run("require-precompiled-schema (CommonJS)", rule, {
 		},
 		{
 			code: "childCompiler.validate(schema, options);",
+			errors: [{ messageId: "missingCheck" }],
+		},
+		{
+			code: "firstCompiler.validate(schema, options);",
 			errors: [{ messageId: "missingCheck" }],
 		},
 		{
