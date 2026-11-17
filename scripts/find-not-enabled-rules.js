@@ -1,30 +1,51 @@
 /* eslint-disable no-console */
 
 /**
- * Collects every rule enabled across all presets exported by this package
- * and reports which rules from the used plugins (and ESLint core) are never
- * enabled by any preset.
+ * Reports, for every rule of ESLint core and of every plugin used by our presets:
+ * - whether any of our presets enables it, with which severity/options and in
+ * which of our configs;
+ * - whether the plugin's own presets (`recommended`, `strict`, ...) enable it,
+ * with which severity/options, and how that compares to ours.
  *
- * Usage: `node scripts/find-not-enabled-rules.js [--json] [--include-deprecated] [--show-off]`
+ * Usage: `node scripts/find-not-enabled-rules.js [options]`
  *
+ * - `--enabled` show only rules enabled by our presets
+ * - `--not-enabled` show only rules not enabled by our presets
+ * - `--plugin <name>` show only one plugin (`eslint` for core rules), repeatable
+ * - `--rule <id>` show only one rule, repeatable
+ * - `--include-deprecated` also show deprecated rules
+ * - `--all-upstream` also use upstream `all`/legacy/severity-variant presets
  * - `--json` print machine-readable output
- * - `--include-deprecated` also report deprecated rules that are not enabled
- * - `--show-off` mark not-enabled rules that are explicitly set to "off"
  */
 
+import javascriptPlugin from "@eslint/js";
 // eslint-disable-next-line import/no-unresolved
 import { builtinRules } from "eslint/use-at-your-own-risk";
 import configs from "../configs.js";
 
-const args = new Set(process.argv.slice(2));
-const asJson = args.has("--json");
-const includeDeprecated = args.has("--include-deprecated");
-const showOff = args.has("--show-off");
+/** @typedef {import("eslint").Linter.Config} Config */
+/** @typedef {import("eslint").Linter.RuleEntry} RuleEntry */
+/** @typedef {import("eslint").Rule.RuleModule} RuleModule */
+/** @typedef {{ configs?: Record<string, unknown>, rules?: Record<string, RuleModule> }} Plugin */
 
 const CORE = "eslint";
 
-/** @typedef {import("eslint").Linter.Config} Config */
-/** @typedef {import("eslint").Linter.RuleEntry | undefined} RuleEntry */
+const argv = process.argv.slice(2);
+
+/**
+ * @param {string} name flag name
+ * @returns {string[]} values of a repeatable flag
+ */
+const getValues = (name) =>
+	argv.flatMap((arg, i) => (arg === name && argv[i + 1] ? [argv[i + 1]] : []));
+
+const asJson = argv.includes("--json");
+const onlyEnabled = argv.includes("--enabled");
+const onlyNotEnabled = argv.includes("--not-enabled");
+const includeDeprecated = argv.includes("--include-deprecated");
+const allUpstream = argv.includes("--all-upstream");
+const pluginFilter = new Set(getValues("--plugin"));
+const ruleFilter = new Set(getValues("--rule"));
 
 /**
  * @param {unknown} value config or nested array of configs
@@ -40,154 +61,310 @@ function flatten(value) {
 }
 
 /**
- * @param {RuleEntry} entry rule entry
- * @returns {boolean} true when the rule is not disabled
+ * @param {RuleEntry | undefined} entry rule entry
+ * @returns {unknown[]} entry normalized to `[severity, ...options]` with string severity
  */
-function isEnabled(entry) {
-	const severity = Array.isArray(entry) ? entry[0] : entry;
+function normalize(entry) {
+	const [severity, ...options] = Array.isArray(entry) ? entry : [entry];
+	const names = /** @type {Record<string, string>} */ ({
+		0: "off",
+		1: "warn",
+		2: "error",
+	});
 
-	return severity !== "off" && severity !== 0 && severity !== undefined;
+	return [names[String(severity)] || severity, ...options];
 }
 
-/** @type {Map<string, Set<string>>} rule id -> presets enabling it */
-const enabled = new Map();
-/** @type {Set<string>} rules explicitly set to off somewhere */
-const turnedOff = new Set();
-/** @type {Map<string, Record<string, import("eslint").Rule.RuleModule>>} */
+/**
+ * @param {unknown[]} entry normalized entry
+ * @returns {boolean} true when the rule is not disabled
+ */
+const isEnabled = (entry) => entry[0] !== "off" && entry[0] !== undefined;
+
+/**
+ * @param {unknown[]} entry normalized entry
+ * @returns {string} printable entry
+ */
+const stringify = (entry) =>
+	entry.length === 1 ? JSON.stringify(entry[0]) : JSON.stringify(entry);
+
+/**
+ * Upstream presets that only duplicate others (flat/legacy twins, `-error`
+ * severity variants, deprecated aliases) or that enable everything (`all`).
+ * @param {string} name upstream config name
+ * @param {string[]} allNames all upstream config names of the plugin
+ * @returns {boolean} true when the config should be skipped
+ */
+function isNoisyUpstream(name, allNames) {
+	if (allUpstream) return false;
+	if (/(?:^|\/)all(?:-|$)/.test(name)) return true;
+	if (/-flat$|-legacy$|-error$|^disable-/.test(name)) return true;
+	if (name.startsWith("flat/") && allNames.includes(name.slice(5))) {
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * Our `javascript/esXXXX` configs share most rules, so collapse them.
+ * @param {string[]} names config names
+ * @returns {string[]} names with `javascript/es*` collapsed into one entry
+ */
+function collapseEsVersions(names) {
+	const es = names.filter((name) => /^javascript\/es\d+$/.test(name));
+
+	if (es.length <= 2) return names;
+
+	const versions = es
+		.map((name) => name.slice("javascript/es".length))
+		.toSorted((a, b) => Number(a) - Number(b));
+
+	return [
+		`javascript/es{${versions.join(",")}}`,
+		...names.filter((name) => !es.includes(name)),
+	];
+}
+
+/** @type {Map<string, Record<string, RuleModule>>} */
 const availableRules = new Map([
 	[
 		CORE,
-		Object.fromEntries(
-			/** @type {Map<string, import("eslint").Rule.RuleModule>} */ (
-				builtinRules
-			),
-		),
+		Object.fromEntries(/** @type {Map<string, RuleModule>} */ (builtinRules)),
 	],
 ]);
+/** @type {Map<string, Plugin>} */
+const plugins = new Map([
+	[CORE, /** @type {Plugin} */ (/** @type {unknown} */ (javascriptPlugin))],
+]);
+
+/**
+ * rule id -> serialized entry -> our config names using it
+ * @type {Map<string, Map<string, { entry: unknown[], where: Set<string> }>>}
+ */
+const ours = new Map();
+const seenConfigs = new Set();
 
 for (const [presetName, preset] of Object.entries(configs)) {
 	for (const config of flatten(preset)) {
+		if (seenConfigs.has(config)) continue;
+		seenConfigs.add(config);
+
 		for (const [namespace, plugin] of Object.entries(config.plugins || {})) {
+			if (!plugins.has(namespace)) {
+				plugins.set(namespace, /** @type {Plugin} */ (plugin));
+			}
 			if (plugin && plugin.rules && !availableRules.has(namespace)) {
 				availableRules.set(
 					namespace,
-					/** @type {Record<string, import("eslint").Rule.RuleModule>} */ (
-						plugin.rules
-					),
+					/** @type {Record<string, RuleModule>} */ (plugin.rules),
 				);
 			}
 		}
 
-		for (const [ruleId, entry] of Object.entries(config.rules || {})) {
-			if (isEnabled(entry)) {
-				if (!enabled.has(ruleId)) enabled.set(ruleId, new Set());
-				/** @type {Set<string>} */ (enabled.get(ruleId)).add(presetName);
-			} else {
-				turnedOff.add(ruleId);
+		const where = config.name || presetName;
+
+		for (const [ruleId, rawEntry] of Object.entries(config.rules || {})) {
+			const entry = normalize(rawEntry);
+			const key = stringify(entry);
+
+			if (!ours.has(ruleId)) ours.set(ruleId, new Map());
+
+			const variants =
+				/** @type {Map<string, { entry: unknown[], where: Set<string> }>} */ (
+					ours.get(ruleId)
+				);
+
+			if (!variants.has(key)) variants.set(key, { entry, where: new Set() });
+			/** @type {{ where: Set<string> }} */ (variants.get(key)).where.add(
+				where,
+			);
+		}
+	}
+}
+
+/**
+ * rule id -> upstream config label -> normalized entry (enabled entries only)
+ * @type {Map<string, Map<string, unknown[]>>}
+ */
+const upstream = new Map();
+
+for (const [namespace, plugin] of plugins) {
+	const upstreamConfigs = plugin && plugin.configs;
+
+	if (!upstreamConfigs || typeof upstreamConfigs !== "object") continue;
+
+	const names = Object.keys(upstreamConfigs);
+
+	for (const configName of names) {
+		if (isNoisyUpstream(configName, names)) continue;
+
+		const label = `${namespace}:${configName}`;
+
+		for (const config of flatten(upstreamConfigs[configName])) {
+			for (const [ruleId, rawEntry] of Object.entries(config.rules || {})) {
+				const entry = normalize(rawEntry);
+
+				if (!isEnabled(entry)) continue;
+				if (!upstream.has(ruleId)) upstream.set(ruleId, new Map());
+				/** @type {Map<string, unknown[]>} */ (upstream.get(ruleId)).set(
+					label,
+					entry,
+				);
 			}
 		}
 	}
 }
 
 /**
- * @typedef {object} PluginReport
- * @property {number} total total rules in the plugin
- * @property {number} deprecated number of deprecated rules
- * @property {string[]} enabled enabled rule ids
- * @property {string[]} notEnabled rule ids never enabled
- * @property {string[]} explicitlyOff not-enabled rules explicitly set to "off"
+ * @typedef {object} RuleReport
+ * @property {string} id rule id
+ * @property {boolean} enabled enabled by at least one of our configs
+ * @property {boolean} deprecated rule is deprecated
+ * @property {{ value: unknown[], configs: string[] }[]} ours our settings
+ * @property {{ preset: string, value: unknown[], comparison: string }[]} upstream upstream settings, `comparison` is `same`, `options differ`, `severity differs` or `not enabled by us`
  */
 
-/** @type {Record<string, PluginReport>} */
+/** @type {Record<string, { total: number, enabled: number, rules: RuleReport[] }>} */
 const report = {};
+const knownRuleIds = new Set();
+const totals = { total: 0, enabled: 0 };
 
-for (const [namespace, rules] of [...availableRules].toSorted(([a], [b]) =>
+const namespaces = [...availableRules.keys()].toSorted((a, b) =>
 	a === CORE ? -1 : b === CORE ? 1 : a.localeCompare(b),
-)) {
-	/** @type {PluginReport} */
+);
+
+for (const namespace of namespaces) {
+	const rules = /** @type {Record<string, RuleModule>} */ (
+		availableRules.get(namespace)
+	);
 	const pluginReport = {
 		total: 0,
-		deprecated: 0,
-		enabled: [],
-		notEnabled: [],
-		explicitlyOff: [],
+		enabled: 0,
+		rules: /** @type {RuleReport[]} */ ([]),
 	};
 
-	for (const [name, rule] of Object.entries(rules).toSorted(([a], [b]) =>
-		a.localeCompare(b),
-	)) {
-		const ruleId = namespace === CORE ? name : `${namespace}/${name}`;
+	for (const name of Object.keys(rules).toSorted()) {
+		const id = namespace === CORE ? name : `${namespace}/${name}`;
+		const rule = rules[name];
 		const deprecated = Boolean(rule && rule.meta && rule.meta.deprecated);
+		const variants = [...(ours.get(id) || new Map()).values()];
+		const enabled = variants.some(({ entry }) => isEnabled(entry));
+		const enabledEntries = variants
+			.map(({ entry }) => entry)
+			.filter((entry) => isEnabled(entry));
 
-		pluginReport.total++;
-		if (deprecated) pluginReport.deprecated++;
+		/**
+		 * @param {unknown[]} value upstream entry
+		 * @returns {string} how the upstream entry compares to ours
+		 */
+		const compare = (value) => {
+			if (enabledEntries.length === 0) return "not enabled by us";
+			if (
+				enabledEntries.some((entry) => stringify(entry) === stringify(value))
+			) {
+				return "same";
+			}
+			if (enabledEntries.some((entry) => entry[0] === value[0])) {
+				return "options differ";
+			}
 
-		if (enabled.has(ruleId)) {
-			pluginReport.enabled.push(ruleId);
-		} else if (!deprecated || includeDeprecated) {
-			pluginReport.notEnabled.push(
-				deprecated ? `${ruleId} (deprecated)` : ruleId,
-			);
-			if (turnedOff.has(ruleId)) pluginReport.explicitlyOff.push(ruleId);
+			return "severity differs";
+		};
+
+		knownRuleIds.add(id);
+
+		if (!deprecated) {
+			pluginReport.total++;
+			if (enabled) pluginReport.enabled++;
 		}
+
+		if (deprecated && !includeDeprecated) continue;
+		if (onlyEnabled && !enabled) continue;
+		if (onlyNotEnabled && enabled) continue;
+		if (ruleFilter.size > 0 && !ruleFilter.has(id)) continue;
+
+		pluginReport.rules.push({
+			id,
+			enabled,
+			deprecated,
+			ours: variants.map(({ entry, where }) => ({
+				value: entry,
+				configs: collapseEsVersions([...where]),
+			})),
+			upstream: [...(upstream.get(id) || new Map())].map(([preset, value]) => ({
+				preset,
+				value,
+				comparison: compare(value),
+			})),
+		});
 	}
+
+	totals.total += pluginReport.total;
+	totals.enabled += pluginReport.enabled;
+
+	if (pluginFilter.size > 0 && !pluginFilter.has(namespace)) continue;
+	if (ruleFilter.size > 0 && pluginReport.rules.length === 0) continue;
 
 	report[namespace] = pluginReport;
 }
 
-// Rules configured in presets that don't exist in any registered plugin
-const knownRuleIds = new Set(
-	[...availableRules].flatMap(([namespace, rules]) =>
-		Object.keys(rules).map((name) =>
-			namespace === CORE ? name : `${namespace}/${name}`,
-		),
-	),
-);
-const unknown = [...enabled.keys()]
+// Rules configured in our presets that don't exist in any registered plugin
+const unknown = [...ours.keys()]
 	.filter((ruleId) => !knownRuleIds.has(ruleId))
 	.toSorted();
 
 if (asJson) {
 	console.log(
 		JSON.stringify(
-			{
-				presets: Object.keys(configs),
-				plugins: report,
-				unknown,
-			},
+			{ presets: Object.keys(configs), plugins: report, unknown },
 			null,
 			2,
 		),
 	);
 } else {
-	let totalNotEnabled = 0;
-
-	for (const [namespace, pluginReport] of Object.entries(report)) {
-		totalNotEnabled += pluginReport.notEnabled.length;
-
+	for (const [namespace, { total, enabled, rules }] of Object.entries(report)) {
 		console.log(
-			`\n## ${namespace} — enabled ${pluginReport.enabled.length}/${
-				pluginReport.total - pluginReport.deprecated
-			} non-deprecated rules, ${pluginReport.notEnabled.length} not enabled`,
+			`\n## ${namespace} — enabled ${enabled}/${total} non-deprecated rules, ${
+				total - enabled
+			} not enabled`,
 		);
 
-		for (const ruleId of pluginReport.notEnabled) {
-			const off =
-				showOff && pluginReport.explicitlyOff.includes(ruleId)
-					? ' [explicitly "off"]'
-					: "";
-			console.log(`  - ${ruleId}${off}`);
+		for (const rule of rules) {
+			const flags = [
+				rule.deprecated ? "deprecated" : "",
+				rule.upstream.length > 0 ? "in upstream preset" : "",
+			].filter(Boolean);
+
+			console.log(
+				`\n  ${rule.enabled ? "✔" : "✘"} ${rule.id}${
+					flags.length > 0 ? ` [${flags.join(", ")}]` : ""
+				}`,
+			);
+
+			for (const { value, configs: where } of rule.ours) {
+				console.log(`      ours: ${stringify(value)}`);
+				console.log(`        in: ${where.join("; ")}`);
+			}
+
+			for (const { preset, value, comparison } of rule.upstream) {
+				console.log(
+					`      upstream ${preset}: ${stringify(value)}${
+						rule.enabled ? ` (${comparison})` : ""
+					}`,
+				);
+			}
 		}
 	}
 
 	if (unknown.length > 0) {
-		console.log("\n## Enabled rules not found in any registered plugin");
+		console.log("\n## Configured rules not found in any registered plugin");
 		for (const ruleId of unknown) console.log(`  - ${ruleId}`);
 	}
 
 	console.log(
 		`\nPresets scanned: ${Object.keys(configs).length}, rules enabled: ${
-			enabled.size
-		}, rules not enabled: ${totalNotEnabled}`,
+			totals.enabled
+		}, rules not enabled: ${totals.total - totals.enabled}`,
 	);
 }
