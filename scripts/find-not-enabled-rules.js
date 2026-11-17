@@ -11,18 +11,17 @@
  *
  * - `--enabled` show only rules enabled by our presets
  * - `--not-enabled` show only rules not enabled by our presets
- * - `--plugin <name>` (alias `--only-plugin`) report only these plugins
- * (`eslint` for core rules), also in totals
- * - `--skip-plugin <name>` skip these plugins entirely, also from totals
- * (e.g. `--skip-plugin stylistic,react`)
+ * - `--plugin <name>` report only these plugins (`eslint` for core rules);
+ * prefix a name with `!` to exclude it instead (e.g. `--plugin '!stylistic'`);
+ * without any `--plugin` all plugins are reported; totals follow the selection
  * - `--rule <id>` show only these rules
- *
- * List flags accept comma-separated values and can be repeated; `--flag=value`
- * works too. Plugin names may be given with or without a leading `@`
- * (`stylistic` matches `@stylistic`).
  * - `--include-deprecated` also show deprecated rules
  * - `--all-upstream` also use upstream `all`/legacy/severity-variant presets
  * - `--json` print machine-readable output
+ *
+ * `--plugin` and `--rule` accept comma-separated values and can be repeated;
+ * `--flag=value` works too. Plugin names may be given with or without a
+ * leading `@` (`stylistic` matches `@stylistic`).
  */
 
 import javascriptPlugin from "@eslint/js";
@@ -66,14 +65,29 @@ const onlyEnabled = argv.includes("--enabled");
 const onlyNotEnabled = argv.includes("--not-enabled");
 const includeDeprecated = argv.includes("--include-deprecated");
 const allUpstream = argv.includes("--all-upstream");
-const pluginFilter = new Set(
-	[...getValues("--plugin"), ...getValues("--only-plugin")].map(
-		normalizePluginName,
-	),
+const pluginArgs = getValues("--plugin");
+const includedPlugins = new Set(
+	pluginArgs
+		.filter((name) => !name.startsWith("!"))
+		.map((name) => normalizePluginName(name)),
 );
-const skippedPlugins = new Set(
-	getValues("--skip-plugin").map(normalizePluginName),
+const excludedPlugins = new Set(
+	pluginArgs
+		.filter((name) => name.startsWith("!"))
+		.map((name) => normalizePluginName(name.slice(1))),
 );
+
+/**
+ * @param {string} namespace plugin namespace
+ * @returns {boolean} true when the plugin is selected by `--plugin`
+ */
+const isPluginSelected = (namespace) => {
+	const name = normalizePluginName(namespace);
+
+	if (excludedPlugins.has(name)) return false;
+
+	return includedPlugins.size === 0 || includedPlugins.has(name);
+};
 const ruleFilter = new Set(getValues("--rule"));
 
 /**
@@ -269,14 +283,20 @@ const namespaces = [...availableRules.keys()].toSorted((a, b) =>
 	a === CORE ? -1 : b === CORE ? 1 : a.localeCompare(b),
 );
 
-for (const namespace of namespaces) {
-	if (skippedPlugins.has(normalizePluginName(namespace))) continue;
-	if (
-		pluginFilter.size > 0 &&
-		!pluginFilter.has(normalizePluginName(namespace))
-	) {
-		continue;
+const knownPluginNames = new Set(
+	namespaces.map((namespace) => normalizePluginName(namespace)),
+);
+
+for (const name of [...includedPlugins, ...excludedPlugins]) {
+	if (!knownPluginNames.has(name)) {
+		console.error(
+			`Unknown plugin "${name}", available: ${[...knownPluginNames].join(", ")}`,
+		);
 	}
+}
+
+for (const namespace of namespaces) {
+	if (!isPluginSelected(namespace)) continue;
 
 	const rules = /** @type {Record<string, RuleModule>} */ (
 		availableRules.get(namespace)
@@ -352,7 +372,7 @@ for (const namespace of namespaces) {
 // Rules configured in our presets that don't exist in any registered plugin
 // (only meaningful when not limited to specific plugins)
 const unknown = [...ours.keys()]
-	.filter((ruleId) => pluginFilter.size === 0 && !knownRuleIds.has(ruleId))
+	.filter((ruleId) => includedPlugins.size === 0 && !knownRuleIds.has(ruleId))
 	.toSorted();
 
 if (asJson) {
