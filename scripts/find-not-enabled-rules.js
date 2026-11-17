@@ -19,6 +19,8 @@
  * - `--all-upstream` also use upstream `all`/legacy/severity-variant presets
  * - `--json` print machine-readable output
  *
+ * An unknown `--plugin` name prints the available plugins and exits with code 1.
+ *
  * `--plugin` and `--rule` accept comma-separated values and can be repeated;
  * `--flag=value` works too. Plugin names may be given with or without a
  * leading `@` (`stylistic` matches `@stylistic`).
@@ -287,12 +289,18 @@ const knownPluginNames = new Set(
 	namespaces.map((namespace) => normalizePluginName(namespace)),
 );
 
-for (const name of [...includedPlugins, ...excludedPlugins]) {
-	if (!knownPluginNames.has(name)) {
-		console.error(
-			`Unknown plugin "${name}", available: ${[...knownPluginNames].join(", ")}`,
-		);
-	}
+const unknownPlugins = [...includedPlugins, ...excludedPlugins].filter(
+	(name) => !knownPluginNames.has(name),
+);
+
+if (unknownPlugins.length > 0) {
+	console.error("Unknown plugins:");
+	for (const name of unknownPlugins) console.error(`  - ${name}`);
+	console.error("\nAvailable plugins:");
+	for (const name of knownPluginNames) console.error(`  - ${name}`);
+	// Stop before printing a report for a selection that contains typos
+	// eslint-disable-next-line n/no-process-exit
+	process.exit(1);
 }
 
 for (const namespace of namespaces) {
