@@ -11,7 +11,8 @@
  *
  * - `--enabled` show only rules enabled by our presets
  * - `--not-enabled` show only rules not enabled by our presets
- * - `--plugin <name>` show only these plugins (`eslint` for core rules)
+ * - `--plugin <name>` (alias `--only-plugin`) report only these plugins
+ * (`eslint` for core rules), also in totals
  * - `--skip-plugin <name>` skip these plugins entirely, also from totals
  * (e.g. `--skip-plugin stylistic,react`)
  * - `--rule <id>` show only these rules
@@ -65,7 +66,11 @@ const onlyEnabled = argv.includes("--enabled");
 const onlyNotEnabled = argv.includes("--not-enabled");
 const includeDeprecated = argv.includes("--include-deprecated");
 const allUpstream = argv.includes("--all-upstream");
-const pluginFilter = new Set(getValues("--plugin").map(normalizePluginName));
+const pluginFilter = new Set(
+	[...getValues("--plugin"), ...getValues("--only-plugin")].map(
+		normalizePluginName,
+	),
+);
 const skippedPlugins = new Set(
 	getValues("--skip-plugin").map(normalizePluginName),
 );
@@ -266,6 +271,12 @@ const namespaces = [...availableRules.keys()].toSorted((a, b) =>
 
 for (const namespace of namespaces) {
 	if (skippedPlugins.has(normalizePluginName(namespace))) continue;
+	if (
+		pluginFilter.size > 0 &&
+		!pluginFilter.has(normalizePluginName(namespace))
+	) {
+		continue;
+	}
 
 	const rules = /** @type {Record<string, RuleModule>} */ (
 		availableRules.get(namespace)
@@ -333,20 +344,15 @@ for (const namespace of namespaces) {
 	totals.total += pluginReport.total;
 	totals.enabled += pluginReport.enabled;
 
-	if (
-		pluginFilter.size > 0 &&
-		!pluginFilter.has(normalizePluginName(namespace))
-	) {
-		continue;
-	}
 	if (ruleFilter.size > 0 && pluginReport.rules.length === 0) continue;
 
 	report[namespace] = pluginReport;
 }
 
 // Rules configured in our presets that don't exist in any registered plugin
+// (only meaningful when not limited to specific plugins)
 const unknown = [...ours.keys()]
-	.filter((ruleId) => !knownRuleIds.has(ruleId))
+	.filter((ruleId) => pluginFilter.size === 0 && !knownRuleIds.has(ruleId))
 	.toSorted();
 
 if (asJson) {
