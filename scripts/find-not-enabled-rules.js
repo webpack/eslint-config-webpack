@@ -11,8 +11,14 @@
  *
  * - `--enabled` show only rules enabled by our presets
  * - `--not-enabled` show only rules not enabled by our presets
- * - `--plugin <name>` show only one plugin (`eslint` for core rules), repeatable
- * - `--rule <id>` show only one rule, repeatable
+ * - `--plugin <name>` show only these plugins (`eslint` for core rules)
+ * - `--skip-plugin <name>` skip these plugins entirely, also from totals
+ * (e.g. `--skip-plugin stylistic,react`)
+ * - `--rule <id>` show only these rules
+ *
+ * List flags accept comma-separated values and can be repeated; `--flag=value`
+ * works too. Plugin names may be given with or without a leading `@`
+ * (`stylistic` matches `@stylistic`).
  * - `--include-deprecated` also show deprecated rules
  * - `--all-upstream` also use upstream `all`/legacy/severity-variant presets
  * - `--json` print machine-readable output
@@ -34,17 +40,35 @@ const argv = process.argv.slice(2);
 
 /**
  * @param {string} name flag name
- * @returns {string[]} values of a repeatable flag
+ * @returns {string[]} values of a repeatable, comma-separated flag
  */
 const getValues = (name) =>
-	argv.flatMap((arg, i) => (arg === name && argv[i + 1] ? [argv[i + 1]] : []));
+	argv
+		.flatMap((arg, i) => {
+			if (arg === name) return argv[i + 1] ? [argv[i + 1]] : [];
+			if (arg.startsWith(`${name}=`)) return [arg.slice(name.length + 1)];
+
+			return [];
+		})
+		.flatMap((value) => value.split(","))
+		.map((value) => value.trim())
+		.filter(Boolean);
+
+/**
+ * @param {string} name plugin namespace
+ * @returns {string} namespace without leading `@`
+ */
+const normalizePluginName = (name) => name.replace(/^@/, "");
 
 const asJson = argv.includes("--json");
 const onlyEnabled = argv.includes("--enabled");
 const onlyNotEnabled = argv.includes("--not-enabled");
 const includeDeprecated = argv.includes("--include-deprecated");
 const allUpstream = argv.includes("--all-upstream");
-const pluginFilter = new Set(getValues("--plugin"));
+const pluginFilter = new Set(getValues("--plugin").map(normalizePluginName));
+const skippedPlugins = new Set(
+	getValues("--skip-plugin").map(normalizePluginName),
+);
 const ruleFilter = new Set(getValues("--rule"));
 
 /**
@@ -227,7 +251,13 @@ for (const [namespace, plugin] of plugins) {
 
 /** @type {Record<string, { total: number, enabled: number, rules: RuleReport[] }>} */
 const report = {};
-const knownRuleIds = new Set();
+const knownRuleIds = new Set(
+	[...availableRules].flatMap(([namespace, rules]) =>
+		Object.keys(rules).map((name) =>
+			namespace === CORE ? name : `${namespace}/${name}`,
+		),
+	),
+);
 const totals = { total: 0, enabled: 0 };
 
 const namespaces = [...availableRules.keys()].toSorted((a, b) =>
@@ -235,6 +265,8 @@ const namespaces = [...availableRules.keys()].toSorted((a, b) =>
 );
 
 for (const namespace of namespaces) {
+	if (skippedPlugins.has(normalizePluginName(namespace))) continue;
+
 	const rules = /** @type {Record<string, RuleModule>} */ (
 		availableRules.get(namespace)
 	);
@@ -272,8 +304,6 @@ for (const namespace of namespaces) {
 			return "severity differs";
 		};
 
-		knownRuleIds.add(id);
-
 		if (!deprecated) {
 			pluginReport.total++;
 			if (enabled) pluginReport.enabled++;
@@ -303,7 +333,12 @@ for (const namespace of namespaces) {
 	totals.total += pluginReport.total;
 	totals.enabled += pluginReport.enabled;
 
-	if (pluginFilter.size > 0 && !pluginFilter.has(namespace)) continue;
+	if (
+		pluginFilter.size > 0 &&
+		!pluginFilter.has(normalizePluginName(namespace))
+	) {
+		continue;
+	}
 	if (ruleFilter.size > 0 && pluginReport.rules.length === 0) continue;
 
 	report[namespace] = pluginReport;
