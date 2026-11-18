@@ -1,5 +1,5 @@
 #!foo
 
-const day = "great";
+const day = 1;
 
 String(day);

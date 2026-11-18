@@ -1,4 +1,4 @@
-import importPlugin from "eslint-plugin-import";
+import importPlugin from "eslint-plugin-import-x";
 import unicornPlugin from "eslint-plugin-unicorn";
 import globals from "globals";
 
@@ -46,14 +46,62 @@ const recommendedBrowserConfig = {
 	},
 	plugins: {
 		unicorn: unicornPlugin,
-		import: importPlugin,
+		"import-x": importPlugin,
 	},
 	rules: {
+		// TODO do we need it?
+		// "unicorn/better-dom-traversing": "error",
+
+		"unicorn/dom-node-dataset": "error",
+
+		"unicorn/no-canvas-to-image": "error",
+
+		"unicorn/no-incorrect-query-selector": "error",
+
+		"unicorn/no-invalid-boolean-attribute-value": "error",
+
+		"unicorn/no-invalid-dom-token": "error",
+
+		"unicorn/no-invalid-style-set-property": "error",
+
+		"unicorn/no-late-current-target-access": "error",
+
+		"unicorn/no-late-event-control": "error",
+
+		"unicorn/no-selector-as-dom-name": "error",
+
+		// Do not need
+		// "unicorn/no-unsafe-dom-html": "error",
+
+		"unicorn/prefer-add-event-listener": "error",
+
+		"unicorn/prefer-add-event-listener-options": "error",
+
+		"unicorn/prefer-dom-node-html-methods": [
+			"error",
+			{
+				checkGetHTML: true,
+				checkSetHTML: true,
+			},
+		],
+
+		"unicorn/prefer-dom-node-replace-children": "error",
+
+		"unicorn/prefer-location-assign": "error",
+
+		"unicorn/prefer-observer-apis": "error",
+
+		"unicorn/prefer-path2d": "error",
+
+		"unicorn/prefer-toggle-attribute": "error",
+
+		"unicorn/require-css-escape": "error",
+
+		"unicorn/require-passive-events": "error",
+
 		"unicorn/prefer-classlist-toggle": "error",
 
 		"unicorn/prefer-dom-node-append": "error",
-
-		"unicorn/prefer-dom-node-dataset": "error",
 
 		"unicorn/prefer-dom-node-remove": "error",
 
@@ -65,7 +113,7 @@ const recommendedBrowserConfig = {
 
 		"unicorn/prefer-query-selector": "error",
 
-		"import/extensions": [
+		"import-x/extensions": [
 			"error",
 			"always",
 			{ ignorePackages: true, checkTypeImports: true },
@@ -75,8 +123,6 @@ const recommendedBrowserConfig = {
 
 export default {
 	"browser/recommended": recommendedBrowserConfig,
-	// TODO remove me in the next major release
-	"browser/recommended-outdated": recommendedBrowserOutdatedModuleConfig,
 	// Useful when you need to generate outdated es5 code using babel/swc/etc
 	"browser/recommended-outdated-script": recommendedBrowserOutdatedScriptConfig,
 	"browser/recommended-outdated-commonjs":

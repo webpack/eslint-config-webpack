@@ -27,35 +27,23 @@ async function getReactRecommendedConfig() {
 		};
 	}
 
-	const reactPlugin = (await import("eslint-plugin-react")).default;
-	const { recommended, "jsx-runtime": jsxRuntime } = reactPlugin.configs.flat;
-
-	const reactHooksPlugin = (await import("eslint-plugin-react-hooks")).default;
-	const { recommended: recommendedHooks } = reactHooksPlugin.configs.flat;
+	const reactPlugin = (await import("@eslint-react/eslint-plugin")).default;
+	const { recommended } = reactPlugin.configs;
 
 	return {
-		...recommended,
-		...recommendedHooks,
 		name: "react/recommended",
 		plugins: {
 			...recommended.plugins,
-			...recommendedHooks.plugins,
 		},
 		files: ["**/*.{jsx,tsx}"],
 		settings: {
-			react: {
-				version: "detect",
-				defaultVersion: "19",
-			},
+			...recommended.settings
 		},
 		languageOptions: {
 			...recommended.languageOptions,
-			...jsxRuntime.languageOptions,
 		},
 		rules: {
 			...recommended.rules,
-			...jsxRuntime.rules,
-			...recommendedHooks.rules,
 		},
 	};
 }

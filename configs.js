@@ -86,9 +86,7 @@ const recommended = [
 	configs["performance/recommended"],
 ];
 
-// TODO remove me in the next major release
 configs.recommended = recommended;
-
 configs["node-recommended"] = recommended;
 
 const nodeRecommendedModule = [
@@ -104,9 +102,6 @@ const nodeRecommendedModule = [
 	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
-
-// TODO remove me in the next major release
-configs["recommended-module"] = nodeRecommendedModule;
 
 configs["node-recommended-module"] = nodeRecommendedModule;
 
@@ -124,9 +119,6 @@ const nodeRecommendedCommonJS = [
 	configs["performance/recommended"],
 ];
 
-// TODO remove me in the next major release
-configs["recommended-commonjs"] = nodeRecommendedCommonJS;
-
 configs["node-recommended-commonjs"] = nodeRecommendedCommonJS;
 
 const nodeRecommendedDirty = [
@@ -142,8 +134,6 @@ const nodeRecommendedDirty = [
 	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
-// TODO remove me in the next major release
-configs["recommended-dirty"] = nodeRecommendedDirty;
 
 configs["node-recommended-dirty"] = nodeRecommendedDirty;
 
@@ -215,9 +205,6 @@ const browserOutdatedRecommendedModule = [
 	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
-
-// TODO remove in the next major release
-configs["browser-outdated-recommended"] = browserOutdatedRecommendedModule;
 
 configs["browser-outdated-recommended-module"] =
 	browserOutdatedRecommendedModule;

@@ -171,6 +171,12 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// types of `@throws` and `@yields`, so those go unchecked
 			"jsdoc/no-undefined-types": "off",
 
+			// TODO
+			// "jsdoc/no-unnecessary-type-assertion": "error",
+
+			// TODO
+			// "jsdoc/normalize-see-links": "error",
+
 			// TODO enable me in future
 			// "jsdoc/prefer-import-tag": "error",
 
@@ -280,6 +286,9 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/text-escaping": "error",
 
+			// TODO verify in recommended
+			// "jsdoc/	ts-ban-ts-comment": "error",
+
 			"jsdoc/type-formatting": [
 				"error",
 				{
@@ -323,8 +332,7 @@ async function getTypescriptRecommendedConfig() {
 			tsconfigJson.compilerOptions.strict) ||
 		true;
 
-	const typescriptPlugin = (await import("typescript-eslint")).default;
-	const { configs } = typescriptPlugin;
+	const { configs } = (await import("typescript-eslint")).default;
 	/** @type {import("eslint").Linter.Config} */
 	const baseConfig = configs.base;
 	/** @type {import("eslint").Linter.Config} */
@@ -363,15 +371,15 @@ async function getTypescriptRecommendedConfig() {
 				...baseConfig.plugins,
 			},
 			settings: {
-				"import/extensions": allExtensions,
-				"import/external-module-folders": [
+				"import-x/extensions": allExtensions,
+				"import-x/external-module-folders": [
 					"node_modules",
 					"node_modules/@types",
 				],
-				"import/parsers": {
+				"import-x/parsers": {
 					"@typescript-eslint/parser": typescriptExtensions,
 				},
-				"import/resolver": {
+				"import-x/resolver": {
 					node: {
 						extensions: allExtensions,
 					},
@@ -508,6 +516,9 @@ async function getTypescriptRecommendedConfig() {
 				// "@typescript-eslint/no-for-in-array": "error",
 
 				// No need
+				// "@typescript-eslint/no-generated-empty-object-type": "error",
+
+				// No need
 				// "@typescript-eslint/no-implied-eval": "error",
 
 				// No need
@@ -534,6 +545,9 @@ async function getTypescriptRecommendedConfig() {
 
 				// From recommended
 				// "@typescript-eslint/no-misused-new": "error",
+
+				// No need
+				// "@typescript-eslint/no-misused-promises": "error",
 
 				// No need
 				// "@typescript-eslint/no-misused-promises": "error",
@@ -620,6 +634,9 @@ async function getTypescriptRecommendedConfig() {
 
 				// From recommended
 				// "@typescript-eslint/no-unsafe-declaration-merging": "error",
+
+				// No need
+				// "@typescript-eslint/no-unsafe-enum-assignment": "error",
 
 				// No need
 				// "@typescript-eslint/no-unsafe-enum-comparison": "error",
@@ -791,10 +808,10 @@ async function getTypescriptRecommendedConfig() {
 				// "use-unknown-in-catch-callback-variable": "error",
 
 				// TypeScript compilation already ensures that named imports exist in the referenced module
-				"import/named": "off",
+				"import-x/named": "off",
 
 				// TypeScript handles this for us
-				"import/no-unresolved": "off",
+				"import-x/no-unresolved": "off",
 			},
 		},
 		isStrict

@@ -123,9 +123,7 @@ export const rule = {
 					);
 
 				for (let i = 0; i < properties.length; i += 1) {
-					const property = properties[i].key;
-					// @ts-expect-error need improve types
-					const { value } = property;
+					const { value } = properties[i].key;
 
 					if (value === orderedKeys[i]) {
 						continue;

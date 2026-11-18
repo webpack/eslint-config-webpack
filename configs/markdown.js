@@ -83,9 +83,9 @@ async function getMarkdownRecommendedConfig() {
 				// Useful for documentation
 				"n/no-process-exit": "off",
 
-				"import/no-unresolved": "off",
+				"import-x/no-unresolved": "off",
 
-				"import/no-extraneous-dependencies": "off",
+				"import-x/no-extraneous-dependencies": "off",
 
 				"jsdoc/require-jsdoc": "off",
 

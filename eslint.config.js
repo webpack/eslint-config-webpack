@@ -59,7 +59,7 @@ export default defineConfig([
 	},
 	{
 		files: ["./validation/browser-outdated/**/*"],
-		extends: [configs["browser-outdated-recommended"]],
+		extends: [configs["browser-outdated-recommended-module"]],
 	},
 	{
 		files: ["./validation/universal/**/*"],

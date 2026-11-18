@@ -28,13 +28,15 @@ const changelogFunctions = {
 		const changesetLink = `- Updated dependencies [${(
 			await Promise.all(
 				changesets.map(async (cs) => {
-					if (cs.commit) {
-						const { links } = await getInfo({
-							repo: options.repo,
-							commit: cs.commit,
-						});
-						return links.commit;
+					if (!cs.commit) {
+						return;
 					}
+
+					const { links } = await getInfo({
+						repo: options.repo,
+						commit: cs.commit,
+					});
+					return links.commit;
 				}),
 			)
 		)

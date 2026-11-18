@@ -52,11 +52,13 @@ function processSchema(visitor, json, context) {
 	if (visitor.schema) json = visitor.schema(json, context);
 
 	for (const name of NESTED_WITH_NAME) {
-		if (name in json && json[name] && typeof json[name] === "object") {
-			if (visitor.object) json[name] = visitor.object(json[name], context);
-			for (const key of Object.keys(json[name])) {
-				json[name][key] = processSchema(visitor, json[name][key], context);
-			}
+		if (!(name in json && json[name] && typeof json[name] === "object")) {
+			continue;
+		}
+
+		if (visitor.object) json[name] = visitor.object(json[name], context);
+		for (const key of Object.keys(json[name])) {
+			json[name][key] = processSchema(visitor, json[name][key], context);
 		}
 	}
 	for (const name of NESTED_DIRECT) {
@@ -65,13 +67,15 @@ function processSchema(visitor, json, context) {
 		}
 	}
 	for (const name of NESTED_ARRAY) {
-		if (name in json && Array.isArray(json[name])) {
-			json[name] = [...json[name]];
-			for (let i = 0; i < json[name].length; i++) {
-				json[name][i] = processSchema(visitor, json[name][i], context);
-			}
-			if (visitor.array) json[name] = visitor.array(json[name], context);
+		if (!(name in json && Array.isArray(json[name]))) {
+			continue;
 		}
+
+		json[name] = [...json[name]];
+		for (let i = 0; i < json[name].length; i++) {
+			json[name][i] = processSchema(visitor, json[name][i], context);
+		}
+		if (visitor.array) json[name] = visitor.array(json[name], context);
 	}
 
 	return json;
@@ -100,10 +104,7 @@ function sortArrayByType(array) {
 		const bType = b.type || b.instanceof || (b.enum && "enum");
 		const aPosition = TYPE_ORDER.indexOf(aType);
 		const bPosition = TYPE_ORDER.indexOf(bType);
-		if (aPosition === bPosition) {
-			return array.indexOf(a) - array.indexOf(b);
-		}
-		return aPosition - bPosition;
+		return aPosition === bPosition ? array.indexOf(a) - array.indexOf(b) : aPosition - bPosition;
 	});
 }
 

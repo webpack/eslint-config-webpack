@@ -14,9 +14,9 @@ function isTypescriptInstalled() {
 	const dependencies = packageJson.dependencies || {};
 	const devDependencies = packageJson.devDependencies || {};
 
-	return Boolean(
+	return (
 		typeof dependencies.typescript !== "undefined" ||
-		typeof devDependencies.typescript !== "undefined",
+		typeof devDependencies.typescript !== "undefined"
 	);
 }
 

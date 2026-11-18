@@ -73,7 +73,7 @@ function readJsonFile(dir, filename) {
 		if (
 			data !== null &&
 			typeof data === "object" &&
-			Array.isArray(data) === false
+			!Array.isArray(data)
 		) {
 			data.filePath = filePath;
 			return data;

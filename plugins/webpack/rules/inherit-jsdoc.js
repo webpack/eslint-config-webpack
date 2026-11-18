@@ -34,7 +34,7 @@ function rewriteJSDoc(text, indent, stripTags) {
 	return lines
 		.filter(
 			(line, index) =>
-				index === 0 || ![...stripped].some((regexp) => regexp.test(line)),
+				index === 0 || [...stripped].every((regexp) => !regexp.test(line)),
 		)
 		.map((line, index) =>
 			index === 0 ? line : `${indent} ${line.trimStart()}`,

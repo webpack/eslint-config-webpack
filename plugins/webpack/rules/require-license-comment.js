@@ -6,7 +6,7 @@
  */
 export const rule = {
 	create(context) {
-		const sourceCode = context.getSourceCode();
+		const { sourceCode } = context;
 
 		return {
 			"Program:exit"(program) {
@@ -17,7 +17,7 @@ export const rule = {
 						comments.find(
 							(comment) =>
 								comment.type === "Block" &&
-								/\n\s*MIT License http:\/\/www\.opensource\.org\/licenses\/mit-license\.php\n\s*(?:(Authors? .+)\n)?\s*/g.test(
+								/\n\s*MIT License http(s)?:\/\/www\.opensource\.org\/licenses\/mit-license\.php\n\s*(?:(Authors? .+)\n)?\s*/g.test(
 									comment.value,
 								),
 						)

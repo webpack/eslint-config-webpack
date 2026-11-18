@@ -23,7 +23,7 @@ const isMergeable = (first, second) => {
 	}
 
 	return (
-		!heads.some((tag) => tag.namespace) ||
+		heads.every((tag) => !tag.namespace) ||
 		first.named.length + second.named.length === 0
 	);
 };

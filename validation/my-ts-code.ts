@@ -1,11 +1,11 @@
 import { readFileSync } from "node:fs";
 // eslint-disable-next-line no-duplicate-imports
 import { type PathLike, type PathOrFileDescriptor } from "node:fs";
-// eslint-disable-next-line import/consistent-type-specifier-style, no-duplicate-imports
+// eslint-disable-next-line import-x/consistent-type-specifier-style, no-duplicate-imports
 import type { TimeLike } from "node:fs";
 
 import sum from "./module.js";
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import-x/extensions
 import otherSumAgain from "./my-module";
 import { type MyType, b as otherB } from "./other-module.js";
 
@@ -127,7 +127,10 @@ getSomething(myNumber);
 
 const myArray = [1, 2, 3] as const;
 
-myArray.map((value) => sum(value, 1));
+const val = myArray.map((value) => sum(value, 1));
+
+// eslint-disable-next-line no-console
+console.log(val);
 
 function myFuncBar<T extends string[]>(myArray: T): T {
 	return myArray;

@@ -154,6 +154,9 @@ async function getJestRecommendedConfig() {
 			// No need
 			// "jest/prefer-each": "error",
 
+			// No need
+			"jest/prefer-ending-with-an-expect": "off",
+
 			"jest/prefer-equality-matcher": "error",
 
 			// No need
@@ -229,6 +232,18 @@ async function getJestRecommendedConfig() {
 					ignoreTypeOfTestName: true,
 				},
 			],
+
+			// TODO
+			// "jest/no-error-equal": "off",
+
+			// TODO
+			// "jest/no-unnecessary-assertion": "off",
+
+			// TODO
+			// "jest/unbound-method": "off",
+
+			// TODO
+			// "jest/valid-expect-with-promise": "off",
 
 			// Disable it for tests, because often you can use `a`, `b`, `c` and etc variables
 			"id-length": "off",
