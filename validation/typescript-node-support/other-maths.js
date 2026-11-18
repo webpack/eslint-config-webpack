@@ -3,8 +3,7 @@
  * @returns {number} result
  */
 function absolute(num) {
-	if (num < 0) return num * -1;
-	return num;
+	return num < 0 ? -num : num;
 }
 
 export const pi = 3.14;

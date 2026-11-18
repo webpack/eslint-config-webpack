@@ -26,11 +26,9 @@ function getKeywordName(property) {
  * @returns {JSONProperty | undefined} property declaring the keyword
  */
 function getKeyword(node, name) {
-	if (!node || node.type !== "JSONObjectExpression") {
-		return undefined;
-	}
-
-	return node.properties.find((property) => getKeywordName(property) === name);
+	return !node || node.type !== "JSONObjectExpression"
+		? undefined
+		: node.properties.find((property) => getKeywordName(property) === name);
 }
 
 /**
@@ -278,16 +276,15 @@ export const rule = {
 				}
 			}
 
-			if (
+			if (!(
 				additionalProperties &&
 				additionalProperties.value.type === "JSONObjectExpression"
-			) {
-				validateDescription(
-					additionalProperties.value,
-					additionalProperties.key,
-				);
-				walk(additionalProperties.value);
+			)) {
+				return;
 			}
+
+			validateDescription(additionalProperties.value, additionalProperties.key);
+			walk(additionalProperties.value);
 		}
 
 		return {
@@ -308,7 +305,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Possible Errors",
 			description: "Enforce webpack's conventions for JSON schema files",
 			recommended: false,
 		},

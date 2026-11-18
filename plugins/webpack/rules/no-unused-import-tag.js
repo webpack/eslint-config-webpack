@@ -47,11 +47,10 @@ const lineRangeAt = (text, index) => {
 const removableCommentRange = (text, tag) => {
 	const commentRange = /** @type {[number, number]} */ (tag.comment.range);
 
-	if (text.slice(commentRange[0], tag.start).replaceAll(/[/*\s]/g, "") !== "") {
-		return null;
-	}
-
-	if (/@\w/.test(text.slice(tag.end, commentRange[1]))) {
+	if (
+		text.slice(commentRange[0], tag.start).replaceAll(/[/*\s]/g, "") !== "" ||
+		/@\w/.test(text.slice(tag.end, commentRange[1]))
+	) {
 		return null;
 	}
 
@@ -102,7 +101,7 @@ const buildFixer = (sourceCode, tag, binding, bindingCount) => {
 			.toSorted((one, another) => another.end - one.end);
 		const strandedComma =
 			previous !== undefined &&
-			!tag.named.some((other) => other.start >= binding.end)
+			tag.named.every((other) => !(other.start >= binding.end))
 				? text.indexOf(",", previous.end)
 				: -1;
 
@@ -178,7 +177,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Stylistic Issues",
 			description: "Require every `@import` binding to be referenced",
 			recommended: true,
 		},

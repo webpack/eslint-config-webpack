@@ -198,7 +198,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Performance",
 			description:
 				"Disallow the `i` flag on a regex whose character ranges reach past ASCII",
 			recommended: true,

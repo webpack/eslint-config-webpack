@@ -2,7 +2,7 @@ import otherMod from "././other-module.cjs";
 import myNumber from "./my-dirty-modules";
 import { a, b } from "./my-module.js";
 
-const commonJSModule = require("./module-js-common.js");
+const commonJSModule = require("./module-js-common");
 
 require("../typescript-node-support/my-other-code.ts");
 require("../typescript-node-support/my-other-code");

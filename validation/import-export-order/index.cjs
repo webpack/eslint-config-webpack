@@ -6,10 +6,10 @@ const a = require("./a");
 const b = require("./b");
 const c = require("./c");
 const e = require("./e");
-/* eslint-disable-next-line import/order */
+/* eslint-disable-next-line import-x/order */
 const d = require("./d");
 const { a: a1, b: b1, c: c1 } = require("./f");
-/* eslint-disable-next-line import/order */
+/* eslint-disable-next-line import-x/order */
 const { c: c2, a: a2, b: b2 } = require("./g");
 const z = require("./h");
 
@@ -37,5 +37,5 @@ get(z);
 
 module.exports.a = "a";
 module.exports.c = "c";
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import-x/order
 module.exports.b = "b";

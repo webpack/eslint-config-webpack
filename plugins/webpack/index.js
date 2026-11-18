@@ -1,5 +1,4 @@
 import { createRequire } from "node:module";
-// eslint-disable-next-line import/no-unresolved
 import * as parserJsonc from "jsonc-eslint-parser";
 import { allExtensions } from "../../configs/utils/extensions.js";
 import { rule as commentLength } from "./rules/comment-length.js";

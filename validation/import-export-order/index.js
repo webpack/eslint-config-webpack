@@ -4,10 +4,10 @@ import a from "./a.js";
 import b from "./b.js";
 import c from "./c.js";
 import e from "./e.js";
-/* eslint-disable-next-line import/order */
+/* eslint-disable-next-line import-x/order */
 import d from "./d.js";
 import { a as a1, b as b1, c as c1 } from "./f.js";
-/* eslint-disable-next-line import/order */
+/* eslint-disable-next-line import-x/order */
 import { c as c2, a as a2, b as b2 } from "./g.js";
 import z from "./h.js";
 
@@ -41,5 +41,5 @@ const s = "s";
 const t = "t";
 const u = "u";
 
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import-x/order
 export { s, u, t };

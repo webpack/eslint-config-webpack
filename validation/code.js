@@ -1,15 +1,15 @@
 import { CLIEngine, linter } from "eslint";
 import sumFn from "./module.js";
-// eslint-disable-next-line import/named, no-duplicate-imports
+// eslint-disable-next-line import-x/named, no-duplicate-imports
 import { notFoo } from "./module.js";
 import * as names from "./named-exports.js";
 
-// eslint-disable-next-line no-unused-vars, import/extensions, import/no-unresolved
+// eslint-disable-next-line no-unused-vars, import-x/no-unresolved, import-x/extensions
 import { myVar } from "./without-extension";
 
 import "./style.css";
 
-// eslint-disable-next-line no-unused-vars, import/order, import/no-extraneous-dependencies
+// eslint-disable-next-line no-unused-vars, import-x/order, import-x/no-extraneous-dependencies
 import * as scope from "eslint-scope";
 
 notFoo();
@@ -167,7 +167,7 @@ if (booleanVariable) {
 	letVariable += 1;
 }
 
-if (!booleanVariable) {
+if (!booleanVariable && handler() === "test") {
 	letVariable -= 1;
 }
 
@@ -264,11 +264,13 @@ fooFunc(() => {
 	itemsCopy.push("random string");
 }, 1000);
 
-[1, 2, 3].map((value) => {
+const mapped = [1, 2, 3].map((value) => {
 	const result = value + 1;
 
 	return value * result;
 });
+
+console.log(mapped);
 
 const flat = {};
 
@@ -284,15 +286,13 @@ const flat = {};
 	return flatten;
 });
 
-itemsCopy.filter((msg) => {
+const filtered = itemsCopy.filter((msg) => {
 	const { subject, author } = msg;
 
-	if (subject === "Mockingbird") {
-		return author === "Harper Lee";
-	}
-
-	return false;
+	return subject === "Mockingbird" && author === "Harper Lee";
 });
+
+console.log(filtered);
 
 /**
  * @param {{ firstName: string, lastName: string }} user user
@@ -373,14 +373,21 @@ myFunction();
 const subtractRuntime = (a, b) => {
 	if (a === undefined) {
 		return;
-	} else if (b === undefined) {
+	}
+
+	if (b === undefined) {
 		return a;
-	} else if (a === b) {
+	}
+
+	if (a === b) {
 		return;
-	} else if (typeof a === "string") {
+	}
+
+	if (typeof a === "string") {
 		if (typeof b === "string") {
 			return a;
-		} else if (b.has(a)) {
+		}
+		if (b.has(a)) {
 			return;
 		}
 		return a;
@@ -429,16 +436,20 @@ if (booleanVariable) {
 	test();
 }
 
-[1, 2, 3].map((number, index) => ({
+const mappedAgain = [1, 2, 3].map((number, index) => ({
 	index: number,
 	number: index,
 }));
 
-[1, 2, 3].map(
+console.log(mappedAgain);
+
+const mappedAgainAndAgain = [1, 2, 3].map(
 	(number) =>
 		`As time went by, the string containing the ${number} became much ` +
 		"longer. So we needed to break it over multiple lines.",
 );
+
+console.log(mappedAgainAndAgain);
 
 const itemHeightFoo = (item) => {
 	const smallSize = 100;
@@ -526,9 +537,7 @@ multiply(1, ...numbers);
  * @returns {Promise<string>} result
  */
 function fetch() {
-	return new Promise((resolve) => {
-		resolve("Some value");
-	});
+	return Promise.resolve("Some value");
 }
 
 /**
@@ -552,7 +561,7 @@ const { type, ...coords } = multiply(2, 1, 2, 3);
 
 await fetchJson(coords);
 
-await fetchJson("http://some-domain.com");
+await fetchJson("https://some-domain.com");
 
 /**
  * @param {string} param1 param1
@@ -886,11 +895,11 @@ function callbackInPromise(arg, callback) {
  * @returns {Promise<string>} result
  */
 function promiseInCallback(error, data) {
-	if (error) {
-		return Promise.reject(error);
-	}
-
-	return Promise.resolve(data).then(() => `${data}string`);
+	return error
+		? Promise.reject(error)
+		: Promise.resolve(data)
+				.then(() => `${data}string`)
+				.catch(() => console.log("BAD"));
 }
 
 let myLet = 10;
@@ -917,9 +926,12 @@ const myNumberObjects = [
 for (const myNumberObject of myNumberObjects) {
 	let { name, number } = myNumberObject;
 
-	if (name === "bar" && number === 2) {
-		name = "foo";
+	if (!(name === "bar" && number === 2)) {
+		continue;
 	}
+
+	name = "foo";
+	console.log(name);
 }
 
 let timer;

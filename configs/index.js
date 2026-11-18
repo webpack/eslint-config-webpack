@@ -29,7 +29,6 @@ import webpackSpecial from "./webpack-special.js";
  * "browser-outdated-recommended-script": NestedConfig,
  * "browser-outdated-recommended-commonjs": NestedConfig,
  * "browser-outdated-recommended-module": NestedConfig,
- * "browser-outdated-recommended": NestedConfig,
  * "universal-recommended": NestedConfig,
  }} AddvancedConfigs */
 

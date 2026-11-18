@@ -1,14 +1,14 @@
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import-x/extensions
 import otherSum from "./module";
 import code from "./module.cjs";
 // eslint-disable-next-line no-duplicate-imports
 import { aaa, bbb } from "./module.cjs";
 import myOtherCode from "./module.js";
 
-// eslint-disable-next-line no-unused-vars, import/order, import/no-extraneous-dependencies
+// eslint-disable-next-line no-unused-vars, import-x/order, import-x/no-extraneous-dependencies
 import * as scope from "eslint-scope";
 
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import-x/no-unresolved
 import("./unknown.ext");
 
 import("./style.css");

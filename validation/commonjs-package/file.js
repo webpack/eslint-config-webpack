@@ -1,13 +1,13 @@
 "use strict";
 
 const mod = require("./my-module");
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import-x/extensions
 const modAgain = require("./my-module.js");
 const otherMod = require("./other-module.cjs");
 
 require("../typescript-node-support/my-other-code.ts");
 require("../typescript-node-support/my-other-code");
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import-x/extensions
 require("./my-module-1.js");
 
 const foo = 1;

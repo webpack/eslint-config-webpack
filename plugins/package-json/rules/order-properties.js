@@ -4,6 +4,7 @@ import { sortOrder } from "sort-package-json";
 /** @typedef {import("jsonc-eslint-parser").AST.JSONProgram} JSONProgram */
 /** @typedef {import("jsonc-eslint-parser").AST.JSONExpression} JSONExpression */
 /** @typedef {import("jsonc-eslint-parser").AST.JSONObjectExpression} JSONObjectExpression */
+/** @typedef {import("jsonc-eslint-parser").AST.JSONStringLiteral} JSONStringLiteral */
 
 /**
  * @param {string} string string
@@ -123,9 +124,10 @@ export const rule = {
 					);
 
 				for (let i = 0; i < properties.length; i += 1) {
-					const property = properties[i].key;
-					// @ts-expect-error need improve types
-					const { value } = property;
+					// Strict JSON parsing guarantees that keys are always string literals
+					const { value } = /** @type {JSONStringLiteral} */ (
+						properties[i].key
+					);
 
 					if (value === orderedKeys[i]) {
 						continue;
@@ -160,7 +162,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Best Practices",
 			description: "Package properties must be declared in standard order",
 			recommended: true,
 		},

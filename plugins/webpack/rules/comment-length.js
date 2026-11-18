@@ -107,7 +107,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Stylistic Issues",
 			description: "Limit how many lines a plain comment spans",
 			recommended: false,
 		},

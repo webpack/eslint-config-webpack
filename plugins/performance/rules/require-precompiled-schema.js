@@ -328,8 +328,13 @@ export const rule = {
 				const api = getApi(scope, node);
 
 				// No schema means no validation, `getOptions()` only parses the options
-				if (!api || node.arguments.length === 0) return;
-				if (node.arguments.length > api.checkIndex) return;
+				if (
+					!api ||
+					node.arguments.length === 0 ||
+					node.arguments.length > api.checkIndex
+				) {
+					return;
+				}
 
 				const [schemaArgument] = node.arguments;
 				const found = getSchemaRequest(
@@ -395,7 +400,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Performance",
 			description:
 				"Require a precompiled check when validating options against a schema",
 			recommended: true,

@@ -70,11 +70,7 @@ function readJsonFile(dir, filename) {
 		const text = fs.readFileSync(filePath, "utf8");
 		const data = JSON.parse(text);
 
-		if (
-			data !== null &&
-			typeof data === "object" &&
-			Array.isArray(data) === false
-		) {
+		if (data !== null && typeof data === "object" && !Array.isArray(data)) {
 			data.filePath = filePath;
 			return data;
 		}

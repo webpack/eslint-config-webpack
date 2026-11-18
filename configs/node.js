@@ -1,4 +1,4 @@
-import importPlugin from "eslint-plugin-import";
+import importPlugin from "eslint-plugin-import-x";
 import globals from "globals";
 import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
@@ -10,7 +10,7 @@ const commonRules = {
 	// Depends on `sourceType` and enabled below only for commonjs
 	// "n/exports-style": "error",
 
-	// We have the `import/extensions` rule
+	// We have the `import-x/extensions` rule
 	"n/file-extension-in-import": "off",
 
 	// There is no need, as in some cases we want to load a module lazily.
@@ -31,19 +31,19 @@ const commonRules = {
 	// From recommended
 	// "n/no-exports-assign": "error",
 
-	// We have `import/no-extraneous-dependencies` rule
+	// We have `import-x/no-extraneous-dependencies` rule
 	"n/no-extraneous-import": "off",
 
-	// We have `import/no-extraneous-dependencies` rule
+	// We have `import-x/no-extraneous-dependencies` rule
 	"n/no-extraneous-require": "off",
 
 	// Deprecated
 	// "n/no-hide-core-modules": "error",
 
-	// We have `import/no-unresolved` rule
+	// We have `import-x/no-unresolved` rule
 	"n/no-missing-import": "off",
 
-	// We have `import/no-unresolved` rule
+	// We have `import-x/no-unresolved` rule
 	"n/no-missing-require": "off",
 
 	// No need
@@ -160,7 +160,12 @@ const commonRules = {
 
 	"n/prefer-global/url-search-params": ["error", "always"],
 
+	"n/prefer-import/assert-strict": "error",
+
 	"n/prefer-node-protocol": "error",
+
+	// No need
+	// "n/prefer-process-get-builtin-module",
 
 	// No need
 	// "n/prefer-promises/dns": "error",
@@ -187,14 +192,14 @@ async function getCommonJSConfig() {
 		ignores,
 		plugins: {
 			...nodeConfig.plugins,
-			import: importPlugin,
+			"import-x": importPlugin,
 		},
 		rules: {
 			...nodeConfig.rules,
 			...commonRules,
 			"n/exports-style": "error",
 			"n/no-path-concat": "error",
-			"import/extensions": [
+			"import-x/extensions": [
 				"error",
 				"always",
 				{
@@ -220,6 +225,8 @@ async function getCommonJSConfig() {
 	};
 }
 
+const commonjsConfig = await getCommonJSConfig();
+
 /**
  * @returns {Promise<import("eslint").Linter.Config>} config
  */
@@ -233,7 +240,7 @@ async function getModuleConfig() {
 		ignores,
 		plugins: {
 			...nodeConfig.plugins,
-			import: importPlugin,
+			"import-x": importPlugin,
 		},
 		rules: {
 			...nodeConfig.rules,
@@ -244,7 +251,7 @@ async function getModuleConfig() {
 					ignores: ["modules", "error-cause"],
 				},
 			],
-			"import/extensions": [
+			"import-x/extensions": [
 				"error",
 				"always",
 				{ ignorePackages: true, checkTypeImports: true },
@@ -253,7 +260,6 @@ async function getModuleConfig() {
 	};
 }
 
-const commonjsConfig = await getCommonJSConfig();
 const moduleConfig = await getModuleConfig();
 
 /**
@@ -266,7 +272,7 @@ async function getDirtyConfig() {
 		name: "node/dirty",
 		plugins: {
 			n: nodePlugin,
-			import: importPlugin,
+			"import-x": importPlugin,
 		},
 		ignores: [
 			...new Set([
@@ -293,7 +299,7 @@ async function getDirtyConfig() {
 			...moduleConfig.rules,
 
 			// Disable for dirty modules
-			"import/extensions": ["off"],
+			"import-x/extensions": ["off"],
 		},
 	};
 }
@@ -311,24 +317,8 @@ const mjsExtensions = isTypescriptInstalled()
 	: ["*.{mjs,jsx}", "**/*.{mjs,jsx}"];
 
 export default {
-	"node/dirty": dirtyConfig,
 	"node/commonjs": commonjsConfig,
 	"node/module": moduleConfig,
-	"node/recommended": moduleConfig,
-	"node/mixed-dirty": [
-		{
-			files: jsExtensions,
-			...dirtyConfig,
-		},
-		{
-			files: cjsExtensions,
-			...commonjsConfig,
-		},
-		{
-			files: mjsExtensions,
-			...moduleConfig,
-		},
-	],
 	"node/mixed-module-and-commonjs": [
 		{
 			files: jsExtensions,
@@ -347,6 +337,21 @@ export default {
 		{
 			files: jsExtensions,
 			...commonjsConfig,
+		},
+		{
+			files: cjsExtensions,
+			...commonjsConfig,
+		},
+		{
+			files: mjsExtensions,
+			...moduleConfig,
+		},
+	],
+	"node/dirty": dirtyConfig,
+	"node/mixed-dirty": [
+		{
+			files: jsExtensions,
+			...dirtyConfig,
 		},
 		{
 			files: cjsExtensions,

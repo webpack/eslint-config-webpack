@@ -34,7 +34,7 @@ function rewriteJSDoc(text, indent, stripTags) {
 	return lines
 		.filter(
 			(line, index) =>
-				index === 0 || ![...stripped].some((regexp) => regexp.test(line)),
+				index === 0 || [...stripped].every((regexp) => !regexp.test(line)),
 		)
 		.map((line, index) =>
 			index === 0 ? line : `${indent} ${line.trimStart()}`,
@@ -174,7 +174,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Best Practices",
 			description:
 				"Require a method to carry the JSDoc of the method it overrides",
 			recommended: false,

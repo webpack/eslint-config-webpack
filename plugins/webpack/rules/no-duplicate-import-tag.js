@@ -23,7 +23,7 @@ const isMergeable = (first, second) => {
 	}
 
 	return (
-		!heads.some((tag) => tag.namespace) ||
+		heads.every((tag) => !tag.namespace) ||
 		first.named.length + second.named.length === 0
 	);
 };
@@ -69,7 +69,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Stylistic Issues",
 			description: "Require one `@import` per module in a file",
 			recommended: true,
 		},
