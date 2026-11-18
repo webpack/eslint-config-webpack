@@ -27,7 +27,6 @@
  */
 
 import javascriptPlugin from "@eslint/js";
-// eslint-disable-next-line import/no-unresolved
 import { builtinRules } from "eslint/use-at-your-own-risk";
 import configs from "../configs.js";
 
@@ -86,9 +85,10 @@ const excludedPlugins = new Set(
 const isPluginSelected = (namespace) => {
 	const name = normalizePluginName(namespace);
 
-	if (excludedPlugins.has(name)) return false;
-
-	return includedPlugins.size === 0 || includedPlugins.has(name);
+	return (
+		!excludedPlugins.has(name) &&
+		(includedPlugins.size === 0 || includedPlugins.has(name))
+	);
 };
 const ruleFilter = new Set(getValues("--rule"));
 
@@ -131,7 +131,7 @@ const isEnabled = (entry) => entry[0] !== "off" && entry[0] !== undefined;
  * @returns {string} printable entry
  */
 const stringify = (entry) =>
-	entry.length === 1 ? JSON.stringify(entry[0]) : JSON.stringify(entry);
+	JSON.stringify(entry.length === 1 ? entry[0] : entry);
 
 /**
  * Upstream presets that only duplicate others (flat/legacy twins, `-error`
@@ -142,13 +142,12 @@ const stringify = (entry) =>
  */
 function isNoisyUpstream(name, allNames) {
 	if (allUpstream) return false;
-	if (/(?:^|\/)all(?:-|$)/.test(name)) return true;
-	if (/-flat$|-legacy$|-error$|^disable-/.test(name)) return true;
-	if (name.startsWith("flat/") && allNames.includes(name.slice(5))) {
-		return true;
-	}
 
-	return false;
+	return (
+		/(?:^|\/)all(?:-|$)/.test(name) ||
+		/-flat$|-legacy$|-error$|^disable-/.test(name) ||
+		(name.startsWith("flat/") && allNames.includes(name.slice(5)))
+	);
 }
 
 /**
