@@ -80,7 +80,8 @@ const recommendedBrowserConfig = {
 		"unicorn/prefer-dom-node-html-methods": [
 			"error",
 			{
-				checkGetHTML: true,
+				// Reading `innerHTML` can be safely replaced only when the receiver is a DOM node
+				checkGetHTML: false,
 				checkSetHTML: true,
 			},
 		],

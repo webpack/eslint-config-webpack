@@ -1874,6 +1874,7 @@ function getConfig(esVersion) {
 		config.rules["unicorn/prefer-spread"] = "off";
 		config.rules["unicorn/prefer-includes"] = "off";
 		config.rules["unicorn/no-array-for-each"] = "off";
+		config.rules["unicorn/no-for-each"] = "off";
 	}
 
 	if (esVersion < 2018) {
@@ -1909,6 +1910,12 @@ function getConfig(esVersion) {
 
 	if (esVersion < 2023) {
 		config.rules["unicorn/no-array-sort"] = "off";
+	}
+
+	// `RegExp.escape()` is an ES2026 API (Node.js 24+), the parser setting alone
+	// doesn't guarantee its availability at runtime, so the autofix would break older targets
+	if (esVersion < 2026) {
+		config.rules["unicorn/prefer-regexp-escape"] = "off";
 	}
 
 	return config;

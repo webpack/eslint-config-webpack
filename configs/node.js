@@ -240,7 +240,7 @@ async function getModuleConfig() {
 		ignores,
 		plugins: {
 			...nodeConfig.plugins,
-			import: importPlugin,
+			"import-x": importPlugin,
 		},
 		rules: {
 			...nodeConfig.rules,
@@ -272,7 +272,7 @@ async function getDirtyConfig() {
 		name: "node/dirty",
 		plugins: {
 			n: nodePlugin,
-			import: importPlugin,
+			"import-x": importPlugin,
 		},
 		ignores: [
 			...new Set([
