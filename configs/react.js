@@ -37,7 +37,7 @@ async function getReactRecommendedConfig() {
 		},
 		files: ["**/*.{jsx,tsx}"],
 		settings: {
-			...recommended.settings
+			...recommended.settings,
 		},
 		languageOptions: {
 			...recommended.languageOptions,

@@ -104,7 +104,9 @@ function sortArrayByType(array) {
 		const bType = b.type || b.instanceof || (b.enum && "enum");
 		const aPosition = TYPE_ORDER.indexOf(aType);
 		const bPosition = TYPE_ORDER.indexOf(bType);
-		return aPosition === bPosition ? array.indexOf(a) - array.indexOf(b) : aPosition - bPosition;
+		return aPosition === bPosition
+			? array.indexOf(a) - array.indexOf(b)
+			: aPosition - bPosition;
 	});
 }
 
