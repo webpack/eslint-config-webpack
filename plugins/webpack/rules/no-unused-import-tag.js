@@ -177,7 +177,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Stylistic Issues",
 			description: "Require every `@import` binding to be referenced",
 			recommended: true,
 		},

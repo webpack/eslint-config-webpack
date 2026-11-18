@@ -174,7 +174,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Best Practices",
 			description:
 				"Require a method to carry the JSDoc of the method it overrides",
 			recommended: false,

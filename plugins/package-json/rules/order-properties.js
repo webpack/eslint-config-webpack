@@ -123,6 +123,7 @@ export const rule = {
 					);
 
 				for (let i = 0; i < properties.length; i += 1) {
+					// @ts-expect-error bad types
 					const { value } = properties[i].key;
 
 					if (value === orderedKeys[i]) {
@@ -158,7 +159,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Best Practices",
 			description: "Package properties must be declared in standard order",
 			recommended: true,
 		},

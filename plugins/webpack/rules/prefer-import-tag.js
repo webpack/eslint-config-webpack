@@ -72,7 +72,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Stylistic Issues",
 			description:
 				"Require `@import` rather than a `@typedef` that only aliases an `import()`",
 			recommended: true,

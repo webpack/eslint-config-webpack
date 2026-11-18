@@ -400,7 +400,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Performance",
 			description:
 				"Require a precompiled check when validating options against a schema",
 			recommended: true,

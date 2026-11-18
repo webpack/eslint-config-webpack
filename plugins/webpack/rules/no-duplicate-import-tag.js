@@ -69,7 +69,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Stylistic Issues",
 			description: "Require one `@import` per module in a file",
 			recommended: true,
 		},

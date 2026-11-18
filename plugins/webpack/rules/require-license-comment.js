@@ -57,7 +57,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Best Practices",
 			description: "Require license comment",
 			recommended: true,
 		},

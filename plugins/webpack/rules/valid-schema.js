@@ -305,7 +305,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Possible Errors",
 			description: "Enforce webpack's conventions for JSON schema files",
 			recommended: false,
 		},

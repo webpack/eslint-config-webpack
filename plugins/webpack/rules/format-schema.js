@@ -312,7 +312,6 @@ export const rule = {
 	},
 	meta: {
 		docs: {
-			category: "Stylistic Issues",
 			description:
 				"Keep schema keys ordered and shared definitions in sync with the base schema",
 			recommended: false,
