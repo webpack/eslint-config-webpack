@@ -44,6 +44,42 @@ var value = 1;
 console.log(value);
 ```
 
+A multiline directive right before a code block applies to the code block too:
+
+<!--
+  eslint-disable
+  no-var
+-->
+
+```js
+var other = 1;
+
+console.log(other);
+```
+
+A directive the Markdown uses stays even when the code block after it doesn't need it:
+
+<!-- eslint-disable unicorn/prefer-https -->
+
+```js
+const unrelated = 1;
+
+console.log(unrelated);
+```
+
+[Insecure link the directive above allows](http://example.com)
+
+<!-- eslint-enable unicorn/prefer-https -->
+
+A code block's own directive covers the code; the Markdown checks don't report it again:
+
+```js
+/* eslint-disable unicorn/prefer-https */
+const url = "http://example.com";
+
+console.log(url);
+```
+
 <!-- eslint-disable unicorn/no-abusive-eslint-disable -->
 <!-- eslint-disable -->
 

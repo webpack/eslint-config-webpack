@@ -17,4 +17,4 @@ const codeFiles = [
 
 const codeIgnores = ["**/*.d.ts"];
 
-export { codeFiles, codeIgnores };
+export { codeFiles, codeIgnores, extensions as codeExtensions };
