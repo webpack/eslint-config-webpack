@@ -1,9 +1,12 @@
 import stylisticPlugin from "@stylistic/eslint-plugin";
 import prettierPlugin from "eslint-plugin-prettier";
+import { codeFiles, codeIgnores } from "./utils/code-files.js";
 
 /** @type {import("eslint").Linter.Config} */
 const recommendedConfig = {
 	name: "stylistic/recommended",
+	files: codeFiles,
+	ignores: codeIgnores,
 	plugins: {
 		"@stylistic": stylisticPlugin,
 	},
@@ -86,6 +89,8 @@ const recommendedConfig = {
 /** @type {import("eslint").Linter.Config} */
 const prettierConfig = {
 	name: "stylistic/prettier",
+	files: codeFiles,
+	ignores: codeIgnores,
 	plugins: {
 		prettier: prettierPlugin,
 	},

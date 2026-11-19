@@ -1,5 +1,6 @@
 import importPlugin from "eslint-plugin-import-x";
 import globals from "globals";
+import { codeFiles, codeIgnores } from "./utils/code-files.js";
 import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
 /** @type {import("eslint").Linter.Config["rules"]} */
@@ -317,8 +318,14 @@ const mjsExtensions = isTypescriptInstalled()
 	: ["*.{mjs,jsx}", "**/*.{mjs,jsx}"];
 
 export default {
-	"node/commonjs": commonjsConfig,
-	"node/module": moduleConfig,
+	// `files` is set here and not on the objects, which the mixed configs
+	// below reuse with their own `files`
+	"node/commonjs": {
+		...commonjsConfig,
+		files: codeFiles,
+		ignores: codeIgnores,
+	},
+	"node/module": { ...moduleConfig, files: codeFiles, ignores: codeIgnores },
 	"node/mixed-module-and-commonjs": [
 		{
 			files: jsExtensions,
@@ -347,7 +354,7 @@ export default {
 			...moduleConfig,
 		},
 	],
-	"node/dirty": dirtyConfig,
+	"node/dirty": { ...dirtyConfig, files: codeFiles, ignores: codeIgnores },
 	"node/mixed-dirty": [
 		{
 			files: jsExtensions,

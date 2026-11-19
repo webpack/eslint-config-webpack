@@ -4,16 +4,14 @@
 
 <div align="center">
   <!-- replace with accurate logo e.g from https://worldvectorlogo.com/ -->
-  <img width="200" height="200"
+  <img width="200" height="200" alt="ESLint logo"
     src="https://cdn.worldvectorlogo.com/logos/eslint.svg">
   <a href="https://github.com/webpack/webpack">
-    <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+    <img width="200" height="200" alt="webpack logo" src="https://webpack.js.org/assets/icon-square-big.svg">
   </a>
   <h1>ESLint Config Webpack</h1>
   <p>Provides Webpacks's eslint config as an extensible shared config.<p>
 </div>
-
-# eslint-config-webpack
 
 ## Install
 
