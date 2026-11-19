@@ -30,16 +30,17 @@ const markdown = [
 
 /**
  * @param {boolean} fix whether to fix problems
+ * @param {string=} text Markdown to lint
  * @returns {Promise<import("eslint").ESLint.LintResult>} result for the document
  */
-async function lint(fix) {
+async function lint(fix, text = markdown) {
 	const eslint = new ESLint({
 		cwd: path.resolve(import.meta.dirname, ".."),
 		overrideConfigFile: true,
 		overrideConfig: configs.recommended.flat(),
 		fix,
 	});
-	const [result] = await eslint.lintText(markdown, { filePath });
+	const [result] = await eslint.lintText(text, { filePath });
 
 	return result;
 }
@@ -64,5 +65,43 @@ describe("markdown/recommended", () => {
 		assert.ok(output);
 		assert.match(output, /^# Missing space$/m);
 		assert.match(output, /^const value = 1;$/m);
+	});
+
+	/**
+	 * @param {string} code code of the `js` block
+	 * @returns {string} Markdown with an `eslint-disable` comment before the block
+	 */
+	const withDirective = (code) =>
+		[
+			"# Title",
+			"",
+			"<!-- eslint-disable no-var -->",
+			"",
+			"```js",
+			code,
+			"",
+			"run(value);",
+			"```",
+			"",
+		].join("\n");
+
+	it("keeps a directive the next code block uses", async () => {
+		const text = withDirective("var value = 1;");
+
+		assert.deepEqual((await lint(false, text)).messages, []);
+		assert.equal((await lint(true, text)).output, undefined);
+	});
+
+	it("reports a directive the next code block doesn't use once", async () => {
+		const { messages } = await lint(false, withDirective("const value = 1;"));
+
+		assert.deepEqual(
+			messages.map(({ ruleId, line, message }) => [
+				ruleId,
+				line,
+				message.startsWith("Unused eslint-disable directive"),
+			]),
+			[[null, 3, true]],
+		);
 	});
 });

@@ -17,6 +17,49 @@ import isTypescriptInstalled from "./utils/is-typescript-installed.js";
  * @returns {Processor} processor for code blocks and Markdown content
  */
 function createMarkdownProcessor(markdownProcessor) {
+	/**
+	 * Per file: its text and the `/* ... *\/` comments `@eslint/markdown`
+	 * copied from HTML comments into the code blocks right after them.
+	 * @type {Map<string, { text: string, codeBlockComments: Set<string> }>}
+	 */
+	const cache = new Map();
+
+	/**
+	 * The document pass also sees `<!-- eslint-disable ... -->` comments meant
+	 * for the next code block, where they usually disable nothing, so it would
+	 * report them as unused and `--fix` would delete them. Such a report belongs
+	 * to the code block, whose own pass already reports the directive when it
+	 * is unused there.
+	 * @param {import("eslint").Linter.LintMessage} message document message
+	 * @param {{ text: string, codeBlockComments: Set<string> }} file cached file
+	 * @returns {boolean} true when the message is about a code block directive
+	 */
+	const isCodeBlockDirectiveReport = (message, file) => {
+		if (
+			message.ruleId !== null ||
+			!/^Unused eslint-(?:disable|enable) directive/u.test(message.message)
+		) {
+			return false;
+		}
+
+		const lines = file.text.split("\n");
+		const offset =
+			lines
+				.slice(0, message.line - 1)
+				.reduce((total, line) => total + line.length + 1, 0) +
+			message.column -
+			1;
+		const rest = file.text.slice(offset);
+
+		if (!rest.startsWith("<!--")) return false;
+
+		const end = rest.indexOf("-->");
+
+		return (
+			end !== -1 && file.codeBlockComments.has(`/*${rest.slice(4, end)}*/`)
+		);
+	};
+
 	return {
 		meta: { name: "eslint-config-webpack/markdown" },
 		supportsAutofix: true,
@@ -24,11 +67,33 @@ function createMarkdownProcessor(markdownProcessor) {
 			const codeBlocks = /** @type {NonNullable<Processor["preprocess"]>} */ (
 				markdownProcessor.preprocess
 			)(text, filename);
+			const codeBlockComments = new Set();
+
+			for (const block of codeBlocks) {
+				const blockText = typeof block === "string" ? block : block.text;
+
+				// Copied comments come first, one per line
+				for (const line of blockText.split("\n")) {
+					if (!/^\/\*.*\*\/$/u.test(line)) break;
+					codeBlockComments.add(line);
+				}
+			}
+
+			cache.set(filename, { text, codeBlockComments });
 
 			return [...codeBlocks, { text, filename: path.basename(filename) }];
 		},
 		postprocess(messages, filename) {
-			const documentMessages = messages.at(-1) || [];
+			const file = cache.get(filename) || {
+				text: "",
+				codeBlockComments: new Set(),
+			};
+
+			cache.delete(filename);
+
+			const documentMessages = (messages.at(-1) || []).filter(
+				(message) => !isCodeBlockDirectiveReport(message, file),
+			);
 			const codeBlockMessages =
 				/** @type {NonNullable<Processor["postprocess"]>} */ (
 					markdownProcessor.postprocess
