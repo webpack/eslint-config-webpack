@@ -21,6 +21,7 @@
  * - `--examples <n>` print up to `n` locations for each rule
  * - `--repo <url>` repository to clone (default: webpack/webpack on GitHub)
  * - `--ref <ref>` branch or tag to test (default: `main`)
+ * - `--concurrency <n|auto|off>` ESLint `--concurrency` (default: `auto`)
  * - `--dir <path>` where to keep the clone (default: `.cache/webpack`)
  * - `--no-update` reuse the existing clone and dependencies as they are
  * - `--json` print the summary as JSON
@@ -60,6 +61,7 @@ import { fileURLToPath } from "node:url";
 const PACKAGE_NAME = "eslint-config-webpack";
 const ORIGINAL_DIR = `.${PACKAGE_NAME}-original`;
 const FATAL = "(parsing error)";
+const NO_RULE = "(eslint-disable directives)";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -98,6 +100,7 @@ const options = {
 	rules: getValues("--rule"),
 	onlyRules: argv.includes("--only-rules"),
 	examples: Number(getValue("--examples", "0")),
+	concurrency: getValue("--concurrency", "auto"),
 	json: argv.includes("--json"),
 	output: getValues("--output").at(-1),
 };
@@ -270,6 +273,8 @@ function lint(eslintDir, label) {
 		"--output-file",
 		outputFile,
 		"--no-error-on-unmatched-pattern",
+		"--concurrency",
+		options.concurrency,
 		...options.rules.flatMap((rule) => ["--rule", rule]),
 		...extraEslintArgs,
 		".",
@@ -324,7 +329,7 @@ function summarize(results) {
 		let hasProblems = false;
 
 		for (const message of result.messages) {
-			const ruleId = message.ruleId || FATAL;
+			const ruleId = message.ruleId || (message.fatal ? FATAL : NO_RULE);
 
 			if (options.onlyRules && !onlyRuleIds.has(ruleId)) continue;
 
@@ -357,7 +362,7 @@ function summarize(results) {
 
 			if (stats.examples.length < options.examples) {
 				stats.examples.push(
-					`${file}:${message.line}:${message.column} ${message.message}`,
+					`${file}:${message.line}:${message.column} ${message.message.replaceAll(/\s+/g, " ")}`,
 				);
 			}
 		}
