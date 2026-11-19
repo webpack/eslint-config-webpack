@@ -38,3 +38,6 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# Local clones for scripts/test-on-webpack.js
+.cache
