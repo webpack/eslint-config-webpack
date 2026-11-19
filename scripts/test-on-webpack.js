@@ -14,7 +14,9 @@
  * Usage: `node scripts/test-on-webpack.js [options] [-- <extra eslint args>]`
  *
  * - `--rule <rule: value>` enable or change a rule for this run only, in
- * ESLint's `--rule` format, e.g. `--rule "unicorn/no-null: error"`; repeatable
+ * ESLint's `--rule` format, e.g. `--rule "unicorn/no-null: error"`; repeatable;
+ * applies to the local config only, so with `--baseline` the difference shows
+ * what the rule costs
  * - `--only-rules` report only rules given with `--rule`
  * - `--baseline` also lint with the published `eslint-config-webpack` webpack
  * depends on, and show how the number of problems per rule changes
@@ -252,9 +254,10 @@ const getVersion = (cwd, name) =>
 /**
  * @param {string} eslintDir directory whose `node_modules/eslint` to run
  * @param {string} label label for progress messages
+ * @param {string[]} rules extra rules in ESLint `--rule` format
  * @returns {LintResult[]} ESLint results
  */
-function lint(eslintDir, label) {
+function lint(eslintDir, label, rules) {
 	const eslintBin = path.join(
 		eslintDir,
 		"node_modules",
@@ -275,7 +278,7 @@ function lint(eslintDir, label) {
 		"--no-error-on-unmatched-pattern",
 		"--concurrency",
 		options.concurrency,
-		...options.rules.flatMap((rule) => ["--rule", rule]),
+		...rules.flatMap((rule) => ["--rule", rule]),
 		...extraEslintArgs,
 		".",
 	];
@@ -528,13 +531,14 @@ function main() {
 			lint(
 				options.dir,
 				`published ${PACKAGE_NAME}@${getVersion(options.dir, ORIGINAL_DIR)}`,
+				[],
 			),
 		);
 	}
 
 	linkConfig(root);
 
-	const results = lint(root, `local ${PACKAGE_NAME} (${root})`);
+	const results = lint(root, `local ${PACKAGE_NAME} (${root})`, options.rules);
 	const summary = summarize(results);
 
 	if (options.output) {
