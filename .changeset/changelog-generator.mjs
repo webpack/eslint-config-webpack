@@ -1,6 +1,41 @@
-import { getInfo, getInfoFromPullRequest } from "@changesets/get-github-info";
+import { getCommitInfo, getPullRequestInfo } from "@changesets/get-github-info";
 
 /** @typedef {import("@changesets/types").ChangelogFunctions} ChangelogFunctions */
+
+/**
+ * @typedef {object} Links
+ * @property {string | null} commit markdown link to the commit
+ * @property {string | null} pull markdown link to the pull request
+ * @property {string | null} user markdown link to the author
+ */
+
+/**
+ * @param {{ repo: string, commit: string }} options repository and commit
+ * @returns {Promise<Links>} markdown links, `null` for unknown parts
+ */
+async function getCommitLinks(options) {
+	const info = await getCommitInfo(options);
+
+	return {
+		commit: info ? info.commit.markdownLink : null,
+		pull: info && info.pull ? info.pull.markdownLink : null,
+		user: info && info.author ? info.author.markdownLink : null,
+	};
+}
+
+/**
+ * @param {{ repo: string, pull: number }} options repository and pull request number
+ * @returns {Promise<Links>} markdown links, `null` for unknown parts
+ */
+async function getPullRequestLinks(options) {
+	const info = await getPullRequestInfo(options);
+
+	return {
+		commit: info && info.commit ? info.commit.markdownLink : null,
+		pull: info ? info.pull.markdownLink : null,
+		user: info && info.author ? info.author.markdownLink : null,
+	};
+}
 
 /**
  * @returns {{ GITHUB_SERVER_URL: string }} value
@@ -32,7 +67,7 @@ const changelogFunctions = {
 						return;
 					}
 
-					const { links } = await getInfo({
+					const links = await getCommitLinks({
 						repo: options.repo,
 						commit: cs.commit,
 					});
@@ -86,7 +121,7 @@ const changelogFunctions = {
 
 		const links = await (async () => {
 			if (prFromSummary !== undefined) {
-				let { links } = await getInfoFromPullRequest({
+				let links = await getPullRequestLinks({
 					repo: options.repo,
 					pull: prFromSummary,
 				});
@@ -101,17 +136,16 @@ const changelogFunctions = {
 			}
 			const commitToFetchFrom = commitFromSummary || changeset.commit;
 			if (commitToFetchFrom) {
-				const { links } = await getInfo({
+				return getCommitLinks({
 					repo: options.repo,
 					commit: commitToFetchFrom,
 				});
-				return links;
 			}
-			return {
+			return /** @type {Links} */ ({
 				commit: null,
 				pull: null,
 				user: null,
-			};
+			});
 		})();
 
 		const users = usersFromSummary.length
