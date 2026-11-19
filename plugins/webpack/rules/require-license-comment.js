@@ -17,7 +17,7 @@ export const rule = {
 						comments.find(
 							(comment) =>
 								comment.type === "Block" &&
-								/\n\s*MIT License http(s)?:\/\/www\.opensource\.org\/licenses\/mit-license\.php\n\s*(?:(Authors? .+)\n)?\s*/g.test(
+								/\n\s*MIT License https?:\/\/www\.opensource\.org\/licenses\/mit-license\.php\n\s*(?:(Authors? .+)\n)?\s*/.test(
 									comment.value,
 								),
 						)
@@ -60,7 +60,6 @@ export const rule = {
 			description: "Require license comment",
 			recommended: true,
 		},
-		fixable: "code",
 		type: "layout",
 	},
 };
