@@ -134,8 +134,10 @@ const stringify = (entry) =>
 	JSON.stringify(entry.length === 1 ? entry[0] : entry);
 
 /**
- * Upstream presets that only duplicate others (flat/legacy twins, `-error`
- * severity variants, deprecated aliases) or that enable everything (`all`).
+ * Upstream presets that only duplicate others (legacy twins of `flat/*`
+ * presets, `-error` severity variants, deprecated aliases) or that enable
+ * everything (`all`). The flat twin is kept: legacy presets use string
+ * `extends`/`overrides`, which `flatten` can't follow.
  * @param {string} name upstream config name
  * @param {string[]} allNames all upstream config names of the plugin
  * @returns {boolean} true when the config should be skipped
@@ -146,7 +148,7 @@ function isNoisyUpstream(name, allNames) {
 	return (
 		/(?:^|\/)all(?:-|$)/.test(name) ||
 		/-flat$|-legacy$|-error$|^disable-/.test(name) ||
-		(name.startsWith("flat/") && allNames.includes(name.slice(5)))
+		(!name.startsWith("flat/") && allNames.includes(`flat/${name}`))
 	);
 }
 
@@ -228,8 +230,9 @@ for (const [presetName, preset] of Object.entries(configs)) {
 }
 
 /**
- * rule id -> upstream config label -> normalized entry (enabled entries only)
- * @type {Map<string, Map<string, unknown[]>>}
+ * rule id -> upstream config label -> distinct settings (enabled entries only);
+ * a preset can hold several file-scoped settings for one rule
+ * @type {Map<string, Map<string, { entry: unknown[], files: string[] }[]>>}
  */
 const upstream = new Map();
 
@@ -243,7 +246,12 @@ for (const [namespace, plugin] of plugins) {
 	for (const configName of names) {
 		if (isNoisyUpstream(configName, names)) continue;
 
-		const label = `${namespace}:${configName}`;
+		// `flat/recommended` is shown as `recommended` unless its legacy twin is shown too
+		const label = `${namespace}:${
+			!allUpstream && configName.startsWith("flat/")
+				? configName.slice("flat/".length)
+				: configName
+		}`;
 
 		for (const config of flatten(upstreamConfigs[configName])) {
 			for (const [ruleId, rawEntry] of Object.entries(config.rules || {})) {
@@ -251,10 +259,24 @@ for (const [namespace, plugin] of plugins) {
 
 				if (!isEnabled(entry)) continue;
 				if (!upstream.has(ruleId)) upstream.set(ruleId, new Map());
-				/** @type {Map<string, unknown[]>} */ (upstream.get(ruleId)).set(
-					label,
-					entry,
+
+				const byLabel =
+					/** @type {Map<string, { entry: unknown[], files: string[] }[]>} */ (
+						upstream.get(ruleId)
+					);
+				const variants = byLabel.get(label) || [];
+				const files = config.files ? config.files.flat().map(String) : [];
+				const same = variants.find(
+					(variant) => stringify(variant.entry) === stringify(entry),
 				);
+
+				if (same) {
+					same.files.push(...files);
+				} else {
+					variants.push({ entry, files });
+				}
+
+				byLabel.set(label, variants);
 			}
 		}
 	}
@@ -360,11 +382,16 @@ for (const namespace of namespaces) {
 				value: entry,
 				configs: collapseEsVersions([...where]),
 			})),
-			upstream: [...(upstream.get(id) || new Map())].map(([preset, value]) => ({
-				preset,
-				value,
-				comparison: compare(value),
-			})),
+			upstream: [...(upstream.get(id) || [])].flatMap(([preset, variants]) =>
+				variants.map(({ entry, files }) => ({
+					preset:
+						variants.length > 1 && files.length > 0
+							? `${preset} (files: ${files.join(", ")})`
+							: preset,
+					value: entry,
+					comparison: compare(entry),
+				})),
+			),
 		});
 	}
 
@@ -377,9 +404,29 @@ for (const namespace of namespaces) {
 }
 
 // Rules configured in our presets that don't exist in any registered plugin
-// (only meaningful when not limited to specific plugins)
+// that pass the --plugin and --rule selection
+/**
+ * @param {string} ruleId rule id that matches no registered rule
+ * @returns {string} its plugin namespace, `eslint` for core rules
+ */
+const getNamespace = (ruleId) => {
+	const known = namespaces
+		.filter((namespace) => ruleId.startsWith(`${namespace}/`))
+		.toSorted((a, b) => b.length - a.length);
+
+	if (known.length > 0) return known[0];
+	if (!ruleId.includes("/")) return CORE;
+
+	return ruleId.slice(0, ruleId.indexOf("/"));
+};
+
 const unknown = [...ours.keys()]
-	.filter((ruleId) => includedPlugins.size === 0 && !knownRuleIds.has(ruleId))
+	.filter(
+		(ruleId) =>
+			!knownRuleIds.has(ruleId) &&
+			isPluginSelected(getNamespace(ruleId)) &&
+			(ruleFilter.size === 0 || ruleFilter.has(ruleId)),
+	)
 	.toSorted();
 
 if (asJson) {

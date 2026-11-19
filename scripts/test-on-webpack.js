@@ -30,7 +30,8 @@
  * - `--markdown` print the summary as Markdown (e.g. for a CI job summary)
  * - `--output <file>` also write ESLint's raw JSON results to a file
  *
- * Exits with code 1 when ESLint reports at least one error, 2 when the setup
+ * Exits with code 1 when ESLint reports at least one error (also outside the
+ * rules kept by `--only-rules`), 2 when the setup
  * (clone, install, ESLint crash) fails.
  */
 
@@ -39,6 +40,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import semver from "semver";
 
 /** @typedef {import("eslint").ESLint.LintResult} LintResult */
 
@@ -149,6 +151,17 @@ function run(command, args, { cwd = root, quiet = false } = {}) {
 }
 
 /**
+ * @param {string} url repository URL
+ * @returns {string} URL without trailing `/` or `.git`, lower case
+ */
+const normalizeRepoUrl = (url) =>
+	url
+		.trim()
+		.replace(/\/+$/, "")
+		.replace(/\.git$/, "")
+		.toLowerCase();
+
+/**
  * Clones the repository or brings an existing clone to the requested ref.
  */
 function prepareClone() {
@@ -166,6 +179,17 @@ function prepareClone() {
 		]);
 
 		return;
+	}
+
+	const origin = run("git", ["remote", "get-url", "origin"], {
+		cwd: options.dir,
+		quiet: true,
+	});
+
+	if (normalizeRepoUrl(origin) !== normalizeRepoUrl(options.repo)) {
+		throw new Error(
+			`${options.dir} is a clone of ${origin}, not ${options.repo}. Pass another --dir for this repository.`,
+		);
 	}
 
 	if (!options.update) return;
@@ -271,6 +295,14 @@ function lint(eslintDir, label, rules) {
 		fs.mkdtempSync(path.join(os.tmpdir(), "eslint-on-webpack-")),
 		"results.json",
 	);
+	const eslintVersion = getVersion(eslintDir, "eslint");
+	// `--concurrency` exists since ESLint 9.34.0; older baselines lint serially
+	const supportsConcurrency = semver.gte(eslintVersion, "9.34.0");
+
+	if (!supportsConcurrency && options.concurrency !== "auto") {
+		log(`eslint ${eslintVersion} has no --concurrency, ignoring it`);
+	}
+
 	const args = [
 		eslintBin,
 		"--format",
@@ -278,16 +310,13 @@ function lint(eslintDir, label, rules) {
 		"--output-file",
 		outputFile,
 		"--no-error-on-unmatched-pattern",
-		"--concurrency",
-		options.concurrency,
+		...(supportsConcurrency ? ["--concurrency", options.concurrency] : []),
 		...rules.flatMap((rule) => ["--rule", rule]),
 		...extraEslintArgs,
 		".",
 	];
 
-	log(
-		`Linting with ${label} (eslint ${getVersion(eslintDir, "eslint")}), this takes a while`,
-	);
+	log(`Linting with ${label} (eslint ${eslintVersion}), this takes a while`);
 
 	const started = Date.now();
 	const result = spawnSync(process.execPath, args, {
@@ -637,7 +666,10 @@ function main() {
 		printTotals(summary, baseline);
 	}
 
-	return summary.errors > 0 ? 1 : 0;
+	// Based on all results, so `--only-rules` doesn't hide other errors
+	const hasErrors = results.some((result) => result.errorCount > 0);
+
+	return hasErrors ? 1 : 0;
 }
 
 if (!process.exitCode) {
