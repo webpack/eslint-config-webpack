@@ -38,6 +38,8 @@
     "fmt": "prettier --cache --write .",
     "fmt:check": "prettier --cache --check .",
     "test": "cd test && node --test",
+    "rules:not-enabled": "node scripts/find-not-enabled-rules.js",
+    "test:webpack": "node scripts/test-on-webpack.js",
     "version": "changeset version",
     "release": "changeset publish"
   },

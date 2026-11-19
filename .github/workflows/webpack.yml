@@ -1,0 +1,68 @@
+name: Webpack
+
+# Lints the webpack repository with the config from this branch and shows,
+# in the job summary, how many problems each rule reports there compared with
+# the published version webpack depends on.
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "webpack branch or tag to lint"
+        required: false
+        default: "main"
+      rules:
+        description: "Extra rules to try, one per line in ESLint --rule format, e.g. unicorn/no-null: error"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-webpack:
+    name: Lint webpack with this config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Use Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - run: npm ci
+
+      # webpack pins its yarn version with `packageManager`
+      - run: corepack enable
+
+      - name: Lint webpack
+        env:
+          WEBPACK_REF: ${{ inputs.ref || 'main' }}
+          EXTRA_RULES: ${{ inputs.rules }}
+        run: |
+          args=(--baseline --markdown --examples 3 --ref "$WEBPACK_REF")
+          while IFS= read -r rule; do
+            if [ -n "$rule" ]; then args+=(--rule "$rule"); fi
+          done <<< "$EXTRA_RULES"
+
+          set +e
+          node scripts/test-on-webpack.js "${args[@]}" > report.md
+          code=$?
+          set -e
+
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+
+          # 1 means webpack has lint errors, which the summary reports;
+          # 2 means the clone, the install or ESLint itself failed
+          if [ "$code" -ge 2 ]; then exit "$code"; fi
