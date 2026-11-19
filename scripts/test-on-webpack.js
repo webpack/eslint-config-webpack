@@ -27,6 +27,7 @@
  * - `--dir <path>` where to keep the clone (default: `.cache/webpack`)
  * - `--no-update` reuse the existing clone and dependencies as they are
  * - `--json` print the summary as JSON
+ * - `--markdown` print the summary as Markdown (e.g. for a CI job summary)
  * - `--output <file>` also write ESLint's raw JSON results to a file
  *
  * Exits with code 1 when ESLint reports at least one error, 2 when the setup
@@ -104,6 +105,7 @@ const options = {
 	examples: Number(getValue("--examples", "0")),
 	concurrency: getValue("--concurrency", "auto"),
 	json: argv.includes("--json"),
+	markdown: argv.includes("--markdown"),
 	output: getValues("--output").at(-1),
 };
 
@@ -416,8 +418,9 @@ const signed = (value) =>
 /**
  * @param {Summary} summary summary
  * @param {Summary=} baseline baseline summary
+ * @returns {string[][]} header and rows, sorted by number of problems
  */
-function printTable(summary, baseline) {
+function getRows(summary, baseline) {
 	const total = (/** @type {RuleStats | undefined} */ stats) =>
 		stats ? stats.errors + stats.warnings : 0;
 	const ruleIds = new Set([
@@ -441,12 +444,11 @@ function printTable(summary, baseline) {
 				Math.abs(b.delta) - Math.abs(a.delta) ||
 				a.ruleId.localeCompare(b.ruleId),
 		);
-
 	const header = ["Rule", "Errors", "Warnings", "Fixable", "Files"];
 
 	if (baseline) header.push("Δ vs published");
 
-	const table = [
+	return [
 		header,
 		...rows.map(({ ruleId, stats, delta }) => {
 			const row = [
@@ -462,6 +464,15 @@ function printTable(summary, baseline) {
 			return row;
 		}),
 	];
+}
+
+/**
+ * @param {Summary} summary summary
+ * @param {Summary=} baseline baseline summary
+ */
+function printTable(summary, baseline) {
+	const table = getRows(summary, baseline);
+	const [header] = table;
 	const widths = header.map((_, column) =>
 		Math.max(...table.map((row) => row[column].length)),
 	);
@@ -486,7 +497,7 @@ function printTable(summary, baseline) {
 		}
 	}
 
-	if (rows.length === 0) console.log("No problems found");
+	if (table.length === 1) console.log("No problems found");
 }
 
 /**
@@ -507,6 +518,61 @@ function printTotals(summary, baseline) {
 				signed(summary.warnings - baseline.warnings) || "0"
 			} warnings`,
 		);
+	}
+}
+
+/**
+ * @param {string} title title
+ * @param {Summary} summary summary
+ * @param {Summary=} baseline baseline summary
+ */
+function printMarkdown(title, summary, baseline) {
+	const table = getRows(summary, baseline);
+	const [header, ...rows] = table;
+	const line = (/** @type {Summary} */ value) =>
+		`**${value.errors}** errors, **${value.warnings}** warnings (${value.fixable} fixable) in ${value.filesWithProblems} of ${value.files} files`;
+	const escape = (/** @type {string} */ text) =>
+		text.replaceAll("|", String.raw`\|`).replaceAll("<", "&lt;");
+
+	console.log(`## ${title}\n`);
+	if (baseline) console.log(`- Published config: ${line(baseline)}`);
+	console.log(`- Local config: ${line(summary)}`);
+	if (baseline) {
+		console.log(
+			`- Difference: **${signed(summary.errors - baseline.errors) || "0"}** errors, **${
+				signed(summary.warnings - baseline.warnings) || "0"
+			}** warnings`,
+		);
+	}
+	console.log("");
+
+	if (rows.length === 0) {
+		console.log("No problems found");
+
+		return;
+	}
+
+	console.log(`| ${header.join(" | ")} |`);
+	console.log(
+		`| ${header.map((_, column) => (column === 0 ? "---" : "---:")).join(" | ")} |`,
+	);
+	for (const row of rows) {
+		console.log(`| \`${row[0]}\` | ${row.slice(1).join(" | ")} |`);
+	}
+
+	const withExamples = rows.filter(
+		([ruleId]) => (summary.rules.get(ruleId)?.examples.length ?? 0) > 0,
+	);
+
+	if (withExamples.length === 0) return;
+
+	console.log("\n### Examples\n");
+	for (const [ruleId] of withExamples) {
+		const stats = /** @type {RuleStats} */ (summary.rules.get(ruleId));
+
+		console.log(`<details><summary><code>${escape(ruleId)}</code></summary>\n`);
+		for (const example of stats.examples) console.log(`- ${escape(example)}`);
+		console.log("\n</details>");
 	}
 }
 
@@ -558,6 +624,12 @@ function main() {
 				null,
 				2,
 			),
+		);
+	} else if (options.markdown) {
+		printMarkdown(
+			`ESLint on ${options.repo.replaceAll(/^https:\/\/github\.com\/|\.git$/g, "")} (${options.ref} @ ${commit})`,
+			summary,
+			baseline,
 		);
 	} else {
 		console.log(`\n${options.repo} (${options.ref} @ ${commit})`);
