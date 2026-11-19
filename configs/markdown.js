@@ -1,4 +1,5 @@
 import path from "node:path";
+import unicornPlugin from "eslint-plugin-unicorn";
 import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
 /** @typedef {import("eslint").Linter.Processor} Processor */
@@ -128,10 +129,33 @@ async function getMarkdownRecommendedConfig() {
 			processor: createMarkdownProcessor(markdownPlugin.processors.markdown),
 			plugins: {
 				markdown: markdownPlugin,
+				unicorn: unicornPlugin,
+			},
+			// Same as for JavaScript, so a `<!-- eslint-disable -->` comment that
+			// disables nothing fails the lint
+			linterOptions: {
+				reportUnusedDisableDirectives: "error",
+				reportUnusedInlineConfigs: "error",
 			},
 			rules: {
 				...recommended.find((config) => config.name === "markdown/recommended")
 					?.rules,
+
+				// `unicorn` rules that support Markdown and that we use for
+				// JavaScript too, with the same options
+				"unicorn/no-abusive-eslint-disable": "error",
+
+				// `unicorn/no-missing-local-resource` would fit too, but it skips
+				// virtual files and the document is linted as one (see the processor)
+
+				"unicorn/prefer-https": "error",
+
+				"unicorn/relative-url-style": ["error", "always"],
+
+				// Markdown-only `unicorn` rules
+				"unicorn/no-empty-link-text": "error",
+
+				"unicorn/no-javascript-url": "error",
 			},
 		},
 		{

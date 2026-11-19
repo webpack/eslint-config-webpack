@@ -2,3 +2,5 @@ package-lock.json
 validation/style.css
 validation/universal/index.html
 validation/webpack/tsconfig.json
+# Bad examples on purpose; Prettier would move the eslint-disable-next-line comments away from them
+validation/markdown/bad.md
