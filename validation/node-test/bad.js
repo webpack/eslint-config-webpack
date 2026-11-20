@@ -118,7 +118,7 @@ describe("async describe", async () => {
 	});
 });
 
-// eslint-disable-next-line node-test/consistent-test-it
+// eslint-disable-next-line node-test/consistent-test-it, node-test/require-top-level-describe
 it("top level it", () => {
 	assert.strictEqual(sum(1, 1), 2);
 });

@@ -1,19 +1,18 @@
 import browserConfig from "./browser.js";
 import javascriptConfig from "./javascript.js";
-import jestConfig from "./jest.js";
 import jsonConfig from "./json.js";
 import markdownConfig from "./markdown.js";
-import nodeTestConfig from "./node-test.js";
 import nodeConfig from "./node.js";
 import performanceConfig from "./performance.js";
 import reactConfig from "./react.js";
 import stylisticConfig from "./stylistic.js";
+import testConfig from "./test.js";
 import typescriptConfig from "./typescript.js";
 import webpackSpecial from "./webpack-special.js";
 
 // TODO merge this file with config.js into one to avoid problems with types
 
-/** @typedef {typeof browserConfig & typeof javascriptConfig & typeof jestConfig & typeof jsonConfig & typeof markdownConfig & typeof nodeConfig & typeof nodeTestConfig & typeof stylisticConfig & typeof typescriptConfig & typeof reactConfig & typeof performanceConfig & typeof webpackSpecial} BasicConfigs */
+/** @typedef {typeof browserConfig & typeof javascriptConfig & typeof jsonConfig & typeof markdownConfig & typeof nodeConfig & typeof testConfig & typeof stylisticConfig & typeof typescriptConfig & typeof reactConfig & typeof performanceConfig & typeof webpackSpecial} BasicConfigs */
 /** @typedef {import("eslint").Linter.Config} Config */
 /** @typedef {(Config | Config[])[]} NestedConfig */
 /**
@@ -39,11 +38,10 @@ const configs =
 	({
 		...browserConfig,
 		...javascriptConfig,
-		...jestConfig,
 		...jsonConfig,
 		...markdownConfig,
 		...nodeConfig,
-		...nodeTestConfig,
+		...testConfig,
 		...stylisticConfig,
 		...typescriptConfig,
 		...reactConfig,
