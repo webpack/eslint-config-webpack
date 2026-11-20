@@ -82,11 +82,26 @@ export default defineConfig([
 ]);
 ```
 
+### Tests with `node:test`
+
+Every recommended config includes `node-test/recommended`: the recommended rules of [`eslint-node-test`](https://github.com/sindresorhus/eslint-node-test) for tests written with the built-in Node.js test runner, with the same choices as for Jest (`test` at the top level and `it` inside `describe`, lowercase titles except for `describe`, no commented-out tests; conditional assertions and `done` callbacks are allowed). Its rules only apply to files that import `node:test` (assertion rules also to files that import `node:assert`), so it needs no test file patterns. It can also be extended on its own:
+
+```js
+import { defineConfig } from "eslint/config";
+import configs from "eslint-config-webpack/configs.js";
+
+export default defineConfig([
+	{
+		extends: [configs["node-test/recommended"]],
+	},
+]);
+```
+
 ### Type-aware rules for JSDoc
 
 When `typescript` is installed, every recommended config includes `typescript/jsdoc-type-checked`. It enables the type-aware rules of [`typescript-eslint`](https://typescript-eslint.io/getting-started/typed-linting) for JavaScript files typed with JSDoc. TypeScript reads JSDoc types, so the rules see them, e.g. a `Promise` from `@returns` or a type from `@param`.
 
-The rules apply to a JavaScript file only when its nearest `tsconfig.json` enables `allowJs` or `checkJs` and includes the file, because type-aware linting needs the file to be part of a TypeScript project. Other files are not affected.
+The rules apply to a JavaScript file only when its nearest `tsconfig.json` enables `allowJs` or `checkJs`, includes the file, and is in the directory ESLint runs from or below it, because type-aware linting needs the file to be part of a TypeScript project that typescript-eslint can find. Other files are not affected.
 
 The enabled rules are the type-aware `recommended-type-checked` rules, e.g. `no-floating-promises`, `no-misused-promises`, `await-thenable`, `only-throw-error` and `restrict-template-expressions`. The `no-unsafe-*` rules are left out: they report every use of an `any` value, and JSDoc code has a lot of them. Type-aware linting takes longer, since TypeScript builds the project's types.
 
