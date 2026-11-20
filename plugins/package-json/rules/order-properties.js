@@ -1,6 +1,8 @@
 import detectIndent from "detect-indent";
 import { sortOrder } from "sort-package-json";
 
+/** @import { ProgramBody } from "@eslint/json" */
+
 /**
  * @param {string} string string
  * @returns {"\r\n" | "\n" | undefined} detected newline
@@ -111,8 +113,8 @@ export const rule = {
 				]);
 				const orderedKeys = Object.keys(orderedSource);
 
-				// eslint-disable-next-line jsdoc/no-restricted-syntax
-				const { members } = /** @type {object} */ (ast.body);
+				// @ts-expect-error bad types
+				const { members } = ast.body;
 
 				for (let i = 0; i < members.length; i += 1) {
 					// Strict JSON parsing guarantees that keys are always string literals
