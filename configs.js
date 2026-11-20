@@ -80,9 +80,9 @@ const recommended = [
 	configs["typescript/recommended"],
 	configs["react/recommended"],
 	configs["jest/recommended"],
+	configs["json/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
-	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
 
@@ -97,9 +97,9 @@ const nodeRecommendedModule = [
 	configs["typescript/recommended"],
 	configs["react/recommended"],
 	configs["jest/recommended"],
+	configs["json/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
-	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
 
@@ -113,9 +113,9 @@ const nodeRecommendedCommonJS = [
 	configs["typescript/recommended"],
 	configs["react/recommended"],
 	configs["jest/recommended"],
+	configs["json/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
-	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
 
@@ -129,9 +129,9 @@ const nodeRecommendedDirty = [
 	configs["typescript/recommended"],
 	configs["react/recommended"],
 	configs["jest/recommended"],
+	configs["json/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
-	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
 
@@ -145,9 +145,9 @@ const browserRecommended = [
 	configs["typescript/recommended"],
 	configs["react/recommended"],
 	configs["jest/recommended"],
+	configs["json/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
-	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
 
@@ -161,9 +161,9 @@ const browserOutdatedRecommendedScript = [
 	configs["typescript/recommended"],
 	configs["react/recommended"],
 	configs["jest/recommended"],
+	configs["json/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
-	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
 
@@ -178,9 +178,9 @@ const browserOutdatedRecommendedCommonjs = [
 	configs["typescript/recommended"],
 	configs["react/recommended"],
 	configs["jest/recommended"],
+	configs["json/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
-	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
 
@@ -200,9 +200,9 @@ const browserOutdatedRecommendedModule = [
 	configs["typescript/recommended"],
 	configs["react/recommended"],
 	configs["jest/recommended"],
+	configs["json/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
-	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
 
@@ -220,9 +220,9 @@ const universalRecommended = [
 	configs["typescript/recommended"],
 	configs["react/recommended"],
 	configs["jest/recommended"],
+	configs["json/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
-	configs["package-json/recommended"],
 	configs["performance/recommended"],
 ];
 

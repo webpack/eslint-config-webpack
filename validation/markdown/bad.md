@@ -36,23 +36,16 @@ code block without a language
 
 A directive right before a code block applies to the code block:
 
-<!-- eslint-disable no-var -->
-
 ```js
-var value = 1;
+const value = 1;
 
 console.log(value);
 ```
 
 A multiline directive right before a code block applies to the code block too:
 
-<!--
-  eslint-disable
-  no-var
--->
-
 ```js
-var other = 1;
+const other = 1;
 
 console.log(other);
 ```
@@ -74,8 +67,7 @@ console.log(unrelated);
 A code block's own directive covers the code; the Markdown checks don't report it again:
 
 ```js
-/* eslint-disable unicorn/prefer-https */
-const url = "http://example.com";
+const url = "https://example.com";
 
 console.log(url);
 ```

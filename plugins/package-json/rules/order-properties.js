@@ -1,11 +1,6 @@
 import detectIndent from "detect-indent";
 import { sortOrder } from "sort-package-json";
 
-/** @typedef {import("jsonc-eslint-parser").AST.JSONProgram} JSONProgram */
-/** @typedef {import("jsonc-eslint-parser").AST.JSONExpression} JSONExpression */
-/** @typedef {import("jsonc-eslint-parser").AST.JSONObjectExpression} JSONObjectExpression */
-/** @typedef {import("jsonc-eslint-parser").AST.JSONStringLiteral} JSONStringLiteral */
-
 /**
  * @param {string} string string
  * @returns {"\r\n" | "\n" | undefined} detected newline
@@ -95,7 +90,7 @@ export const rule = {
 		}
 
 		return {
-			"Program:exit"() {
+			"Document:exit"() {
 				const { ast, text } = context.sourceCode;
 
 				const options = {
@@ -116,17 +111,12 @@ export const rule = {
 				]);
 				const orderedKeys = Object.keys(orderedSource);
 
-				const { properties } =
-					/** @type {JSONObjectExpression} */
-					(
-						/** @type {JSONProgram} */ (/** @type {unknown} */ (ast)).body[0]
-							.expression
-					);
+				const { members } = ast.body;
 
-				for (let i = 0; i < properties.length; i += 1) {
+				for (let i = 0; i < members.length; i += 1) {
 					// Strict JSON parsing guarantees that keys are always string literals
 					const { value } = /** @type {JSONStringLiteral} */ (
-						properties[i].key
+						members[i].name
 					);
 
 					if (value === orderedKeys[i]) {
@@ -153,7 +143,7 @@ export const rule = {
 
 							return fixer.replaceText(context.sourceCode.ast, result);
 						},
-						loc: properties[i].loc,
+						loc: members[i].loc,
 						messageId: "incorrectOrder",
 					});
 				}

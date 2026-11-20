@@ -1,5 +1,4 @@
 import { createRequire } from "node:module";
-import * as parserJsonc from "jsonc-eslint-parser";
 import { rule as orderProperties } from "./rules/order-properties.js";
 
 const require = createRequire(import.meta.url);
@@ -24,9 +23,6 @@ const configs = {
 	recommended: {
 		name: "package-json/recommended",
 		files: ["**/package.json"],
-		languageOptions: {
-			parser: parserJsonc,
-		},
 		plugins: {
 			get "package-json"() {
 				// eslint-disable-next-line no-use-before-define

@@ -74,19 +74,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [4.9.3](https://github.com/webpack/eslint-config-webpack/compare/v4.9.2...v4.9.3) (2026-02-02)
+## [4.9.3](https://github.com/webpack/eslint-config-webpack/compare/v4.9.2...v4.9.3) (2026-02-02)
 
 ### Bug Fixes
 
 - jest globals for browser and node envs ([#109](https://github.com/webpack/eslint-config-webpack/issues/109)) ([ad710ad](https://github.com/webpack/eslint-config-webpack/commit/ad710ad216c46390d62b04b47cb6ab9f7a25ffe6))
 
-### [4.9.2](https://github.com/webpack/eslint-config-webpack/compare/v4.9.1...v4.9.2) (2026-02-02)
+## [4.9.2](https://github.com/webpack/eslint-config-webpack/compare/v4.9.1...v4.9.2) (2026-02-02)
 
 ### Bug Fixes
 
 - allow any variations of `expect` ([#108](https://github.com/webpack/eslint-config-webpack/issues/108)) ([c89c649](https://github.com/webpack/eslint-config-webpack/commit/c89c649519752dbf6453c7b42134fdc0ba932c84))
 
-### [4.9.1](https://github.com/webpack/eslint-config-webpack/compare/v4.9.0...v4.9.1) (2026-01-24)
+## [4.9.1](https://github.com/webpack/eslint-config-webpack/compare/v4.9.0...v4.9.1) (2026-01-24)
 
 ### Bug Fixes
 
@@ -102,32 +102,32 @@ All notable changes to this project will be documented in this file. See [standa
 
 - load react preset for preact ([#104](https://github.com/webpack/eslint-config-webpack/issues/104)) ([094e382](https://github.com/webpack/eslint-config-webpack/commit/094e382d290a46d0c4ed58c7bc30d3e6118a939c))
 
-### [4.8.5](https://github.com/webpack/eslint-config-webpack/compare/v4.8.4...v4.8.5) (2026-01-20)
+## [4.8.5](https://github.com/webpack/eslint-config-webpack/compare/v4.8.4...v4.8.5) (2026-01-20)
 
 ### Bug Fixes
 
 - npm warning about typescript unmeet peer dep ([#103](https://github.com/webpack/eslint-config-webpack/issues/103)) ([d412226](https://github.com/webpack/eslint-config-webpack/commit/d41222643ca90b695b26312057f8ee69cb09493d))
 
-### [4.8.4](https://github.com/webpack/eslint-config-webpack/compare/v4.8.3...v4.8.4) (2026-01-19)
+## [4.8.4](https://github.com/webpack/eslint-config-webpack/compare/v4.8.3...v4.8.4) (2026-01-19)
 
 ### Bug Fixes
 
 - files pattern for node configuration's ([#101](https://github.com/webpack/eslint-config-webpack/issues/101)) ([e2403b0](https://github.com/webpack/eslint-config-webpack/commit/e2403b0f866373a720b74b73da71512d85e4c657))
 - improve some rules ([#102](https://github.com/webpack/eslint-config-webpack/issues/102)) ([e2ee202](https://github.com/webpack/eslint-config-webpack/commit/e2ee202a3826aee97db51f8b2b568edba5a76085))
 
-### [4.8.3](https://github.com/webpack/eslint-config-webpack/compare/v4.8.2...v4.8.3) (2026-01-17)
+## [4.8.3](https://github.com/webpack/eslint-config-webpack/compare/v4.8.2...v4.8.3) (2026-01-17)
 
 ### Bug Fixes
 
 - fix files glob for jest configuration ([#100](https://github.com/webpack/eslint-config-webpack/issues/100)) ([eb7258c](https://github.com/webpack/eslint-config-webpack/commit/eb7258c2c6256c295272ee28611209f0d22b16d6))
 
-### [4.8.2](https://github.com/webpack/eslint-config-webpack/compare/v4.8.1...v4.8.2) (2026-01-17)
+## [4.8.2](https://github.com/webpack/eslint-config-webpack/compare/v4.8.1...v4.8.2) (2026-01-17)
 
 ### Bug Fixes
 
 - adding react config to other recommendeds ([#99](https://github.com/webpack/eslint-config-webpack/issues/99)) ([7377760](https://github.com/webpack/eslint-config-webpack/commit/7377760887e3e6c2f301b80e4ff2227dc26e3bda))
 
-### [4.8.1](https://github.com/webpack/eslint-config-webpack/compare/v4.8.0...v4.8.1) (2026-01-17)
+## [4.8.1](https://github.com/webpack/eslint-config-webpack/compare/v4.8.0...v4.8.1) (2026-01-17)
 
 ### Bug Fixes
 
@@ -140,13 +140,13 @@ All notable changes to this project will be documented in this file. See [standa
 - added `eslint-plugin-react-hooks` plugin ([#96](https://github.com/webpack/eslint-config-webpack/issues/96)) ([d616e43](https://github.com/webpack/eslint-config-webpack/commit/d616e4398feeda79010e36807209d514335b4a55))
 - use `dependencies` for eslint plugins instead `peerDependencies` ([#95](https://github.com/webpack/eslint-config-webpack/issues/95)) ([73ce999](https://github.com/webpack/eslint-config-webpack/commit/73ce999eb1fb87f0a72a6e035b758c633d006bef))
 
-### [4.7.3](https://github.com/webpack/eslint-config-webpack/compare/v4.7.2...v4.7.3) (2025-12-15)
+## [4.7.3](https://github.com/webpack/eslint-config-webpack/compare/v4.7.2...v4.7.3) (2025-12-15)
 
 ### Bug Fixes
 
 - regression with `n/no-unsupported-features/es-syntax` rule and ES modules ([#94](https://github.com/webpack/eslint-config-webpack/issues/94)) ([fb4afb2](https://github.com/webpack/eslint-config-webpack/commit/fb4afb27ab501f0722b0c00e5c92a559b2560c8d))
 
-### [4.7.2](https://github.com/webpack/eslint-config-webpack/compare/v4.7.1...v4.7.2) (2025-12-15)
+## [4.7.2](https://github.com/webpack/eslint-config-webpack/compare/v4.7.1...v4.7.2) (2025-12-15)
 
 ### Bug Fixes
 
@@ -154,7 +154,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [4.7.1](https://github.com/webpack/eslint-config-webpack/compare/v4.7.0...v4.7.1) (2025-12-15)
 
-### Bug Fixes
+## Bug Fixes
 
 - disable `unicorn/no-array-sort` rule for non supported ES versions ([#92](https://github.com/webpack/eslint-config-webpack/issues/92)) ([970d358](https://github.com/webpack/eslint-config-webpack/commit/970d358d9692c5c1ec50c83885d93e8799465a8e))
 
@@ -164,13 +164,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 - new rules ([#91](https://github.com/webpack/eslint-config-webpack/issues/91)) ([76ea01f](https://github.com/webpack/eslint-config-webpack/commit/76ea01fb93bb5c782bec42078852135f306f096d))
 
-### [4.6.3](https://github.com/webpack/eslint-config-webpack/compare/v4.6.2...v4.6.3) (2025-08-22)
+## [4.6.3](https://github.com/webpack/eslint-config-webpack/compare/v4.6.2...v4.6.3) (2025-08-22)
 
 ### Bug Fixes
 
 - typescript loading logic ([#90](https://github.com/webpack/eslint-config-webpack/issues/90)) ([a5018d6](https://github.com/webpack/eslint-config-webpack/commit/a5018d6038d2ed9a8adca6482939459b825c2d5d))
 
-### [4.6.2](https://github.com/webpack/eslint-config-webpack/compare/v4.6.1...v4.6.2) (2025-08-22)
+## [4.6.2](https://github.com/webpack/eslint-config-webpack/compare/v4.6.1...v4.6.2) (2025-08-22)
 
 ### Bug Fixes
 
@@ -192,7 +192,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 - disable `n/no-extraneous-import` due `import/no-extraneous-dependencies` ([#85](https://github.com/webpack/eslint-config-webpack/issues/85)) ([c600bab](https://github.com/webpack/eslint-config-webpack/commit/c600babfce7f0cec17e40f1afd7b921a77b5a9d0))
 
-### [4.5.1](https://github.com/webpack/eslint-config-webpack/compare/v4.5.0...v4.5.1) (2025-07-25)
+## [4.5.1](https://github.com/webpack/eslint-config-webpack/compare/v4.5.0...v4.5.1) (2025-07-25)
 
 ### Bug Fixes
 
@@ -209,13 +209,13 @@ All notable changes to this project will be documented in this file. See [standa
 - deprecation warning ([#81](https://github.com/webpack/eslint-config-webpack/issues/81)) ([d5f6101](https://github.com/webpack/eslint-config-webpack/commit/d5f61014038d59ad01e3fd91a7e5478a0bdf6a73))
 - the `engines` field ([#83](https://github.com/webpack/eslint-config-webpack/issues/83)) ([abfc975](https://github.com/webpack/eslint-config-webpack/commit/abfc9758834f49336db1dd850d222feb125df2a3))
 
-### [4.4.2](https://github.com/webpack/eslint-config-webpack/compare/v4.4.1...v4.4.2) (2025-07-22)
+## [4.4.2](https://github.com/webpack/eslint-config-webpack/compare/v4.4.1...v4.4.2) (2025-07-22)
 
 ### Bug Fixes
 
 - allow to use `any` in docs ([#79](https://github.com/webpack/eslint-config-webpack/issues/79)) ([e8056d7](https://github.com/webpack/eslint-config-webpack/commit/e8056d7aac139bb45c6ce7999133a0597a648dc7))
 
-### [4.4.1](https://github.com/webpack/eslint-config-webpack/compare/v4.4.0...v4.4.1) (2025-07-17)
+## [4.4.1](https://github.com/webpack/eslint-config-webpack/compare/v4.4.0...v4.4.1) (2025-07-17)
 
 ### Bug Fixes
 
@@ -231,13 +231,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 - add `jest-environment-options` to ignore typescript jsdoc errors ([#76](https://github.com/webpack/eslint-config-webpack/issues/76)) ([08c3da3](https://github.com/webpack/eslint-config-webpack/commit/08c3da39aa47e7d1bcc82e30d6d936512bdc0779))
 
-### [4.3.4](https://github.com/webpack/eslint-config-webpack/compare/v4.3.3...v4.3.4) (2025-07-14)
+## [4.3.4](https://github.com/webpack/eslint-config-webpack/compare/v4.3.3...v4.3.4) (2025-07-14)
 
 ### Bug Fixes
 
 - browser preset ([#75](https://github.com/webpack/eslint-config-webpack/issues/75)) ([9be2a9c](https://github.com/webpack/eslint-config-webpack/commit/9be2a9c78cbefdeae08c8a18fd235772e9920da0))
 
-### [4.3.3](https://github.com/webpack/eslint-config-webpack/compare/v4.3.2...v4.3.3) (2025-07-14)
+## [4.3.3](https://github.com/webpack/eslint-config-webpack/compare/v4.3.2...v4.3.3) (2025-07-14)
 
 ### Bug Fixes
 
@@ -245,14 +245,14 @@ All notable changes to this project will be documented in this file. See [standa
 - disable `@typescript-eslint/triple-slash-reference` for markdown ([#74](https://github.com/webpack/eslint-config-webpack/issues/74)) ([a11f2cb](https://github.com/webpack/eslint-config-webpack/commit/a11f2cb0019c9d3f5665b59d2df9c94ba7a8a8a7))
 - disable `no-new` rule for markdown ([#73](https://github.com/webpack/eslint-config-webpack/issues/73)) ([4b2e171](https://github.com/webpack/eslint-config-webpack/commit/4b2e17151e543dac5cbc40329683088899952540))
 
-### [4.3.2](https://github.com/webpack/eslint-config-webpack/compare/v4.3.1...v4.3.2) (2025-07-14)
+## [4.3.2](https://github.com/webpack/eslint-config-webpack/compare/v4.3.1...v4.3.2) (2025-07-14)
 
 ### Bug Fixes
 
 - loading react plugin ([44a2d90](https://github.com/webpack/eslint-config-webpack/commit/44a2d9096f0276ffff8561a2dc5549094d4dfec1))
 - markdown files glob ([#71](https://github.com/webpack/eslint-config-webpack/issues/71)) ([fae0010](https://github.com/webpack/eslint-config-webpack/commit/fae0010e081100639d7d6df3f9b33e04df682d31))
 
-### [4.3.1](https://github.com/webpack/eslint-config-webpack/compare/v4.3.0...v4.3.1) (2025-07-14)
+## [4.3.1](https://github.com/webpack/eslint-config-webpack/compare/v4.3.0...v4.3.1) (2025-07-14)
 
 ### Bug Fixes
 
@@ -266,13 +266,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 - added special webpack rule to check license comments ([#66](https://github.com/webpack/eslint-config-webpack/issues/66)) ([1a6a880](https://github.com/webpack/eslint-config-webpack/commit/1a6a8800e1cd5618440ce2043f6b3ab7d3eb6e24))
 
-### [4.2.2](https://github.com/webpack/eslint-config-webpack/compare/v4.2.1...v4.2.2) (2025-07-01)
+## [4.2.2](https://github.com/webpack/eslint-config-webpack/compare/v4.2.1...v4.2.2) (2025-07-01)
 
 ### Bug Fixes
 
 - allow to use `process-exit` in docs ([#65](https://github.com/webpack/eslint-config-webpack/issues/65)) ([06570d4](https://github.com/webpack/eslint-config-webpack/commit/06570d4927d610e465798e7c12d29939e2522cf7))
 
-### [4.2.1](https://github.com/webpack/eslint-config-webpack/compare/v4.2.0...v4.2.1) (2025-07-01)
+## [4.2.1](https://github.com/webpack/eslint-config-webpack/compare/v4.2.0...v4.2.1) (2025-07-01)
 
 ### Bug Fixes
 
@@ -294,13 +294,13 @@ All notable changes to this project will be documented in this file. See [standa
 - enable `reportUnusedInlineConfigs` ([#56](https://github.com/webpack/eslint-config-webpack/issues/56)) ([f53c2ba](https://github.com/webpack/eslint-config-webpack/commit/f53c2ba8cceca47d7e0ffee04eed9eccc47d22de))
 - more path to ignore ([#57](https://github.com/webpack/eslint-config-webpack/issues/57)) ([8272ec4](https://github.com/webpack/eslint-config-webpack/commit/8272ec4d1bd98e65d4bbe38a6003ee1f6dbccbfd))
 
-### [4.1.4](https://github.com/webpack/eslint-config-webpack/compare/v4.1.3...v4.1.4) (2025-06-25)
+## [4.1.4](https://github.com/webpack/eslint-config-webpack/compare/v4.1.3...v4.1.4) (2025-06-25)
 
 ### Bug Fixes
 
 - ignore ts extension for `require` in typescript code ([#55](https://github.com/webpack/eslint-config-webpack/issues/55)) ([1b2558f](https://github.com/webpack/eslint-config-webpack/commit/1b2558f7a8c9c07c0ddfe85809d1392dc83f38be))
 
-### [4.1.3](https://github.com/webpack/eslint-config-webpack/compare/v4.1.2...v4.1.3) (2025-06-24)
+## [4.1.3](https://github.com/webpack/eslint-config-webpack/compare/v4.1.2...v4.1.3) (2025-06-24)
 
 ### Bug Fixes
 
@@ -309,13 +309,13 @@ All notable changes to this project will be documented in this file. See [standa
 - improve jest `files` ([#50](https://github.com/webpack/eslint-config-webpack/issues/50)) ([90a979e](https://github.com/webpack/eslint-config-webpack/commit/90a979eb4ab3c5303908a11b06cfb38855c3a9f0))
 - more newlines ([#49](https://github.com/webpack/eslint-config-webpack/issues/49)) ([7e17d6b](https://github.com/webpack/eslint-config-webpack/commit/7e17d6b83f79b7216afd435d1fd9acf39742f8ac))
 
-### [4.1.2](https://github.com/webpack/eslint-config-webpack/compare/v4.1.1...v4.1.2) (2025-06-23)
+## [4.1.2](https://github.com/webpack/eslint-config-webpack/compare/v4.1.1...v4.1.2) (2025-06-23)
 
 ### Bug Fixes
 
 - do not apply typescript rules when emit disabled ([#48](https://github.com/webpack/eslint-config-webpack/issues/48)) ([5bed1ab](https://github.com/webpack/eslint-config-webpack/commit/5bed1ab9e3a8c7c350e4a929efe4ac3001f58253))
 
-### [4.1.1](https://github.com/webpack/eslint-config-webpack/compare/v4.1.0...v4.1.1) (2025-06-20)
+## [4.1.1](https://github.com/webpack/eslint-config-webpack/compare/v4.1.0...v4.1.1) (2025-06-20)
 
 ### Bug Fixes
 
@@ -327,38 +327,38 @@ All notable changes to this project will be documented in this file. See [standa
 
 - added `typescript/recommended` preset ([fea16fb](https://github.com/webpack/eslint-config-webpack/commit/fea16fbf6b1e789fd49fac270aed912988b71793))
 
-### [4.0.10](https://github.com/webpack/eslint-config-webpack/compare/v4.0.9...v4.0.10) (2025-06-11)
+## [4.0.10](https://github.com/webpack/eslint-config-webpack/compare/v4.0.9...v4.0.10) (2025-06-11)
 
 ### Bug Fixes
 
 - use dirty parser configuration for markdown ([#46](https://github.com/webpack/eslint-config-webpack/issues/46)) ([404c7c8](https://github.com/webpack/eslint-config-webpack/commit/404c7c867f6e180e56521219bebecd5f63c584fb))
 
-### [4.0.9](https://github.com/webpack/eslint-config-webpack/compare/v4.0.8...v4.0.9) (2025-06-11)
+## [4.0.9](https://github.com/webpack/eslint-config-webpack/compare/v4.0.8...v4.0.9) (2025-06-11)
 
 ### Bug Fixes
 
 - adding default prettier config for old projects ([86f7be6](https://github.com/webpack/eslint-config-webpack/commit/86f7be6aa2643d181c767246eda50fa654d46a4c))
 - disable `no-console` for tests ([#45](https://github.com/webpack/eslint-config-webpack/issues/45)) ([ab1798f](https://github.com/webpack/eslint-config-webpack/commit/ab1798f77881a2dec90191c3d8488900d1d53320))
 
-### [4.0.8](https://github.com/webpack/eslint-config-webpack/compare/v4.0.7...v4.0.8) (2025-06-11)
+## [4.0.8](https://github.com/webpack/eslint-config-webpack/compare/v4.0.7...v4.0.8) (2025-06-11)
 
 ### Bug Fixes
 
 - node 6 and node 7 support ([#44](https://github.com/webpack/eslint-config-webpack/issues/44)) ([c6f129f](https://github.com/webpack/eslint-config-webpack/commit/c6f129f069ba56bb1c31c2debcf9575f6a846abb))
 
-### [4.0.7](https://github.com/webpack/eslint-config-webpack/compare/v4.0.6...v4.0.7) (2025-06-11)
+## [4.0.7](https://github.com/webpack/eslint-config-webpack/compare/v4.0.6...v4.0.7) (2025-06-11)
 
 ### Bug Fixes
 
 - `engines` in package.json ([#43](https://github.com/webpack/eslint-config-webpack/issues/43)) ([046a2b4](https://github.com/webpack/eslint-config-webpack/commit/046a2b40499c9f30c1df2f73aee1eb1c21b061d2))
 
-### [4.0.6](https://github.com/webpack/eslint-config-webpack/compare/v4.0.5...v4.0.6) (2025-06-10)
+## [4.0.6](https://github.com/webpack/eslint-config-webpack/compare/v4.0.5...v4.0.6) (2025-06-10)
 
 ### Bug Fixes
 
 - lazy loading configs in different deps ([#42](https://github.com/webpack/eslint-config-webpack/issues/42)) ([8a855ab](https://github.com/webpack/eslint-config-webpack/commit/8a855abe8aa8210316a835c1b84675838424a452))
 
-### [4.0.5](https://github.com/webpack/eslint-config-webpack/compare/v4.0.4...v4.0.5) (2025-06-10)
+## [4.0.5](https://github.com/webpack/eslint-config-webpack/compare/v4.0.4...v4.0.5) (2025-06-10)
 
 ### Bug Fixes
 
@@ -366,20 +366,20 @@ All notable changes to this project will be documented in this file. See [standa
 - lazy load optional plugins ([#41](https://github.com/webpack/eslint-config-webpack/issues/41)) ([d634eaf](https://github.com/webpack/eslint-config-webpack/commit/d634eaf555be2b68a7b7079d8a928804b1589bdb))
 - relax `jest/prefer-lowercase-title` ([#39](https://github.com/webpack/eslint-config-webpack/issues/39)) ([496c8e2](https://github.com/webpack/eslint-config-webpack/commit/496c8e2ff1b4337a65325568ce93596b99732572))
 
-### [4.0.4](https://github.com/webpack/eslint-config-webpack/compare/v4.0.3...v4.0.4) (2025-06-10)
+## [4.0.4](https://github.com/webpack/eslint-config-webpack/compare/v4.0.3...v4.0.4) (2025-06-10)
 
 ### Bug Fixes
 
 - disable `require-await` rule ([a787ef9](https://github.com/webpack/eslint-config-webpack/commit/a787ef96d293382b90a0c0e107ebc037d64b2204))
 
-### [4.0.3](https://github.com/webpack/eslint-config-webpack/compare/v4.0.2...v4.0.3) (2025-06-10)
+## [4.0.3](https://github.com/webpack/eslint-config-webpack/compare/v4.0.2...v4.0.3) (2025-06-10)
 
 ### Bug Fixes
 
 - add `test/outputs` to global ignore ([#36](https://github.com/webpack/eslint-config-webpack/issues/36)) ([2d3253b](https://github.com/webpack/eslint-config-webpack/commit/2d3253bf0a3156d360e5c84bb894abc74969dbc3))
 - improve jest default configuration ([#37](https://github.com/webpack/eslint-config-webpack/issues/37)) ([e846ec3](https://github.com/webpack/eslint-config-webpack/commit/e846ec360179cc8551212714470ce3ad38d2a1b8))
 
-### [4.0.2](https://github.com/webpack/eslint-config-webpack/compare/v4.0.1...v4.0.2) (2025-06-10)
+## [4.0.2](https://github.com/webpack/eslint-config-webpack/compare/v4.0.1...v4.0.2) (2025-06-10)
 
 ### Bug Fixes
 
@@ -387,7 +387,7 @@ All notable changes to this project will be documented in this file. See [standa
 - disable `jest/no-done-callback` rule ([#35](https://github.com/webpack/eslint-config-webpack/issues/35)) ([cb2b634](https://github.com/webpack/eslint-config-webpack/commit/cb2b6342f66d9fc9c57bd99f07e53b3528941b07))
 - unresolved import in `eslint-config` ([#34](https://github.com/webpack/eslint-config-webpack/issues/34)) ([a73ed8e](https://github.com/webpack/eslint-config-webpack/commit/a73ed8e6bba2dd76540f3af4e31aabdeb6e958dc))
 
-### [4.0.1](https://github.com/webpack/eslint-config-webpack/compare/v4.0.0...v4.0.1) (2025-06-06)
+## [4.0.1](https://github.com/webpack/eslint-config-webpack/compare/v4.0.0...v4.0.1) (2025-06-06)
 
 ### Bug Fixes
 
