@@ -330,6 +330,9 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 	// changes, while one lint run reads each `tsconfig.json` once
 	const CACHE_TIME = 5000;
 
+	// Also the `projectService` search root, see `languageOptions` below
+	const tsconfigRootDir = process.cwd();
+
 	/** @type {Map<string, { value: string | undefined, expire: number }>} */
 	const nearestTsconfigs = new Map();
 	/** @type {Map<string, { value: Set<string>, expire: number, parsedAt: number }>} */
@@ -422,6 +425,12 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 		const tsconfigPath = findTsconfig(path.dirname(resolved));
 
 		if (!tsconfigPath) return false;
+
+		// `projectService` looks for a `tsconfig.json` only up to
+		// `tsconfigRootDir`, so one above it can't provide the types
+		const fromRoot = path.relative(tsconfigRootDir, path.dirname(tsconfigPath));
+
+		if (fromRoot.startsWith("..") || path.isAbsolute(fromRoot)) return false;
 		if (getProjectFiles(tsconfigPath).has(resolved)) return true;
 
 		// A file created after the `tsconfig.json` was parsed can be part of the
@@ -492,7 +501,7 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 			parserOptions: {
 				// Same as `webpack/types`, so both can apply to a file
 				projectService: true,
-				tsconfigRootDir: process.cwd(),
+				tsconfigRootDir,
 			},
 		},
 		plugins: {
