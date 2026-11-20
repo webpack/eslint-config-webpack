@@ -313,8 +313,8 @@ async function getTypescriptJSDocRecommendedConfig() {
  * TypeScript reads JSDoc types in the JavaScript files of a project whose
  * `tsconfig.json` enables `allowJs` or `checkJs`, so these rules work there
  * too. They apply only to the JavaScript files the nearest `tsconfig.json`
- * includes (the project `projectService` uses), because type-aware linting
- * fails on a file outside its project.
+ * or `jsconfig.json` includes (the project `projectService` uses), because
+ * type-aware linting fails on a file outside its project.
  * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getTypescriptJSDocTypeCheckedConfig() {
@@ -340,7 +340,8 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 
 	/**
 	 * @param {string} directory directory
-	 * @returns {string | undefined} path of the nearest `tsconfig.json`
+	 * @returns {string | undefined} path of the nearest `tsconfig.json` or
+	 * `jsconfig.json`, checked in the same order as `projectService` does
 	 */
 	const findTsconfig = (directory) => {
 		const now = Date.now();
@@ -352,12 +353,20 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 			return cached.value;
 		}
 
-		const found = ts.findConfigFile(
-			directory,
-			(file) => ts.sys.fileExists(file),
-			"tsconfig.json",
-		);
-		const value = found && path.resolve(found);
+		/** @type {string | undefined} */
+		let value;
+
+		for (
+			let current = path.resolve(directory), parent = path.dirname(current);
+			;
+			current = parent, parent = path.dirname(current)
+		) {
+			value = ["tsconfig.json", "jsconfig.json"]
+				.map((name) => path.join(current, name))
+				.find((file) => ts.sys.fileExists(file));
+
+			if (value || parent === current) break;
+		}
 
 		nearestTsconfigs.set(directory, { value, expire: now + CACHE_TIME });
 
@@ -365,9 +374,10 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 	};
 
 	/**
-	 * @param {string} tsconfigPath path of a `tsconfig.json`
+	 * @param {string} tsconfigPath path of a `tsconfig.json` or `jsconfig.json`
 	 * @param {boolean=} refresh parse it again even when cached
 	 * @returns {Set<string>} its JavaScript files, empty without `allowJs`/`checkJs`
+	 * (TypeScript enables `allowJs` by default in a `jsconfig.json`)
 	 */
 	const getProjectFiles = (tsconfigPath, refresh = false) => {
 		const now = Date.now();
@@ -416,7 +426,7 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 	/**
 	 * @param {string} filePath absolute file path
 	 * @returns {boolean} true when the file is a JavaScript file of the project
-	 * of its nearest `tsconfig.json`
+	 * of its nearest `tsconfig.json` or `jsconfig.json`
 	 */
 	const isTypeCheckedFile = (filePath) => {
 		if (!javascriptExtensions.includes(path.extname(filePath))) return false;

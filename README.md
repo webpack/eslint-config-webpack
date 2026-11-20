@@ -101,7 +101,7 @@ export default defineConfig([
 
 When `typescript` is installed, every recommended config includes `typescript/jsdoc-type-checked`. It enables the type-aware rules of [`typescript-eslint`](https://typescript-eslint.io/getting-started/typed-linting) for JavaScript files typed with JSDoc. TypeScript reads JSDoc types, so the rules see them, e.g. a `Promise` from `@returns` or a type from `@param`.
 
-The rules apply to a JavaScript file only when its nearest `tsconfig.json` enables `allowJs` or `checkJs`, includes the file, and is in the directory ESLint runs from or below it, because type-aware linting needs the file to be part of a TypeScript project that typescript-eslint can find. Other files are not affected.
+The rules apply to a JavaScript file only when its nearest `tsconfig.json` or `jsconfig.json` (checked in that order in each directory, as TypeScript does) enables `allowJs` or `checkJs` (a `jsconfig.json` enables `allowJs` by default), includes the file, and is in the directory ESLint runs from or below it, because type-aware linting needs the file to be part of a TypeScript project that typescript-eslint can find. Other files are not affected.
 
 The enabled rules are the type-aware `recommended-type-checked` rules, e.g. `no-floating-promises`, `no-misused-promises`, `await-thenable`, `only-throw-error` and `restrict-template-expressions`. The `no-unsafe-*` rules are left out: they report every use of an `any` value, and JSDoc code has a lot of them. Type-aware linting takes longer, since TypeScript builds the project's types.
 
