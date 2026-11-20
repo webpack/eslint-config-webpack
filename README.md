@@ -82,6 +82,21 @@ export default defineConfig([
 ]);
 ```
 
+### Tests with `node:test`
+
+Every recommended config includes `node-test/recommended`: the recommended rules of [`eslint-node-test`](https://github.com/sindresorhus/eslint-node-test) for tests written with the built-in Node.js test runner, with the same choices as for Jest (`test` at the top level and `it` inside `describe`, lowercase titles except for `describe`, no commented-out tests; conditional assertions and `done` callbacks are allowed). Its rules only apply to files that import `node:test` (assertion rules also to files that import `node:assert`), so it needs no test file patterns. It can also be extended on its own:
+
+```js
+import { defineConfig } from "eslint/config";
+import configs from "eslint-config-webpack/configs.js";
+
+export default defineConfig([
+	{
+		extends: [configs["node-test/recommended"]],
+	},
+]);
+```
+
 ### Performance
 
 Every recommended config includes `performance/recommended`: rules that catch code
