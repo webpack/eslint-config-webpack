@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import {
 	javascriptExtensions,
 	typescriptExtensions,
@@ -303,6 +305,225 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// Also `typescript` reports this itself
 			"jsdoc/valid-types": "off",
 		},
+	};
+}
+
+/**
+ * Type-aware `typescript-eslint` rules for JavaScript files with JSDoc types.
+ * TypeScript reads JSDoc types in the JavaScript files of a project whose
+ * `tsconfig.json` enables `allowJs` or `checkJs`, so these rules work there
+ * too. They apply only to the JavaScript files the nearest `tsconfig.json`
+ * or `jsconfig.json` includes (the project `projectService` uses), because
+ * type-aware linting fails on a file outside its project.
+ * @returns {Promise<import("eslint").Linter.Config>} config
+ */
+async function getTypescriptJSDocTypeCheckedConfig() {
+	if (!isTypescriptInstalledResult) {
+		return { name: "typescript/please-install-typescript-to-enable-it" };
+	}
+
+	const ts = (await import("typescript")).default;
+	const tseslint = (await import("typescript-eslint")).default;
+
+	// Like `getJsonFile`, cached results expire 5 seconds after their last use,
+	// so a long-running process (an editor) sees new files and `tsconfig.json`
+	// changes, while one lint run reads each `tsconfig.json` once
+	const CACHE_TIME = 5000;
+
+	// Also the `projectService` search root, see `languageOptions` below
+	const tsconfigRootDir = process.cwd();
+
+	/** @type {Map<string, { value: string | undefined, expire: number }>} */
+	const nearestTsconfigs = new Map();
+	/** @type {Map<string, { value: Set<string>, expire: number, parsedAt: number }>} */
+	const projects = new Map();
+
+	/**
+	 * @param {string} directory directory
+	 * @returns {string | undefined} path of the nearest `tsconfig.json` or
+	 * `jsconfig.json`, checked in the same order as `projectService` does
+	 */
+	const findTsconfig = (directory) => {
+		const now = Date.now();
+		const cached = nearestTsconfigs.get(directory);
+
+		if (cached && cached.expire > now) {
+			cached.expire = now + CACHE_TIME;
+
+			return cached.value;
+		}
+
+		/** @type {string | undefined} */
+		let value;
+
+		for (
+			let current = path.resolve(directory), parent = path.dirname(current);
+			;
+			current = parent, parent = path.dirname(current)
+		) {
+			value = ["tsconfig.json", "jsconfig.json"]
+				.map((name) => path.join(current, name))
+				.find((file) => ts.sys.fileExists(file));
+
+			if (value || parent === current) break;
+		}
+
+		nearestTsconfigs.set(directory, { value, expire: now + CACHE_TIME });
+
+		return value;
+	};
+
+	/**
+	 * @param {string} tsconfigPath path of a `tsconfig.json` or `jsconfig.json`
+	 * @param {boolean=} refresh parse it again even when cached
+	 * @returns {Set<string>} its JavaScript files, empty without `allowJs`/`checkJs`
+	 * (TypeScript enables `allowJs` by default in a `jsconfig.json`)
+	 */
+	const getProjectFiles = (tsconfigPath, refresh = false) => {
+		const now = Date.now();
+		const cached = projects.get(tsconfigPath);
+
+		if (cached && !refresh && cached.expire > now) {
+			cached.expire = now + CACHE_TIME;
+
+			return cached.value;
+		}
+
+		/** @type {Set<string>} */
+		const files = new Set();
+
+		projects.set(tsconfigPath, {
+			value: files,
+			expire: now + CACHE_TIME,
+			parsedAt: now,
+		});
+
+		const { config, error } = ts.readConfigFile(tsconfigPath, (file) =>
+			ts.sys.readFile(file),
+		);
+
+		if (error) return files;
+
+		const parsed = ts.parseJsonConfigFileContent(
+			config,
+			ts.sys,
+			path.dirname(tsconfigPath),
+			undefined,
+			tsconfigPath,
+		);
+
+		if (!parsed.options.allowJs && !parsed.options.checkJs) return files;
+
+		for (const fileName of parsed.fileNames) {
+			if (javascriptExtensions.includes(path.extname(fileName))) {
+				files.add(path.resolve(fileName));
+			}
+		}
+
+		return files;
+	};
+
+	/**
+	 * @param {string} filePath absolute file path
+	 * @returns {boolean} true when the file is a JavaScript file of the project
+	 * of its nearest `tsconfig.json` or `jsconfig.json`
+	 */
+	const isTypeCheckedFile = (filePath) => {
+		if (!javascriptExtensions.includes(path.extname(filePath))) return false;
+
+		const resolved = path.resolve(filePath);
+		const tsconfigPath = findTsconfig(path.dirname(resolved));
+
+		if (!tsconfigPath) return false;
+
+		// `projectService` looks for a `tsconfig.json` only up to
+		// `tsconfigRootDir`, so one above it can't provide the types
+		const fromRoot = path.relative(tsconfigRootDir, path.dirname(tsconfigPath));
+
+		if (
+			fromRoot === ".." ||
+			fromRoot.startsWith(`..${path.sep}`) ||
+			path.isAbsolute(fromRoot)
+		) {
+			return false;
+		}
+		if (getProjectFiles(tsconfigPath).has(resolved)) return true;
+
+		// A file created after the `tsconfig.json` was parsed can be part of the
+		// project now; files that are simply outside it are older
+		const { parsedAt } = /** @type {{ parsedAt: number }} */ (
+			projects.get(tsconfigPath)
+		);
+		let modifiedAt = 0;
+
+		try {
+			modifiedAt = fs.statSync(resolved).mtimeMs;
+		} catch {
+			// A virtual file, e.g. a Markdown code block
+		}
+
+		return (
+			modifiedAt >= parsedAt &&
+			getProjectFiles(tsconfigPath, true).has(resolved)
+		);
+	};
+
+	/** @type {import("eslint").Linter.RulesRecord} */
+	const rules = {};
+
+	for (const config of /** @type {import("eslint").Linter.Config[]} */ (
+		tseslint.configs.recommendedTypeCheckedOnly
+	)) {
+		for (const [ruleId, entry] of Object.entries(config.rules || {})) {
+			// `no-unsafe-*` report every use of an `any` value, which JSDoc code has
+			// a lot of (untyped dependencies, types TypeScript can't resolve)
+			if (
+				ruleId.startsWith("@typescript-eslint/") &&
+				!ruleId.startsWith("@typescript-eslint/no-unsafe-")
+			) {
+				rules[ruleId] = /** @type {import("eslint").Linter.RuleEntry} */ (
+					entry
+				);
+			}
+		}
+	}
+
+	// The preset turns off core rules that a type-aware rule replaces (e.g.
+	// `no-throw-literal` for `only-throw-error`), so a problem isn't reported twice
+	for (const config of /** @type {import("eslint").Linter.Config[]} */ (
+		tseslint.configs.recommendedTypeCheckedOnly
+	)) {
+		for (const [ruleId, entry] of Object.entries(config.rules || {})) {
+			if (entry === "off" && rules[`@typescript-eslint/${ruleId}`]) {
+				rules[ruleId] = "off";
+			}
+		}
+	}
+
+	// Replaced under another name
+	if (rules["@typescript-eslint/only-throw-error"]) {
+		rules["no-throw-literal"] = "off";
+	}
+
+	return {
+		name: "typescript/jsdoc-type-checked",
+		// A function matcher (supported by ESLint, missing from its types) checks
+		// the exact list of files TypeScript resolves from the `tsconfig.json`
+		files: /** @type {string[]} */ (
+			/** @type {unknown} */ ([isTypeCheckedFile])
+		),
+		languageOptions: {
+			parser: tseslint.parser,
+			parserOptions: {
+				// Same as `webpack/types`, so both can apply to a file
+				projectService: true,
+				tsconfigRootDir,
+			},
+		},
+		plugins: {
+			"@typescript-eslint": tseslint.plugin,
+		},
+		rules,
 	};
 }
 
@@ -828,5 +1049,6 @@ async function getTypescriptRecommendedConfig() {
 
 export default {
 	"typescript/jsdoc": await getTypescriptJSDocRecommendedConfig(),
+	"typescript/jsdoc-type-checked": await getTypescriptJSDocTypeCheckedConfig(),
 	"typescript/recommended": await getTypescriptRecommendedConfig(),
 };
