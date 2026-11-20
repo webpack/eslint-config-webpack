@@ -111,13 +111,12 @@ export const rule = {
 				]);
 				const orderedKeys = Object.keys(orderedSource);
 
-				const { members } = ast.body;
+				// eslint-disable-next-line jsdoc/no-restricted-syntax
+				const { members } = /** @type {object} */ (ast.body);
 
 				for (let i = 0; i < members.length; i += 1) {
 					// Strict JSON parsing guarantees that keys are always string literals
-					const { value } = /** @type {JSONStringLiteral} */ (
-						members[i].name
-					);
+					const { value } = members[i].name;
 
 					if (value === orderedKeys[i]) {
 						continue;

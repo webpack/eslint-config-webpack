@@ -5,7 +5,7 @@ import packagePlugin from "../plugins/package-json/index.js";
 /**
  * @returns {Promise<import("eslint").Linter.Config[]>} config
  */
-function getJsonRecommendedConfig() {
+async function getJsonRecommendedConfig() {
 	return [
 		{
 			name: "json/recommended",
@@ -68,5 +68,5 @@ function getJsonRecommendedConfig() {
 }
 
 export default {
-	"json/recommended": getJsonRecommendedConfig(),
+	"json/recommended": await getJsonRecommendedConfig(),
 };
