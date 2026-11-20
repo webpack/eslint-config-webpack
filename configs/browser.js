@@ -1,10 +1,13 @@
 import importPlugin from "eslint-plugin-import-x";
 import unicornPlugin from "eslint-plugin-unicorn";
 import globals from "globals";
+import { codeFiles, codeIgnores } from "./utils/code-files.js";
 
 /** @type {import("eslint").Linter.Config} */
 const recommendedBrowserOutdatedScriptConfig = {
 	name: "browser/recommended-outdated-script",
+	files: codeFiles,
+	ignores: codeIgnores,
 	languageOptions: {
 		sourceType: "script",
 		globals: {
@@ -16,6 +19,8 @@ const recommendedBrowserOutdatedScriptConfig = {
 /** @type {import("eslint").Linter.Config} */
 const recommendedBrowserOutdatedCommonjsConfig = {
 	name: "browser/recommended-outdated-commonjs",
+	files: codeFiles,
+	ignores: codeIgnores,
 	languageOptions: {
 		sourceType: "commonjs",
 		globals: {
@@ -27,6 +32,8 @@ const recommendedBrowserOutdatedCommonjsConfig = {
 /** @type {import("eslint").Linter.Config} */
 const recommendedBrowserOutdatedModuleConfig = {
 	name: "browser/recommended-outdated-module",
+	files: codeFiles,
+	ignores: codeIgnores,
 	languageOptions: {
 		sourceType: "module",
 		globals: {
@@ -38,6 +45,8 @@ const recommendedBrowserOutdatedModuleConfig = {
 /** @type {import("eslint").Linter.Config} */
 const recommendedBrowserConfig = {
 	name: "browser/recommended",
+	files: codeFiles,
+	ignores: codeIgnores,
 	languageOptions: {
 		sourceType: "module",
 		globals: {
