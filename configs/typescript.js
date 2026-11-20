@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import {
 	javascriptExtensions,
@@ -324,9 +325,14 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 	const ts = (await import("typescript")).default;
 	const tseslint = (await import("typescript-eslint")).default;
 
-	/** @type {Map<string, string | undefined>} */
+	// Like `getJsonFile`, cached results expire 5 seconds after their last use,
+	// so a long-running process (an editor) sees new files and `tsconfig.json`
+	// changes, while one lint run reads each `tsconfig.json` once
+	const CACHE_TIME = 5000;
+
+	/** @type {Map<string, { value: string | undefined, expire: number }>} */
 	const nearestTsconfigs = new Map();
-	/** @type {Map<string, Set<string>>} */
+	/** @type {Map<string, { value: Set<string>, expire: number, parsedAt: number }>} */
 	const projects = new Map();
 
 	/**
@@ -334,30 +340,50 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 	 * @returns {string | undefined} path of the nearest `tsconfig.json`
 	 */
 	const findTsconfig = (directory) => {
-		if (!nearestTsconfigs.has(directory)) {
-			const found = ts.findConfigFile(
-				directory,
-				(file) => ts.sys.fileExists(file),
-				"tsconfig.json",
-			);
+		const now = Date.now();
+		const cached = nearestTsconfigs.get(directory);
 
-			nearestTsconfigs.set(directory, found && path.resolve(found));
+		if (cached && cached.expire > now) {
+			cached.expire = now + CACHE_TIME;
+
+			return cached.value;
 		}
 
-		return nearestTsconfigs.get(directory);
+		const found = ts.findConfigFile(
+			directory,
+			(file) => ts.sys.fileExists(file),
+			"tsconfig.json",
+		);
+		const value = found && path.resolve(found);
+
+		nearestTsconfigs.set(directory, { value, expire: now + CACHE_TIME });
+
+		return value;
 	};
 
 	/**
 	 * @param {string} tsconfigPath path of a `tsconfig.json`
+	 * @param {boolean=} refresh parse it again even when cached
 	 * @returns {Set<string>} its JavaScript files, empty without `allowJs`/`checkJs`
 	 */
-	const getProjectFiles = (tsconfigPath) => {
-		let files = projects.get(tsconfigPath);
+	const getProjectFiles = (tsconfigPath, refresh = false) => {
+		const now = Date.now();
+		const cached = projects.get(tsconfigPath);
 
-		if (files) return files;
+		if (cached && !refresh && cached.expire > now) {
+			cached.expire = now + CACHE_TIME;
 
-		files = new Set();
-		projects.set(tsconfigPath, files);
+			return cached.value;
+		}
+
+		/** @type {Set<string>} */
+		const files = new Set();
+
+		projects.set(tsconfigPath, {
+			value: files,
+			expire: now + CACHE_TIME,
+			parsedAt: now,
+		});
 
 		const { config, error } = ts.readConfigFile(tsconfigPath, (file) =>
 			ts.sys.readFile(file),
@@ -395,9 +421,25 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 		const resolved = path.resolve(filePath);
 		const tsconfigPath = findTsconfig(path.dirname(resolved));
 
+		if (!tsconfigPath) return false;
+		if (getProjectFiles(tsconfigPath).has(resolved)) return true;
+
+		// A file created after the `tsconfig.json` was parsed can be part of the
+		// project now; files that are simply outside it are older
+		const { parsedAt } = /** @type {{ parsedAt: number }} */ (
+			projects.get(tsconfigPath)
+		);
+		let modifiedAt = 0;
+
+		try {
+			modifiedAt = fs.statSync(resolved).mtimeMs;
+		} catch {
+			// A virtual file, e.g. a Markdown code block
+		}
+
 		return (
-			Boolean(tsconfigPath) &&
-			getProjectFiles(/** @type {string} */ (tsconfigPath)).has(resolved)
+			modifiedAt >= parsedAt &&
+			getProjectFiles(tsconfigPath, true).has(resolved)
 		);
 	};
 
@@ -419,6 +461,23 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 				);
 			}
 		}
+	}
+
+	// The preset turns off core rules that a type-aware rule replaces (e.g.
+	// `no-throw-literal` for `only-throw-error`), so a problem isn't reported twice
+	for (const config of /** @type {import("eslint").Linter.Config[]} */ (
+		tseslint.configs.recommendedTypeCheckedOnly
+	)) {
+		for (const [ruleId, entry] of Object.entries(config.rules || {})) {
+			if (entry === "off" && rules[`@typescript-eslint/${ruleId}`]) {
+				rules[ruleId] = "off";
+			}
+		}
+	}
+
+	// Replaced under another name
+	if (rules["@typescript-eslint/only-throw-error"]) {
+		rules["no-throw-literal"] = "off";
 	}
 
 	return {

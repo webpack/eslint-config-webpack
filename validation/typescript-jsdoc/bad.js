@@ -65,7 +65,7 @@ export function indexes(list) {
  * @returns {never} never returns
  */
 export function throwString() {
-	// eslint-disable-next-line @typescript-eslint/only-throw-error, no-throw-literal
+	// eslint-disable-next-line @typescript-eslint/only-throw-error
 	throw "error";
 }
 
