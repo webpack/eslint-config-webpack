@@ -997,13 +997,13 @@ const unicornRules = {
 	// TODO Do we need it?
 	// "unicorn/no-loop-iterable-mutation": "off",
 
-	// TODO enable for JSON and etc
+	// No need we have `no-loss-of-precision`, this rule only for JSON and etc
 	// "unicorn/no-loss-of-precision": "error",
 
 	// No need
 	// "unicorn/no-magic-array-flat-depth": "error",
 
-	// No need
+	// No need TODO enable?
 	// "unicorn/no-manually-wrapped-comments": "off",
 
 	// TODO Do we need it?
