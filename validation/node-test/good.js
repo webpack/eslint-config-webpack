@@ -1,13 +1,5 @@
 import assert from "node:assert/strict";
-import {
-	after,
-	afterEach,
-	before,
-	beforeEach,
-	describe,
-	it,
-	test,
-} from "node:test";
+import { after, afterEach, before, beforeEach, describe, it } from "node:test";
 
 /**
  * @param {number} a first number
@@ -87,6 +79,8 @@ describe("Calculator", () => {
 	});
 });
 
-test("top level test", () => {
-	assert.strictEqual(sum(1, 1), 2);
+describe("top level describe", () => {
+	it("top level test", () => {
+		assert.strictEqual(sum(1, 1), 2);
+	});
 });

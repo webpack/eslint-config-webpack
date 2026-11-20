@@ -3,6 +3,7 @@ import semver from "semver";
 import configs from "./configs/index.js";
 import getEsVersionFromNode from "./configs/utils/get-es-version-from-node.js";
 import getJsonFile from "./configs/utils/get-json-file.js";
+import isJestInstalled from "./configs/utils/is-jest-installed.js";
 import ignorePaths from "./ignore-paths.js";
 
 const packageJson = getJsonFile("package.json");
@@ -69,6 +70,7 @@ function getJavascriptConfig() {
 }
 
 const javascriptConfig = getJavascriptConfig();
+const isJestIntalled = isJestInstalled();
 
 const recommended = [
 	globalIgnores(ignorePaths),
@@ -79,7 +81,9 @@ const recommended = [
 	configs["typescript/jsdoc"],
 	configs["typescript/recommended"],
 	configs["react/recommended"],
-	configs["jest/recommended"],
+	isJestIntalled
+		? configs["jest/recommended"]
+		: configs["node-test/recommended"],
 	configs["json/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
@@ -97,7 +101,9 @@ const nodeRecommendedModule = [
 	configs["typescript/jsdoc"],
 	configs["typescript/recommended"],
 	configs["react/recommended"],
-	configs["jest/recommended"],
+	isJestIntalled
+		? configs["jest/recommended"]
+		: configs["node-test/recommended"],
 	configs["json/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
@@ -114,7 +120,9 @@ const nodeRecommendedCommonJS = [
 	configs["typescript/jsdoc"],
 	configs["typescript/recommended"],
 	configs["react/recommended"],
-	configs["jest/recommended"],
+	isJestIntalled
+		? configs["jest/recommended"]
+		: configs["node-test/recommended"],
 	configs["json/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
@@ -131,7 +139,9 @@ const nodeRecommendedDirty = [
 	configs["typescript/jsdoc"],
 	configs["typescript/recommended"],
 	configs["react/recommended"],
-	configs["jest/recommended"],
+	isJestIntalled
+		? configs["jest/recommended"]
+		: configs["node-test/recommended"],
 	configs["json/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
@@ -148,7 +158,9 @@ const browserRecommended = [
 	configs["typescript/jsdoc"],
 	configs["typescript/recommended"],
 	configs["react/recommended"],
-	configs["jest/recommended"],
+	isJestIntalled
+		? configs["jest/recommended"]
+		: configs["node-test/recommended"],
 	configs["json/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
@@ -165,7 +177,9 @@ const browserOutdatedRecommendedScript = [
 	configs["typescript/jsdoc"],
 	configs["typescript/recommended"],
 	configs["react/recommended"],
-	configs["jest/recommended"],
+	isJestIntalled
+		? configs["jest/recommended"]
+		: configs["node-test/recommended"],
 	configs["json/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
@@ -183,7 +197,9 @@ const browserOutdatedRecommendedCommonjs = [
 	configs["typescript/jsdoc"],
 	configs["typescript/recommended"],
 	configs["react/recommended"],
-	configs["jest/recommended"],
+	isJestIntalled
+		? configs["jest/recommended"]
+		: configs["node-test/recommended"],
 	configs["json/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
@@ -206,7 +222,9 @@ const browserOutdatedRecommendedModule = [
 	configs["typescript/jsdoc"],
 	configs["typescript/recommended"],
 	configs["react/recommended"],
-	configs["jest/recommended"],
+	isJestIntalled
+		? configs["jest/recommended"]
+		: configs["node-test/recommended"],
 	configs["json/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
@@ -227,7 +245,9 @@ const universalRecommended = [
 	configs["typescript/jsdoc"],
 	configs["typescript/recommended"],
 	configs["react/recommended"],
-	configs["jest/recommended"],
+	isJestIntalled
+		? configs["jest/recommended"]
+		: configs["node-test/recommended"],
 	configs["json/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
