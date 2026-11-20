@@ -430,7 +430,13 @@ async function getTypescriptJSDocTypeCheckedConfig() {
 		// `tsconfigRootDir`, so one above it can't provide the types
 		const fromRoot = path.relative(tsconfigRootDir, path.dirname(tsconfigPath));
 
-		if (fromRoot.startsWith("..") || path.isAbsolute(fromRoot)) return false;
+		if (
+			fromRoot === ".." ||
+			fromRoot.startsWith(`..${path.sep}`) ||
+			path.isAbsolute(fromRoot)
+		) {
+			return false;
+		}
 		if (getProjectFiles(tsconfigPath).has(resolved)) return true;
 
 		// A file created after the `tsconfig.json` was parsed can be part of the
