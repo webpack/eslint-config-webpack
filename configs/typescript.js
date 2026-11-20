@@ -1,3 +1,4 @@
+import path from "node:path";
 import {
 	javascriptExtensions,
 	typescriptExtensions,
@@ -303,6 +304,142 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// Also `typescript` reports this itself
 			"jsdoc/valid-types": "off",
 		},
+	};
+}
+
+/**
+ * Type-aware `typescript-eslint` rules for JavaScript files with JSDoc types.
+ * TypeScript reads JSDoc types in the JavaScript files of a project whose
+ * `tsconfig.json` enables `allowJs` or `checkJs`, so these rules work there
+ * too. They apply only to the JavaScript files the nearest `tsconfig.json`
+ * includes (the project `projectService` uses), because type-aware linting
+ * fails on a file outside its project.
+ * @returns {Promise<import("eslint").Linter.Config>} config
+ */
+async function getTypescriptJSDocTypeCheckedConfig() {
+	if (!isTypescriptInstalledResult) {
+		return { name: "typescript/please-install-typescript-to-enable-it" };
+	}
+
+	const ts = (await import("typescript")).default;
+	const tseslint = (await import("typescript-eslint")).default;
+
+	/** @type {Map<string, string | undefined>} */
+	const nearestTsconfigs = new Map();
+	/** @type {Map<string, Set<string>>} */
+	const projects = new Map();
+
+	/**
+	 * @param {string} directory directory
+	 * @returns {string | undefined} path of the nearest `tsconfig.json`
+	 */
+	const findTsconfig = (directory) => {
+		if (!nearestTsconfigs.has(directory)) {
+			const found = ts.findConfigFile(
+				directory,
+				(file) => ts.sys.fileExists(file),
+				"tsconfig.json",
+			);
+
+			nearestTsconfigs.set(directory, found && path.resolve(found));
+		}
+
+		return nearestTsconfigs.get(directory);
+	};
+
+	/**
+	 * @param {string} tsconfigPath path of a `tsconfig.json`
+	 * @returns {Set<string>} its JavaScript files, empty without `allowJs`/`checkJs`
+	 */
+	const getProjectFiles = (tsconfigPath) => {
+		let files = projects.get(tsconfigPath);
+
+		if (files) return files;
+
+		files = new Set();
+		projects.set(tsconfigPath, files);
+
+		const { config, error } = ts.readConfigFile(tsconfigPath, (file) =>
+			ts.sys.readFile(file),
+		);
+
+		if (error) return files;
+
+		const parsed = ts.parseJsonConfigFileContent(
+			config,
+			ts.sys,
+			path.dirname(tsconfigPath),
+			undefined,
+			tsconfigPath,
+		);
+
+		if (!parsed.options.allowJs && !parsed.options.checkJs) return files;
+
+		for (const fileName of parsed.fileNames) {
+			if (javascriptExtensions.includes(path.extname(fileName))) {
+				files.add(path.resolve(fileName));
+			}
+		}
+
+		return files;
+	};
+
+	/**
+	 * @param {string} filePath absolute file path
+	 * @returns {boolean} true when the file is a JavaScript file of the project
+	 * of its nearest `tsconfig.json`
+	 */
+	const isTypeCheckedFile = (filePath) => {
+		if (!javascriptExtensions.includes(path.extname(filePath))) return false;
+
+		const resolved = path.resolve(filePath);
+		const tsconfigPath = findTsconfig(path.dirname(resolved));
+
+		return (
+			Boolean(tsconfigPath) &&
+			getProjectFiles(/** @type {string} */ (tsconfigPath)).has(resolved)
+		);
+	};
+
+	/** @type {import("eslint").Linter.RulesRecord} */
+	const rules = {};
+
+	for (const config of /** @type {import("eslint").Linter.Config[]} */ (
+		tseslint.configs.recommendedTypeCheckedOnly
+	)) {
+		for (const [ruleId, entry] of Object.entries(config.rules || {})) {
+			// `no-unsafe-*` report every use of an `any` value, which JSDoc code has
+			// a lot of (untyped dependencies, types TypeScript can't resolve)
+			if (
+				ruleId.startsWith("@typescript-eslint/") &&
+				!ruleId.startsWith("@typescript-eslint/no-unsafe-")
+			) {
+				rules[ruleId] = /** @type {import("eslint").Linter.RuleEntry} */ (
+					entry
+				);
+			}
+		}
+	}
+
+	return {
+		name: "typescript/jsdoc-type-checked",
+		// A function matcher (supported by ESLint, missing from its types) checks
+		// the exact list of files TypeScript resolves from the `tsconfig.json`
+		files: /** @type {string[]} */ (
+			/** @type {unknown} */ ([isTypeCheckedFile])
+		),
+		languageOptions: {
+			parser: tseslint.parser,
+			parserOptions: {
+				// Same as `webpack/types`, so both can apply to a file
+				projectService: true,
+				tsconfigRootDir: process.cwd(),
+			},
+		},
+		plugins: {
+			"@typescript-eslint": tseslint.plugin,
+		},
+		rules,
 	};
 }
 
@@ -828,5 +965,6 @@ async function getTypescriptRecommendedConfig() {
 
 export default {
 	"typescript/jsdoc": await getTypescriptJSDocRecommendedConfig(),
+	"typescript/jsdoc-type-checked": await getTypescriptJSDocTypeCheckedConfig(),
 	"typescript/recommended": await getTypescriptRecommendedConfig(),
 };
