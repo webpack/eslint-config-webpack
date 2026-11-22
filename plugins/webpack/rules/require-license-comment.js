@@ -1,4 +1,4 @@
-/** @typedef {import("estree").Comment} Comment */
+/** @import { Comment } from "estree" */
 /** @typedef {import("eslint").AST.SourceLocation} SourceLocation */
 
 /**

@@ -1,6 +1,6 @@
 /** @typedef {import("eslint").Rule.RuleFixer} RuleFixer */
 /** @typedef {import("eslint").Rule.Fix} Fix */
-/** @typedef {import("estree").MethodDefinition} MethodDefinition */
+/** @import { MethodDefinition } from "estree" */
 
 // The TypeScript AST is reached through the parser services, which type them as
 // `unknown` outside a TypeScript-aware parser.

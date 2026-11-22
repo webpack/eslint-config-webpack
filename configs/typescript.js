@@ -1,3 +1,4 @@
+import webpackPlugin from "../plugins/webpack/index.js";
 import {
 	javascriptExtensions,
 	typescriptExtensions,
@@ -53,6 +54,10 @@ async function getTypescriptJSDocRecommendedConfig() {
 				},
 				overrideReplacesDocs: false,
 			},
+		},
+		plugins: {
+			...jsdocConfig.plugins,
+			webpack: webpackPlugin,
 		},
 		rules: {
 			...jsdocConfig.rules,
@@ -302,6 +307,14 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// Doesn't support function overloading/tuples/`readonly`/module keyword/etc
 			// Also `typescript` reports this itself
 			"jsdoc/valid-types": "off",
+
+			// `@import` tags, see `plugins/webpack`
+
+			"webpack/prefer-import-tag": "error",
+
+			"webpack/no-duplicate-import-tag": "error",
+
+			"webpack/no-unused-import-tag": "error",
 		},
 	};
 }

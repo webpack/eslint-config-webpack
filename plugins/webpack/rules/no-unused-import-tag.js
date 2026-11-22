@@ -1,9 +1,8 @@
 import { collectImportTags } from "../utils/import-tags.js";
 
 /** @typedef {import("eslint").Rule.ReportFixer} ReportFixer */
-/** @typedef {import("eslint").SourceCode} SourceCode */
-/** @typedef {import("../utils/import-tags.js").ImportBinding} ImportBinding */
-/** @typedef {import("../utils/import-tags.js").ImportTag} ImportTag */
+/** @import { SourceCode } from "eslint" */
+/** @import { ImportBinding, ImportTag } from "../utils/import-tags.js" */
 
 /**
  * The source with every `@import` tag blanked out, so one import can never keep
@@ -178,7 +177,7 @@ export const rule = {
 	meta: {
 		docs: {
 			description: "Require every `@import` binding to be referenced",
-			recommended: true,
+			recommended: false,
 		},
 		fixable: "code",
 		messages: {

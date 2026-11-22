@@ -1,6 +1,6 @@
 import { getCommitInfo, getPullRequestInfo } from "@changesets/get-github-info";
 
-/** @typedef {import("@changesets/types").ChangelogFunctions} ChangelogFunctions */
+/** @import { ChangelogFunctions } from "@changesets/types" */
 
 /**
  * @typedef {object} Links

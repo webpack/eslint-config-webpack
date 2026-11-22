@@ -1,8 +1,6 @@
 import detectIndent from "detect-indent";
 import { sortOrder } from "sort-package-json";
 
-/** @import { ProgramBody } from "@eslint/json" */
-
 /**
  * @param {string} string string
  * @returns {"\r\n" | "\n" | undefined} detected newline
@@ -32,7 +30,7 @@ function detectNewlineGraceful(string) {
 	return detectNewline(string) || "\n";
 }
 
-/** @typedef {import("type-fest").PackageJson} PackageJson */
+/** @import { PackageJson } from "type-fest" */
 
 /**
  * @param {PackageJson} object object to sort
