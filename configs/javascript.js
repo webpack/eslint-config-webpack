@@ -700,8 +700,7 @@ const unicornRules = {
 	// TODO enable it in future
 	// "unicorn/consistent-compound-words": "error",
 
-	// TODO enable it in future
-	// "unicorn/consistent-conditional-object-spread": "error",
+	"unicorn/consistent-conditional-object-spread": "error",
 
 	"unicorn/consistent-date-clone": "error",
 
@@ -718,18 +717,16 @@ const unicornRules = {
 	// No need
 	// "unicorn/consistent-function-scoping": "off",
 
-	// TODO enable it in future
-	// "unicorn/consistent-function-style": "error",
+	// Every option defaults to `ignore`, so it reports nothing without a style for each role
+	// "unicorn/consistent-function-style": "off",
 
-	// TODO enable only for ECMA modules with top level await support,
-	// "unicorn/consistent-json-file-read": "error",
+	"unicorn/consistent-json-file-read": "error",
 
 	"unicorn/consistent-optional-chaining": "error",
 
 	"unicorn/consistent-template-literal-escape": "error",
 
-	// TODO check it will work with jsdocs and typescript?
-	// "unicorn/consistent-tuple-labels": "error",
+	"unicorn/consistent-tuple-labels": "error",
 
 	// No need
 	// "unicorn/custom-error-definition": "off",
@@ -813,8 +810,7 @@ const unicornRules = {
 
 	"unicorn/no-accessor-recursion": "error",
 
-	// TODO do we need it?
-	// "unicorn/no-accidental-bitwise-operator": "off",
+	"unicorn/no-accidental-bitwise-operator": "error",
 
 	// TODO do we need it?
 	// "unicorn/no-anonymous-default-export": "off",
@@ -900,20 +896,18 @@ const unicornRules = {
 
 	"unicorn/no-double-comparison": "error",
 
-	// TODO do we need it?
-	// "unicorn/no-duplicate-if-branches": "error",
+	"unicorn/no-duplicate-if-branches": "error",
 
 	"unicorn/no-duplicate-logical-operands": "error",
 
-	// TODO do we need it?
-	// "unicorn/no-duplicate-loops": "error",
+	"unicorn/no-duplicate-loops": "error",
 
 	"unicorn/no-duplicate-set-values": "error",
 
 	// No need
 	// "unicorn/no-empty-file": "off",
 
-	// TODO implement markdown support by default
+	// Markdown only, enabled in `markdown/recommended`
 	// "unicorn/no-empty-link-text": "off",
 
 	"unicorn/no-exports-in-scripts": "error",
@@ -931,8 +925,7 @@ const unicornRules = {
 
 	"unicorn/no-impossible-length-comparison": "error",
 
-	// TODO Do we need it?
-	// "unicorn/no-incomplete-accessor-override": "error",
+	"unicorn/no-incomplete-accessor-override": "error",
 
 	// Not here, define only for `browsers`
 	// "unicorn/no-incorrect-query-selector": "off",
@@ -944,8 +937,7 @@ const unicornRules = {
 
 	"unicorn/no-instanceof-builtins": "error",
 
-	// TODO do we need it?
-	// "unicorn/no-invalid-argument-count": "off",
+	"unicorn/no-invalid-argument-count": "error",
 
 	// Not here, define only for `browsers`
 	// "unicorn/no-invalid-boolean-attribute-value": "error",
@@ -957,11 +949,9 @@ const unicornRules = {
 
 	"unicorn/no-invalid-fetch-options": "error",
 
-	// TODO enable for JSX and HTML
-	// "unicorn/no-invalid-file-input-accept": "off",
+	"unicorn/no-invalid-file-input-accept": "error",
 
-	// TODO enable for JSX and HTML
-	// "unicorn/no-invalid-integrity": "off",
+	"unicorn/no-invalid-integrity": "error",
 
 	"unicorn/no-invalid-intl-options": "error",
 
@@ -980,8 +970,8 @@ const unicornRules = {
 
 	"unicorn/no-invalid-well-known-symbol-methods": "error",
 
-	// TODO enable for markdown preset
-	// "unicorn/no-javascript-url": "error",
+	// Markdown only, enabled in `markdown/recommended`
+	// "unicorn/no-javascript-url": "off",
 
 	// No need
 	// "unicorn/no-keyword-prefix": "off",
@@ -989,8 +979,7 @@ const unicornRules = {
 	// Not here, define only for `browsers`
 	// "unicorn/no-late-current-target-access": "off",
 
-	// TODO Do we need it?
-	// "unicorn/no-leading-empty-lines": "error",
+	"unicorn/no-leading-empty-lines": "error",
 
 	"unicorn/no-lonely-if": "error",
 
@@ -1006,8 +995,7 @@ const unicornRules = {
 	// No need TODO enable?
 	// "unicorn/no-manually-wrapped-comments": "off",
 
-	// TODO Do we need it?
-	// "unicorn/no-mismatched-map-key": "error",
+	"unicorn/no-mismatched-map-key": "error",
 
 	"unicorn/no-misrefactored-assignment": "error",
 
@@ -1050,8 +1038,7 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-object-as-default-parameter": "off",
 
-	// TODO Do we need it?
-	// "unicorn/no-object-methods-with-collections": "off",
+	"unicorn/no-object-methods-with-collections": "error",
 
 	"unicorn/no-optional-chaining-on-undeclared-variable": "error",
 
@@ -1094,8 +1081,8 @@ const unicornRules = {
 	// TODO enable for CSS
 	// "unicorn/no-transition-all": "off",
 
-	// TODO enable in future? Need to check performance
-	// "unicorn/no-typeof-undefined": "off",
+	// Only for variables and properties, `typeof` stays for globals, which may be undeclared
+	"unicorn/no-typeof-undefined": "error",
 
 	"unicorn/no-uncalled-method": "error",
 
@@ -1139,8 +1126,7 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-unreadable-for-of-expression": "off",
 
-	// TODO Do we need it?
-	// "unicorn/no-unreadable-iife": "off",
+	"unicorn/no-unreadable-iife": "error",
 
 	// No need
 	// "unicorn/no-unreadable-new-expression": "off",
@@ -1167,8 +1153,7 @@ const unicornRules = {
 
 	"unicorn/no-unused-builtin-method-return": "error",
 
-	// TODO Do we need it?
-	// "unicorn/no-unused-iterator-helper": "error",
+	"unicorn/no-unused-iterator-helper": "error",
 
 	// No need
 	// "unicorn/no-unused-properties": "off",
@@ -1183,8 +1168,7 @@ const unicornRules = {
 
 	"unicorn/no-useless-compound-assignment": "error",
 
-	// TODO
-	// "unicorn/no-useless-concat": "error",
+	"unicorn/no-useless-concat": "error",
 
 	"unicorn/no-useless-continue": "error",
 
@@ -1208,11 +1192,9 @@ const unicornRules = {
 
 	"unicorn/no-useless-re-export": "error",
 
-	// TODO Do we need it?
-	// "unicorn/no-useless-recursion": "error",
+	"unicorn/no-useless-recursion": "error",
 
-	// TODO do we need it?
-	// "unicorn/no-useless-set-construction": "error",
+	"unicorn/no-useless-set-construction": "error",
 
 	"unicorn/no-useless-spread": "error",
 
@@ -1275,8 +1257,8 @@ const unicornRules = {
 
 	"unicorn/prefer-array-some": "error",
 
-	// TODO do we need it?
-	// "unicorn/prefer-at": "off",
+	// Disabled for ECMAScript < 2022
+	"unicorn/prefer-at": "error",
 
 	// TODO enable in future
 	// "unicorn/prefer-await": "error",
@@ -1329,8 +1311,8 @@ const unicornRules = {
 
 	"unicorn/prefer-else-if": "error",
 
-	// TODO enable it in future
-	// "unicorn/prefer-error-is-error": "off",
+	// Disabled for ECMAScript < 2026
+	"unicorn/prefer-error-is-error": "error",
 
 	"unicorn/prefer-escaped-irregular-whitespace": "error",
 
@@ -1348,8 +1330,8 @@ const unicornRules = {
 
 	"unicorn/prefer-global-this": "error",
 
-	// TODO enable in future
-	// "unicorn/prefer-group-by": "error",
+	// Disabled for ECMAScript < 2024
+	"unicorn/prefer-group-by": "error",
 
 	"unicorn/prefer-has-check": "error",
 
@@ -1359,8 +1341,8 @@ const unicornRules = {
 
 	"unicorn/prefer-identifier-import-export-specifiers": "error",
 
-	// TODO enable only for nodejs
-	// "unicorn/prefer-import-meta-properties": "error",
+	// Node.js only, enabled in `node/module` when `engines.node` allows it
+	// "unicorn/prefer-import-meta-properties": "off",
 
 	"unicorn/prefer-includes": "error",
 
@@ -1368,23 +1350,24 @@ const unicornRules = {
 
 	"unicorn/prefer-iterable-in-constructor": "error",
 
-	// TODO enable only for fresh Nodejs?
-	// "unicorn/prefer-iterator-concat": "off",
+	// Disabled for ECMAScript < 2026
+	"unicorn/prefer-iterator-concat": "error",
 
-	// TODO enable only for fresh Nodejs?
-	// "unicorn/prefer-iterator-helpers": "off",
+	// Disabled for ECMAScript < 2025
+	"unicorn/prefer-iterator-helpers": "error",
 
-	// TODO enable only for fresh Nodejs?
-	// "unicorn/prefer-iterator-to-array": "off",
+	// Disabled for ECMAScript < 2025
+	"unicorn/prefer-iterator-to-array": "error",
 
-	// TODO enable only for fresh Nodejs?
-	// "unicorn/prefer-iterator-to-array-at-end": "off",
+	// Disabled for ECMAScript < 2025
+	"unicorn/prefer-iterator-to-array-at-end": "error",
 
 	// TODO enable only for fresh Nodejs?
 	// "unicorn/prefer-iterator-zip": "off",
 
-	// TODO enable me
-	// "unicorn/prefer-json-import": "error",
+	// Node.js prints an `ExperimentalWarning` for JSON modules before 22.12 and 23.1,
+	// which the ECMAScript version can't tell apart
+	// "unicorn/prefer-json-import": "off",
 
 	// Not here, define only for `browsers`
 	// "unicorn/prefer-keyboard-event-key": "error",
@@ -1415,7 +1398,7 @@ const unicornRules = {
 
 	"unicorn/prefer-modern-math-apis": "error",
 
-	// TODO enable it
+	// Only reports CommonJS, which we support
 	// "unicorn/prefer-module": "off",
 
 	"unicorn/prefer-native-coercion-functions": "error",
@@ -1454,11 +1437,12 @@ const unicornRules = {
 
 	"unicorn/prefer-promise-static-methods": "error",
 
-	// TODO Enable in future
-	// "unicorn/prefer-promise-try": "error",
+	// Disabled for ECMAScript < 2026: `Promise.try()` is ES2025, but Node.js 22, the
+	// ES2025 row in `get-es-version-from-node.js`, doesn't have it (V8 12.4)
+	"unicorn/prefer-promise-try": "error",
 
-	// TODO Enable in future
-	// "unicorn/prefer-promise-with-resolvers": "error",
+	// Disabled for ECMAScript < 2024
+	"unicorn/prefer-promise-with-resolvers": "error",
 
 	"unicorn/prefer-prototype-methods": "error",
 
@@ -1487,8 +1471,7 @@ const unicornRules = {
 
 	"unicorn/prefer-set-methods": "error",
 
-	// TODO No need
-	// "unicorn/prefer-set-size": "off",
+	"unicorn/prefer-set-size": "error",
 
 	// No need
 	// "unicorn/prefer-short-arrow-method": "off",
@@ -1571,8 +1554,8 @@ const unicornRules = {
 
 	"unicorn/prefer-unicode-code-point-escapes": "error",
 
-	// TODO enable in future
-	// "unicorn/prefer-url-can-parse": "error",
+	// Disabled for ECMAScript < 2023 (Node.js 20, the first with `URL.canParse()` in all its releases)
+	"unicorn/prefer-url-can-parse": "error",
 
 	"unicorn/prefer-url-href": "error",
 
@@ -1620,9 +1603,7 @@ const unicornRules = {
 	// No need
 	// "unicorn/switch-case-braces": "off",
 
-	// TODO maybe?
-	// No need
-	// "unicorn/switch-case-break-position": "off",
+	"unicorn/switch-case-break-position": "error",
 
 	// No need
 	// "unicorn/template-indent": "off",
@@ -1906,16 +1887,34 @@ function getConfig(esVersion) {
 		config.rules["unicorn/prefer-structured-clone"] = "off";
 		config.rules["unicorn/prefer-top-level-await"] = "off";
 		config.rules["unicorn/prefer-class-fields"] = "off";
+		config.rules["unicorn/prefer-at"] = "off";
 	}
 
 	if (esVersion < 2023) {
 		config.rules["unicorn/no-array-sort"] = "off";
+		// `URL.canParse()` isn't ECMAScript, but every Node.js 20 release has it,
+		// and Node.js 20 is the first ES2023 row in `get-es-version-from-node.js`
+		config.rules["unicorn/prefer-url-can-parse"] = "off";
+	}
+
+	if (esVersion < 2024) {
+		config.rules["unicorn/prefer-group-by"] = "off";
+		config.rules["unicorn/prefer-promise-with-resolvers"] = "off";
+	}
+
+	if (esVersion < 2025) {
+		config.rules["unicorn/prefer-iterator-helpers"] = "off";
+		config.rules["unicorn/prefer-iterator-to-array"] = "off";
+		config.rules["unicorn/prefer-iterator-to-array-at-end"] = "off";
 	}
 
 	// `RegExp.escape()` is an ES2026 API (Node.js 24+), the parser setting alone
 	// doesn't guarantee its availability at runtime, so the autofix would break older targets
 	if (esVersion < 2026) {
 		config.rules["unicorn/prefer-regexp-escape"] = "off";
+		config.rules["unicorn/prefer-promise-try"] = "off";
+		config.rules["unicorn/prefer-error-is-error"] = "off";
+		config.rules["unicorn/prefer-iterator-concat"] = "off";
 	}
 
 	return config;

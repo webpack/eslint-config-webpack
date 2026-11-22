@@ -302,9 +302,10 @@ const knownRuleIds = new Set(
 );
 const totals = { total: 0, enabled: 0 };
 
-const namespaces = [...availableRules.keys()].toSorted((a, b) =>
-	a === CORE ? -1 : b === CORE ? 1 : a.localeCompare(b),
-);
+const namespaces = availableRules
+	.keys()
+	.toArray()
+	.toSorted((a, b) => (a === CORE ? -1 : b === CORE ? 1 : a.localeCompare(b)));
 
 const knownPluginNames = new Set(
 	namespaces.map((namespace) => normalizePluginName(namespace)),
@@ -340,7 +341,7 @@ for (const namespace of namespaces) {
 		const id = namespace === CORE ? name : `${namespace}/${name}`;
 		const rule = rules[name];
 		const deprecated = Boolean(rule && rule.meta && rule.meta.deprecated);
-		const variants = [...(ours.get(id) || new Map()).values()];
+		const variants = (ours.get(id) || new Map()).values().toArray();
 		const enabled = variants.some(({ entry }) => isEnabled(entry));
 		const enabledEntries = variants
 			.map(({ entry }) => entry)
@@ -420,13 +421,15 @@ const getNamespace = (ruleId) => {
 	return ruleId.slice(0, ruleId.indexOf("/"));
 };
 
-const unknown = [...ours.keys()]
+const unknown = ours
+	.keys()
 	.filter(
 		(ruleId) =>
 			!knownRuleIds.has(ruleId) &&
 			isPluginSelected(getNamespace(ruleId)) &&
 			(ruleFilter.size === 0 || ruleFilter.has(ruleId)),
 	)
+	.toArray()
 	.toSorted();
 
 if (asJson) {

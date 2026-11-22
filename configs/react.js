@@ -17,10 +17,10 @@ async function getReactRecommendedConfig() {
 	const devDependencies = packageJson.devDependencies || {};
 
 	if (
-		typeof dependencies.react === "undefined" &&
-		typeof dependencies.preact === "undefined" &&
-		typeof devDependencies.react === "undefined" &&
-		typeof devDependencies.preact === "undefined"
+		dependencies.react === undefined &&
+		dependencies.preact === undefined &&
+		devDependencies.react === undefined &&
+		devDependencies.preact === undefined
 	) {
 		return {
 			name: "react/please-install-react-to-enable-it",

@@ -1,6 +1,9 @@
 import importPlugin from "eslint-plugin-import-x";
+import unicornPlugin from "eslint-plugin-unicorn";
 import globals from "globals";
+import semver from "semver";
 import { codeFiles, codeIgnores } from "./utils/code-files.js";
+import getJsonFile from "./utils/get-json-file.js";
 import isTypescriptInstalled from "./utils/is-typescript-installed.js";
 
 /** @type {import("eslint").Linter.Config["rules"]} */
@@ -181,6 +184,28 @@ const commonRules = {
 const ignores = ["**/*.d.ts"];
 
 /**
+ * @param {string} range the Node.js versions that have a feature
+ * @returns {boolean} true when every Node.js version `engines.node` allows has it,
+ * or when there is no `engines.node`
+ */
+function isSupportedByEngines(range) {
+	const packageJson = getJsonFile("package.json");
+	const engines =
+		packageJson &&
+		/** @type {{ engines?: { node?: string } }} */ (packageJson).engines;
+
+	if (!engines || typeof engines.node !== "string") {
+		return true;
+	}
+
+	try {
+		return semver.subset(engines.node, range);
+	} catch {
+		return false;
+	}
+}
+
+/**
  * @returns {Promise<import("eslint").Linter.Config>} config
  */
 async function getCommonJSConfig() {
@@ -242,10 +267,18 @@ async function getModuleConfig() {
 		plugins: {
 			...nodeConfig.plugins,
 			"import-x": importPlugin,
+			unicorn: unicornPlugin,
 		},
 		rules: {
 			...nodeConfig.rules,
 			...commonRules,
+			// `import.meta.dirname` and `import.meta.filename` landed in Node.js 20.11
+			// and 21.2, so 21.0 and 21.1 don't have them
+			"unicorn/prefer-import-meta-properties": isSupportedByEngines(
+				"^20.11.0 || >=21.2.0",
+			)
+				? "error"
+				: "off",
 			"n/no-unsupported-features/es-syntax": [
 				"error",
 				{
@@ -274,6 +307,7 @@ async function getDirtyConfig() {
 		plugins: {
 			n: nodePlugin,
 			"import-x": importPlugin,
+			unicorn: unicornPlugin,
 		},
 		ignores: [
 			...new Set([

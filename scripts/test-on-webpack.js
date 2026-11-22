@@ -39,7 +39,6 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import semver from "semver";
 
 /** @typedef {import("eslint").ESLint.LintResult} LintResult */
@@ -68,7 +67,7 @@ const ORIGINAL_DIR = `.${PACKAGE_NAME}-original`;
 const FATAL = "(parsing error)";
 const NO_RULE = "(eslint-disable directives)";
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const root = path.resolve(import.meta.dirname, "..");
 
 // Arguments after `--` go to ESLint as they are
 const separator = process.argv.indexOf("--");
@@ -433,7 +432,7 @@ function toJson(summary, baseline) {
 		warnings: summary.warnings,
 		fixable: summary.fixable,
 		rules,
-		...(baseline ? { baseline: toJson(baseline) } : {}),
+		...(baseline && { baseline: toJson(baseline) }),
 	};
 }
 

@@ -39,7 +39,8 @@ export const stripLineMarkers = (text) =>
  */
 export const localNameOf = (binding) => {
 	const parts = binding.split(/[ \t\n]+as[ \t\n]+/);
-	return parts[parts.length - 1].trim();
+	// `split()` always returns at least one part
+	return /** @type {string} */ (parts.at(-1)).trim();
 };
 
 /**
