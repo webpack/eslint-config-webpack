@@ -1,7 +1,7 @@
 import { findVariable, getStaticValue } from "@eslint-community/eslint-utils";
 import { RegExpParser, visitRegExpAST } from "@eslint-community/regexpp";
 
-/** @typedef {import("estree").Node} Node */
+/** @import { Node } from "estree" */
 /** @typedef {import("eslint").Scope.Scope} Scope */
 /** @typedef {import("estree").CallExpression | import("estree").NewExpression} RegExpCall */
 

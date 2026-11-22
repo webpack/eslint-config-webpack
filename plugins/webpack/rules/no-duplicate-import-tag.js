@@ -1,6 +1,6 @@
 import { collectImportTags } from "../utils/import-tags.js";
 
-/** @typedef {import("../utils/import-tags.js").ImportTag} ImportTag */
+/** @import { ImportTag } from "../utils/import-tags.js" */
 
 /**
  * Whether two tags could be written as one import statement. A namespace binding
@@ -70,7 +70,7 @@ export const rule = {
 	meta: {
 		docs: {
 			description: "Require one `@import` per module in a file",
-			recommended: true,
+			recommended: false,
 		},
 		messages: {
 			duplicateImportTag:

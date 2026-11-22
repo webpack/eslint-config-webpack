@@ -74,7 +74,7 @@ export const rule = {
 		docs: {
 			description:
 				"Require `@import` rather than a `@typedef` that only aliases an `import()`",
-			recommended: true,
+			recommended: false,
 		},
 		fixable: "code",
 		messages: {

@@ -1,5 +1,5 @@
-/** @typedef {import("eslint").SourceCode} SourceCode */
-/** @typedef {import("estree").Comment} Comment */
+/** @import { SourceCode } from "eslint" */
+/** @import { Comment } from "estree" */
 
 /**
  * @typedef {object} ImportBinding

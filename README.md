@@ -97,6 +97,16 @@ export default defineConfig([
 ]);
 ```
 
+### JSDoc `@import` tags
+
+When `typescript` is installed, the `typescript/jsdoc` config of every recommended config checks JSDoc type imports:
+
+| Rule                              | What it checks                                                                                                                                      |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `webpack/prefer-import-tag`       | `/** @import { Node } from "estree" */` instead of a `@typedef` that only aliases an `import()`, like `{import("estree").Node} Node` (autofixable). |
+| `webpack/no-duplicate-import-tag` | One `@import` per module in a file.                                                                                                                 |
+| `webpack/no-unused-import-tag`    | Every `@import` binding is referenced (autofixable).                                                                                                |
+
 ### Performance
 
 Every recommended config includes `performance/recommended`: rules that catch code

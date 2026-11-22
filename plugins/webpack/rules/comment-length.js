@@ -1,5 +1,4 @@
-/** @typedef {import("estree").Comment} Comment */
-/** @typedef {import("estree").Program} Program */
+/** @import { Comment, Program } from "estree" */
 /** @typedef {import("estree").Statement | import("estree").ModuleDeclaration} ProgramEntry */
 /** @typedef {import("eslint").AST.SourceLocation} SourceLocation */
 /** @typedef {Comment & { range: [number, number], loc: SourceLocation }} LocatedComment */

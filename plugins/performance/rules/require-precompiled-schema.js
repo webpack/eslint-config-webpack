@@ -2,9 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { findVariable } from "@eslint-community/eslint-utils";
 
-/** @typedef {import("estree").Node} Node */
-/** @typedef {import("estree").Expression} Expression */
-/** @typedef {import("estree").CallExpression} CallExpression */
+/** @import { CallExpression, Node } from "estree" */
 /** @typedef {import("eslint").Scope.Scope} Scope */
 
 const SCHEMA_UTILS = "schema-utils";
