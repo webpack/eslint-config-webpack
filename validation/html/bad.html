@@ -1,0 +1,63 @@
+<!-- eslint-disable-next-line html/require-doctype, html/require-lang -->
+<html>
+	<!-- eslint-disable-next-line html/require-title, html/require-meta-charset -->
+	<head>
+		<!-- eslint-disable-next-line html/no-non-scalable-viewport -->
+		<meta name="viewport" content="width=device-width, user-scalable=no" />
+		<!-- eslint-disable unicorn/no-ineffective-csp-directives -->
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="frame-ancestors 'none'"
+		/>
+		<!-- eslint-enable unicorn/no-ineffective-csp-directives -->
+		<!-- eslint-disable-next-line html/no-script-style-type -->
+		<script type="text/javascript" src="./legacy.js"></script>
+		<!-- eslint-disable-next-line html/no-obsolete-attrs -->
+		<script src="./app.js" charset="utf-8"></script>
+		<!-- eslint-disable unicorn/no-invalid-integrity -->
+		<script
+			src="https://cdn.example.com/lib.js"
+			integrity="sha1-abc"
+			crossorigin="anonymous"
+		></script>
+		<!-- eslint-enable unicorn/no-invalid-integrity -->
+		<!-- eslint-disable-next-line unicorn/prefer-https -->
+		<link rel="stylesheet" href="http://cdn.example.com/style.css" />
+		<!-- eslint-disable-next-line unicorn/relative-url-style -->
+		<link rel="stylesheet" href="local.css" />
+	</head>
+	<body>
+		<!-- eslint-disable-next-line html/no-multiple-h1 -->
+		<h1>One</h1>
+		<!-- eslint-disable-next-line html/no-multiple-h1 -->
+		<h1>Two</h1>
+		<!-- eslint-disable-next-line html/require-img-alt -->
+		<img src="./logo.png" />
+		<!-- eslint-disable-next-line html/no-duplicate-attrs -->
+		<div class="a" class="b"></div>
+		<!-- eslint-disable-next-line html/no-duplicate-id -->
+		<div id="same"></div>
+		<!-- eslint-disable-next-line html/no-duplicate-id -->
+		<div id="same"></div>
+		<!-- eslint-disable-next-line html/no-duplicate-class -->
+		<div class="box box"></div>
+		<!-- eslint-disable-next-line html/no-obsolete-tags -->
+		<center>Old</center>
+		<!-- eslint-disable-next-line html/require-li-container -->
+		<li>Orphan</li>
+		<!-- eslint-disable-next-line html/no-positive-tabindex -->
+		<button type="button" tabindex="1">Tab</button>
+		<!-- eslint-disable-next-line html/no-invalid-role -->
+		<div role="not-a-role"></div>
+		<!-- eslint-disable-next-line html/no-redundant-role -->
+		<button type="button" role="button">Redundant</button>
+		<!-- eslint-disable-next-line html/no-nested-interactive -->
+		<button type="button"><a href="https://example.com">Nested</a></button>
+		<!-- eslint-disable-next-line html/require-frame-title -->
+		<iframe src="https://example.com"></iframe>
+		<!-- eslint-disable-next-line unicorn/no-invalid-file-input-accept -->
+		<input type="file" accept="png" />
+		<!-- eslint-disable-next-line html/require-details-summary -->
+		<details><p>No summary</p></details>
+	</body>
+</html>

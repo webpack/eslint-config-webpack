@@ -875,7 +875,7 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-computed-property-existence-check": "off",
 
-	// TODO implement CSS preset
+	// CSS and HTML only, enabled in `html/recommended`, TODO enable for CSS
 	// "unicorn/no-conflicting-constraints": "off",
 
 	// No need
@@ -932,7 +932,7 @@ const unicornRules = {
 
 	"unicorn/no-incorrect-template-string-interpolation": "error",
 
-	// TODO implement HTML preset
+	// HTML only, enabled in `html/recommended`
 	// "unicorn/no-ineffective-csp-directives": "off",
 
 	"unicorn/no-instanceof-builtins": "error",
@@ -999,7 +999,8 @@ const unicornRules = {
 
 	"unicorn/no-misrefactored-assignment": "error",
 
-	// TODO enable for html, css and etc
+	// Not in `html/recommended`: HTML pages reference build output, like `dist/main.js`
+	// TODO enable for CSS
 	"unicorn/no-missing-local-resource": "error",
 
 	"unicorn/no-multiple-promise-resolver-calls": "error",

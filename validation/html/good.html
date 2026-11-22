@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Good page</title>
+		<link rel="stylesheet" href="./style.css" />
+		<script
+			src="https://cdn.example.com/lib.js"
+			integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"
+			crossorigin="anonymous"
+		></script>
+	</head>
+	<body>
+		<h1>Hello</h1>
+		<img src="./logo.png" alt="Logo" width="100" height="100" /><br />
+		<label>
+			Avatar
+			<input type="file" accept=".png, image/jpeg" />
+		</label>
+		<p>Some <b>bold</b> text and a <a href="https://example.com">link</a>.</p>
+		<img src="<%= logo %>" alt="Logo from a template" />
+		<ul class="list">
+			<li>One</li>
+			<li>Two</li>
+		</ul>
+		<details>
+			<summary>More</summary>
+			<p>Details</p>
+		</details>
+		<script type="module" src="./main.js"></script>
+	</body>
+</html>

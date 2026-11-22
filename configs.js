@@ -85,6 +85,7 @@ const recommended = [
 		? configs["jest/recommended"]
 		: configs["node-test/recommended"],
 	configs["json/recommended"],
+	configs["html/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
@@ -105,6 +106,7 @@ const nodeRecommendedModule = [
 		? configs["jest/recommended"]
 		: configs["node-test/recommended"],
 	configs["json/recommended"],
+	configs["html/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
@@ -124,6 +126,7 @@ const nodeRecommendedCommonJS = [
 		? configs["jest/recommended"]
 		: configs["node-test/recommended"],
 	configs["json/recommended"],
+	configs["html/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
@@ -143,6 +146,7 @@ const nodeRecommendedDirty = [
 		? configs["jest/recommended"]
 		: configs["node-test/recommended"],
 	configs["json/recommended"],
+	configs["html/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
@@ -162,6 +166,7 @@ const browserRecommended = [
 		? configs["jest/recommended"]
 		: configs["node-test/recommended"],
 	configs["json/recommended"],
+	configs["html/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
@@ -181,6 +186,7 @@ const browserOutdatedRecommendedScript = [
 		? configs["jest/recommended"]
 		: configs["node-test/recommended"],
 	configs["json/recommended"],
+	configs["html/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
@@ -201,6 +207,7 @@ const browserOutdatedRecommendedCommonjs = [
 		? configs["jest/recommended"]
 		: configs["node-test/recommended"],
 	configs["json/recommended"],
+	configs["html/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
@@ -226,6 +233,7 @@ const browserOutdatedRecommendedModule = [
 		? configs["jest/recommended"]
 		: configs["node-test/recommended"],
 	configs["json/recommended"],
+	configs["html/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],
@@ -249,6 +257,7 @@ const universalRecommended = [
 		? configs["jest/recommended"]
 		: configs["node-test/recommended"],
 	configs["json/recommended"],
+	configs["html/recommended"],
 	configs["node-test/recommended"],
 	configs["markdown/recommended"],
 	configs["stylistic/recommended"],

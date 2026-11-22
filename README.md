@@ -107,6 +107,26 @@ When `typescript` is installed, the `typescript/jsdoc` config of every recommend
 | `webpack/no-duplicate-import-tag` | One `@import` per module in a file.                                                                                                                 |
 | `webpack/no-unused-import-tag`    | Every `@import` binding is referenced (autofixable).                                                                                                |
 
+### HTML
+
+Every recommended config includes `html/recommended` for `.html` files, with [`@html-eslint/eslint-plugin`](https://html-eslint.org/) as the language plugin:
+
+- its rules that find mistakes, e.g. duplicate `id` and attributes, a missing `<!doctype>`, `lang`, `<title>`, `alt` or `<meta charset>`, obsolete tags and attributes, invalid ARIA roles, nested interactive elements and `user-scalable=no`;
+- the [`unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn#html) rules that support HTML, e.g. `no-invalid-integrity`, `no-ineffective-csp-directives`, `no-invalid-file-input-accept` and `prefer-https`.
+
+Its formatting rules are off, because Prettier formats HTML, and `require-closing-tags` expects `<br />` as Prettier writes it. `<% %>` is parsed as template syntax, as `html-webpack-plugin` templates use it. HTML code blocks in Markdown are not linted. It can also be extended on its own:
+
+```js
+import { defineConfig } from "eslint/config";
+import configs from "eslint-config-webpack/configs.js";
+
+export default defineConfig([
+	{
+		extends: [configs["html/recommended"]],
+	},
+]);
+```
+
 ### Performance
 
 Every recommended config includes `performance/recommended`: rules that catch code

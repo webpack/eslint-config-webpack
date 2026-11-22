@@ -1,4 +1,5 @@
 import browserConfig from "./browser.js";
+import htmlConfig from "./html.js";
 import javascriptConfig from "./javascript.js";
 import jsonConfig from "./json.js";
 import markdownConfig from "./markdown.js";
@@ -12,7 +13,7 @@ import webpackSpecial from "./webpack-special.js";
 
 // TODO merge this file with config.js into one to avoid problems with types
 
-/** @typedef {typeof browserConfig & typeof javascriptConfig & typeof jsonConfig & typeof markdownConfig & typeof nodeConfig & typeof testConfig & typeof stylisticConfig & typeof typescriptConfig & typeof reactConfig & typeof performanceConfig & typeof webpackSpecial} BasicConfigs */
+/** @typedef {typeof browserConfig & typeof htmlConfig & typeof javascriptConfig & typeof jsonConfig & typeof markdownConfig & typeof nodeConfig & typeof testConfig & typeof stylisticConfig & typeof typescriptConfig & typeof reactConfig & typeof performanceConfig & typeof webpackSpecial} BasicConfigs */
 /** @typedef {import("eslint").Linter.Config} Config */
 /** @typedef {(Config | Config[])[]} NestedConfig */
 /**
@@ -37,6 +38,7 @@ const configs =
 	/** @type {BasicConfigs & AddvancedConfigs} */
 	({
 		...browserConfig,
+		...htmlConfig,
 		...javascriptConfig,
 		...jsonConfig,
 		...markdownConfig,
