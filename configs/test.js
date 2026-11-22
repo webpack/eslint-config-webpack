@@ -276,6 +276,9 @@ async function getJestRecommendedConfig() {
 	};
 }
 
+/**
+ * @returns {Promise<import("eslint").Linter.Config>} config
+ */
 async function getNodeTestRecommendedConfig() {
 	const nodeTestPlugin = (await import("eslint-node-test")).default;
 	const recommendedConfig = /** @type {import("eslint").Linter.Config} */ (
