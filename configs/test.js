@@ -1,4 +1,5 @@
 import globals from "globals";
+import { codeFiles, codeIgnores } from "./utils/code-files.js";
 import getJsonFile from "./utils/get-json-file.js";
 
 /** @type {import("type-fest").PackageJson | null} */
@@ -275,6 +276,54 @@ async function getJestRecommendedConfig() {
 	};
 }
 
+/**
+ * @returns {Promise<import("eslint").Linter.Config>} config
+ */
+async function getNodeTestRecommendedConfig() {
+	const nodeTestPlugin = (await import("eslint-node-test")).default;
+	const recommendedConfig = /** @type {import("eslint").Linter.Config} */ (
+		nodeTestPlugin.configs.recommended
+	);
+
+	return {
+		...recommendedConfig,
+		name: "node-test/recommended",
+		files: codeFiles,
+		ignores: codeIgnores,
+		rules: {
+			...recommendedConfig.rules,
+
+			"node-test/consistent-modifier-style": "error",
+
+			// TODO enable in future
+			// "node-test/consistent-test-filename": "error",
+
+			"node-test/consistent-test-it": "error",
+
+			"node-test/no-commented-tests": "error",
+
+			"node-test/no-skip-without-reason": "error",
+
+			"node-test/no-sleep-in-test": "error",
+
+			"node-test/no-snapshot-in-loop": "error",
+
+			"node-test/no-unneeded-async-rejects-callback": "error",
+
+			"node-test/prefer-diagnostic": "error",
+
+			// Allow to use `MyClass` title in describe for class testing
+			"node-test/prefer-lowercase-title": ["error", { ignore: ["describe"] }],
+
+			"node-test/require-top-level-describe": "error",
+
+			// TODO think about it
+			"node-test/no-conditional-assertion": "off",
+		},
+	};
+}
+
 export default {
 	"jest/recommended": await getJestRecommendedConfig(),
+	"node-test/recommended": await getNodeTestRecommendedConfig(),
 };
