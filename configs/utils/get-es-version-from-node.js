@@ -20,7 +20,7 @@ import semver from "semver";
 const ranges = [
 	// ES2025: Node 22.0 ships all ES2025 syntax — import attributes
 	// (`with { type: "json" }`), the RegExp `/v` flag, and duplicate named
-	// capturing groups. Stdlib gaps (e.g. Promise.try lands at 22.5) are
+	// capturing groups. Stdlib gaps (e.g. Promise.try, which no Node 22 release has) are
 	// caught by eslint-plugin-n's `no-unsupported-features/node-builtins`,
 	// so we don't need a separate ES2024 row here.
 	{ range: ">=22.0.0", esVersion: 2025 },

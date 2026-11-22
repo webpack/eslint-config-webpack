@@ -1437,7 +1437,8 @@ const unicornRules = {
 
 	"unicorn/prefer-promise-static-methods": "error",
 
-	// Disabled for ECMAScript < 2025
+	// Disabled for ECMAScript < 2026: `Promise.try()` is ES2025, but Node.js 22, the
+	// ES2025 row in `get-es-version-from-node.js`, doesn't have it (V8 12.4)
 	"unicorn/prefer-promise-try": "error",
 
 	// Disabled for ECMAScript < 2024
@@ -1902,7 +1903,6 @@ function getConfig(esVersion) {
 	}
 
 	if (esVersion < 2025) {
-		config.rules["unicorn/prefer-promise-try"] = "off";
 		config.rules["unicorn/prefer-iterator-helpers"] = "off";
 		config.rules["unicorn/prefer-iterator-to-array"] = "off";
 		config.rules["unicorn/prefer-iterator-to-array-at-end"] = "off";
@@ -1912,6 +1912,7 @@ function getConfig(esVersion) {
 	// doesn't guarantee its availability at runtime, so the autofix would break older targets
 	if (esVersion < 2026) {
 		config.rules["unicorn/prefer-regexp-escape"] = "off";
+		config.rules["unicorn/prefer-promise-try"] = "off";
 		config.rules["unicorn/prefer-error-is-error"] = "off";
 		config.rules["unicorn/prefer-iterator-concat"] = "off";
 	}

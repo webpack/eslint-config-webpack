@@ -184,11 +184,11 @@ const commonRules = {
 const ignores = ["**/*.d.ts"];
 
 /**
- * @param {string} version the first Node.js version with a feature
+ * @param {string} range the Node.js versions that have a feature
  * @returns {boolean} true when every Node.js version `engines.node` allows has it,
  * or when there is no `engines.node`
  */
-function isSupportedByEngines(version) {
+function isSupportedByEngines(range) {
 	const packageJson = getJsonFile("package.json");
 	const engines =
 		packageJson &&
@@ -199,9 +199,7 @@ function isSupportedByEngines(version) {
 	}
 
 	try {
-		const minVersion = semver.minVersion(engines.node);
-
-		return minVersion !== null && semver.gte(minVersion, version);
+		return semver.subset(engines.node, range);
 	} catch {
 		return false;
 	}
@@ -275,7 +273,10 @@ async function getModuleConfig() {
 			...nodeConfig.rules,
 			...commonRules,
 			// `import.meta.dirname` and `import.meta.filename` landed in Node.js 20.11
-			"unicorn/prefer-import-meta-properties": isSupportedByEngines("20.11.0")
+			// and 21.2, so 21.0 and 21.1 don't have them
+			"unicorn/prefer-import-meta-properties": isSupportedByEngines(
+				"^20.11.0 || >=21.2.0",
+			)
 				? "error"
 				: "off",
 			"n/no-unsupported-features/es-syntax": [
