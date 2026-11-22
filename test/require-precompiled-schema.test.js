@@ -1,13 +1,12 @@
 import path from "node:path";
 import { describe, it } from "node:test";
-import { fileURLToPath } from "node:url";
 import { RuleTester } from "eslint";
 import { rule } from "../plugins/performance/rules/require-precompiled-schema.js";
 
 RuleTester.describe = describe;
 RuleTester.it = it;
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = import.meta.dirname;
 
 // Next to `options.json` and its `options.check.js`, and to `plain.json` that has no check
 const filename = path.join(__dirname, "fixtures/precompiled-schema/index.js");

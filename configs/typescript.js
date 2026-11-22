@@ -176,11 +176,10 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// types of `@throws` and `@yields`, so those go unchecked
 			"jsdoc/no-undefined-types": "off",
 
-			// TODO
+			// Needs type information (the `typescript-eslint` parser with a project)
 			// "jsdoc/no-unnecessary-type-assertion": "error",
 
-			// TODO
-			// "jsdoc/normalize-see-links": "error",
+			"jsdoc/normalize-see-links": "error",
 
 			// TODO enable me in future
 			// "jsdoc/prefer-import-tag": "error",
@@ -291,8 +290,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 			// No need
 			// "jsdoc/text-escaping": "error",
 
-			// TODO verify in recommended
-			// "jsdoc/	ts-ban-ts-comment": "error",
+			// From recommended
+			// "jsdoc/ts-ban-ts-comment": "error",
 
 			"jsdoc/type-formatting": [
 				"error",

@@ -18,10 +18,7 @@ async function getJestRecommendedConfig() {
 	const dependencies = packageJson.dependencies || {};
 	const devDependencies = packageJson.devDependencies || {};
 
-	if (
-		typeof dependencies.jest === "undefined" &&
-		typeof devDependencies.jest === "undefined"
-	) {
+	if (dependencies.jest === undefined && devDependencies.jest === undefined) {
 		return {
 			name: "jest/please-install-jest-to-enable-it",
 		};
@@ -234,16 +231,16 @@ async function getJestRecommendedConfig() {
 				},
 			],
 
-			// TODO
+			// Needs type information
 			// "jest/no-error-equal": "off",
 
-			// TODO
+			// Needs type information
 			// "jest/no-unnecessary-assertion": "off",
 
-			// TODO
+			// Needs type information
 			// "jest/unbound-method": "off",
 
-			// TODO
+			// Needs type information
 			// "jest/valid-expect-with-promise": "off",
 
 			// Disable it for tests, because often you can use `a`, `b`, `c` and etc variables

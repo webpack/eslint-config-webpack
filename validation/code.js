@@ -120,10 +120,11 @@ objectVariable.log = function log(items, options = {}) {
 arrayVariable.push(constVariable);
 
 /**
+ * @param {...unknown} args args
  * @returns {string} test
  */
-function handler() {
-	return "test";
+function handler(...args) {
+	return `test${args.length}`;
 }
 
 const obj = {
@@ -326,7 +327,7 @@ function processInput(input = [0, 0, 0, 0]) {
  * @returns {{ bottom: 0, left: 0, right: 0, top: 0 }} result
  */
 function render(data = {}, position = [0, 0, 0, 0]) {
-	return processInput(data, position);
+	return processInput(Object.keys(data).length > 0 ? position : undefined);
 }
 
 /**
@@ -534,10 +535,11 @@ const numbers = [0, 1, 2];
 multiply(1, ...numbers);
 
 /**
+ * @param {string} url url
  * @returns {Promise<string>} result
  */
-function fetch() {
-	return Promise.resolve("Some value");
+function fetch(url) {
+	return Promise.resolve(`Some value from ${url}`);
 }
 
 /**
@@ -664,9 +666,10 @@ function tag(strings) {
 tag`string text line 1 \n string text line 2`;
 
 /**
+ * @param {...unknown} _args args
  * @returns {string} result
  */
-function foo() {
+function foo(..._args) {
 	const before = tag("test");
 
 	if (before === "before") {
@@ -700,9 +703,10 @@ while (i < 10) {
 handler(value);
 
 /**
+ * @param {...unknown} _args args
  * @returns {{ handsValues: number[], lastIndex: number }} result
  */
-function handleHands() {
+function handleHands(..._args) {
 	const hands = [];
 	const handsValues = [];
 	let lastIndex = 0;
