@@ -225,7 +225,7 @@ const suggestions = {
 	"class-methods-use-this": "off",
 
 	// No need
-	"complexity": "off",
+	complexity: "off",
 
 	// No need
 	"consistent-return": "off",
@@ -1607,7 +1607,7 @@ const unicornRules = {
 	"unicorn/throw-new-error": "error",
 
 	// No need
-	"unicorn/try-complexity": "off"
+	"unicorn/try-complexity": "off",
 };
 
 /** @type {import("eslint").Linter.Config["rules"]} */
@@ -1899,7 +1899,6 @@ function getConfig(esVersion) {
 		config.rules["unicorn/prefer-iterator-to-array"] = "off";
 		config.rules["unicorn/prefer-iterator-to-array-at-end"] = "off";
 	}
-
 
 	// `RegExp.escape()` is an ES2026 API (Node.js 24+), the parser setting alone
 	// doesn't guarantee its availability at runtime, so the autofix would break older targets
