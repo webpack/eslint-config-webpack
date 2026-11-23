@@ -219,10 +219,14 @@ async function getCommonJSConfig() {
 		plugins: {
 			...nodeConfig.plugins,
 			"import-x": importPlugin,
+			unicorn: unicornPlugin,
 		},
 		rules: {
 			...nodeConfig.rules,
 			...commonRules,
+			// No top-level `await` in CommonJS; off explicitly, because
+			// `browser/recommended` enables it before this config in `universal-recommended`
+			"unicorn/prefer-top-level-await": "off",
 			"n/exports-style": "error",
 			"n/no-path-concat": "error",
 			"import-x/extensions": [
@@ -279,6 +283,8 @@ async function getModuleConfig() {
 			)
 				? "error"
 				: "off",
+			// Disabled for ECMAScript < 2022 in `javascript/*`
+			"unicorn/prefer-top-level-await": "error",
 			"n/no-unsupported-features/es-syntax": [
 				"error",
 				{
@@ -335,6 +341,9 @@ async function getDirtyConfig() {
 
 			// Disable for dirty modules
 			"import-x/extensions": ["off"],
+
+			// A dirty file can be CommonJS, which has no top-level `await`
+			"unicorn/prefer-top-level-await": "off",
 		},
 	};
 }

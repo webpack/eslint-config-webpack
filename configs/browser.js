@@ -40,6 +40,13 @@ const recommendedBrowserOutdatedModuleConfig = {
 			...globals.browser,
 		},
 	},
+	plugins: {
+		unicorn: unicornPlugin,
+	},
+	rules: {
+		// Disabled for ECMAScript < 2022 in `javascript/*`
+		"unicorn/prefer-top-level-await": "error",
+	},
 };
 
 /** @type {import("eslint").Linter.Config} */
@@ -122,6 +129,9 @@ const recommendedBrowserConfig = {
 		"unicorn/prefer-keyboard-event-key": "error",
 
 		"unicorn/prefer-query-selector": "error",
+
+		// Disabled for ECMAScript < 2022 in `javascript/*`
+		"unicorn/prefer-top-level-await": "error",
 
 		"import-x/extensions": [
 			"error",

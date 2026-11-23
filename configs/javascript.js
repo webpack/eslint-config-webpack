@@ -1536,7 +1536,10 @@ const unicornRules = {
 	// Not here, define only for `browsers`
 	// "unicorn/prefer-toggle-attribute": "error",
 
-	"unicorn/prefer-top-level-await": "error",
+	// Only for ECMAScript modules, so enabled in `node/module`, `browser/recommended`
+	// and `browser/recommended-outdated-module`: CommonJS and scripts can't use
+	// top-level `await`, and the rule only skips `.cjs` files
+	// "unicorn/prefer-top-level-await": "error",
 
 	// No need
 	// "unicorn/prefer-type-error": "error",
@@ -1885,6 +1888,7 @@ function getConfig(esVersion) {
 	if (esVersion < 2022) {
 		config.rules["prefer-object-has-own"] = "off";
 		config.rules["unicorn/prefer-structured-clone"] = "off";
+		// Turns off the rule the module configs above enable
 		config.rules["unicorn/prefer-top-level-await"] = "off";
 		config.rules["unicorn/prefer-class-fields"] = "off";
 		config.rules["unicorn/prefer-at"] = "off";
