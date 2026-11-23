@@ -781,7 +781,7 @@ const unicornRules = {
 	// No need
 	// "unicorn/id-match": "off",
 
-	// TODO do we need it?
+	// No need
 	// "unicorn/import-style": "off",
 
 	// No need
@@ -801,7 +801,6 @@ const unicornRules = {
 	// No need
 	// "unicorn/max-nested-calls": "off",
 
-	// TODO do we need it?
 	// "unicorn/name-replacements": "off",
 
 	"unicorn/new-for-builtins": "error",
@@ -812,8 +811,7 @@ const unicornRules = {
 
 	"unicorn/no-accidental-bitwise-operator": "error",
 
-	// TODO do we need it?
-	// "unicorn/no-anonymous-default-export": "off",
+	"unicorn/no-anonymous-default-export": "error",
 
 	// No need
 	// "unicorn/no-array-callback-reference": "off",
@@ -1888,8 +1886,6 @@ function getConfig(esVersion) {
 	if (esVersion < 2022) {
 		config.rules["prefer-object-has-own"] = "off";
 		config.rules["unicorn/prefer-structured-clone"] = "off";
-		// Turns off the rule the module configs above enable
-		config.rules["unicorn/prefer-top-level-await"] = "off";
 		config.rules["unicorn/prefer-class-fields"] = "off";
 		config.rules["unicorn/prefer-at"] = "off";
 	}
