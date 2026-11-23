@@ -12,12 +12,22 @@ const recommendedConfig = {
 	},
 	rules: {
 		curly: ["error", "multi-line", "consistent"],
+
+		// We use prettier
+		// Set by default false all stylistics rules
+		...Object.fromEntries(
+			// @ts-expect-error bad types
+			Object.keys(stylisticPlugin.configs.all.rules).map((key) => [key, "off"]),
+		),
+
 		"@stylistic/lines-between-class-members": "error",
+
 		"@stylistic/quotes": [
 			"error",
 			"double",
 			{ avoidEscape: true, allowTemplateLiterals: "never" },
 		],
+
 		"@stylistic/spaced-comment": [
 			"error",
 			"always",
@@ -35,6 +45,7 @@ const recommendedConfig = {
 				},
 			},
 		],
+
 		"@stylistic/padding-line-between-statements": [
 			"error",
 			{ blankLine: "always", prev: ["cjs-export"], next: "*" },
@@ -71,6 +82,7 @@ const recommendedConfig = {
 			// Require newline after directives
 			{ blankLine: "always", prev: ["directive"], next: "*" },
 		],
+
 		"@stylistic/lines-around-comment": [
 			"error",
 			{

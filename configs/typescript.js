@@ -181,8 +181,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 
 			"jsdoc/normalize-see-links": "error",
 
-			// TODO enable me in future
-			// "jsdoc/prefer-import-tag": "error",
+			// We have own rule
+			"jsdoc/prefer-import-tag": "off",
 
 			"jsdoc/reject-any-type": "error",
 
