@@ -671,7 +671,8 @@ const unicornRules = {
 	// Not here and no need, define only for `browsers`
 	"unicorn/better-dom-traversing": "off",
 
-	"unicorn/class-reference-in-static-methods": "error",
+	// TODO Do we really need? Need verify readable
+	// "unicorn/class-reference-in-static-methods": "error",
 
 	"unicorn/catch-error-name": [
 		"error",
@@ -690,13 +691,13 @@ const unicornRules = {
 	"unicorn/consistent-assert": "error",
 
 	// TODO enable it in future
-	"unicorn/consistent-boolean-name": "off",
+	// "unicorn/consistent-boolean-name": "error",
 
 	// TODO enable it in future
-	"unicorn/consistent-class-member-order": "off",
+	// "unicorn/consistent-class-member-order": "error",
 
 	// TODO enable it in future
-	"unicorn/consistent-compound-words": "off",
+	// "unicorn/consistent-compound-words": "error",
 
 	"unicorn/consistent-conditional-object-spread": "error",
 
@@ -726,17 +727,16 @@ const unicornRules = {
 
 	"unicorn/consistent-tuple-labels": "error",
 
-	// TODO Do we need it?
 	"unicorn/custom-error-definition": "off",
 
-	// TODO enable for class
-	"unicorn/default-export-style": "off",
+	// TODO investiagte
+	// "unicorn/default-export-style": "off",
 
 	// Not here, define only for `browsers`
 	"unicorn/dom-node-dataset": "off",
 
 	// No need, we have prettier
-	"unicorn/empty-brace-spaces": "off",
+	// "unicorn/empty-brace-spaces": "off",
 
 	"unicorn/error-message": "error",
 
@@ -810,9 +810,11 @@ const unicornRules = {
 
 	"unicorn/no-accidental-bitwise-operator": "error",
 
-	"unicorn/no-anonymous-default-export": "error",
+	// TODO Do we need it
+	// "unicorn/no-anonymous-default-export": "error",
 
-	"unicorn/no-array-callback-reference": "error",
+	// TODO Enable it
+	// "unicorn/no-array-callback-reference": "off",
 
 	"unicorn/no-array-concat-in-loop": "error",
 
@@ -974,7 +976,8 @@ const unicornRules = {
 
 	"unicorn/no-lonely-if": "error",
 
-	"unicorn/no-loop-iterable-mutation": "error",
+	// TODO Do we need it?
+	// "unicorn/no-loop-iterable-mutation": "off",
 
 	// No need we have `no-loss-of-precision`, this rule only for JSON and etc
 	// "unicorn/no-loss-of-precision": "error",
@@ -1002,8 +1005,8 @@ const unicornRules = {
 	// TODO enable checkLogicalExpressions?
 	"unicorn/no-negated-comparison": "error",
 
-	// No need
-	"unicorn/no-negated-condition": "off",
+	// TODO Do we need it?
+	// "unicorn/no-negated-condition": "off",
 
 	"unicorn/no-negation-in-equality-check": "error",
 
@@ -1069,10 +1072,11 @@ const unicornRules = {
 	// "unicorn/no-top-level-side-effects": "off",
 
 	// TODO Enable for CSS
-	"unicorn/no-transition-all": "off",
+	// "unicorn/no-transition-all": "off",
 
 	// Only for variables and properties, `typeof` stays for globals, which may be undeclared
-	"unicorn/no-typeof-undefined": "error",
+	// TODO enable in future
+	// "unicorn/no-typeof-undefined": "error",
 
 	"unicorn/no-uncalled-method": "error",
 
@@ -1121,7 +1125,8 @@ const unicornRules = {
 	// No need
 	"unicorn/no-unreadable-new-expression": "off",
 
-	"unicorn/no-unreadable-object-destructuring": "error",
+	// TODO Do we need it?
+	// "unicorn/no-unreadable-object-destructuring": "error",
 
 	"unicorn/no-unsafe-buffer-conversion": "error",
 
@@ -1163,7 +1168,8 @@ const unicornRules = {
 
 	"unicorn/no-useless-delete-check": "error",
 
-	"unicorn/no-useless-else": "error",
+	// TODO enable in future
+	// "unicorn/no-useless-else": "error",
 
 	"unicorn/no-useless-error-capture-stack-trace": "error",
 
@@ -1268,9 +1274,11 @@ const unicornRules = {
 	// No need
 	// "unicorn/prefer-code-point": "error",
 
-	"unicorn/prefer-combined-guards": "error",
+	// TODO enable in future
+	// "unicorn/prefer-combined-guards": "error",
 
-	"unicorn/prefer-continue": "error",
+	// TODO Enable it in future
+	// "unicorn/prefer-continue": "error",
 
 	"unicorn/prefer-date-now": "error",
 
@@ -1296,7 +1304,8 @@ const unicornRules = {
 	// Not here, define only for `browsers`
 	// "unicorn/prefer-dom-node-text-content": "error",
 
-	"unicorn/prefer-early-return": "error",
+	// TODO Do we need it?
+	// "unicorn/prefer-early-return": "error",
 
 	"unicorn/prefer-else-if": "error",
 
@@ -1334,7 +1343,8 @@ const unicornRules = {
 
 	"unicorn/prefer-includes": "error",
 
-	"unicorn/prefer-includes-over-repeated-comparisons": "error",
+	// TODO Enable in future
+	// "unicorn/prefer-includes-over-repeated-comparisons": "error",
 
 	"unicorn/prefer-iterable-in-constructor": "error",
 
@@ -1411,7 +1421,8 @@ const unicornRules = {
 
 	"unicorn/prefer-object-from-entries": "error",
 
-	"unicorn/prefer-object-iterable-methods": "error",
+	// TODO enable in future
+	// "unicorn/prefer-object-iterable-methods": "error",
 
 	// Not here, define only for `browsers`
 	// "unicorn/prefer-observer-apis": "off",
@@ -1544,7 +1555,8 @@ const unicornRules = {
 
 	"unicorn/prefer-unary-minus": "error",
 
-	"unicorn/prefer-unicode-code-point-escapes": "error",
+	// TODO enable in future
+	// "unicorn/prefer-unicode-code-point-escapes": "error",
 
 	// Disabled for ECMAScript < 2023 (Node.js 20, the first with `URL.canParse()` in all its releases)
 	"unicorn/prefer-url-can-parse": "error",

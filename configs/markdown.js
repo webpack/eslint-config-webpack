@@ -75,7 +75,10 @@ async function getMarkdownRecommendedConfig() {
 				// "markdown/no-missing-atx-heading-space": "error",
 
 				// From recommended
-				// "markdown/no-missing-label-refs": "error",
+				"markdown/no-missing-label-refs": [
+					"error",
+					{ allowLabels: ["!REQUIRED"] },
+				],
 
 				// From recommended
 				// "markdown/no-missing-link-fragments": "error",
@@ -96,7 +99,8 @@ async function getMarkdownRecommendedConfig() {
 				// "markdown/no-unused-definitions": "error",
 
 				// From recommended
-				// "markdown/require-alt-text": "error",
+				// TODO enable in future
+				"markdown/require-alt-text": "off",
 
 				"markdown/table-column-count": ["error", { checkMissingCells: true }],
 
