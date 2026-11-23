@@ -16,7 +16,8 @@ const recommendedConfig = {
 		// We use prettier
 		// Set by default false all stylistics rules
 		...Object.fromEntries(
-			Object.keys(stylisticPlugin.configs.all.rules).map(key => [key, "off"])
+			// @ts-expect-error bad types
+			Object.keys(stylisticPlugin.configs.all.rules).map((key) => [key, "off"]),
 		),
 
 		"@stylistic/lines-between-class-members": "error",
