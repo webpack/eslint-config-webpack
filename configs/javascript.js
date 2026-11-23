@@ -729,10 +729,8 @@ const unicornRules = {
 	// TODO Do we need it?
 	"unicorn/custom-error-definition": "off",
 
-	"unicorn/default-export-style": [
-		"error",
-		{ functions: "separate", classes: "separate" },
-	],
+	// TODO enable for class
+	"unicorn/default-export-style": "off",
 
 	// Not here, define only for `browsers`
 	"unicorn/dom-node-dataset": "off",
@@ -1115,7 +1113,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-unreadable-array-destructuring": "off",
 
-	"unicorn/no-unreadable-for-of-expression": "error",
+	// No need
+	"unicorn/no-unreadable-for-of-expression": "off",
 
 	"unicorn/no-unreadable-iife": "error",
 
@@ -1340,7 +1339,8 @@ const unicornRules = {
 	"unicorn/prefer-iterable-in-constructor": "error",
 
 	// Disabled for ECMAScript < 2026
-	"unicorn/prefer-iterator-concat": "error",
+	// TODO Do we need it
+	"unicorn/prefer-iterator-concat": "off",
 
 	// Disabled for ECMAScript < 2025
 	"unicorn/prefer-iterator-helpers": "error",
@@ -1559,7 +1559,8 @@ const unicornRules = {
 
 	"unicorn/require-array-join-separator": "error",
 
-	"unicorn/require-array-sort-compare": "error",
+	// TODO enable in future
+	"unicorn/require-array-sort-compare": "off",
 
 	// Not here, define only for `browsers`
 	// "unicorn/require-css-escape": "error",
@@ -1847,7 +1848,6 @@ function getConfig(esVersion) {
 		config.rules["no-template-curly-in-string"] = "off";
 		config.rules["unicorn/prefer-spread"] = "off";
 		config.rules["unicorn/prefer-includes"] = "off";
-		config.rules["unicorn/no-array-for-each"] = "off";
 		config.rules["unicorn/no-for-each"] = "off";
 	}
 
@@ -1907,7 +1907,6 @@ function getConfig(esVersion) {
 		config.rules["unicorn/prefer-regexp-escape"] = "off";
 		config.rules["unicorn/prefer-promise-try"] = "off";
 		config.rules["unicorn/prefer-error-is-error"] = "off";
-		config.rules["unicorn/prefer-iterator-concat"] = "off";
 		config.rules["unicorn/prefer-uint8array-base64"] = "off";
 		config.rules["unicorn/prefer-get-or-insert-computed"] = "off";
 	}

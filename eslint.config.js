@@ -92,4 +92,8 @@ export default defineConfig([
 			],
 		},
 	},
+	{
+		files: ["./validation/node-test/**/*"],
+		extends: [configs["node-test/recommended"]],
+	},
 ]);

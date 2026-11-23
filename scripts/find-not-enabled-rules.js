@@ -97,7 +97,7 @@ const ruleFilter = new Set(getValues("--rule"));
  * @returns {Config[]} flat list of configs
  */
 function flatten(value) {
-	if (Array.isArray(value)) return value.flatMap(flatten);
+	if (Array.isArray(value)) return value.flatMap((value) => flatten(value));
 	if (!value || typeof value !== "object") return [];
 
 	const config = /** @type {Config & { extends?: unknown[] }} */ (value);
@@ -366,24 +366,24 @@ for (const namespace of namespaces) {
 			return "severity differs";
 		};
 
-		if (!deprecated) {
-			pluginReport.total++;
-			if (enabled) pluginReport.enabled++;
-		}
-
 		if (deprecated && !includeDeprecated) continue;
-		if (onlyEnabled && !enabled) continue;
-		if (onlyNotEnabled && enabled) continue;
-		if (ruleFilter.size > 0 && !ruleFilter.has(id)) continue;
 
 		const oursReport = variants.map(({ entry, where }) => ({
 			value: entry,
 			configs: collapseEsVersions([...where]),
 		}));
 
-		if (oursReport.length === 0) {
-			pluginReport.notConfigured++;
+		if (!deprecated) {
+			pluginReport.total++;
+			if (enabled) pluginReport.enabled++;
+			if (oursReport.length === 0) {
+				pluginReport.notConfigured++;
+			}
 		}
+
+		if (onlyEnabled && !enabled) continue;
+		if (onlyNotEnabled && enabled) continue;
+		if (ruleFilter.size > 0 && !ruleFilter.has(id)) continue;
 
 		pluginReport.rules.push({
 			id,
@@ -492,6 +492,6 @@ if (asJson) {
 	console.log(
 		`\nPresets scanned: ${Object.keys(configs).length}, total rules: ${totals.total}, rules enabled: ${
 			totals.enabled
-		}, rules disabled: ${totals.total - totals.enabled}, rules are not configured: ${totals.notConfigured}`,
+		}, rules disabled: ${totals.total - totals.enabled - totals.notConfigured}, rules are not configured: ${totals.notConfigured}`,
 	);
 }
