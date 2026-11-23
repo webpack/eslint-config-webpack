@@ -27,7 +27,7 @@ const possibleProblems = {
 	// "no-async-promise-executor": "error"
 
 	// No need
-	// "no-await-in-loop": "off",
+	"no-await-in-loop": "off",
 
 	// From recommended
 	// "no-class-assign": "error",
@@ -219,25 +219,24 @@ const suggestions = {
 	],
 
 	// No need
-	// "capitalized-comments": "error"
+	"capitalized-comments": "off",
 
 	// No need
-	// "class-methods-use-this": "error"
+	"class-methods-use-this": "off",
 
 	// No need
-	// "complexity": "error"
+	"complexity": "off",
 
 	// No need
-	// "consistent-return": "error",
+	"consistent-return": "off",
 
 	// No need
-	// "consistent-this": "error",
+	"consistent-this": "off",
 
 	// Configuration in `stylistic`
-	// curly: "off",
+	curly: "off",
 
-	// No need
-	// "default-case": "error",
+	"default-case": "off",
 
 	"default-case-last": "error",
 
@@ -274,7 +273,7 @@ const suggestions = {
 	// "guard-for-in": "error",
 
 	// No need
-	// "id-denylist": ["error", []]
+	"id-denylist": "off",
 
 	"id-length": [
 		"error",
@@ -314,30 +313,30 @@ const suggestions = {
 	],
 
 	// No need
-	// "init-declarations": "error",
+	"init-declarations": "off",
 
 	"logical-assignment-operators": "error",
 
 	// No need
-	// "max-classes-per-file": "off",
+	"max-classes-per-file": "off",
 
 	// No need
-	// "max-depth": "off",
+	"max-depth": "off",
 
 	// No need
-	// "max-lines": "off",
+	"max-lines": "off",
 
 	// No need
-	// "max-lines-per-function": "off",
+	"max-lines-per-function": "off",
 
 	// No need
-	// "max-nested-callbacks": "off",
+	"max-nested-callbacks": "off",
 
 	// No need
-	// "max-params": "off",
+	"max-params": "off",
 
 	// No need
-	// "max-statements": "off",
+	"max-statements": "off",
 
 	// For `prop-types`
 	"new-cap": ["error", { capIsNewExceptionPattern: "^.+Type$" }],
@@ -347,7 +346,7 @@ const suggestions = {
 	"no-array-constructor": "error",
 
 	// No need
-	// "no-bitwise": "error",
+	"no-bitwise": "off",
 
 	"no-caller": "error",
 
@@ -357,7 +356,7 @@ const suggestions = {
 	"no-console": "error",
 
 	// No need
-	// "no-continue": "error",
+	"no-continue": "off",
 
 	// From recommended
 	// "no-delete-var": "error",
@@ -382,7 +381,6 @@ const suggestions = {
 			],
 		},
 	],
-	// "no-empty-function": "error"
 
 	// From recommended
 	// "no-empty-static-block": "error"
@@ -418,7 +416,7 @@ const suggestions = {
 	"no-implied-eval": "error",
 
 	// No need
-	// "no-inline-comments": "error",
+	"no-inline-comments": "off",
 
 	// No need
 	// "no-invalid-this": "error",
@@ -437,7 +435,7 @@ const suggestions = {
 	"no-loop-func": "error",
 
 	// No need
-	// "no-magic-numbers": "off",
+	"no-magic-numbers": "off",
 
 	// No need
 	// "no-multi-assign": "off",
@@ -445,10 +443,10 @@ const suggestions = {
 	"no-multi-str": "error",
 
 	// No need
-	// "no-negated-condition": "off",
+	"no-negated-condition": "off",
 
 	// No need
-	// "no-nested-ternary": "off",
+	"no-nested-ternary": "off",
 
 	"no-new": "error",
 
@@ -467,10 +465,10 @@ const suggestions = {
 	"no-octal-escape": "error",
 
 	// No need
-	// "no-param-reassign": "off",
+	"no-param-reassign": "off",
 
 	// No need
-	// "no-plusplus": "off",
+	"no-plusplus": "off",
 
 	"no-proto": "error",
 
@@ -481,19 +479,19 @@ const suggestions = {
 	// "no-regex-spaces": "error",
 
 	// No need
-	// "no-restricted-exports": "error",
+	"no-restricted-exports": "error",
 
 	// No need
-	// "no-restricted-globals": "error",
+	"no-restricted-globals": "error",
 
 	// No need
-	// "no-restricted-imports": "off",
+	"no-restricted-imports": "off",
 
 	// No need
-	// "no-restricted-properties": "off",
+	"no-restricted-properties": "off",
 
 	// No need
-	// "no-restricted-syntax": ["error", "DebuggerStatement", "WithStatement"],
+	"no-restricted-syntax": "off",
 
 	"no-return-assign": "error",
 
@@ -502,23 +500,23 @@ const suggestions = {
 	"no-sequences": "error",
 
 	// No need
-	// "no-shadow": "off",
+	"no-shadow": "off",
 
 	// From recommended
 	// "no-shadow-restricted-names": "error",
 
 	// No need
-	// "no-ternary": "error",
+	"no-ternary": "off",
 
 	"no-throw-literal": "error",
 
 	"no-undef-init": "error",
 
 	// No need
-	// "no-undefined": "off",
+	"no-undefined": "off",
 
 	// No need
-	// "no-underscore-dangle": "off",
+	"no-underscore-dangle": "off",
 
 	"no-unneeded-ternary": ["error", { defaultAssignment: false }],
 
@@ -544,7 +542,7 @@ const suggestions = {
 	"no-useless-concat": "error",
 
 	// No need
-	// "no-useless-constructor": "error",
+	"no-useless-constructor": "off",
 
 	"no-useless-escape": "error",
 
@@ -648,17 +646,17 @@ const suggestions = {
 	// "sort-imports": "off",
 
 	// No need
-	// "sort-keys": "off",
+	"sort-keys": "off",
 
 	// No need
-	// "sort-vars": "off",
+	"sort-vars": "off",
 
 	strict: ["error", "global"],
 
 	"symbol-description": "error",
 
 	// No need
-	// "vars-on-top": "off",
+	"vars-on-top": "off",
 
 	yoda: "error",
 };
@@ -670,8 +668,8 @@ const layoutAndFormatting = {
 
 /** @type {import("eslint").Linter.Config["rules"]} */
 const unicornRules = {
-	// Not here, define only for `browsers`
-	// "unicorn/better-dom-traversing": "error",
+	// Not here and no need, define only for `browsers`
+	"unicorn/better-dom-traversing": "off",
 
 	"unicorn/class-reference-in-static-methods": "error",
 
@@ -681,24 +679,24 @@ const unicornRules = {
 	],
 
 	// No need
-	// "unicorn/comma-spacing": "off",
+	"unicorn/comma-spacing": "off",
 
 	// No need
-	// "unicorn/comment-content": "off",
+	"unicorn/comment-content": "off",
 
 	// No need
-	// "unicorn/consistent-arrow-return-style": "off",
+	"unicorn/consistent-arrow-return-style": "off",
 
 	"unicorn/consistent-assert": "error",
 
 	// TODO enable it in future
-	// "unicorn/consistent-boolean-name": "error",
+	"unicorn/consistent-boolean-name": "off",
 
 	// TODO enable it in future
-	// "unicorn/consistent-class-member-order": "error",
+	"unicorn/consistent-class-member-order": "off",
 
 	// TODO enable it in future
-	// "unicorn/consistent-compound-words": "error",
+	"unicorn/consistent-compound-words": "off",
 
 	"unicorn/consistent-conditional-object-spread": "error",
 
@@ -728,27 +726,29 @@ const unicornRules = {
 
 	"unicorn/consistent-tuple-labels": "error",
 
-	// No need
-	// "unicorn/custom-error-definition": "off",
+	// TODO Do we need it?
+	"unicorn/custom-error-definition": "off",
 
-	// TODO investiagte
-	// "unicorn/default-export-style": "off",
+	"unicorn/default-export-style": [
+		"error",
+		{ functions: "separate", classes: "separate" },
+	],
 
 	// Not here, define only for `browsers`
-	// "unicorn/dom-node-dataset": "error",
+	"unicorn/dom-node-dataset": "off",
 
-	// No need
-	// "unicorn/empty-brace-spaces": "off",
+	// No need, we have prettier
+	"unicorn/empty-brace-spaces": "off",
 
 	"unicorn/error-message": "error",
 
 	"unicorn/escape-case": "error",
 
 	// No need
-	// "unicorn/expiring-todo-comments": "off",
+	"unicorn/expiring-todo-comments": "off",
 
 	// No need
-	// "unicorn/explicit-length-check": "off",
+	"unicorn/explicit-length-check": "off",
 
 	"unicorn/explicit-timer-delay": "error",
 
@@ -778,30 +778,31 @@ const unicornRules = {
 		},
 	],
 
-	// No need
-	// "unicorn/id-match": "off",
+	// No need, we have the same eslint rule
+	"unicorn/id-match": "off",
 
 	// No need
-	// "unicorn/import-style": "off",
+	"unicorn/import-style": "off",
 
 	// No need
-	// "unicorn/indent": "off",
+	"unicorn/indent": "off",
 
 	// No need
-	// "unicorn/isolated-functions": "off",
+	"unicorn/isolated-functions": "off",
 
 	"unicorn/iteration-fallback-style": ["error", "fallback"],
 
 	// TODO enable in future
-	// "unicorn/key-name-casing": "off",
+	"unicorn/key-name-casing": "off",
+
+	// No need, we have the same eslint rule
+	"unicorn/logical-assignment-operators": "off",
 
 	// No need
-	// "unicorn/logical-assignment-operators": "off",
+	"unicorn/max-nested-calls": "off",
 
 	// No need
-	// "unicorn/max-nested-calls": "off",
-
-	// "unicorn/name-replacements": "off",
+	"unicorn/name-replacements": "off",
 
 	"unicorn/new-for-builtins": "error",
 
@@ -813,8 +814,7 @@ const unicornRules = {
 
 	"unicorn/no-anonymous-default-export": "error",
 
-	// No need
-	// "unicorn/no-array-callback-reference": "off",
+	"unicorn/no-array-callback-reference": "error",
 
 	"unicorn/no-array-concat-in-loop": "error",
 
@@ -823,22 +823,19 @@ const unicornRules = {
 	"unicorn/no-array-from-fill": "error",
 
 	// No need
-	// "unicorn/no-array-front-mutation": "off"
+	"unicorn/no-array-front-mutation": "off",
 
 	"unicorn/no-array-method-this-argument": "error",
 
 	// No need
-	// "unicorn/no-array-reduce": "off",
+	"unicorn/no-array-reduce": "off",
 
-	// No need
-	// "unicorn/no-array-reverse": "off",
+	"unicorn/no-array-reverse": "off",
 
-	// TODO need to check performance
 	"unicorn/no-array-sort": "error",
 
 	"unicorn/no-array-sort-for-min-max": "error",
 
-	// TODO need to check performance
 	"unicorn/no-array-splice": "error",
 
 	// No need
@@ -854,7 +851,7 @@ const unicornRules = {
 	"unicorn/no-await-in-promise-methods": "error",
 
 	// No need
-	// "unicorn/no-barrel-files": "off",
+	"unicorn/no-barrel-files": "off",
 
 	"unicorn/no-blob-to-file": "error",
 
@@ -873,14 +870,13 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-computed-property-existence-check": "off",
 
-	// TODO implement CSS preset
-	// "unicorn/no-conflicting-constraints": "off",
+	"unicorn/no-conflicting-constraints": "error",
 
 	// No need
-	// "unicorn/no-confusing-array-splice": "off",
+	"unicorn/no-confusing-array-splice": "off",
 
 	// No need
-	// "unicorn/no-confusing-array-with": "off",
+	"unicorn/no-confusing-array-with": "off",
 
 	"unicorn/no-console-spaces": "error",
 
@@ -902,8 +898,7 @@ const unicornRules = {
 
 	"unicorn/no-duplicate-set-values": "error",
 
-	// No need
-	// "unicorn/no-empty-file": "off",
+	"unicorn/no-empty-file": "error",
 
 	// Markdown only, enabled in `markdown/recommended`
 	// "unicorn/no-empty-link-text": "off",
@@ -981,8 +976,7 @@ const unicornRules = {
 
 	"unicorn/no-lonely-if": "error",
 
-	// TODO Do we need it?
-	// "unicorn/no-loop-iterable-mutation": "off",
+	"unicorn/no-loop-iterable-mutation": "error",
 
 	// No need we have `no-loss-of-precision`, this rule only for JSON and etc
 	// "unicorn/no-loss-of-precision": "error",
@@ -1010,8 +1004,8 @@ const unicornRules = {
 	// TODO enable checkLogicalExpressions?
 	"unicorn/no-negated-comparison": "error",
 
-	// TODO Do we need it?
-	// "unicorn/no-negated-condition": "off",
+	// No need
+	"unicorn/no-negated-condition": "off",
 
 	"unicorn/no-negation-in-equality-check": "error",
 
@@ -1031,7 +1025,7 @@ const unicornRules = {
 	// "unicorn/no-nonstandard-builtin-properties": "off",
 
 	// No need
-	// "unicorn/no-null": "off",
+	"unicorn/no-null": "off",
 
 	// No need
 	// "unicorn/no-object-as-default-parameter": "off",
@@ -1048,7 +1042,7 @@ const unicornRules = {
 	"unicorn/no-redundant-comparison": "error",
 
 	// No need
-	// "unicorn/no-repeated-call-wrappers": "off",
+	"unicorn/no-repeated-call-wrappers": "off",
 
 	"unicorn/no-return-array-push": "error",
 
@@ -1068,7 +1062,7 @@ const unicornRules = {
 	// "unicorn/no-this-assignment": "off",
 
 	// No need
-	// "unicorn/no-this-outside-of-class": "off",
+	"unicorn/no-this-outside-of-class": "off",
 
 	// TODO we need to think how refactor webpack to enable it, it is useful for initial start
 	// "unicorn/no-top-level-assignment-in-function": "off",
@@ -1076,16 +1070,16 @@ const unicornRules = {
 	// TODO need testing
 	// "unicorn/no-top-level-side-effects": "off",
 
-	// TODO enable for CSS
-	// "unicorn/no-transition-all": "off",
+	// TODO Enable for CSS
+	"unicorn/no-transition-all": "off",
 
 	// Only for variables and properties, `typeof` stays for globals, which may be undeclared
 	"unicorn/no-typeof-undefined": "error",
 
 	"unicorn/no-uncalled-method": "error",
 
-	// TODO no need - use typescript
-	// "unicorn/no-undeclared-class-members": "off",
+	// No need, please use typescript
+	"unicorn/no-undeclared-class-members": "off",
 
 	"unicorn/no-unnecessary-array-flat-depth": "error",
 
@@ -1121,16 +1115,14 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-unreadable-array-destructuring": "off",
 
-	// No need
-	// "unicorn/no-unreadable-for-of-expression": "off",
+	"unicorn/no-unreadable-for-of-expression": "error",
 
 	"unicorn/no-unreadable-iife": "error",
 
 	// No need
-	// "unicorn/no-unreadable-new-expression": "off",
+	"unicorn/no-unreadable-new-expression": "off",
 
-	// TODO Do we need it?
-	// "unicorn/no-unreadable-object-destructuring": "error",
+	"unicorn/no-unreadable-object-destructuring": "error",
 
 	"unicorn/no-unsafe-buffer-conversion": "error",
 
@@ -1272,7 +1264,7 @@ const unicornRules = {
 	"unicorn/prefer-class-fields": "error",
 
 	// Not here, define only for `browsers`
-	// "unicorn/prefer-classlist-toggle": "error",
+	"unicorn/prefer-classlist-toggle": "off",
 
 	// No need
 	// "unicorn/prefer-code-point": "error",
@@ -1320,8 +1312,7 @@ const unicornRules = {
 
 	"unicorn/prefer-flat-math-min-max": "error",
 
-	// TODO enable in future
-	// "unicorn/prefer-get-or-insert-computed": "error",
+	"unicorn/prefer-get-or-insert-computed": "error",
 
 	// No need
 	// "unicorn/prefer-global-number-constants": "off",
@@ -1527,7 +1518,8 @@ const unicornRules = {
 	// TODO Enable in future
 	// "unicorn/prefer-temporal-conversion": "error",
 
-	"unicorn/prefer-ternary": ["error", "only-single-line"],
+	// TODO need better setup
+	// "unicorn/prefer-ternary": ["error", "only-single-line"],
 
 	"unicorn/prefer-then-catch": "error",
 
@@ -1545,8 +1537,7 @@ const unicornRules = {
 	// TODO Maybe move to typescript?
 	"unicorn/prefer-type-literal-last": "error",
 
-	// TODO Enable in future
-	// "unicorn/prefer-uint8array-base64": "error",
+	"unicorn/prefer-uint8array-base64": "error",
 
 	// TODO Enable in future
 	// "unicorn/prefer-uint8array-hex": "error",
@@ -1566,21 +1557,22 @@ const unicornRules = {
 
 	"unicorn/relative-url-style": ["error", "always"],
 
-	// No need
-	// "unicorn/require-array-join-separator": "error",
+	"unicorn/require-array-join-separator": "error",
 
-	// No need
-	// "unicorn/require-array-sort-compare": "error",
+	"unicorn/require-array-sort-compare": "error",
 
 	// Not here, define only for `browsers`
 	// "unicorn/require-css-escape": "error",
 
 	// No need
-	// "unicorn/require-frontmatter-fields": "off",
+	"unicorn/require-frontmatter-fields": "off",
 
 	"unicorn/require-module-attributes": "error",
 
 	"unicorn/require-module-specifiers": "error",
+
+	// No need extra characters
+	"unicorn/require-number-to-fixed-digits-argument": "off",
 
 	// Not here, define only for `browsers`
 	// "unicorn/require-passive-events": "error",
@@ -1591,7 +1583,7 @@ const unicornRules = {
 	"unicorn/require-proxy-trap-boolean-return": "error",
 
 	// We have prettier
-	// "unicorn/require-spread-parentheses": "off",
+	"unicorn/require-spread-parentheses": "off",
 
 	"unicorn/require-text-decoder-streaming": "error",
 
@@ -1601,8 +1593,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/string-content": "off",
 
-	// No need
-	// "unicorn/switch-case-braces": "off",
+	// TODO enable in future
+	"unicorn/switch-case-braces": "off",
 
 	"unicorn/switch-case-break-position": "error",
 
@@ -1614,7 +1606,7 @@ const unicornRules = {
 	"unicorn/throw-new-error": "error",
 
 	// No need
-	// "unicorn/try-complexity": "off"
+	"unicorn/try-complexity": "off"
 };
 
 /** @type {import("eslint").Linter.Config["rules"]} */
@@ -1908,6 +1900,7 @@ function getConfig(esVersion) {
 		config.rules["unicorn/prefer-iterator-to-array-at-end"] = "off";
 	}
 
+
 	// `RegExp.escape()` is an ES2026 API (Node.js 24+), the parser setting alone
 	// doesn't guarantee its availability at runtime, so the autofix would break older targets
 	if (esVersion < 2026) {
@@ -1915,6 +1908,8 @@ function getConfig(esVersion) {
 		config.rules["unicorn/prefer-promise-try"] = "off";
 		config.rules["unicorn/prefer-error-is-error"] = "off";
 		config.rules["unicorn/prefer-iterator-concat"] = "off";
+		config.rules["unicorn/prefer-uint8array-base64"] = "off";
+		config.rules["unicorn/prefer-get-or-insert-computed"] = "off";
 	}
 
 	return config;

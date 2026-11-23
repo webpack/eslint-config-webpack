@@ -65,9 +65,6 @@ const recommendedBrowserConfig = {
 		"import-x": importPlugin,
 	},
 	rules: {
-		// TODO do we need it?
-		// "unicorn/better-dom-traversing": "error",
-
 		"unicorn/dom-node-dataset": "error",
 
 		"unicorn/no-canvas-to-image": "error",

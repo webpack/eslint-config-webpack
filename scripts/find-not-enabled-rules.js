@@ -300,7 +300,7 @@ const knownRuleIds = new Set(
 		),
 	),
 );
-const totals = { total: 0, enabled: 0 };
+const totals = { total: 0, enabled: 0, notConfigured: 0 };
 
 const namespaces = availableRules
 	.keys()
@@ -334,6 +334,7 @@ for (const namespace of namespaces) {
 	const pluginReport = {
 		total: 0,
 		enabled: 0,
+		notConfigured: 0,
 		rules: /** @type {RuleReport[]} */ ([]),
 	};
 
@@ -375,14 +376,20 @@ for (const namespace of namespaces) {
 		if (onlyNotEnabled && enabled) continue;
 		if (ruleFilter.size > 0 && !ruleFilter.has(id)) continue;
 
+		const oursReport = variants.map(({ entry, where }) => ({
+			value: entry,
+			configs: collapseEsVersions([...where]),
+		}));
+
+		if (oursReport.length === 0) {
+			pluginReport.notConfigured++;
+		}
+
 		pluginReport.rules.push({
 			id,
 			enabled,
 			deprecated,
-			ours: variants.map(({ entry, where }) => ({
-				value: entry,
-				configs: collapseEsVersions([...where]),
-			})),
+			ours: oursReport,
 			upstream: [...(upstream.get(id) || [])].flatMap(([preset, variants]) =>
 				variants.map(({ entry, files }) => ({
 					preset:
@@ -398,6 +405,7 @@ for (const namespace of namespaces) {
 
 	totals.total += pluginReport.total;
 	totals.enabled += pluginReport.enabled;
+	totals.notConfigured += pluginReport.notConfigured;
 
 	if (ruleFilter.size > 0 && pluginReport.rules.length === 0) continue;
 
@@ -452,10 +460,11 @@ if (asJson) {
 			const flags = [
 				rule.deprecated ? "deprecated" : "",
 				rule.upstream.length > 0 ? "in upstream preset" : "",
+				rule.ours.length === 0 ? "not configured" : "",
 			].filter(Boolean);
 
 			console.log(
-				`\n  ${rule.enabled ? "✔" : "✘"} ${rule.id}${
+				`\n  ${rule.enabled ? "✔" : rule.ours.length > 0 ? "✘" : "?"} ${rule.id}${
 					flags.length > 0 ? ` [${flags.join(", ")}]` : ""
 				}`,
 			);
@@ -481,8 +490,8 @@ if (asJson) {
 	}
 
 	console.log(
-		`\nPresets scanned: ${Object.keys(configs).length}, rules enabled: ${
+		`\nPresets scanned: ${Object.keys(configs).length}, total rules: ${totals.total}, rules enabled: ${
 			totals.enabled
-		}, rules not enabled: ${totals.total - totals.enabled}`,
+		}, rules disabled: ${totals.total - totals.enabled}, rules are not configured: ${totals.notConfigured}`,
 	);
 }

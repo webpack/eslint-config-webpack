@@ -18,6 +18,11 @@ import semver from "semver";
  * @type {ReadonlyArray<{ range: string, esVersion: EsVersion }>}
  */
 const ranges = [
+	// ECMAScript 2026 (ES17): Node 25.0 introduces practical built-in utilities to replace common boilerplate,
+	// including native Base64/Hex conversion for Uint8Array, Array.fromAsync(), and Map.prototype.getOrInsert().
+	// It also adds Math.sumPrecise() for accurate floating-point addition, Error.isError() for cross-realm checks, Iterator.concat(),
+	// and raw source text access in JSON.
+	{ range: ">=25.0.0", esVersion: 2026 },
 	// ES2025: Node 22.0 ships all ES2025 syntax — import attributes
 	// (`with { type: "json" }`), the RegExp `/v` flag, and duplicate named
 	// capturing groups. Its standard library has a gap: no Node 22 release has

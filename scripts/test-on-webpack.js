@@ -633,6 +633,7 @@ function main() {
 	linkConfig(root);
 
 	const results = lint(root, `local ${PACKAGE_NAME} (${root})`, options.rules);
+
 	const summary = summarize(results);
 
 	if (options.output) {

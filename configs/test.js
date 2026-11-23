@@ -66,7 +66,7 @@ async function getJestRecommendedConfig() {
 
 			// No need
 			// Makes too much noise, testing conditions can often be different
-			"jest/no-conditional-expect": "off",
+			"jest/no-conditional-expect": "error",
 
 			// No need
 			// "jest/no-conditional-in-test": "off",
@@ -314,7 +314,6 @@ async function getNodeTestRecommendedConfig() {
 
 			"node-test/require-top-level-describe": "error",
 
-			// TODO think about it
 			"node-test/no-conditional-assertion": "off",
 		},
 	};
