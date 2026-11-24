@@ -8,7 +8,6 @@ Each example breaks the rule named in the comment above it, so the lint fails if
 <!-- eslint-disable-next-line markdown/no-missing-atx-heading-space -->
 #Missing space after hash
 
-<!-- eslint-disable-next-line markdown/require-alt-text -->
 ![](./good.md)
 
 <!-- eslint-disable-next-line markdown/no-empty-links -->
