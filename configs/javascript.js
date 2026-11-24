@@ -727,16 +727,17 @@ const unicornRules = {
 
 	"unicorn/consistent-tuple-labels": "error",
 
+	// TODO Do we need it?
 	"unicorn/custom-error-definition": "off",
 
 	// TODO investiagte
-	// "unicorn/default-export-style": "off",
+	"unicorn/default-export-style": "off",
 
 	// Not here, define only for `browsers`
 	"unicorn/dom-node-dataset": "off",
 
 	// No need, we have prettier
-	// "unicorn/empty-brace-spaces": "off",
+	"unicorn/empty-brace-spaces": "off",
 
 	"unicorn/error-message": "error",
 
@@ -1072,7 +1073,7 @@ const unicornRules = {
 	// "unicorn/no-top-level-side-effects": "off",
 
 	// TODO Enable for CSS
-	// "unicorn/no-transition-all": "off",
+	"unicorn/no-transition-all": "off",
 
 	// Only for variables and properties, `typeof` stays for globals, which may be undeclared
 	// TODO enable in future
