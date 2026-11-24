@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.1
+
+### Patch Changes
+
+- Fixed schema generation tag names. (by [@alexander-akait](https://github.com/alexander-akait) in [#240](https://github.com/webpack/eslint-config-webpack/pull/240))
+
 ## 5.0.0
 
 ### Major Changes
