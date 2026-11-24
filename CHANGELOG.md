@@ -1,5 +1,46 @@
 # Changelog
 
+## 5.0.0
+
+### Major Changes
+
+- Update ESLint to v10. (by [@alexander-akait](https://github.com/alexander-akait) in [#225](https://github.com/webpack/eslint-config-webpack/pull/225))
+
+  Breaking changes:
+
+  - requires `eslint` `>= 10.15.0` and Node.js `^22.13.0 || >= 24.0.0`
+  - import rules now use `eslint-plugin-import-x`, rename `import/*` rule overrides and `eslint-disable` directives to `import-x/*` (e.g. `import/extensions` -> `import-x/extensions`)
+
+### Minor Changes
+
+- Enable more `unicorn` rules and `jsdoc/normalize-see-links`: (by [@alexander-akait](https://github.com/alexander-akait) in [#236](https://github.com/webpack/eslint-config-webpack/pull/236))
+
+  - in every config: `consistent-conditional-object-spread`, `consistent-json-file-read`, `consistent-tuple-labels`, `no-accidental-bitwise-operator`, `no-duplicate-if-branches`, `no-duplicate-loops`, `no-incomplete-accessor-override`, `no-invalid-argument-count`, `no-invalid-file-input-accept`, `no-invalid-integrity`, `no-leading-empty-lines`, `no-mismatched-map-key`, `no-object-methods-with-collections`, `no-typeof-undefined`, `no-unreadable-iife`, `no-unused-iterator-helper`, `no-useless-concat`, `no-useless-recursion`, `no-useless-set-construction`, `prefer-set-size`, `switch-case-break-position`;
+  - for the ECMAScript versions that have the API: `prefer-at` (ES2022), `prefer-url-can-parse` (ES2023), `prefer-group-by` and `prefer-promise-with-resolvers` (ES2024), `prefer-iterator-helpers`, `prefer-iterator-to-array` and `prefer-iterator-to-array-at-end` (ES2025), `prefer-promise-try` (ES2026, because Node.js 22 has no `Promise.try()`), `prefer-error-is-error` and `prefer-iterator-concat` (ES2026);
+  - in `node/module`, when every Node.js version `engines.node` allows has `import.meta.dirname` (`^20.11.0 || >=21.2.0`): `prefer-import-meta-properties`.
+
+- Enable `webpack/prefer-import-tag`, `webpack/no-duplicate-import-tag` and `webpack/no-unused-import-tag` in `typescript/jsdoc`, so every recommended config checks JSDoc `@import` tags when `typescript` is installed. `webpack/special` now only enables `webpack/require-license-comment`. (by [@alexander-akait](https://github.com/alexander-akait) in [#235](https://github.com/webpack/eslint-config-webpack/pull/235))
+
+- Lint Markdown content, not only its code blocks. `markdown/recommended` now parses `**/*.md` with the GitHub-flavored Markdown language and enables the `@eslint/markdown` recommended rules, in the same ESLint run that lints the fenced code blocks. It also enables the `unicorn` rules that support Markdown and that we use for JavaScript (`no-abusive-eslint-disable`, `prefer-https`, `relative-url-style` with `"always"`), the Markdown-only `unicorn/no-empty-link-text` and `unicorn/no-javascript-url`, and reports unused `<!-- eslint-disable -->` comments as errors, as for JavaScript. (by [@alexander-akait](https://github.com/alexander-akait) in [#230](https://github.com/webpack/eslint-config-webpack/pull/230))
+
+  The `browser/*`, `stylistic/*` and standalone `node/commonjs`, `node/module` and `node/dirty` configs now apply only to the JavaScript and TypeScript files the JavaScript config lints, so their rules and language options no longer reach Markdown files.
+
+- Add the `node-test/recommended` config with the recommended rules of `eslint-node-test` for tests written with the built-in Node.js test runner, enabled in every recommended config. It makes the same choices as `jest/recommended` (`node-test/consistent-test-it`, `node-test/no-commented-tests`, `node-test/prefer-lowercase-title` except for `describe`, `node-test/no-unneeded-async-rejects-callback`; `node-test/no-conditional-assertion` and `node-test/no-done-callback` off). The rules only apply to files that import `node:test` (assertion rules also to files that import `node:assert`). (by [@alexander-akait](https://github.com/alexander-akait) in [#232](https://github.com/webpack/eslint-config-webpack/pull/232))
+
+- Add the `performance/recommended` config with the `performance/no-case-insensitive-unicode-range` rule, enabled in every recommended config. (by [@alexander-akait](https://github.com/alexander-akait) in [#217](https://github.com/webpack/eslint-config-webpack/pull/217))
+
+- Add the `performance/require-precompiled-schema` rule, enabled in every recommended config: options validated against a schema need a check precompiled with `schema-utils precompile`, in plugins (`compiler.validate`), loaders (`this.getOptions`) and direct `schema-utils` `validate` calls. (by [@alexander-akait](https://github.com/alexander-akait) in [#220](https://github.com/webpack/eslint-config-webpack/pull/220))
+
+- Added markdown and json presets. (by [@alexander-akait](https://github.com/alexander-akait) in [#231](https://github.com/webpack/eslint-config-webpack/pull/231))
+
+### Patch Changes
+
+- Stop marking `webpack/require-license-comment` as fixable, since it has no fixer. (by [@alexander-akait](https://github.com/alexander-akait) in [#228](https://github.com/webpack/eslint-config-webpack/pull/228))
+
+- Enable `unicorn/prefer-top-level-await` only for ECMAScript modules (`node/module`, `browser/recommended` and `browser/recommended-outdated-module`), so it no longer reports CommonJS files such as `.js` files in a package without `"type": "module"`, which can't use top-level `await`. (by [@alexander-akait](https://github.com/alexander-akait) in [#237](https://github.com/webpack/eslint-config-webpack/pull/237))
+
+- Update `eslint-plugin-jsdoc` to `^65.5.0` and `@eslint-react/eslint-plugin` to `^5.30.5`. (by [@alexander-akait](https://github.com/alexander-akait) in [#229](https://github.com/webpack/eslint-config-webpack/pull/229))
+
 ## 4.15.0
 
 ### Minor Changes
