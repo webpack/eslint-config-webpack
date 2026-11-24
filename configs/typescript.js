@@ -118,8 +118,8 @@ async function getTypescriptJSDocRecommendedConfig() {
 						"typeOnly",
 						"properties",
 						"not",
-						"augmentable"
-					]
+						"augmentable",
+					],
 				},
 			],
 
