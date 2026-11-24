@@ -89,7 +89,37 @@ async function getTypescriptJSDocRecommendedConfig() {
 			"jsdoc/check-tag-names": [
 				"error",
 				{
-					definedTags: ["jest-environment", "jest-environment-options"],
+					definedTags: [
+						// Jest
+						"jest-environment",
+						"jest-environment-options",
+
+						// Schema generation
+						"schema",
+						"publishes",
+						"required",
+						"definition",
+						"inline",
+						"title",
+						"minLength",
+						"minItems",
+						"minProperties",
+						"minimum",
+						"uniqueItems",
+						"absolutePath",
+						"pattern",
+						"additionalProperties",
+						"emptyProperties",
+						"undefinedAsNull",
+						"cliHelper",
+						"cliExclude",
+						"jsonType",
+						"tsType",
+						"typeOnly",
+						"properties",
+						"not",
+						"augmentable",
+					],
 				},
 			],
 
