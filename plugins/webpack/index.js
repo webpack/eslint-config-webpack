@@ -4,6 +4,9 @@ import { allExtensions } from "../../configs/utils/extensions.js";
 import { rule as commentLength } from "./rules/comment-length.js";
 import { rule as formatSchema } from "./rules/format-schema.js";
 import { rule as inheritJsdoc } from "./rules/inherit-jsdoc.js";
+import { rule as noDuplicateImportTag } from "./rules/no-duplicate-import-tag.js";
+import { rule as noUnusedImportTag } from "./rules/no-unused-import-tag.js";
+import { rule as preferImportTag } from "./rules/prefer-import-tag.js";
 import { rule as requireLicenseComment } from "./rules/require-license-comment.js";
 import { rule as validSchema } from "./rules/valid-schema.js";
 
@@ -15,6 +18,9 @@ const rules = {
 	"comment-length": commentLength,
 	"format-schema": formatSchema,
 	"inherit-jsdoc": inheritJsdoc,
+	"no-duplicate-import-tag": noDuplicateImportTag,
+	"no-unused-import-tag": noUnusedImportTag,
+	"prefer-import-tag": preferImportTag,
 	"require-license-comment": requireLicenseComment,
 	"valid-schema": validSchema,
 };
@@ -69,6 +75,29 @@ const configs = {
 		rules: {
 			"webpack/format-schema": "error",
 			"webpack/valid-schema": "error",
+		},
+	},
+	types: {
+		name: "webpack/types",
+		files: ["**/lib/**/*.{js,mjs,cjs}"],
+		languageOptions: {
+			// `typescript` is an optional peer dependency, so the parser that needs
+			// it is only resolved when this config is actually used.
+			get parser() {
+				return require("typescript-eslint").parser;
+			},
+			parserOptions: {
+				projectService: true,
+			},
+		},
+		plugins: {
+			get webpack() {
+				// eslint-disable-next-line no-use-before-define
+				return plugin;
+			},
+		},
+		rules: {
+			"webpack/inherit-jsdoc": "error",
 		},
 	},
 };
