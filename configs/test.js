@@ -54,10 +54,10 @@ async function getJestRecommendedConfig() {
 			"jest/expect-expect": ["error", { assertFunctionNames: ["expect*"] }],
 
 			// No need
-			// "jest/max-expects": "error",
+			"jest/max-expects": "off",
 
 			// No need
-			// "jest/max-nested-describe": "error",
+			"jest/max-nested-describe": "off",
 
 			// From recommended
 			// "jest/no-alias-methods": "error",
@@ -66,10 +66,10 @@ async function getJestRecommendedConfig() {
 
 			// No need
 			// Makes too much noise, testing conditions can often be different
-			"jest/no-conditional-expect": "error",
+			"jest/no-conditional-expect": "off",
 
 			// No need
-			// "jest/no-conditional-in-test": "off",
+			"jest/no-conditional-in-test": "off",
 
 			"jest/no-confusing-set-timeout": "error",
 
@@ -90,7 +90,7 @@ async function getJestRecommendedConfig() {
 			"jest/no-focused-tests": "error",
 
 			// No need
-			// "jest/no-hooks": "error",
+			"jest/no-hooks": "off",
 
 			// From recommended
 			// "jest/no-identical-title": "error",
@@ -102,16 +102,16 @@ async function getJestRecommendedConfig() {
 			// "jest/no-jasmine-globals": "error",
 
 			// No need
-			// "jest/no-large-snapshots": "error",
+			"jest/no-large-snapshots": "off",
 
 			// From recommended
 			// "jest/no-mocks-import": "error",
 
 			// No need
-			// "jest/no-restricted-jest-methods": ["error", {}],
+			"jest/no-restricted-jest-methods": "off",
 
 			// No need
-			// "jest/no-restricted-matchers": ["error", {}],
+			"jest/no-restricted-matchers": "off",
 
 			// From recommended
 			// "jest/no-standalone-expect": "error",
@@ -120,19 +120,19 @@ async function getJestRecommendedConfig() {
 			// "jest/no-test-prefixes": "error",
 
 			// No need
-			// "jest/no-test-return-statement": "error",
+			"jest/no-test-return-statement": "off",
 
 			"jest/no-unneeded-async-expect-function": "error",
 
 			// No need
-			// "jest/no-untyped-mock-factory": "error",
+			"jest/no-untyped-mock-factory": "off",
 
 			"jest/padding-around-after-all-blocks": "error",
 
 			"jest/padding-around-after-each-blocks": "error",
 
 			// Not all padding required
-			// "jest/padding-around-all": "off",
+			"jest/padding-around-all": "off",
 
 			"jest/padding-around-before-all-blocks": "error",
 
@@ -145,12 +145,12 @@ async function getJestRecommendedConfig() {
 			"jest/padding-around-test-blocks": "error",
 
 			// No need
-			// "jest/prefer-called-with": "error",
+			"jest/prefer-called-with": "off",
 
 			"jest/prefer-comparison-matcher": "error",
 
 			// No need
-			// "jest/prefer-each": "error",
+			"jest/prefer-each": "off",
 
 			// No need
 			"jest/prefer-ending-with-an-expect": "off",
@@ -158,17 +158,17 @@ async function getJestRecommendedConfig() {
 			"jest/prefer-equality-matcher": "error",
 
 			// No need
-			// "jest/prefer-expect-assertions": "error",
+			"jest/prefer-expect-assertions": "off",
 
 			// No need
-			// "jest/prefer-expect-resolves": "error",
+			"jest/prefer-expect-resolves": "off",
 
 			"jest/prefer-hooks-in-order": "error",
 
 			"jest/prefer-hooks-on-top": "error",
 
 			// No need
-			// "jest/prefer-importing-jest-globals": "error",
+			"jest/prefer-importing-jest-globals": "off",
 
 			"jest/prefer-jest-mocked": "error",
 
@@ -180,12 +180,12 @@ async function getJestRecommendedConfig() {
 			"jest/prefer-mock-return-shorthand": "error",
 
 			// No need
-			// "jest/prefer-snapshot-hint": "error",
+			"jest/prefer-snapshot-hint": "off",
 
 			"jest/prefer-spy-on": "error",
 
 			// No need
-			// "jest/prefer-strict-equal": "off",
+			"jest/prefer-strict-equal": "off",
 
 			"jest/prefer-to-be": "error",
 
@@ -198,7 +198,7 @@ async function getJestRecommendedConfig() {
 			"jest/prefer-to-have-length": "error",
 
 			// No need
-			// "jest/prefer-todo": "error"
+			"jest/prefer-todo": "off",
 
 			// No need
 			// Does not allow using the function as test generation
@@ -218,7 +218,7 @@ async function getJestRecommendedConfig() {
 			// "jest/valid-expect-in-promise": "error",
 
 			// No need
-			// "valid-mock-module-path": "off",
+			"valid-mock-module-path": "off",
 
 			// From recommended
 			"jest/valid-title": [
@@ -232,16 +232,16 @@ async function getJestRecommendedConfig() {
 			],
 
 			// Needs type information
-			// "jest/no-error-equal": "off",
+			"jest/no-error-equal": "off",
 
 			// Needs type information
-			// "jest/no-unnecessary-assertion": "off",
+			"jest/no-unnecessary-assertion": "off",
 
 			// Needs type information
-			// "jest/unbound-method": "off",
+			"jest/unbound-method": "off",
 
 			// Needs type information
-			// "jest/valid-expect-with-promise": "off",
+			"jest/valid-expect-with-promise": "off",
 
 			// Disable it for tests, because often you can use `a`, `b`, `c` and etc variables
 			"id-length": "off",
@@ -293,7 +293,7 @@ async function getNodeTestRecommendedConfig() {
 			"node-test/consistent-modifier-style": "error",
 
 			// TODO enable in future
-			// "node-test/consistent-test-filename": "error",
+			"node-test/consistent-test-filename": "off",
 
 			"node-test/consistent-test-it": "error",
 

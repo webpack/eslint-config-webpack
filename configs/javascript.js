@@ -789,7 +789,7 @@ const unicornRules = {
 	// No need
 	"unicorn/isolated-functions": "off",
 
-	"unicorn/iteration-fallback-style": ["error", "fallback"],
+	"unicorn/iteration-fallback-style": ["error", "guard"],
 
 	// TODO enable in future
 	"unicorn/key-name-casing": "off",
@@ -837,7 +837,8 @@ const unicornRules = {
 
 	"unicorn/no-array-sort-for-min-max": "error",
 
-	"unicorn/no-array-splice": "error",
+	// TODO enable only when supported
+	// "unicorn/no-array-splice": "error",
 
 	// No need
 	// "unicorn/no-asterisk-prefix-in-documentation-comments": "off",
@@ -864,7 +865,8 @@ const unicornRules = {
 	// Not here, define only for `browsers`
 	// "unicorn/no-canvas-to-image": "off",
 
-	"unicorn/no-chained-comparison": "error",
+	// TODO buggy with strings
+	"unicorn/no-chained-comparison": "off",
 
 	"unicorn/no-collection-bracket-access": "error",
 
@@ -924,7 +926,8 @@ const unicornRules = {
 	// Not here, define only for `browsers`
 	// "unicorn/no-incorrect-query-selector": "off",
 
-	"unicorn/no-incorrect-template-string-interpolation": "error",
+	// No need
+	"unicorn/no-incorrect-template-string-interpolation": "off",
 
 	// TODO implement HTML preset
 	// "unicorn/no-ineffective-csp-directives": "off",
@@ -1046,10 +1049,11 @@ const unicornRules = {
 	// No need
 	"unicorn/no-repeated-call-wrappers": "off",
 
-	"unicorn/no-return-array-push": "error",
+	// With parsing, special SOA, you often using push +/- 1
+	"unicorn/no-return-array-push": "off",
 
 	// TODO enable for CSS
-	// "unicorn/no-shorthand-property-overrides": "error",
+	"unicorn/no-shorthand-property-overrides": "off",
 
 	"unicorn/no-single-promise-in-promise-methods": "error",
 
@@ -1197,7 +1201,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/no-useless-switch-case": "off",
 
-	"unicorn/no-useless-template-literals": "error",
+	// TODO enable in future
+	"unicorn/no-useless-template-literals": "off",
 
 	// No need
 	// "unicorn/no-useless-undefined": "off",
@@ -1237,7 +1242,8 @@ const unicornRules = {
 
 	"unicorn/prefer-array-flat-map": "error",
 
-	"unicorn/prefer-array-from-async": "error",
+	// TODO enable only for future
+	// "unicorn/prefer-array-from-async": "error",
 
 	"unicorn/prefer-array-from-map": "error",
 
@@ -1333,7 +1339,8 @@ const unicornRules = {
 
 	"unicorn/prefer-has-check": "error",
 
-	"unicorn/prefer-hoisting-branch-code": "error",
+	// Buggy, maybe later
+	"unicorn/prefer-hoisting-branch-code": "off",
 
 	"unicorn/prefer-https": "error",
 
@@ -1385,7 +1392,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/prefer-math-constants": "off",
 
-	"unicorn/prefer-math-min-max": "error",
+	// TODO verify we really need it
+	"unicorn/prefer-math-min-max": "off",
 
 	// No need
 	// `| 0` is faster
@@ -1412,7 +1420,8 @@ const unicornRules = {
 	// No need
 	// "unicorn/prefer-number-coercion": "off",
 
-	"unicorn/prefer-number-is-safe-integer": "error",
+	// No need
+	"unicorn/prefer-number-is-safe-integer": "off",
 
 	"unicorn/prefer-number-properties": "error",
 
@@ -1470,7 +1479,8 @@ const unicornRules = {
 	// TODO No need
 	// "unicorn/prefer-set-has": "off",
 
-	"unicorn/prefer-set-methods": "error",
+	// TODO Enable when it is supported
+	// "unicorn/prefer-set-methods": "error",
 
 	"unicorn/prefer-set-size": "error",
 
@@ -1482,7 +1492,8 @@ const unicornRules = {
 	// TODO enable in the next major release
 	// "unicorn/prefer-simple-condition-first": "error",
 
-	"unicorn/prefer-simple-sort-comparator": "error",
+	// No need, sometimes you really need a complex logic
+	"unicorn/prefer-simple-sort-comparator": "off",
 
 	"unicorn/prefer-simplified-conditions": "error",
 
@@ -1533,7 +1544,8 @@ const unicornRules = {
 	// TODO need better setup
 	// "unicorn/prefer-ternary": ["error", "only-single-line"],
 
-	"unicorn/prefer-then-catch": "error",
+	// TODO enabale in future
+	"unicorn/prefer-then-catch": "off",
 
 	// Not here, define only for `browsers`
 	// "unicorn/prefer-toggle-attribute": "error",
@@ -1636,6 +1648,7 @@ const importRules = {
 	// No need, we have `unicorn/require-module-specifiers`
 	// "import-x/no-empty-named-blocks": "off",
 
+	// TODO Fix me eslint-disable- next-line import-x/no-extraneous-dependencies require(/** @type {string} */ ("webpack"))
 	"import-x/no-extraneous-dependencies": "error",
 
 	"import-x/no-mutable-exports": "error",
