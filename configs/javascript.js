@@ -789,7 +789,8 @@ const unicornRules = {
 	// No need
 	"unicorn/isolated-functions": "off",
 
-	"unicorn/iteration-fallback-style": ["error", "guard"],
+	// TODO Revisit me in the future
+	"unicorn/iteration-fallback-style": "off",
 
 	// TODO enable in future
 	"unicorn/key-name-casing": "off",
