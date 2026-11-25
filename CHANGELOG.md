@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.2
+
+### Patch Changes
+
+- Disable broken rules. (by [@alexander-akait](https://github.com/alexander-akait) in [#242](https://github.com/webpack/eslint-config-webpack/pull/242))
+
 ## 5.0.1
 
 ### Patch Changes

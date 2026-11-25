@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-webpack",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Provides Webpack's eslint rules as an extensible shared config",
   "keywords": [
     "eslint",
