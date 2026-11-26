@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.1.0
+
+### Minor Changes
+
+- Add an `extension` option to `webpack/prefer-import-tag`; `"always"`, set in `typescript/jsdoc`, requires a relative `@import` path to name its file with the extension (`"./Foo.js"`, not `"./Foo"`) and autofixes it. (by [@alexander-akait](https://github.com/alexander-akait) in [#244](https://github.com/webpack/eslint-config-webpack/pull/244))
+
+- Add `inline` and `typedefs` options to `webpack/prefer-import-tag`; `inline: true` reports every `import()` in a JSDoc type and autofixes the file to `@import` tags, and `typedefs: false` leaves `@typedef` tags alone. (by [@alexander-akait](https://github.com/alexander-akait) in [#246](https://github.com/webpack/eslint-config-webpack/pull/246))
+
 ## 5.0.2
 
 ### Patch Changes
