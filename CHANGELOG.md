@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.1.1
+
+### Patch Changes
+
+- Keep what an `eslint-disable` comment covers out of the `inline` fix of `webpack/prefer-import-tag`. (by [@alexander-akait](https://github.com/alexander-akait) in [#250](https://github.com/webpack/eslint-config-webpack/pull/250))
+
+- Never bind an `inline` fix of `webpack/prefer-import-tag` to a lowercase JSDoc built-in name such as `regexp`. (by [@alexander-akait](https://github.com/alexander-akait) in [#249](https://github.com/webpack/eslint-config-webpack/pull/249))
+
 ## 5.1.0
 
 ### Minor Changes
