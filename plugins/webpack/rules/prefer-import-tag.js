@@ -6,8 +6,8 @@ import {
 	stripLineMarkers,
 } from "../utils/import-tags.js";
 
-/** @import { Rule } from "eslint" */
-/** @import { Comment, Node } from "estree" */
+/** @import { Rule, SourceCode } from "eslint" */
+/** @import { Comment, Node, Position, SourceLocation } from "estree" */
 /** @import { ImportBinding, ImportTag } from "../utils/import-tags.js" */
 
 // A `@typedef` that is nothing but an import — `{import("m")}` or `{import("m").Name}`
@@ -509,6 +509,63 @@ const originOf = (from, request, exportName) => {
 };
 
 /**
+ * The ranges an `eslint-disable` comment turns a rule off in.
+ * @param {SourceCode} sourceCode source being linted
+ * @param {string} ruleId the rule's id as configured
+ * @returns {[number, number][]} each disabled range, from its start up to its end
+ */
+const disabledRangesOf = (sourceCode, ruleId) => {
+	const text = sourceCode.getText();
+	/** @type {[number, number][]} */
+	const ranges = [];
+	/** @type {number | undefined} */
+	let openAt;
+
+	/**
+	 * @param {number} line one-based line number
+	 * @returns {number} the offset that line starts at, or the end of the text
+	 */
+	const lineStart = (line) =>
+		line > sourceCode.lines.length
+			? text.length
+			: sourceCode.getIndexFromLoc({ line, column: 0 });
+
+	// `getDisableDirectives` is public since ESLint 9, but missing from its types
+	const { directives } =
+		/** @type {SourceCode & { getDisableDirectives: () => { directives: { type: string, value: string, node: Comment }[] } }} */ (
+			sourceCode
+		).getDisableDirectives();
+
+	for (const { type, value, node } of directives) {
+		if (value !== "" && !value.split(/\s*,\s*/).includes(ruleId)) {
+			continue;
+		}
+
+		const [start, end] = rangeOf(node);
+		const { loc } = /** @type {Comment & { loc: SourceLocation }} */ (node);
+
+		if (type === "disable") {
+			openAt = openAt === undefined ? end : openAt;
+		} else if (type === "enable") {
+			if (openAt !== undefined) {
+				ranges.push([openAt, start]);
+				openAt = undefined;
+			}
+		} else {
+			const line = type === "disable-line" ? loc.start.line : loc.end.line + 1;
+
+			ranges.push([lineStart(line), lineStart(line + 1)]);
+		}
+	}
+
+	if (openAt !== undefined) {
+		ranges.push([openAt, text.length]);
+	}
+
+	return ranges;
+};
+
+/**
  * Reports every inline `import()` of a file, all carrying one fix that rewrites
  * them together, so `--fix` needs one pass however many there are.
  * @param {Rule.RuleContext} context rule context
@@ -747,6 +804,102 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 		}
 	}
 
+	// What an `eslint-disable` covers stays as written: one fix rewrites the whole
+	// file, and would otherwise reach it through a report outside the range
+	const disabled = disabledRangesOf(sourceCode, context.id);
+
+	/**
+	 * @param {number} offset an offset in the source
+	 * @returns {boolean} whether a disable directive covers it
+	 */
+	const isDisabledAt = (offset) =>
+		disabled.some(([start, end]) => offset >= start && offset < end);
+
+	/**
+	 * Takes the items a directive covers out of the fix, and reports them
+	 * without one: ESLint drops those reports, and the directive stays in use.
+	 * @template T
+	 * @param {T[]} items what was found
+	 * @param {(item: T) => number} offsetOf where one item starts
+	 * @param {(item: T) => void} report reports one item with no fix
+	 * @returns {void}
+	 */
+	const dropDisabled = (items, offsetOf, report) => {
+		for (let i = items.length - 1; i >= 0; i--) {
+			if (isDisabledAt(offsetOf(items[i]))) {
+				report(items[i]);
+				items.splice(i, 1);
+			}
+		}
+	};
+
+	/**
+	 * @param {number} start offset the report starts at
+	 * @param {number} end offset it ends at
+	 * @returns {{ start: Position, end: Position }} the report's location
+	 */
+	const locOf = (start, end) => ({
+		start: sourceCode.getLocFromIndex(start),
+		end: sourceCode.getLocFromIndex(end),
+	});
+
+	// A typedef kept as written still declares its name
+	for (const { comment, typedefs: aliases } of plainComments) {
+		if (isDisabledAt(rangeOf(comment)[0])) {
+			for (const { alias } of aliases) {
+				used.add(alias);
+			}
+		}
+	}
+
+	dropDisabled(
+		sites,
+		(site) => site.start,
+		(site) =>
+			context.report({
+				loc: locOf(site.start, site.end),
+				messageId: "inlineImport",
+				data: { request: site.request },
+			}),
+	);
+	dropDisabled(
+		plainComments,
+		({ comment }) => rangeOf(comment)[0],
+		({ comment, typedefs: aliases }) => {
+			for (const { alias } of aliases) {
+				context.report({
+					loc: locOf(...rangeOf(comment)),
+					messageId: "preferImportTag",
+					data: { alias },
+				});
+			}
+		},
+	);
+	dropDisabled(
+		stale,
+		({ binding }) => binding.start,
+		({ binding, origin, tag }) =>
+			context.report({
+				loc: locOf(binding.start, binding.end),
+				messageId: "importedAlias",
+				data: {
+					name: binding.local,
+					request: tag.moduleRequest,
+					origin: origin.moduleRequest,
+				},
+			}),
+	);
+	dropDisabled(
+		retargets,
+		({ range }) => range[0],
+		({ range, origin }) =>
+			context.report({
+				loc: locOf(...range),
+				messageId: "aliasedImport",
+				data: { origin },
+			}),
+	);
+
 	if (
 		sites.length === 0 &&
 		plainComments.length === 0 &&
@@ -957,6 +1110,7 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 				!one.namespace &&
 				!removed.has(one.comment) &&
 				!rewritten.has(one) &&
+				!isDisabledAt(one.start) &&
 				moduleKey(one.moduleRequest) === key &&
 				(addition.head === undefined ||
 					(one.head === undefined && one.named.length > 0)),
@@ -1002,6 +1156,7 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 			.findLast(
 				(comment) =>
 					!removed.has(comment) &&
+					!isDisabledAt(rangeOf(comment)[0]) &&
 					statements.every(
 						([start, end]) =>
 							!(rangeOf(comment)[0] >= start && rangeOf(comment)[1] <= end),
@@ -1018,11 +1173,16 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 			[, headerEnd] = rangeOf(statement);
 		}
 
+		if (headerEnd !== undefined && isDisabledAt(headerEnd - 1)) {
+			headerEnd = undefined;
+		}
+
 		const start = text.startsWith("#!") ? text.indexOf("\n") + 1 : 0;
 		const [first] = sourceCode.getAllComments();
 		const license =
 			first !== undefined &&
 			!first.value.startsWith("*") &&
+			!/^\s*eslint/.test(first.value) &&
 			text.slice(start, rangeOf(first)[0]).trim() === ""
 				? first
 				: undefined;
