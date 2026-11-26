@@ -94,3 +94,170 @@ ruleTester.run("prefer-import-tag", rule, {
 		},
 	],
 });
+
+const inline = [{ inline: true }];
+
+ruleTester.run("prefer-import-tag with inline", rule, {
+	valid: [
+		// Off by default
+		'/** @param {import("estree").Node} node */\nconst f = (node) => node;\n',
+		{
+			code: '/** @import { Node } from "estree" */\n\n/** @param {Node} node */\nconst f = (node) => node;\n',
+			options: inline,
+		},
+		// Prose and `@tsType` text are not types
+		{
+			code: "/**\n * Emits a literal `import(\"./chunk.js\")`.\n * @tsType import('./Foo').Bar\n */\nconst f = 1;\n",
+			options: inline,
+		},
+		{
+			code: '/** @typedef {import("estree").Node} Node */\n',
+			options: [{ inline: true, typedefs: false }],
+		},
+	],
+	invalid: [
+		{
+			code: '/** @param {import("estree").Node} node */\nconst f = (node) => node;\n',
+			output:
+				'/** @import { Node } from "estree" */\n\n/** @param {Node} node */\nconst f = (node) => node;\n',
+			options: inline,
+			errors: [{ messageId: "inlineImport", data: { request: "estree" } }],
+		},
+		{
+			// After the header, and once for every use
+			code: '"use strict";\n\nconst a = require("a");\n\n/**\n * @param {import("estree").Node} node\n * @returns {import("estree").Node[]}\n */\nconst f = (node) => [node];\n',
+			output:
+				'"use strict";\n\nconst a = require("a");\n\n/** @import { Node } from "estree" */\n\n/**\n * @param {Node} node\n * @returns {Node[]}\n */\nconst f = (node) => [node];\n',
+			options: inline,
+			errors: [{ messageId: "inlineImport" }, { messageId: "inlineImport" }],
+		},
+		{
+			// Folded into the tag that imports from the module already
+			code: '/** @import { Program } from "estree" */\n\n/** @type {import("estree").Node | Program} */\nconst a = 1;\n',
+			output:
+				'/** @import { Program, Node } from "estree" */\n\n/** @type {Node | Program} */\nconst a = 1;\n',
+			options: inline,
+			errors: [{ messageId: "inlineImport" }],
+		},
+		{
+			// An existing binding is reused, a namespace read through
+			code: '/** @import { Node as EstreeNode } from "estree" */\n/** @import * as acorn from "acorn" */\n\n/** @type {import("estree").Node | import("acorn").Token} */\nconst a = 1;\n',
+			output:
+				'/** @import { Node as EstreeNode } from "estree" */\n/** @import * as acorn from "acorn" */\n\n/** @type {EstreeNode | acorn.Token} */\nconst a = 1;\n',
+			options: inline,
+			errors: [{ messageId: "inlineImport" }, { messageId: "inlineImport" }],
+		},
+		{
+			// The module itself, as a type and through `typeof`, reusing a `require`
+			code: 'const Foo = require("./Foo");\n\n/** @type {import("./Foo") | typeof import("./Foo")} */\nconst a = Foo;\n',
+			output:
+				'const Foo = require("./Foo");\n\n/** @type {Foo | typeof Foo} */\nconst a = Foo;\n',
+			filename,
+			options: inline,
+			errors: [{ messageId: "inlineImport" }, { messageId: "inlineImport" }],
+		},
+		{
+			code: '/** @type {typeof import("./dir")} */\nconst a = 1;\n',
+			output:
+				'/** @import dir from "./dir" */\n\n/** @type {typeof dir} */\nconst a = 1;\n',
+			filename,
+			options: inline,
+			errors: [{ messageId: "inlineImport" }],
+		},
+		{
+			// A module naming itself needs no import
+			code: '/** @type {import("./main").Options} */\nconst a = 1;\n',
+			output: "/** @type {Options} */\nconst a = 1;\n",
+			filename,
+			options: inline,
+			errors: [{ messageId: "inlineImport" }],
+		},
+		{
+			// With `extension: "always"` the new tag names the file
+			code: '/** @type {import("./Foo").Bar} */\nconst a = 1;\n',
+			output:
+				'/** @import { Bar } from "./Foo.js" */\n\n/** @type {Bar} */\nconst a = 1;\n',
+			filename,
+			options: [{ inline: true, extension: "always" }],
+			errors: [{ messageId: "inlineImport" }],
+		},
+		{
+			// After a license comment, before everything else
+			code: '/*\n\tMIT License\n*/\n\n/** @type {import("x").Y} */\nmodule.exports = 1;\n',
+			output:
+				'/*\n\tMIT License\n*/\n\n/** @import { Y } from "x" */\n\n/** @type {Y} */\nmodule.exports = 1;\n',
+			options: inline,
+			errors: [{ messageId: "inlineImport" }],
+		},
+		{
+			// A typedef specializing the import of its own name
+			code: '/** @typedef {import("./ObjectMiddleware").Context<[boolean]>} Context */\n',
+			output:
+				'/** @import { Context as GenericContext } from "./ObjectMiddleware" */\n\n/** @typedef {GenericContext<[boolean]>} Context */\n',
+			options: inline,
+			errors: [{ messageId: "inlineImport" }],
+		},
+		{
+			// `Function` is JSDoc's own; a used global is not shadowed either
+			code: '/**\n * @param {import("estree").Function} a\n * @param {import("estree").Node} b\n * @param {Node} c\n */\nconst f = (a, b, c) => a;\n',
+			output:
+				'/** @import { Function as EstreeFunction, Node as EstreeNode } from "estree" */\n\n/**\n * @param {EstreeFunction} a\n * @param {EstreeNode} b\n * @param {Node} c\n */\nconst f = (a, b, c) => a;\n',
+			options: inline,
+			errors: [{ messageId: "inlineImport" }, { messageId: "inlineImport" }],
+		},
+		{
+			// A template's constraint and default
+			code: '/**\n * @template {import("./Foo")} [T=import("./Foo")]\n * @param {T} value\n */\nconst f = (value) => value;\n',
+			output:
+				'/** @import Foo from "./Foo" */\n\n/**\n * @template {Foo} [T=Foo]\n * @param {T} value\n */\nconst f = (value) => value;\n',
+			options: inline,
+			errors: [{ messageId: "inlineImport" }, { messageId: "inlineImport" }],
+		},
+		{
+			// Plain alias typedefs, several in a block or generic over their own
+			// template names, become imports
+			code: '"use strict";\n\n/**\n * @typedef {import("a").A} A\n * @typedef {import("b").B} Bee\n */\n\n/**\n * @template T, U\n * @typedef {import("tapable").Hook<T, U>} Hook\n */\n\n/** @type {A | Bee | Hook<1, 2>} */\nconst a = 1;\n',
+			output:
+				'"use strict";\n\n/** @import { A } from "a" */\n/** @import { B as Bee } from "b" */\n/** @import { Hook } from "tapable" */\n\n/** @type {A | Bee | Hook<1, 2>} */\nconst a = 1;\n',
+			options: inline,
+			errors: [
+				{ messageId: "preferImportTag", data: { alias: "A" } },
+				{ messageId: "preferImportTag", data: { alias: "Bee" } },
+				{ messageId: "preferImportTag", data: { alias: "Hook" } },
+			],
+		},
+		{
+			// `typedefs: false` keeps a module's typedefs, which are its exports
+			code: '/** @typedef {import("estree").Node} Node */\n\n/** @param {import("estree").Program} p */\nconst f = (p) => p;\n',
+			output:
+				'/** @import { Program } from "estree" */\n\n/** @typedef {import("estree").Node} Node */\n\n/** @param {Program} p */\nconst f = (p) => p;\n',
+			options: [{ inline: true, typedefs: false }],
+			errors: [{ messageId: "inlineImport" }],
+		},
+		{
+			// `aliases.js` imports `Root` and aliases `Baz` without exporting either
+			code: '/** @import { Root } from "./aliases" */\n\n/** @type {Root | import("./aliases").Baz} */\nconst a = 1;\n',
+			output:
+				'/** @import { Bar } from "./Foo" */\n/** @import { Program as Root } from "estree" */\n\n/** @type {Root | Bar} */\nconst a = 1;\n',
+			filename,
+			options: inline,
+			errors: [{ messageId: "importedAlias" }, { messageId: "inlineImport" }],
+		},
+		{
+			// A kept typedef is pointed at where the name comes from
+			code: '/** @typedef {import("./aliases").Root} Root */\n',
+			output: '/** @typedef {import("estree").Program} Root */\n',
+			filename,
+			options: [{ inline: true, typedefs: false }],
+			errors: [{ messageId: "aliasedImport", data: { origin: "estree" } }],
+		},
+		{
+			// No name is safe for `Node`, so only `Program` is fixed
+			code: '/**\n * @param {import("estree").Node} a\n * @param {import("estree").Program} b\n * @param {Node | EstreeNode} c\n */\nconst f = (a, b, c) => a;\n',
+			output:
+				'/** @import { Program } from "estree" */\n\n/**\n * @param {import("estree").Node} a\n * @param {Program} b\n * @param {Node | EstreeNode} c\n */\nconst f = (a, b, c) => a;\n',
+			options: inline,
+			errors: [{ messageId: "inlineImport" }, { messageId: "inlineImport" }],
+		},
+	],
+});
