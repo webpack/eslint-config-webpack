@@ -6,8 +6,8 @@ import {
 	stripLineMarkers,
 } from "../utils/import-tags.js";
 
-/** @import { Rule } from "eslint" */
-/** @import { Comment, Node } from "estree" */
+/** @import { Rule, SourceCode } from "eslint" */
+/** @import { Comment, Node, SourceLocation } from "estree" */
 /** @import { ImportBinding, ImportTag } from "../utils/import-tags.js" */
 
 // A `@typedef` that is nothing but an import — `{import("m")}` or `{import("m").Name}`
@@ -507,6 +507,63 @@ const originOf = (from, request, exportName) => {
 };
 
 /**
+ * The ranges an `eslint-disable` comment turns a rule off in.
+ * @param {SourceCode} sourceCode source being linted
+ * @param {string} ruleId the rule's id as configured
+ * @returns {[number, number][]} each disabled range, from its start up to its end
+ */
+const disabledRangesOf = (sourceCode, ruleId) => {
+	const text = sourceCode.getText();
+	/** @type {[number, number][]} */
+	const ranges = [];
+	/** @type {number | undefined} */
+	let openAt;
+
+	/**
+	 * @param {number} line one-based line number
+	 * @returns {number} the offset that line starts at, or the end of the text
+	 */
+	const lineStart = (line) =>
+		line > sourceCode.lines.length
+			? text.length
+			: sourceCode.getIndexFromLoc({ line, column: 0 });
+
+	// `getDisableDirectives` is public since ESLint 9, but missing from its types
+	const { directives } =
+		/** @type {SourceCode & { getDisableDirectives: () => { directives: { type: string, value: string, node: Comment }[] } }} */ (
+			sourceCode
+		).getDisableDirectives();
+
+	for (const { type, value, node } of directives) {
+		if (value !== "" && !value.split(/\s*,\s*/).includes(ruleId)) {
+			continue;
+		}
+
+		const [start, end] = rangeOf(node);
+		const { loc } = /** @type {Comment & { loc: SourceLocation }} */ (node);
+
+		if (type === "disable") {
+			openAt = openAt === undefined ? end : openAt;
+		} else if (type === "enable") {
+			if (openAt !== undefined) {
+				ranges.push([openAt, start]);
+				openAt = undefined;
+			}
+		} else {
+			const line = type === "disable-line" ? loc.start.line : loc.end.line + 1;
+
+			ranges.push([lineStart(line), lineStart(line + 1)]);
+		}
+	}
+
+	if (openAt !== undefined) {
+		ranges.push([openAt, text.length]);
+	}
+
+	return ranges;
+};
+
+/**
  * Reports every inline `import()` of a file, all carrying one fix that rewrites
  * them together, so `--fix` needs one pass however many there are.
  * @param {Rule.RuleContext} context rule context
@@ -744,6 +801,31 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 			}
 		}
 	}
+
+	// What an `eslint-disable` covers stays as written: one fix rewrites the whole
+	// file, and would otherwise reach it through a report outside the range
+	const disabled = disabledRangesOf(sourceCode, context.id);
+
+	/**
+	 * @template T
+	 * @param {T[]} items what was found
+	 * @param {(item: T) => number} offsetOf where one item starts
+	 * @returns {void}
+	 */
+	const dropDisabled = (items, offsetOf) => {
+		for (let i = items.length - 1; i >= 0; i--) {
+			const offset = offsetOf(items[i]);
+
+			if (disabled.some(([start, end]) => offset >= start && offset < end)) {
+				items.splice(i, 1);
+			}
+		}
+	};
+
+	dropDisabled(sites, (site) => site.start);
+	dropDisabled(plainComments, ({ comment }) => rangeOf(comment)[0]);
+	dropDisabled(stale, ({ binding }) => binding.start);
+	dropDisabled(retargets, ({ range }) => range[0]);
 
 	if (
 		sites.length === 0 &&
@@ -1021,6 +1103,7 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 		const license =
 			first !== undefined &&
 			!first.value.startsWith("*") &&
+			!/^\s*eslint/.test(first.value) &&
 			text.slice(start, rangeOf(first)[0]).trim() === ""
 				? first
 				: undefined;

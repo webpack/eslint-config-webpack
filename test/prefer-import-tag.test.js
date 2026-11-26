@@ -75,6 +75,14 @@ ruleTester.run("prefer-import-tag", rule, {
 			options: always,
 			errors: [{ messageId: "preferImportTag" }],
 		},
+		{
+			// A disabled range stays as written, though another report fixes the file
+			code: '/* eslint-disable rule-to-test/prefer-import-tag -- re-exported */\n/** @typedef {import("estree").Node} Node */\n/* eslint-enable rule-to-test/prefer-import-tag */\n// eslint-disable-next-line rule-to-test/prefer-import-tag\n/** @type {import("estree").Comment} */\nconst a = 1;\n/** @type {import("estree").Program} */\nconst b = 1;\n',
+			output:
+				'/** @import { Program } from "estree" */\n\n/* eslint-disable rule-to-test/prefer-import-tag -- re-exported */\n/** @typedef {import("estree").Node} Node */\n/* eslint-enable rule-to-test/prefer-import-tag */\n// eslint-disable-next-line rule-to-test/prefer-import-tag\n/** @type {import("estree").Comment} */\nconst a = 1;\n/** @type {Program} */\nconst b = 1;\n',
+			options: [{ inline: true }],
+			errors: [{ messageId: "inlineImport" }],
+		},
 		missingExtension("./Foo", "./Foo.js"),
 		missingExtension("./Source", "./Source.js"),
 		missingExtension("./dir", "./dir/index.js"),
