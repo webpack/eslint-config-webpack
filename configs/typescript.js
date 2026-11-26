@@ -339,7 +339,7 @@ async function getTypescriptJSDocRecommendedConfig() {
 
 			// `@import` tags, see `plugins/webpack`
 
-			"webpack/prefer-import-tag": "error",
+			"webpack/prefer-import-tag": ["error", { extension: "always" }],
 
 			"webpack/no-duplicate-import-tag": "error",
 
