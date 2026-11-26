@@ -77,7 +77,7 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "type-fest": "^6.0.3",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
     "eslint": ">= 10.15.0",
