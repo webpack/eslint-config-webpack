@@ -100,7 +100,8 @@ const PLAIN_TYPEDEF_LINE =
 const TEMPLATE_LINE =
 	/^@template[ \t]+([A-Za-z_$][\w$]*(?:[ \t]*,[ \t]*[A-Za-z_$][\w$]*)*)$/;
 
-// Names JSDoc reads as its own types, which an import must never shadow
+// Names JSDoc reads as its own types, in either case, which an import must
+// never shadow: `jsdoc/check-types` rewrites `regexp` to `RegExp`
 const JSDOC_BUILT_INS = [
 	"Array",
 	"BigInt",
@@ -109,9 +110,10 @@ const JSDOC_BUILT_INS = [
 	"Number",
 	"Object",
 	"Promise",
+	"RegExp",
 	"String",
 	"Symbol",
-];
+].flatMap((name) => [name, name.toLowerCase()]);
 
 /**
  * @typedef {object} TypeRegion
