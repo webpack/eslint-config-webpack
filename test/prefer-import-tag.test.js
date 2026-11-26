@@ -206,6 +206,14 @@ ruleTester.run("prefer-import-tag with inline", rule, {
 			errors: [{ messageId: "inlineImport" }, { messageId: "inlineImport" }],
 		},
 		{
+			// `regexp` is JSDoc's spelling of `RegExp`, so a module named so is not
+			code: '/** @type {typeof import("./regexp") | null} */\nlet validator = null;\n',
+			output:
+				'/** @import regexpModule from "./regexp" */\n\n/** @type {typeof regexpModule | null} */\nlet validator = null;\n',
+			options: inline,
+			errors: [{ messageId: "inlineImport" }],
+		},
+		{
 			// A template's constraint and default
 			code: '/**\n * @template {import("./Foo")} [T=import("./Foo")]\n * @param {T} value\n */\nconst f = (value) => value;\n',
 			output:
