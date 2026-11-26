@@ -7,7 +7,7 @@ import {
 } from "../utils/import-tags.js";
 
 /** @import { Rule, SourceCode } from "eslint" */
-/** @import { Comment, Node, SourceLocation } from "estree" */
+/** @import { Comment, Node, Position, SourceLocation } from "estree" */
 /** @import { ImportBinding, ImportTag } from "../utils/import-tags.js" */
 
 // A `@typedef` that is nothing but an import — `{import("m")}` or `{import("m").Name}`
@@ -814,18 +814,32 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 		disabled.some(([start, end]) => offset >= start && offset < end);
 
 	/**
+	 * Takes the items a directive covers out of the fix, and reports them
+	 * without one: ESLint drops those reports, and the directive stays in use.
 	 * @template T
 	 * @param {T[]} items what was found
 	 * @param {(item: T) => number} offsetOf where one item starts
+	 * @param {(item: T) => void} report reports one item with no fix
 	 * @returns {void}
 	 */
-	const dropDisabled = (items, offsetOf) => {
+	const dropDisabled = (items, offsetOf, report) => {
 		for (let i = items.length - 1; i >= 0; i--) {
 			if (isDisabledAt(offsetOf(items[i]))) {
+				report(items[i]);
 				items.splice(i, 1);
 			}
 		}
 	};
+
+	/**
+	 * @param {number} start offset the report starts at
+	 * @param {number} end offset it ends at
+	 * @returns {{ start: Position, end: Position }} the report's location
+	 */
+	const locOf = (start, end) => ({
+		start: sourceCode.getLocFromIndex(start),
+		end: sourceCode.getLocFromIndex(end),
+	});
 
 	// A typedef kept as written still declares its name
 	for (const { comment, typedefs: aliases } of plainComments) {
@@ -836,10 +850,53 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 		}
 	}
 
-	dropDisabled(sites, (site) => site.start);
-	dropDisabled(plainComments, ({ comment }) => rangeOf(comment)[0]);
-	dropDisabled(stale, ({ binding }) => binding.start);
-	dropDisabled(retargets, ({ range }) => range[0]);
+	dropDisabled(
+		sites,
+		(site) => site.start,
+		(site) =>
+			context.report({
+				loc: locOf(site.start, site.end),
+				messageId: "inlineImport",
+				data: { request: site.request },
+			}),
+	);
+	dropDisabled(
+		plainComments,
+		({ comment }) => rangeOf(comment)[0],
+		({ comment, typedefs: aliases }) => {
+			for (const { alias } of aliases) {
+				context.report({
+					loc: locOf(...rangeOf(comment)),
+					messageId: "preferImportTag",
+					data: { alias },
+				});
+			}
+		},
+	);
+	dropDisabled(
+		stale,
+		({ binding }) => binding.start,
+		({ binding, origin, tag }) =>
+			context.report({
+				loc: locOf(binding.start, binding.end),
+				messageId: "importedAlias",
+				data: {
+					name: binding.local,
+					request: tag.moduleRequest,
+					origin: origin.moduleRequest,
+				},
+			}),
+	);
+	dropDisabled(
+		retargets,
+		({ range }) => range[0],
+		({ range, origin }) =>
+			context.report({
+				loc: locOf(...range),
+				messageId: "aliasedImport",
+				data: { origin },
+			}),
+	);
 
 	if (
 		sites.length === 0 &&

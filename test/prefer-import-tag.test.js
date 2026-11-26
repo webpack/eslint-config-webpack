@@ -277,3 +277,17 @@ ruleTester.run("prefer-import-tag with inline", rule, {
 		},
 	],
 });
+
+// A directive that only covers what the fix leaves alone stays in use
+new RuleTester({
+	languageOptions: { ecmaVersion: 2024, sourceType: "commonjs" },
+	linterOptions: { reportUnusedDisableDirectives: "error" },
+}).run("prefer-import-tag", rule, {
+	valid: [
+		{
+			code: '/* eslint-disable rule-to-test/prefer-import-tag -- re-exported */\n/** @typedef {import("estree").Node} Node */\n/* eslint-enable rule-to-test/prefer-import-tag */\n',
+			options: [{ inline: true }],
+		},
+	],
+	invalid: [],
+});
