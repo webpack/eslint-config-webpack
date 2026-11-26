@@ -807,6 +807,13 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 	const disabled = disabledRangesOf(sourceCode, context.id);
 
 	/**
+	 * @param {number} offset an offset in the source
+	 * @returns {boolean} whether a disable directive covers it
+	 */
+	const isDisabledAt = (offset) =>
+		disabled.some(([start, end]) => offset >= start && offset < end);
+
+	/**
 	 * @template T
 	 * @param {T[]} items what was found
 	 * @param {(item: T) => number} offsetOf where one item starts
@@ -814,13 +821,20 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 	 */
 	const dropDisabled = (items, offsetOf) => {
 		for (let i = items.length - 1; i >= 0; i--) {
-			const offset = offsetOf(items[i]);
-
-			if (disabled.some(([start, end]) => offset >= start && offset < end)) {
+			if (isDisabledAt(offsetOf(items[i]))) {
 				items.splice(i, 1);
 			}
 		}
 	};
+
+	// A typedef kept as written still declares its name
+	for (const { comment, typedefs: aliases } of plainComments) {
+		if (isDisabledAt(rangeOf(comment)[0])) {
+			for (const { alias } of aliases) {
+				used.add(alias);
+			}
+		}
+	}
 
 	dropDisabled(sites, (site) => site.start);
 	dropDisabled(plainComments, ({ comment }) => rangeOf(comment)[0]);
@@ -1037,6 +1051,7 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 				!one.namespace &&
 				!removed.has(one.comment) &&
 				!rewritten.has(one) &&
+				!isDisabledAt(one.start) &&
 				moduleKey(one.moduleRequest) === key &&
 				(addition.head === undefined ||
 					(one.head === undefined && one.named.length > 0)),
@@ -1082,6 +1097,7 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 			.findLast(
 				(comment) =>
 					!removed.has(comment) &&
+					!isDisabledAt(rangeOf(comment)[0]) &&
 					statements.every(
 						([start, end]) =>
 							!(rangeOf(comment)[0] >= start && rangeOf(comment)[1] <= end),
@@ -1096,6 +1112,10 @@ const reportInlineImports = (context, typedefs, withExtension) => {
 			}
 
 			[, headerEnd] = rangeOf(statement);
+		}
+
+		if (headerEnd !== undefined && isDisabledAt(headerEnd - 1)) {
+			headerEnd = undefined;
 		}
 
 		const start = text.startsWith("#!") ? text.indexOf("\n") + 1 : 0;

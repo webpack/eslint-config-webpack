@@ -83,6 +83,14 @@ ruleTester.run("prefer-import-tag", rule, {
 			options: [{ inline: true }],
 			errors: [{ messageId: "inlineImport" }],
 		},
+		{
+			// A disabled typedef keeps its name, and a disabled tag takes no binding
+			code: '/* eslint-disable rule-to-test/prefer-import-tag */\n/** @typedef {import("estree").Node} Node */\n/** @import { Comment } from "estree" */\n/* eslint-enable rule-to-test/prefer-import-tag */\n/** @type {import("estree").Node | import("estree").Program} */\nconst a = 1;\n',
+			output:
+				'/** @import { Node as EstreeNode, Program } from "estree" */\n\n/* eslint-disable rule-to-test/prefer-import-tag */\n/** @typedef {import("estree").Node} Node */\n/** @import { Comment } from "estree" */\n/* eslint-enable rule-to-test/prefer-import-tag */\n/** @type {EstreeNode | Program} */\nconst a = 1;\n',
+			options: [{ inline: true }],
+			errors: [{ messageId: "inlineImport" }, { messageId: "inlineImport" }],
+		},
 		missingExtension("./Foo", "./Foo.js"),
 		missingExtension("./Source", "./Source.js"),
 		missingExtension("./dir", "./dir/index.js"),
